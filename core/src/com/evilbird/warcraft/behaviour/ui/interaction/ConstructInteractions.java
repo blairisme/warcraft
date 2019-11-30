@@ -10,14 +10,18 @@
 package com.evilbird.warcraft.behaviour.ui.interaction;
 
 import com.evilbird.engine.action.ActionIdentifier;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.construct.ConstructActions;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.object.selector.SelectorType;
+import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitType;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
+
+import java.util.function.BiFunction;
 
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
@@ -101,5 +105,17 @@ public class ConstructInteractions extends InteractionContainer
                     .appliedTo(Selected);
             }
         }
+    }
+
+    private Predicate<GameObject> isConstruction(Building building) {
+        
+    }
+
+    private BiFunction<GameObject, GameObject, GameObject> getConstructor() {
+        return (target, selected) -> ((Unit)selected).getAssociatedItem();
+    }
+
+    private BiFunction<GameObject, GameObject, GameObject> getConstruction() {
+        return (target, selected) -> ((Unit)selected).getAssociatedItem();
     }
 }

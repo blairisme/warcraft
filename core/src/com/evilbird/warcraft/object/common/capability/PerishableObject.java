@@ -30,7 +30,8 @@ public interface PerishableObject extends GameObject
     float getHealth();
 
     /**
-     * Returns the
+     * Returns the team number of the {@code PerishableObject PerishableObjects}
+     * owner.
      */
     int getTeam();
 

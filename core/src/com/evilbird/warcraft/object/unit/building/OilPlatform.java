@@ -14,12 +14,15 @@ import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.GameObjectReference;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.common.resource.ResourceContainer;
 import com.evilbird.warcraft.object.common.resource.ResourceType;
 import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.UnitStyle;
+import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.object.unit.resource.Resource;
 
 import java.util.Collection;
@@ -36,6 +39,18 @@ import static com.evilbird.warcraft.object.common.query.UnitPredicates.isResourc
  */
 public class OilPlatform extends Building
 {
+    private GameObjectReference oilPatch;
+
+    /**
+     * Constructs a new instance of this class given a {@link Skin} containing
+     * an {@link UnitStyle}, specifying the visual and auditory
+     * presentation of the new oil platform.
+     *
+     * @param skin a {@code Skin} instance containing a {@code UnitStyle}.
+     *
+     * @throws NullPointerException if the given skin is {@code null} or
+     *                              doesn't contain a {@code UnitStyle}.
+     */
     public OilPlatform(Skin skin) {
         super(skin);
     }
@@ -45,18 +60,42 @@ public class OilPlatform extends Building
         return TerrainType.Water;
     }
 
+    /**
+     * Returns the {@link Gatherer} that is currently obtaining resources from
+     * the oil platform, if any.
+     */
+    public Gatherer getGatherer() {
+        return (Gatherer)getAssociatedItem();
+    }
+
+    /**
+     * Returns the amount of oil type held by the oil patch under the oil
+     * platform.
+     */
     @Override
     public float getResource(ResourceType type) {
-        Resource resource = getAssociatedResource();
+        Resource resource = getOilPatch();
         if (resource != null) {
             return resource.getResource(type);
         }
         return super.getResource(type);
     }
 
+    /**
+     * Sets the {@link Gatherer} that is currently obtaining resources from
+     * the oil platform, if any.
+     */
+    public void setGatherer(Gatherer gatherer) {
+        setAssociatedItem(gatherer);
+    }
+
+    /**
+     * Sets the amount of oil type held by the oil patch under the oil
+     * platform.
+     */
     @Override
     public void setResource(ResourceType type, float value) {
-        Resource resource = getAssociatedResource();
+        Resource resource = getOilPatch();
         if (resource != null) {
             resource.setResource(type, value);
             return;
@@ -64,23 +103,18 @@ public class OilPlatform extends Building
         super.setResource(type, value);
     }
 
-    private Resource getAssociatedResource() {
-        GameObject association = getAssociatedItem();
-        if (association == null) {
-            association = getUnderlyingItem();
-            setAssociatedItem(association);
+    private Resource getOilPatch() {
+        if (oilPatch == null) {
+            oilPatch = new GameObjectReference(getUnderlyingItem());
         }
-        if (association instanceof Resource) {
-            return (Resource)association;
-        }
-        return null;
+        return (Resource)oilPatch.get();
     }
 
-    private GameObject getUnderlyingItem() {
+    private Resource getUnderlyingItem() {
         GameObjectContainer root = getRoot();
         GameObjectGraph graph = root.getSpatialGraph();
         GameObjectNode node = graph.getNode(getPosition(Alignment.Center));
         Collection<GameObject> occupants = node.getOccupants();
-        return CollectionUtils.findFirst(occupants, isResource());
+        return (Resource)CollectionUtils.findFirst(occupants, isResource());
     }
 }

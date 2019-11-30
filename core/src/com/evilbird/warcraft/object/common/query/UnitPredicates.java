@@ -218,22 +218,22 @@ public class UnitPredicates
         return UnitOperations::isConstructing;
     }
 
-    public static Predicate<GameObject> associatedWith(GameObject withGameObject) {
-        return (item) -> item instanceof Unit && ((Unit)item).getAssociatedItem() == withGameObject;
-    }
-
-    public static Predicate<GameObject> associatedWith(Identifier type) {
-        return associatedWith(hasType(type));
-    }
-
-    public static Predicate<GameObject> associatedWith(Predicate<GameObject> condition) {
-        return (item) -> {
-            if (item instanceof Unit) {
-                Unit unit = (Unit)item;
-                GameObject associated = unit.getAssociatedItem();
-                return condition.test(associated);
-            }
-            return false;
-        };
-    }
+//    public static Predicate<GameObject> associatedWith(GameObject withGameObject) {
+//        return (item) -> item instanceof Unit && ((Unit)item).getAssociatedItem() == withGameObject;
+//    }
+//
+//    public static Predicate<GameObject> associatedWith(Identifier type) {
+//        return associatedWith(hasType(type));
+//    }
+//
+//    public static Predicate<GameObject> associatedWith(Predicate<GameObject> condition) {
+//        return (item) -> {
+//            if (item instanceof Unit) {
+//                Unit unit = (Unit)item;
+//                GameObject associated = unit.getAssociatedItem();
+//                return condition.test(associated);
+//            }
+//            return false;
+//        };
+//    }
 }

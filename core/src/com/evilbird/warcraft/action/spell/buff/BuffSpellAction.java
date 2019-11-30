@@ -58,7 +58,7 @@ public abstract class BuffSpellAction extends SpellAction
 
     protected void setBadge(Combatant target) {
         if (badge != null) {
-            target.setEffect((Renderable)factory.get(badge));
+//            target.setEffect((Renderable)factory.get(badge)); //TODO
         }
     }
 

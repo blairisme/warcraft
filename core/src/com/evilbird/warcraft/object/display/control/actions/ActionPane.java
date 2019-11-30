@@ -128,7 +128,7 @@ public class ActionPane extends Grid implements MenuProvider
             }
             if (selected instanceof Gatherer) {
                 Gatherer gatherer = (Gatherer)selected;
-                return gatherer.getAssociatedItem() != null;
+                return gatherer.getConstruction() != null;
             }
         }
         return false;

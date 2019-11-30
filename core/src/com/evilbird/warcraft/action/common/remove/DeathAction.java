@@ -27,7 +27,6 @@ import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitType;
-import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -37,7 +36,6 @@ import java.util.Collections;
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.engine.common.lang.Alignment.Center;
-import static com.evilbird.warcraft.object.common.query.UnitOperations.isRanged;
 import static com.evilbird.warcraft.object.effect.EffectType.Explosion;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Death;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Decompose;
@@ -172,12 +170,8 @@ public class DeathAction extends BasicAction
     }
 
     private void initializeAssociation(PerishableObject subject) {
-        if (isRanged(subject)) {
-            RangedCombatant ranged = (RangedCombatant)subject;
-            GameObject associatedGameObject = ranged.getAssociatedItem();
-            if (associatedGameObject != null) {
-                associatedGameObject.setVisible(false);
-            }
+        for (GameObject association: getAssociations(subject)) {
+            association.setVisible(false);
         }
     }
 
@@ -253,5 +247,4 @@ public class DeathAction extends BasicAction
         }
         return Collections.emptyList();
     }
-
 }

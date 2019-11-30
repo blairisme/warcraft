@@ -197,6 +197,14 @@ public class UnitOperations
         return false;
     }
 
+    public static boolean hasSelector(GameObject object) {
+        if (object instanceof Unit) {
+            Unit unit = (Unit)object;
+            return unit.getSelector() != null;
+        }
+        return false;
+    }
+
     public static boolean hasUnit(Player player, UnitType type) {
         return GameObjectOperations.hasAny(player, hasType(type));
     }

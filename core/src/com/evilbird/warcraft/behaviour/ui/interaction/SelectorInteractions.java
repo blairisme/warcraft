@@ -38,7 +38,6 @@ import static com.evilbird.warcraft.action.selector.SelectorActions.ShowWhirlwin
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.associatedWith;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BlizzardButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CancelButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.DeathAndDecayButton;
@@ -119,7 +118,7 @@ public class SelectorInteractions extends InteractionContainer
 
         addAction(HideSelector)
             .whenTarget(CancelButton)
-            .whenSelected(associatedWith(UnitOperations::isSelector))
+            .whenSelected(UnitOperations::hasSelector)
             .appliedTo(Selected)
             .appliedAs(Addition);
     }

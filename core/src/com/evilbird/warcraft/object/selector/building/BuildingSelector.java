@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.object.BasicGameObject;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
@@ -25,9 +24,11 @@ import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
+import com.evilbird.warcraft.object.selector.Selector;
 import com.evilbird.warcraft.object.selector.SelectorType;
 
 import java.util.Collection;
+import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.containsAll;
 import static com.evilbird.engine.common.collection.CollectionUtils.containsAny;
@@ -55,7 +56,7 @@ import static com.evilbird.warcraft.object.unit.UnitType.OilPatch;
  *
  * @author Blair Butterworth
  */
-public class BuildingSelector extends BasicGameObject
+public class BuildingSelector extends Selector
 {
     private transient Skin skin;
     private transient Drawable building;
@@ -164,5 +165,8 @@ public class BuildingSelector extends BasicGameObject
     private boolean isOilPatchBased(SelectorType type) {
         return type == OilPlatformSelector || type == OilRigSelector;
     }
-    
+
+    private Predicate<GameObject> hasSelector(Selector selector) {
+
+    }
 }

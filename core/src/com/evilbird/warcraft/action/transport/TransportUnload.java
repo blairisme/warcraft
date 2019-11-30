@@ -16,6 +16,7 @@ import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.move.MoveAdjacent;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
 import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.combatant.naval.Transport;
 
 import javax.inject.Inject;
 
@@ -39,15 +40,14 @@ public class TransportUnload extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Unit vessel = (Unit) getSubject();
-        for (GameObject associate: vessel.getAssociatedObjects()) {
-            Unit unit = (Unit)associate;
-            if (movement.reposition((MovableObject)unit, vessel)) {
-                vessel.removeAssociatedItem(unit);
-                exclusion.restore(unit);
+        Transport vessel = (Transport)getSubject();
+        for (Unit passenger: vessel.getPassengers()) {
+            if (movement.reposition((MovableObject)passenger, vessel)) {
+                vessel.removePassenger(passenger);
+                exclusion.restore(passenger);
             }
         }
-        if (vessel.hasAssociatedItems()) {
+        if (vessel.hasPassengers()) {
             setError(new TransportFailed("Unable to offload all units"));
         }
         return ActionComplete;

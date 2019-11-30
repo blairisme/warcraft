@@ -140,8 +140,4 @@ public class InteractionContainer
     protected BiFunction<GameObject, GameObject, GameObject> selectedItem() {
         return (target, selected) -> selected;
     }
-
-    protected BiFunction<GameObject, GameObject, GameObject> associatedItem() {
-        return (target, selected) -> ((Unit)selected).getAssociatedItem();
-    }
 }

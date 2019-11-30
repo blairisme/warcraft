@@ -13,6 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.combatant.naval.Transport;
 
 import javax.inject.Inject;
 
@@ -35,11 +36,11 @@ public class TransportEmbark extends BasicAction
 
     @Override
     public boolean act(float delta) {
-        Unit embarkee = (Unit) getSubject();
+        Unit embarkee = (Unit)getSubject();
         exclusion.disable(embarkee);
 
-        Unit vessel = (Unit)getTarget();
-        vessel.addAssociatedItem(embarkee);
+        Transport vessel = (Transport)getTarget();
+        vessel.addPassenger(embarkee);
 
         return ActionComplete;
     }

@@ -82,13 +82,13 @@ public class ConstructCancel extends DelegateAction
     }
 
     private void configureBuilding(Building building) {
-        building.setAssociatedItem(null);
+        building.setConstructor(null);
         building.setConstructionProgress(1);
         building.setHealth(0);
     }
 
     private void configureBuilder(Gatherer builder, Building building) {
-        builder.setAssociatedItem(null);
+        builder.setConstruction(null);
         builder.clearActions();
 
         if (!builder.getVisible()) {
