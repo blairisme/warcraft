@@ -52,12 +52,21 @@ public interface PerishableObject extends GameObject
     void setHealth(float health);
 
     /**
-     * Determines if the given {@code PerishableObject} is "alive" of not.
+     * Determines if the given {@code PerishableObject} is "alive" or not.
      * Specifically if the {@code PerishableObject#getHealth() health} of the
      * {@code PerishableObject} is greater than zero.
      */
     default boolean isAlive() {
         return getHealth() > 0;
+    }
+
+    /**
+     * Determines if the given {@code PerishableObject} is "dead" or not.
+     * Specifically if the {@code PerishableObject#getHealth() health} of the
+     * {@code PerishableObject} is zero.
+     */
+    default boolean isDead() {
+        return getHealth() == 0;
     }
 
     /**

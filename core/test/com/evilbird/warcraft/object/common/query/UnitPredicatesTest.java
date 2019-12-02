@@ -37,10 +37,10 @@ public class UnitPredicatesTest
         Predicate<GameObject> predicate = UnitPredicates.isAlive();
         PerishableObject item = mock(PerishableObject.class);
 
-        when(item.getHealth()).thenReturn(40f);
+        when(item.isAlive()).thenReturn(true);
         assertTrue(predicate.test(item));
 
-        when(item.getHealth()).thenReturn(0f);
+        when(item.isAlive()).thenReturn(false);
         assertFalse(predicate.test(item));
     }
 

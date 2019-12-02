@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.behaviour.ui.interaction;
 
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.spell.SpellActions;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.common.spell.Spell;
@@ -18,6 +19,7 @@ import com.evilbird.warcraft.object.unit.UnitType;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
+import java.util.function.Predicate;
 
 import static com.evilbird.warcraft.action.selector.SelectorActions.HideSelector;
 import static com.evilbird.warcraft.action.spell.SpellActions.BlizzardSpell;
@@ -50,7 +52,6 @@ import static com.evilbird.warcraft.action.spell.SpellActions.WhirlwindSpell;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Replacement;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isCastingSpell;
 import static com.evilbird.warcraft.object.common.spell.Spell.Bloodlust;
 import static com.evilbird.warcraft.object.common.spell.Spell.DeathCoil;
 import static com.evilbird.warcraft.object.common.spell.Spell.Exorcism;
@@ -180,5 +181,9 @@ public class SpellInteractions extends InteractionContainer
             .whenSelected(caster)
             .appliedTo(Selected)
             .appliedAs(Addition);
+    }
+
+    private static Predicate<GameObject> isCastingSpell(Spell spell) {
+        return item -> UnitOperations.isCastingSpell(item, spell);
     }
 }

@@ -10,27 +10,22 @@
 package com.evilbird.warcraft.object.common.query;
 
 import com.evilbird.engine.object.GameObject;
+import com.evilbird.warcraft.action.common.path.ItemPathFinder;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
 import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.common.resource.ResourceContainer;
 import com.evilbird.warcraft.object.common.resource.ResourceType;
-import com.evilbird.warcraft.object.common.spell.Spell;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
-import com.evilbird.warcraft.object.unit.resource.Resource;
 
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.function.Predicates.not;
-import static com.evilbird.warcraft.action.common.path.ItemPathFinder.hasPath;
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Gold;
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Oil;
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Wood;
 
 /**
  * Defines commonly used {@link Predicate Predicates} that operate on
@@ -40,24 +35,28 @@ import static com.evilbird.warcraft.object.common.resource.ResourceType.Wood;
  */
 public class UnitPredicates
 {
+    /**
+     * Disable construction of this static helper class.
+     */
     private UnitPredicates() {
         throw new UnsupportedOperationException();
     }
 
     /**
-     * Returns a condition that determines if the given {@link GameObject} is "alive"
-     * of not. Specifically, this method tests if the given {@code Item}
-     * implements {@link PerishableObject} and if it has a
-     * {@link PerishableObject#getHealth() health} value more than zero.
-     *
-     * @return a {@link Predicate}.
+     * Returns a condition that determines if a path exists between the given
+     * objects that conforms to given objects traversal capability.
      */
-    public static Predicate<GameObject> isAlive() {
-        return UnitOperations::isAlive;
+    public static Predicate<GameObject> hasPathTo(MovableObject source) {
+        return gameObject -> ItemPathFinder.hasPath(source, gameObject);
     }
 
-    public static Predicate<GameObject> isDead() {
-        return UnitOperations::isDead;
+    /**
+     * Returns a condition that determines if the given {@link GameObject} is a
+     * {@link ResourceContainer} that contains resources of the given
+     * {@link ResourceType resource type}.
+     */
+    public static Predicate<GameObject> hasResources(ResourceType resourceType) {
+        return gameObject -> UnitOperations.hasResources(gameObject, resourceType);
     }
 
     /**
@@ -71,10 +70,41 @@ public class UnitPredicates
     }
 
     /**
+     * Returns a condition that determines if the given {@link GameObject} is
+     * "alive" or not: if the given {@code GameObject} is a
+     * {@link PerishableObject} whose health is more than zero.
+     */
+    public static Predicate<GameObject> isAlive() {
+        return UnitOperations::isAlive;
+    }
+
+    /**
+     * Returns a condition that determines if the given {@link GameObject} can
+     * do damage to other {@code GameObjects}.
+     */
+    public static Predicate<GameObject> isAttacker() {
+        return UnitOperations::isAttacker;
+    }
+
+    /**
+     * Returns a condition that determines if the given {@link GameObject} is a
+     * building.
+     */
+    public static Predicate<GameObject> isBuilding() {
+        return UnitOperations::isBuilding;
+    }
+
+    /**
+     * Returns a condition that determines if the given {@link GameObject} is a
+     * combatant.
+     */
+    public static Predicate<GameObject> isCombatant() {
+        return UnitOperations::isCombatant;
+    }
+
+    /**
      * Returns a condition that determines if a given {@link GameObject} belongs to
      * the user operating the current device.
-     *
-     * @return a {@link Predicate}.
      */
     public static Predicate<GameObject> isCorporeal() {
         return UnitOperations::isCorporeal;
@@ -90,10 +120,50 @@ public class UnitPredicates
     }
 
     /**
+     * Returns a condition that determines if the given {@link GameObject} is a
+     * {@link Gatherer} that is currently constructing a {@link Building}.
+     */
+    public static Predicate<GameObject> isConstructing(UnitType building) {
+        return object -> UnitOperations.isConstructing(object, building);
+    }
+
+    /**
+     * Returns a condition that determines if the given {@link GameObject} is a
+     * critter.
+     */
+    public static Predicate<GameObject> isCritter() {
+        return UnitOperations::isCritter;
+    }
+
+    /**
+     * Returns a condition that determines if the given {@link GameObject} is
+     * "dead" or not: if the given {@code GameObject} is a
+     * {@link PerishableObject} whose health is zero.
+     */
+    public static Predicate<GameObject> isDead() {
+        return UnitOperations::isDead;
+    }
+
+    /**
+     * Returns a condition that determines if the given {@link GameObject} is a
+     * building into which can be deposited resources of the given type.
+     */
+    public static Predicate<GameObject> isDepotFor(ResourceType resource) {
+        return gameObject -> UnitOperations.isDepotFor(gameObject, resource);
+    }
+
+    /**
+     * Returns a condition that determines if the given {@link GameObject} is a
+     * {@link MovableObject} with the capability to move over the given
+     * {@link TerrainType terrain}.
+     */
+    public static Predicate<GameObject> isMovableOver(TerrainType terrainType) {
+        return gameObject -> UnitOperations.isMovableOver(gameObject, terrainType);
+    }
+
+    /**
      * Returns a condition that determines if a given {@link GameObject} belongs to
      * the neutral user, a special AI player that owns resources and critters.
-     *
-     * @return a {@link Predicate}.
      */
     public static Predicate<GameObject> isNeutral() {
         return UnitOperations::isNeutral;
@@ -101,122 +171,26 @@ public class UnitPredicates
 
     /**
      * Returns a condition that determines if the given {@link GameObject} is a
-     * building.
-     *
-     * @return a {@link Predicate}.
+     * non-combatant.
      */
-    public static Predicate<GameObject> isBuilding() {
-        return UnitOperations::isBuilding;
-    }
-
-    /**
-     * Returns a condition that determines if the given {@link GameObject} is a
-     * combatant.
-     *
-     * @return a {@link Predicate}.
-     */
-    public static Predicate<GameObject> isCombatant() {
-        return UnitOperations::isCombatant;
-    }
-
     public static Predicate<GameObject> isNonCombatant() {
         return not(isCombatant());
     }
 
-    public static Predicate<GameObject> isAttacker() {
-        return UnitOperations::isAttacker;
-    }
-
-    public static Predicate<GameObject> isTransport() {
-        return UnitOperations::isTransport;
+    /**
+     * Returns a condition that determines if the given {@link GameObject} is a
+     * {@link SelectableObject} that is currently
+     * {@link SelectableObject#getSelected() selected}.
+     */
+    public static Predicate<GameObject> isSelected() {
+        return UnitOperations::isSelected;
     }
 
     /**
-     * Returns a condition that determines if the given {@link GameObject} is a
-     * critter.
-     *
-     * @return a {@link Predicate}.
+     * Returns a condition that determines if the given {@link GameObject} is
+     * {@link SelectableObject selectable}.
      */
-    public static Predicate<GameObject> isCritter() {
-        return UnitOperations::isCritter;
-    }
-
-    public static Predicate<GameObject> isDepotFor(ResourceType resource) {
-        return item -> {
-            if (item instanceof Building) {
-                UnitType type = (UnitType) item.getType();
-                return (resource == Gold && type.isGoldDepot())
-                    || (resource == Oil && type.isOilDepot())
-                    || (resource == Wood && type.isWoodDepot());
-            }
-            return false;
-        };
-    }
-
-    public static Predicate<GameObject> isFoodProducer() {
-        return UnitOperations::isFoodProducer;
-    }
-
-    public static Predicate<GameObject> isDestroyable() {
-        return item -> item instanceof PerishableObject;
-    }
-
-    public static Predicate<GameObject> isGatherer() {
-        return (item) -> item instanceof Gatherer;
-    }
-
-    public static Predicate<GameObject> isMovable() {
-        return item -> item instanceof MovableObject;
-    }
-
-    public static Predicate<GameObject> isMovableOver(TerrainType capability) {
-        return item -> {
-            if (item instanceof MovableObject) {
-                MovableObject movable = (MovableObject)item;
-                return capability.equals(movable.getMovementCapability());
-            }
-            return false;
-        };
-    }
-
-    public static Predicate<GameObject> isCastingSpell(Spell spell) {
-        return item -> UnitOperations.isCastingSpell(item, spell);
-    }
-
-    public static Predicate<GameObject> isResource() {
-        return item -> item instanceof Resource;
-    }
-
-    public static Predicate<GameObject> isSelected() {
-        return (item) -> {
-            if (item instanceof SelectableObject) {
-                SelectableObject selectable = (SelectableObject)item;
-                return selectable.getSelected();
-            }
-            return false;
-        };
-    }
-
     public static Predicate<GameObject> isSelectable() {
-        return (item) -> item instanceof SelectableObject;
-    }
-
-    public static Predicate<GameObject> hasResources(ResourceType type) {
-        return (item) -> {
-            ResourceContainer container = (ResourceContainer)item;
-            return container.getResource(type) > 0;
-        };
-    }
-
-    public static Predicate<GameObject> hasPathTo(MovableObject source) {
-        return destination -> hasPath(source, destination);
-    }
-
-    public static Predicate<GameObject> isConstructing(UnitType building) {
-        return object -> UnitOperations.isConstructing(object, building);
-    }
-
-    public static Predicate<GameObject> isUnderConstruction() {
-        return UnitOperations::isUnderConstruction;
+        return UnitOperations::isSelectable;
     }
 }

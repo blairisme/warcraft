@@ -18,6 +18,7 @@ import com.evilbird.engine.object.GameObjectReference;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.warcraft.object.common.capability.TerrainType;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.common.resource.ResourceContainer;
 import com.evilbird.warcraft.object.common.resource.ResourceType;
 import com.evilbird.warcraft.object.unit.Unit;
@@ -26,8 +27,6 @@ import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.object.unit.resource.Resource;
 
 import java.util.Collection;
-
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isResource;
 
 /**
  * Instances of this class represent a {@link Building} that is used to extract
@@ -105,7 +104,7 @@ public class OilPlatform extends Building
 
     private Resource getOilPatch() {
         if (oilPatch == null) {
-            oilPatch = new GameObjectReference(getUnderlyingItem());
+            oilPatch = new GameObjectReference<>(getUnderlyingItem());
         }
         return (Resource)oilPatch.get();
     }
@@ -115,6 +114,6 @@ public class OilPlatform extends Building
         GameObjectGraph graph = root.getSpatialGraph();
         GameObjectNode node = graph.getNode(getPosition(Alignment.Center));
         Collection<GameObject> occupants = node.getOccupants();
-        return (Resource)CollectionUtils.findFirst(occupants, isResource());
+        return (Resource)CollectionUtils.findFirst(occupants, UnitOperations::isResource);
     }
 }

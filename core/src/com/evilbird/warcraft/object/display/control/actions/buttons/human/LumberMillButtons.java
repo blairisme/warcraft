@@ -18,7 +18,6 @@ import com.evilbird.warcraft.object.display.control.actions.buttons.BasicButtonC
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.evilbird.warcraft.object.common.query.UnitOperations.hasUpgrade;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedAccuracy1;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedDamage1;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedDamage2;
@@ -70,7 +69,7 @@ public class LumberMillButtons extends BasicButtonController
     }
 
     private List<ActionButtonType> getRangerButtons(Player player) {
-        return !hasUpgrade(player, RangedType1) ? getBasicRangerButtons(player) : getAdvancedRangerButtons(player);
+        return !player.hasUpgrade(RangedType1) ? getBasicRangerButtons(player) : getAdvancedRangerButtons(player);
     }
 
     private List<ActionButtonType> getBasicRangerButtons(Player player) {

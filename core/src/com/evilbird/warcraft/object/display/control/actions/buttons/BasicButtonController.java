@@ -20,8 +20,6 @@ import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 
 import java.util.List;
 
-import static com.evilbird.warcraft.object.common.query.UnitOperations.hasUpgrade;
-
 /**
  * A basic {@link ButtonController} implementation containing common methods
  * for determining button enablement.
@@ -42,7 +40,7 @@ public abstract class BasicButtonController implements ButtonController
         ActionButtonType button,
         Upgrade upgrade)
     {
-        if (!hasUpgrade(player, upgrade)) {
+        if (!player.hasUpgrade(upgrade)) {
             buttons.add(button);
         }
     }
@@ -54,7 +52,7 @@ public abstract class BasicButtonController implements ButtonController
         Upgrade basicUpgrade,
         Upgrade advancedUpgrade)
     {
-        if (hasUpgrade(player, basicUpgrade) && !hasUpgrade(player, advancedUpgrade)) {
+        if (player.hasUpgrade(basicUpgrade) && !player.hasUpgrade(advancedUpgrade)) {
             buttons.add(button);
         }
     }
@@ -65,7 +63,7 @@ public abstract class BasicButtonController implements ButtonController
         ActionButtonType button,
         Upgrade dependentUpgrade)
     {
-        if (hasUpgrade(player, dependentUpgrade)) {
+        if (player.hasUpgrade(dependentUpgrade)) {
             buttons.add(button);
         }
     }

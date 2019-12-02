@@ -11,6 +11,7 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.common.resource.ResourceType;
 
 import javax.inject.Inject;
@@ -27,7 +28,6 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicab
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.hasResources;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isControllable;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isDepotFor;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isGatherer;
 import static com.evilbird.warcraft.object.common.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.object.common.resource.ResourceType.Oil;
 import static com.evilbird.warcraft.object.common.resource.ResourceType.Wood;
@@ -64,7 +64,7 @@ public class GatherInteractions extends InteractionContainer
 
     private void gatherByResource(ActionIdentifier action, Identifier resource) {
         addAction(action, ConfirmTarget)
-            .whenSelected(both(isControllable(), isGatherer()))
+            .whenSelected(both(isControllable(), UnitOperations::isGatherer))
             .whenTarget(resource)
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
@@ -72,7 +72,7 @@ public class GatherInteractions extends InteractionContainer
 
     private void gatherByDepot(ActionIdentifier action, ResourceType type) {
         addAction(action, ConfirmTarget)
-            .whenSelected(all(isControllable(), isGatherer(), hasResources(type)))
+            .whenSelected(all(isControllable(), UnitOperations::isGatherer, hasResources(type)))
             .whenTarget(isDepotFor(type))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
@@ -80,7 +80,7 @@ public class GatherInteractions extends InteractionContainer
 
     private void gatherCancel(ActionIdentifier action) {
         addAction(GatherCancel)
-            .whenSelected(both(isControllable(), isGatherer()))
+            .whenSelected(both(isControllable(), UnitOperations::isGatherer))
             .whenTarget(CancelButton)
             .withAction(action)
             .appliedTo(Selected);

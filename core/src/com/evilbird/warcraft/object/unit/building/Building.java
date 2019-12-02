@@ -30,7 +30,8 @@ import static com.evilbird.engine.common.graphics.renderable.EmptyRenderable.Bla
 
 /**
  * Instances of this class represent a building, a {@link Unit} specialization
- * that provides the user the ability to train {@link Unit Units}.
+ * that provides the user the ability to train {@link Unit Units} and research
+ * {@link Upgrade Upgrades}.
  *
  * @author Blair Butterworth
  */

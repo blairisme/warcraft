@@ -46,7 +46,6 @@ import java.util.Collection;
 import java.util.List;
 
 import static com.evilbird.engine.object.utility.GameObjectPredicates.itemWithId;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isFoodProducer;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isSelected;
 import static com.evilbird.warcraft.object.data.player.PlayerScore.getScoreValue;
 import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Score;
@@ -121,7 +120,7 @@ public class MenuBehaviour implements Behaviour
     }
 
     private void initializePopulation(GameObjectContainer world) {
-        for (GameObject farm: world.findAll(isFoodProducer())){
+        for (GameObject farm: world.findAll(UnitOperations::isFoodProducer)){
             player.incrementStatistic(PlayerStatistic.Population, 5);
         }
     }

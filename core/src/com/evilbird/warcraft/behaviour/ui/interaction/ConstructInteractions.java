@@ -15,6 +15,7 @@ import com.evilbird.warcraft.action.construct.ConstructActions;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.object.selector.SelectorType;
+import com.evilbird.warcraft.object.selector.building.BuildingSelector;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
@@ -28,8 +29,6 @@ import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isBuilding;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isConstructing;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isGatherer;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isUnderConstruction;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CancelButton;
 
 /**
@@ -63,13 +62,13 @@ public class ConstructInteractions extends InteractionContainer
 
     private void beginConstruction(SelectorType selector, ConstructActions action, UnitType building) {
         addAction(action)
-            .whenTarget(both(withType(selector), UnitOperations::isSelectorClear))
-            .whenSelected(isGatherer())
+            .whenTarget(both(withType(selector), this::isSelectorClear))
+            .whenSelected(UnitOperations::isGatherer)
             .appliedTo(Selected);
 
         addAction(action)
-            .whenSelected(both(isGatherer(), isConstructing(building)))
-            .whenTarget(both(withType(building), isUnderConstruction()))
+            .whenSelected(both(UnitOperations::isGatherer, isConstructing(building)))
+            .whenTarget(both(withType(building), UnitOperations::isUnderConstruction))
             .appliedTo(Selected);
     }
 
@@ -84,12 +83,12 @@ public class ConstructInteractions extends InteractionContainer
     private void cancelConstruction(ActionIdentifier cancelAction, UnitType building) {
         addAction(cancelAction)
             .whenTarget(CancelButton)
-            .whenSelected(both(withType(building), isUnderConstruction()))
+            .whenSelected(both(withType(building), UnitOperations::isUnderConstruction))
             .appliedTo(selectedItem(), getConstructor());
 
         addAction(cancelAction)
             .whenTarget(CancelButton)
-            .whenSelected(both(isGatherer(), isConstructing(building)))
+            .whenSelected(both(UnitOperations::isGatherer, isConstructing(building)))
             .appliedTo(getConstruction(), selectedItem());
     }
 
@@ -105,6 +104,14 @@ public class ConstructInteractions extends InteractionContainer
                     .appliedTo(Selected);
             }
         }
+    }
+
+    private boolean isSelectorClear(GameObject gameObject) {
+        if (gameObject instanceof BuildingSelector) {
+            BuildingSelector selector = (BuildingSelector)gameObject;
+            return selector.isClear();
+        }
+        return false;
     }
 
     private BiFunction<GameObject, GameObject, GameObject> getConstruction() {

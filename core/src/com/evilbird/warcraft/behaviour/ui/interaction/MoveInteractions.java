@@ -9,10 +9,13 @@
 
 package com.evilbird.warcraft.behaviour.ui.interaction;
 
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.warcraft.object.common.capability.MovableObject;
 import com.evilbird.warcraft.object.layer.LayerType;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
+import java.util.function.Predicate;
 
 import static com.evilbird.engine.object.utility.GameObjectPredicates.hasType;
 import static com.evilbird.warcraft.action.confirm.ConfirmActions.ConfirmLocation;
@@ -24,7 +27,6 @@ import static com.evilbird.warcraft.object.common.capability.TerrainType.Land;
 import static com.evilbird.warcraft.object.common.capability.TerrainType.ShallowWater;
 import static com.evilbird.warcraft.object.common.capability.TerrainType.Water;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isControllable;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isMovable;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isMovableOver;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.StopButton;
 import static com.evilbird.warcraft.object.layer.LayerType.Map;
@@ -94,5 +96,9 @@ public class MoveInteractions extends InteractionContainer
             .whenTarget(StopButton)
             .withAction(MoveToLocation)
             .appliedTo(Selected);
+    }
+
+    private static Predicate<GameObject> isMovable() {
+        return item -> item instanceof MovableObject;
     }
 }

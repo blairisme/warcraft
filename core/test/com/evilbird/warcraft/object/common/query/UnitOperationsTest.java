@@ -10,13 +10,19 @@
 package com.evilbird.warcraft.object.common.query;
 
 import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
 import com.evilbird.warcraft.object.unit.critter.Critter;
+import org.junit.Assert;
 import org.junit.Test;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -77,19 +83,128 @@ public class UnitOperationsTest
         assertNull(player);
     }
 
-    @Test (expected = NullPointerException.class)
+    @Test(expected = NullPointerException.class)
     public void getPlayerNullTest() {
         UnitOperations.getPlayer(null);
+    }
+
+    @Test
+    public void getPlayersTest() {
+        Player player1 = mock(Player.class);
+        Player player2 = mock(Player.class);
+
+        List<GameObject> objects = new ArrayList<>();
+        objects.add(mock(GameObject.class));
+        objects.add(player1);
+        objects.add(player2);
+        objects.add(mock(GameObject.class));
+
+        GameObjectContainer container = mock(GameObjectContainer.class);
+        when(container.getObjects()).thenReturn(objects);
+
+        Collection<Player> actual = UnitOperations.getPlayers(container);
+        Assert.assertEquals(2, actual.size());
+        Assert.assertTrue(actual.contains(player1));
+        Assert.assertTrue(actual.contains(player2));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void getPlayersNullTest() {
+        UnitOperations.getPlayers(null);
+    }
+
+    @Test
+    public void getArtificialPlayersTest() {
+        Player player1 = mock(Player.class);
+        Player player2 = mock(Player.class);
+
+        when(player1.isArtificial()).thenReturn(true);
+        when(player2.isArtificial()).thenReturn(true);
+
+        List<GameObject> objects = new ArrayList<>();
+        objects.add(mock(GameObject.class));
+        objects.add(player1);
+        objects.add(player2);
+        objects.add(mock(GameObject.class));
+        objects.add(mock(Player.class));
+        objects.add(mock(Player.class));
+
+        GameObjectContainer container = mock(GameObjectContainer.class);
+        when(container.getObjects()).thenReturn(objects);
+
+        Collection<Player> actual = UnitOperations.getArtificialPlayers(container);
+        Assert.assertEquals(2, actual.size());
+        Assert.assertTrue(actual.contains(player1));
+        Assert.assertTrue(actual.contains(player2));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void getArtificialPlayersNullTest() {
+        UnitOperations.getArtificialPlayers(null);
+    }
+
+    @Test
+    public void getCorporealPlayerTest() {
+        Player player = mock(Player.class);
+        when(player.isCorporeal()).thenReturn(true);
+
+        List<GameObject> objects = new ArrayList<>();
+        objects.add(mock(GameObject.class));
+        objects.add(player);
+        objects.add(mock(Player.class));
+        objects.add(mock(Player.class));
+        objects.add(mock(GameObject.class));
+
+        GameObjectContainer container = mock(GameObjectContainer.class);
+        when(container.getObjects()).thenReturn(objects);
+
+        Player actual = UnitOperations.getCorporealPlayer(container);
+        Assert.assertEquals(player, actual);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void getCorporealPlayerNullTest() {
+        UnitOperations.getCorporealPlayer(null);
+    }
+
+    @Test
+    public void getViewablePlayersTest() {
+        Player player1 = mock(Player.class);
+        Player player2 = mock(Player.class);
+
+        when(player1.isViewable()).thenReturn(true);
+        when(player2.isViewable()).thenReturn(true);
+
+        List<GameObject> objects = new ArrayList<>();
+        objects.add(mock(GameObject.class));
+        objects.add(player1);
+        objects.add(player2);
+        objects.add(mock(GameObject.class));
+        objects.add(mock(Player.class));
+        objects.add(mock(Player.class));
+
+        GameObjectContainer container = mock(GameObjectContainer.class);
+        when(container.getObjects()).thenReturn(objects);
+
+        Collection<Player> actual = UnitOperations.getViewablePlayers(container);
+        Assert.assertEquals(2, actual.size());
+        Assert.assertTrue(actual.contains(player1));
+        Assert.assertTrue(actual.contains(player2));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void getViewablePlayersNullTest() {
+        UnitOperations.getViewablePlayers(null);
     }
 
     @Test
     public void isAlive() {
         PerishableObject item = mock(PerishableObject.class);
 
-        when(item.getHealth()).thenReturn(40f);
+        when(item.isAlive()).thenReturn(true);
         assertTrue(UnitOperations.isAlive(item));
 
-        when(item.getHealth()).thenReturn(0f);
+        when(item.isAlive()).thenReturn(false);
         assertFalse(UnitOperations.isAlive(item));
     }
 
@@ -260,8 +375,7 @@ public class UnitOperationsTest
 
     @Test
     public void isNeutralNullTest() {
-        boolean result = UnitOperations.isNeutral(null);
-        assertFalse(result);
+        assertFalse(UnitOperations.isNeutral(null));
     }
 
     @Test
@@ -299,7 +413,7 @@ public class UnitOperationsTest
         boolean result = UnitOperations.isNeutral(grandChild);
         assertTrue(result);
     }
-    
+
     @Test
     public void isBuildingTest() {
         GameObject building = mock(Building.class);

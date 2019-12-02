@@ -75,8 +75,9 @@ public class GatherOil extends StateTransitionAction
     }
 
     private GameObject getNearestResource(Gatherer gatherer, GameObject target) {
-        WarcraftFaction faction = UnitOperations.getFaction(gatherer);
-        UnitType oilExtractor = faction == Human ? OilPlatform : OilRig;
-        return findClosest(gatherer, target, oilExtractor);
+        UnitType type = (UnitType)gatherer.getType();
+        WarcraftFaction faction =  type.getFaction();
+        UnitType extractor = faction == Human ? OilPlatform : OilRig;
+        return findClosest(gatherer, target, extractor);
     }
 }

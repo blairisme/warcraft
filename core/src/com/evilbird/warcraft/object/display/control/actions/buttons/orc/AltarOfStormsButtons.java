@@ -18,7 +18,6 @@ import com.evilbird.warcraft.object.display.control.actions.buttons.BasicButtonC
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.evilbird.warcraft.object.common.query.UnitOperations.hasUpgrade;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.BloodlustUpgrade;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.MeleeType1;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RunesUpgrade;
@@ -39,7 +38,7 @@ public class AltarOfStormsButtons extends BasicButtonController
     @Override
     public List<ActionButtonType> getButtons(GameObject gameObject) {
         Player player = UnitOperations.getPlayer(gameObject);
-        return !hasUpgrade(player, MeleeType1) ? basicButtons : getAdvancedButtons(player);
+        return !player.hasUpgrade(MeleeType1) ? basicButtons : getAdvancedButtons(player);
     }
 
     private List<ActionButtonType> getAdvancedButtons(Player player) {

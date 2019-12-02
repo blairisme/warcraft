@@ -28,9 +28,16 @@ import com.evilbird.warcraft.object.common.capability.MovableObject;
  */
 public class ItemPathFinder
 {
+    /**
+     * Disable construction of this static helper class.
+     */
     private ItemPathFinder() {
     }
 
+    /**
+     * Returns a path that connects the given objects and conforms to given
+     * objects traversal capability.
+     */
     public static ItemNodePath findPath(GameObjectGraph graph, GameObjectNode start, GameObjectNode end) {
         ItemNodePath result = new ItemNodePath();
         PathFinder<GameObjectNode> pathFinder = new IndexedAStarPathFinder<>(graph);
@@ -39,18 +46,22 @@ public class ItemPathFinder
         return result;
     }
 
-    public static boolean hasPath(MovableObject fromItem, GameObject toGameObject) {
+    /**
+     * Determines if a path exists between the given objects that conforms to
+     * given objects traversal capability.
+     */
+    public static boolean hasPath(MovableObject from, GameObject to) {
         ItemPathFilter filter = new ItemPathFilter();
-        filter.addTraversableItem(fromItem);
-        filter.addTraversableItem(toGameObject);
-        filter.addTraversableCapability(fromItem.getMovementCapability());
+        filter.addTraversableItem(from);
+        filter.addTraversableItem(to);
+        filter.addTraversableCapability(from.getMovementCapability());
 
-        GameObjectContainer root = fromItem.getRoot();
+        GameObjectContainer root = from.getRoot();
         GameObjectGraph graph = root.getSpatialGraph();
         GameObjectGraph filteredGraph = new GameObjectGraph(graph, filter);
-        GameObjectNode start = graph.getNode(fromItem.getPosition());
+        GameObjectNode start = graph.getNode(from.getPosition());
 
-        for (GameObjectNode end: graph.getAdjacentNodes(toGameObject)) {
+        for (GameObjectNode end: graph.getAdjacentNodes(to)) {
             GraphPath<GameObjectNode> path = findPath(filteredGraph, start, end);
             if (path.getCount() > 0) {
                 return true;

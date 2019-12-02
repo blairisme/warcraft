@@ -16,9 +16,15 @@ package com.evilbird.warcraft.object.common.query;
  */
 public class GameObjectUtils
 {
+    /**
+     * Disable construction of this static helper class.
+     */
     private GameObjectUtils() {
     }
 
+    /**
+     * Returns the number of pixels in the given number of tiles.
+     */
     public static int tiles(float count) {
         return Math.round(count * 32);
     }

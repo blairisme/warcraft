@@ -9,6 +9,8 @@
 
 package com.evilbird.warcraft.behaviour.ui.interaction;
 
+import com.evilbird.warcraft.object.common.query.UnitOperations;
+
 import javax.inject.Inject;
 import javax.inject.Provider;
 
@@ -20,7 +22,6 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicab
 import static com.evilbird.warcraft.object.common.capability.TerrainType.Land;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isControllable;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isMovableOver;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isTransport;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.DisembarkButton;
 
 /**
@@ -46,7 +47,7 @@ public class TransportInteractions extends InteractionContainer
     private void embark() {
         addAction(TransportEmbark, ConfirmLocation)
             .whenSelected(both(isControllable(), isMovableOver(Land)))
-            .whenTarget(isTransport())
+            .whenTarget(UnitOperations::isTransport)
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
     }
@@ -54,7 +55,7 @@ public class TransportInteractions extends InteractionContainer
     private void disembark() {
         addAction(TransportDisembark)
             .whenTarget(DisembarkButton)
-            .whenSelected(isTransport())
+            .whenSelected(UnitOperations::isTransport)
             .appliedTo(Selected);
     }
 }

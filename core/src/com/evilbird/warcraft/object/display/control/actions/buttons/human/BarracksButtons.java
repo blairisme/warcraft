@@ -21,7 +21,6 @@ import java.util.List;
 
 import static com.evilbird.warcraft.object.common.query.UnitOperations.hasUnit;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.hasUnits;
-import static com.evilbird.warcraft.object.common.query.UnitOperations.hasUpgrade;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.MeleeType1;
 import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedType1;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BallistaButton;
@@ -66,10 +65,10 @@ public class BarracksButtons extends BasicButtonController
         Player player = UnitOperations.getPlayer(gameObject);
         List<ActionButtonType> buttons = new ArrayList<>(getButtons(player.getLevel()));
 
-        if (hasUpgrade(player, RangedType1)) {
+        if (player.hasUpgrade(RangedType1)) {
             Lists.replace(buttons, ElvenArcherButton, ElvenRangerButton);
         }
-        if (hasUpgrade(player, MeleeType1)) {
+        if (player.hasUpgrade(MeleeType1)) {
             Lists.replace(buttons, KnightButton, PaladinButton);
         }
         return buttons;

@@ -28,7 +28,8 @@ import static com.evilbird.warcraft.object.common.value.FixedValue.Zero;
 
 /**
  * Instances of this class represent a gatherer: a {@link Combatant}
- * specialization that can both fight and collect resources.
+ * specialization that can fight, collect resources and construct
+ * {@link Building Buildings}.
  *
  * @author Blair Butterworth
  */

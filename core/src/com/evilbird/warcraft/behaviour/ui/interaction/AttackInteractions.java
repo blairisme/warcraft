@@ -9,6 +9,8 @@
 
 package com.evilbird.warcraft.behaviour.ui.interaction;
 
+import com.evilbird.warcraft.object.common.query.UnitOperations;
+
 import javax.inject.Inject;
 import javax.inject.Provider;
 
@@ -21,8 +23,6 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicab
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isAi;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isAttacker;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isControllable;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isDestroyable;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isResource;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CancelButton;
 import static com.evilbird.warcraft.object.layer.LayerType.WallSection;
 
@@ -49,7 +49,7 @@ public class AttackInteractions extends InteractionContainer
     private void attack() {
         addAction(Attack, ConfirmAttack)
             .whenSelected(both(isControllable(), isAttacker()))
-            .whenTarget(isAi().and(isDestroyable()).and(not(isResource())))
+            .whenTarget(isAi().and(UnitOperations::isDestroyable).and(not(UnitOperations::isResource)))
             .appliedTo(Selected)
             .appliedAs(confirmedAction());
     }

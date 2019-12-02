@@ -22,14 +22,21 @@ import java.util.Comparator;
  */
 public class GameObjectComparators
 {
+    /**
+     * Disable construction of this static helper class.
+     */
     private GameObjectComparators() {
     }
 
+    /**
+     * Returns a {@link Comparator} that sorts {@link GameObject GameObjects}
+     * by proximity to the given target.
+     */
     public static Comparator<GameObject> closestItem(GameObject target) {
         return new ClosestItem(target);
     }
 
-    public static class ClosestItem implements Comparator<GameObject> {
+    private static class ClosestItem implements Comparator<GameObject> {
         private Vector2 target;
 
         public ClosestItem(GameObject gameObject) {
