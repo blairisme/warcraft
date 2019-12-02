@@ -26,6 +26,7 @@ import com.evilbird.warcraft.action.common.remove.RemoveEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.object.selector.Selector;
 import com.evilbird.warcraft.object.selector.SelectorType;
+import com.evilbird.warcraft.object.unit.Unit;
 
 import java.util.Collection;
 import java.util.function.Predicate;
@@ -35,7 +36,6 @@ import static com.evilbird.engine.common.collection.CollectionUtils.containsAny;
 import static com.evilbird.engine.common.collection.CollectionUtils.containsEqual;
 import static com.evilbird.engine.common.collection.CollectionUtils.flatten;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.hasType;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.associatedWith;
 import static com.evilbird.warcraft.object.layer.LayerType.Map;
 import static com.evilbird.warcraft.object.layer.LayerType.Sea;
 import static com.evilbird.warcraft.object.layer.LayerType.Shore;
@@ -147,14 +147,14 @@ public class BuildingSelector extends Selector
 
     private boolean isUnoccupied(Collection<GameObject> gameObjects) {
         if (isOilPatchBased(type)) {
-            return containsAll(gameObjects, hasType(OilPatch, Sea).or(associatedWith(this)))
+            return containsAll(gameObjects, hasType(OilPatch, Sea).or(hasSelector(this)))
                 && containsEqual(gameObjects, hasType(OilPatch), hasType(Sea));
         }
         if (isShoreBased(type)) {
-            return containsAll(gameObjects, hasType(Shore, Sea).or(associatedWith(this)))
+            return containsAll(gameObjects, hasType(Shore, Sea).or(hasSelector(this)))
                 && containsAny(gameObjects, hasType(Shore));
         }
-        return containsAll(gameObjects, hasType(Map).or(associatedWith(this)));
+        return containsAll(gameObjects, hasType(Map).or(hasSelector(this)));
     }
 
     private boolean isShoreBased(SelectorType type) {
@@ -167,6 +167,12 @@ public class BuildingSelector extends Selector
     }
 
     private Predicate<GameObject> hasSelector(Selector selector) {
-
+        return object -> {
+            if (object instanceof Unit) {
+                Unit unit = (Unit)object;
+                return unit.getSelector() == selector;
+            }
+            return false;
+        };
     }
 }

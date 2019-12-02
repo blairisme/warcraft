@@ -37,7 +37,13 @@ public class NavalUnitBuilder extends CombatantBuilder<RangedCombatant>
 
     @Override
     protected RangedCombatant newCombatant(Skin skin) {
-        return type.isSubmarine() ? new Submarine(skin) : new Ship(skin);
+        if (type.isSubmarine()) {
+            return new Submarine(skin);
+        }
+        if (type.isTransport()) {
+            return new Transport(skin);
+        }
+        return new Ship(skin);
     }
 
     @Override

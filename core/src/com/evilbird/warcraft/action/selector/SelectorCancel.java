@@ -10,7 +10,6 @@
 package com.evilbird.warcraft.action.selector;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.object.selector.Selector;
 import com.evilbird.warcraft.object.unit.Unit;

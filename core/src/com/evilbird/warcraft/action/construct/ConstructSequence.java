@@ -17,6 +17,7 @@ import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.action.selection.DeselectAction;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
+import com.evilbird.warcraft.object.unit.building.Building;
 
 import javax.inject.Inject;
 
@@ -56,9 +57,17 @@ public class ConstructSequence extends StateTransitionAction
         if (!GameObjectOperations.isNear(builder, builder.getWidth(), building)) {
             return reposition;
         }
-        if (UnitOperations.isConstructing(building)) {
+        if (isConstructing(building)) {
             return construct;
         }
         return null;
+    }
+
+    private boolean isConstructing(GameObject object) {
+        if (object instanceof Building) {
+            Building builder = (Building)object;
+            return builder.isConstructing();
+        }
+        return false;
     }
 }

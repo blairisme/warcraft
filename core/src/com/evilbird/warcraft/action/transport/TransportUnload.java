@@ -11,7 +11,6 @@ package com.evilbird.warcraft.action.transport;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.move.MoveAdjacent;
 import com.evilbird.warcraft.object.common.capability.MovableObject;

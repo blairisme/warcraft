@@ -52,7 +52,7 @@ public class SelectorCancelTest extends ActionTestCase
 
     protected GameObject newItem() {
         Gatherer gatherer = TestGatherers.newTestGatherer(new TextIdentifier("item"), UnitType.Peasant);
-        gatherer.setAssociatedItem(selector);
+        gatherer.setSelector(selector);
         return gatherer;
     }
 
@@ -60,6 +60,6 @@ public class SelectorCancelTest extends ActionTestCase
     public void actTest() {
         Assert.assertTrue(action.act(1));
         Assert.assertTrue(player.getObjects().stream().noneMatch(item -> item == selector));
-        Assert.assertNull(((Gatherer) gameObject).getAssociatedItem());
+        Assert.assertNull(((Gatherer)gameObject).getSelector());
     }
 }

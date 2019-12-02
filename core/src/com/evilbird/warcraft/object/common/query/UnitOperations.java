@@ -29,16 +29,16 @@ import com.evilbird.warcraft.object.common.resource.ResourceType;
 import com.evilbird.warcraft.object.common.spell.Spell;
 import com.evilbird.warcraft.object.common.upgrade.Upgrade;
 import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.selector.Selector;
 import com.evilbird.warcraft.object.selector.building.BuildingSelector;
-import com.evilbird.warcraft.object.selector.target.TargetSelector;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
-import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
 import com.evilbird.warcraft.object.unit.combatant.naval.Submarine;
 import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 import com.evilbird.warcraft.object.unit.critter.Critter;
+import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.object.unit.resource.Resource;
 
 import java.util.ArrayList;
@@ -350,20 +350,31 @@ public class UnitOperations
     }
 
     public static boolean isSelector(GameObject gameObject) {
-        return gameObject instanceof BuildingSelector || gameObject instanceof TargetSelector;
+        return gameObject instanceof Selector;
     }
 
     public static boolean isSelectorClear(GameObject gameObject) {
         if (gameObject instanceof BuildingSelector) {
-            BuildingSelector selector = (BuildingSelector) gameObject;
+            BuildingSelector selector = (BuildingSelector)gameObject;
             return selector.isClear();
         }
         return false;
     }
 
-    public static boolean isConstructing(GameObject gameObject) {
-        if (gameObject instanceof Building) {
-            Building building = (Building) gameObject;
+
+
+    public static boolean isConstructing(GameObject object, UnitType type) {
+        if (object instanceof Gatherer) {
+            Gatherer gatherer = (Gatherer)object;
+            Building building = gatherer.getConstruction();
+            return building.getType() == type;
+        }
+        return false;
+    }
+
+    public static boolean isUnderConstruction(GameObject object) {
+        if (object instanceof Building) {
+            Building building = (Building)object;
             return building.isConstructing();
         }
         return false;
@@ -451,16 +462,8 @@ public class UnitOperations
         return false;
     }
 
-    public static boolean inSight(OffensiveObject combatant, GameObject target) {
-        return isNear(combatant, combatant.getSight(), target);
-    }
-
     public static boolean inRange(OffensiveObject combatant, GameObject target) {
         return isNear(combatant, combatant.getAttackRange(), target);
-    }
-
-    public static boolean isRanged(GameObject gameObject) {
-        return gameObject instanceof RangedCombatant;
     }
 
     public static boolean isResource(GameObject gameObject) {

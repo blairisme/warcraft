@@ -15,21 +15,21 @@ import com.evilbird.warcraft.action.construct.ConstructActions;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.object.selector.SelectorType;
-import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.building.Building;
+import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
-
 import java.util.function.BiFunction;
 
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.associatedWith;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isBuilding;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isConstructing;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isGatherer;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isUnderConstruction;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CancelButton;
 
 /**
@@ -68,8 +68,8 @@ public class ConstructInteractions extends InteractionContainer
             .appliedTo(Selected);
 
         addAction(action)
-            .whenSelected(both(isGatherer(), associatedWith(building)))
-            .whenTarget(both(isConstructing(), withType(building)))
+            .whenSelected(both(isGatherer(), isConstructing(building)))
+            .whenTarget(both(withType(building), isUnderConstruction()))
             .appliedTo(Selected);
     }
 
@@ -84,13 +84,13 @@ public class ConstructInteractions extends InteractionContainer
     private void cancelConstruction(ActionIdentifier cancelAction, UnitType building) {
         addAction(cancelAction)
             .whenTarget(CancelButton)
-            .whenSelected(both(withType(building), isConstructing()))
-            .appliedTo(selectedItem(), associatedItem());
+            .whenSelected(both(withType(building), isUnderConstruction()))
+            .appliedTo(selectedItem(), getConstructor());
 
         addAction(cancelAction)
             .whenTarget(CancelButton)
-            .whenSelected(both(isGatherer(), associatedWith(building)))
-            .appliedTo(associatedItem(), selectedItem());
+            .whenSelected(both(isGatherer(), isConstructing(building)))
+            .appliedTo(getConstruction(), selectedItem());
     }
 
     private void constructUpgrades() {
@@ -107,15 +107,11 @@ public class ConstructInteractions extends InteractionContainer
         }
     }
 
-    private Predicate<GameObject> isConstruction(Building building) {
-        
+    private BiFunction<GameObject, GameObject, GameObject> getConstruction() {
+        return (target, selected) -> ((Gatherer)selected).getConstruction();
     }
 
     private BiFunction<GameObject, GameObject, GameObject> getConstructor() {
-        return (target, selected) -> ((Unit)selected).getAssociatedItem();
-    }
-
-    private BiFunction<GameObject, GameObject, GameObject> getConstruction() {
-        return (target, selected) -> ((Unit)selected).getAssociatedItem();
+        return (target, selected) -> ((Building)selected).getConstructor();
     }
 }

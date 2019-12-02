@@ -266,7 +266,7 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
      * select game objects.
      */
     public void setSelector(Selector selector) {
-        this.selector = selector != null ? new GameObjectReference(selector) : null;
+        this.selector = selector != null ? new GameObjectReference<>(selector) : null;
     }
 
     /**
@@ -328,15 +328,13 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     @Override
     public void setRoot(GameObjectContainer root) {
         super.setRoot(root);
+
         if (selector != null) {
             selector.setParent(root);
         }
         if (associate != null) {
             associate.setParent(root);
         }
-//        for (GameObjectReference association: associatedObjects) {
-//            association.setParent(root);
-//        }
     }
 
     @Override
@@ -408,28 +406,12 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
             .toHashCode();
     }
 
-//    protected void addAssociatedItem(GameObject associate, Class<?> type) {
-//        associatedObjects.add(new GameObjectReference(associate));
-//    }
-
-//    protected GameObject getAssociatedItem() {
-//        if (!associatedObjects.isEmpty()) {
-//            GameObjectReference reference = associatedObjects.get(0);
-//            return reference.get();
-//        }
-//        return null;
-//    }
-
-//    protected GameObject getAssociatedItem() {
-//        return getAssociatedItem(Object.class);
-//    }
-//
     protected GameObject getAssociatedItem() {
         return associate != null ? associate.get() : null;
     }
 
     protected void setAssociatedItem(GameObject associate) {
-       this.associate = associate != null ? new GameObjectReference(associate) : null;
+       this.associate = associate != null ? new GameObjectReference<>(associate) : null;
     }
 
     private void setColour(Color colour) {
