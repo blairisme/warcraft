@@ -15,6 +15,8 @@ import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.resource.ResourceContainer;
 import com.evilbird.warcraft.object.common.resource.ResourceType;
 import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.UnitStyle;
+import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -33,21 +35,59 @@ public class Resource extends Unit implements ResourceContainer
 {
     private Map<String, Double> resources;
 
+    /**
+     * Constructs a new instance of this class given a {@link Skin} containing
+     * an {@link UnitStyle}, specifying the visual and auditory
+     * presentation of the new Resource.
+     *
+     * @param skin a {@code Skin} instance containing a {@code UnitStyle}.
+     *
+     * @throws NullPointerException if the given skin is {@code null} or
+     *                              doesn't contain a {@code UnitStyle}.
+     */
     public Resource(Skin skin) {
         super(skin);
         resources = new LinkedHashMap<>(2);
     }
 
+    /**
+     * Determines if the given {@code PerishableObject} is "alive" of not.
+     * Resources are not the enemy of anything: always returns {@code false}.
+     */
     @Override
     public boolean isEnemy(PerishableObject other) {
         return false;
     }
 
+    /**
+     * Returns the {@link Gatherer} that is currently obtaining resources from
+     * the Resource, if any.
+     */
+    public Gatherer getGatherer() {
+        return (Gatherer)getAssociatedItem();
+    }
+
+    /**
+     * Returns the amount of the given resource type held by the Resource
+     * instance.
+     */
     @Override
     public float getResource(ResourceType type) {
         return Maps.getOrDefault(resources, type.name(), 0.0).floatValue();
     }
 
+    /**
+     * Sets the {@link Gatherer} that is currently obtaining resources from
+     * the Resource, if any.
+     */
+    public void setGatherer(Gatherer gatherer) {
+        setAssociatedItem(gatherer);
+    }
+
+    /**
+     * Sets the amount of the given resource type held by the Resource
+     * instance.
+     */
     @Override
     public void setResource(ResourceType type, float value) {
         resources.put(type.name(), (double)value);

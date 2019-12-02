@@ -54,7 +54,7 @@ public class GatherObtainOil extends GatherObtain
 
         OilPlatform resource = (OilPlatform)getTarget();
         resource.setAnimation(ExtractOil);
-        resource.setAssociatedItem(gatherer);
+        resource.setGatherer(gatherer);
 
         return super.initialize();
     }
@@ -67,8 +67,8 @@ public class GatherObtainOil extends GatherObtain
         exclusion.restore(gatherer);
 
         OilPlatform resource = (OilPlatform)getTarget();
-        if (resource.getAssociatedItem() == gatherer) {
-            resource.setAssociatedItem(null);
+        if (resource.getGatherer() == gatherer) {
+            resource.setGatherer(null);
             resource.setAnimation(Idle);
         }
         return super.complete();

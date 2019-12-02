@@ -16,6 +16,7 @@ import com.evilbird.warcraft.object.common.resource.ResourceType;
 import com.evilbird.warcraft.object.common.value.FixedValue;
 import com.evilbird.warcraft.object.common.value.Value;
 import com.evilbird.warcraft.object.common.value.ValueProperty;
+import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
@@ -63,10 +64,10 @@ public class Gatherer extends Combatant implements ResourceContainer
     }
 
     /**
-     * Returns whether or not the gatherer is currently gathering resources.
+     * Returns the {@link Building} the gatherer is constructing.
      */
-    public boolean isGathering() {
-        return progress != 1;
+    public Building getConstruction() {
+        return (Building)getAssociatedItem();
     }
 
     /**
@@ -160,19 +161,49 @@ public class Gatherer extends Combatant implements ResourceContainer
         return new ValueProperty(this::getWoodGatherSpeedValue, this::setWoodGatherSpeed);
     }
 
+    /**
+     * Returns the value of a {@link ResourceType resource} held by the
+     * gatherer.
+     */
     @Override
     public float getResource(ResourceType type) {
         return Maps.getOrDefault(resources, type.name(), 0.0).floatValue();
     }
 
+    /**
+     * Returns whether or not the gatherer is transporting the given
+     * {@link ResourceType resource}.
+     */
     public boolean hasResource(ResourceType type) {
         return resources.containsKey(type.name());
     }
 
+    /**
+     * Returns whether or not the gatherer is transporting a
+     * {@link ResourceType resource} other than that given.
+     */
     public boolean hasOtherResource(ResourceType type) {
         return !resources.isEmpty() && !resources.containsKey(type.name());
     }
 
+    /**
+     * Returns whether or not the gatherer is currently gathering resources.
+     */
+    public boolean isGathering() {
+        return progress != 1;
+    }
+
+    /**
+     * Sets the {@link Building} the gatherer is constructing.
+     */
+    public void setConstruction(Building building) {
+        setAssociatedItem(building);
+    }
+
+    /**
+     * Sets the progress the gatherer has made in its current action: gathering
+     * or construction.
+     */
     public void setGathererProgress(float progress) {
         this.progress = progress;
     }
@@ -245,6 +276,10 @@ public class Gatherer extends Combatant implements ResourceContainer
         this.woodGatherSpeed = woodGatherSpeed;
     }
 
+    /**
+     * Sets the value of a {@link ResourceType resource} held by the
+     * {@code Gatherer}.
+     */
     @Override
     public void setResource(ResourceType type, float value) {
         resources.put(type.name(), (double)value);

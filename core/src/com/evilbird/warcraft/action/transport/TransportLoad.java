@@ -14,6 +14,7 @@ import com.evilbird.engine.action.framework.StateTransitionAction;
 import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.combatant.naval.Transport;
 
 import javax.inject.Inject;
 
@@ -41,15 +42,15 @@ public class TransportLoad extends StateTransitionAction
     @Override
     protected Action nextAction(Action previous) {
         Unit embarkee = (Unit) getSubject();
-        Unit vessel = (Unit)getTarget();
+        Transport vessel = (Transport)getTarget();
         return nextAction(embarkee, vessel);
     }
 
-    protected Action nextAction(Unit embarkee, Unit vessel) {
+    protected Action nextAction(Unit embarkee, Transport vessel) {
         if (!GameObjectOperations.isNear(embarkee, embarkee.getWidth(), vessel)) {
             return reposition;
         }
-        if (!vessel.hasAssociatedItem(embarkee)) {
+        if (!vessel.hasPassenger(embarkee)) {
             return embark;
         }
         return null;

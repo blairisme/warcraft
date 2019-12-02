@@ -12,7 +12,7 @@ package com.evilbird.warcraft.object.display.control.actions.buttons.common;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.object.display.control.actions.buttons.ButtonController;
-import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.combatant.naval.Transport;
 
 import java.util.List;
 
@@ -36,8 +36,8 @@ public class TransportButtons implements ButtonController
     @Override
     public boolean getEnabled(ActionButtonType button, GameObject gameObject) {
         if (button == DisembarkButton) {
-            Unit unit = (Unit) gameObject;
-            return unit.hasAssociatedItems();
+            Transport unit = (Transport)gameObject;
+            return unit.hasPassengers();
         }
         return true;
     }

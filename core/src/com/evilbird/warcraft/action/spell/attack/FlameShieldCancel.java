@@ -30,7 +30,7 @@ public class FlameShieldCancel extends BasicAction
     @Override
     public boolean act(float delta) {
         Unit target = (Unit)getTarget();
-        target.clearEffect();
+//        target.clearEffect(); //TODO
         return ActionComplete;
     }
 }

@@ -48,7 +48,7 @@ public class FlameShieldSpell extends SpellAction
         Unit target = (Unit)getTarget();
 
         ConjuredObject flameShield = (ConjuredObject)factory.get(UnitType.FlameShield);
-        target.setEffect(flameShield);
+//        target.setEffect(flameShield); //TODO
 
         cancelAction.setSubject(caster);
         cancelAction.setTarget(flameShield);

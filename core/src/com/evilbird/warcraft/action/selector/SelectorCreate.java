@@ -17,6 +17,7 @@ import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.selector.Selector;
 import com.evilbird.warcraft.object.selector.SelectorType;
 import com.evilbird.warcraft.object.unit.Unit;
 
@@ -47,11 +48,11 @@ public class SelectorCreate extends BasicAction
         Unit subject = (Unit) getSubject();
         Player player = getPlayer(subject);
 
-        GameObject selector = factory.get(selectorType());
+        Selector selector = (Selector)factory.get(selectorType());
         selector.setPosition(selectorPosition(subject));
         player.addObject(selector);
 
-        subject.setAssociatedItem(selector);
+        subject.setSelector(selector);
         events.notifySelectorAdded(subject, selector);
 
         return ActionComplete;

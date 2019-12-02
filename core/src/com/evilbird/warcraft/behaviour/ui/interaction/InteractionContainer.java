@@ -16,7 +16,6 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.confirm.ConfirmActions;
-import com.evilbird.warcraft.object.unit.Unit;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -139,9 +138,5 @@ public class InteractionContainer
 
     protected BiFunction<GameObject, GameObject, GameObject> selectedItem() {
         return (target, selected) -> selected;
-    }
-
-    protected BiFunction<GameObject, GameObject, GameObject> associatedItem() {
-        return (target, selected) -> ((Unit)selected).getAssociatedItem();
     }
 }

@@ -17,7 +17,6 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.graphics.ColourMaskSprite;
 import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.common.graphics.animation.AnimationFrame;
@@ -35,6 +34,7 @@ import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.common.value.FixedValue;
 import com.evilbird.warcraft.object.common.value.Value;
 import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.selector.Selector;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -60,7 +60,8 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     private Value sight;
     private boolean selected;
     private boolean selectable;
-    private List<GameObjectReference> associatedObjects;
+    private GameObjectReference selector;
+    private GameObjectReference associate;
 
     private transient UnitStyle style;
     private transient Renderable highlight;
@@ -85,38 +86,6 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
         healthMaximum = 0;
         selected = false;
         selectable = true;
-        associatedObjects = new ArrayList<>(1);
-    }
-
-    /**
-     * Associates the given {@link GameObject} with the Unit.
-     */
-    public void addAssociatedItem(GameObject associate) {
-        associatedObjects.add(new GameObjectReference(associate));
-    }
-
-    public void clearEffect() {
-        //TODO
-    }
-
-    /**
-     * Returns the {@link GameObject} associated with the Unit, if any. If multiple
-     * {@code Items} are associated with the Unit, then the first Item to be
-     * associated will be returned.
-     */
-    public GameObject getAssociatedItem() {
-        if (!associatedObjects.isEmpty()) {
-            GameObjectReference reference = associatedObjects.get(0);
-            return reference.get();
-        }
-        return null;
-    }
-
-    /**
-     * Returns the set of {@link GameObject Items} associated with the Unit, if any.
-     */
-    public Collection<GameObject> getAssociatedObjects() {
-        return CollectionUtils.convert(associatedObjects, GameObjectReference::get);
     }
 
     /**
@@ -136,12 +105,18 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     }
 
     /**
-     * Returns whether the {@code PerishableObject} is visible to potential
-     * attackers.
+     * Returns the set of {@link GameObject Items} associated with the Unit, if any.
      */
-    @Override
-    public boolean isAttackable() {
-        return true;
+    public Collection<GameObject> getAssociatedObjects() {
+        List<GameObject> result = new ArrayList<>(2);
+
+        if (selector != null) {
+            result.add(selector.get());
+        }
+        if (associate != null) {
+            result.add(associate.get());
+        }
+        return result;
     }
 
     /**
@@ -207,49 +182,37 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
         return selectable;
     }
 
+    /**
+     * Sets the units {@link Selector}: a visual guide used by the user to
+     * select game objects.
+     */
+    public Selector getSelector() {
+        return selector != null ? (Selector)selector.get() : null;
+    }
+
+    /**
+     * Returns the team number of the {@code Unit Units} owner.
+     */
     @Override
     public int getTeam() {
         Player player = (Player)getParent();
         return player != null ? player.getTeam() : -1;
     }
 
+    /**
+     * Returns the type of terrain the {@code Unit} resides in.
+     */
     @Override
     public TerrainType getTerrainType() {
         return TerrainType.Land;
     }
 
     /**
-     * Returns whether or not the given {@link GameObject} is associated with the
-     * Unit.
+     * Returns whether the {@code Unit} is visible to potential attackers.
      */
-    public boolean hasAssociatedItem(GameObject associate) {
-        return associatedObjects.contains(new GameObjectReference(associate));
-    }
-
-    /**
-     * Returns whether or not the any {@link GameObject Items} have been associated
-     * with the Unit.
-     */
-    public boolean hasAssociatedItems() {
-        return !associatedObjects.isEmpty();
-    }
-
-    /**
-     * Removes the association between the unit and the given {@link GameObject}.
-     */
-    public void removeAssociatedItem(GameObject associate) {
-        associatedObjects.remove(new GameObjectReference(associate));
-    }
-
-    /**
-     * Sets an association between the unit and the given {@link GameObject}. Any
-     * existing associations will be removed.
-     */
-    public void setAssociatedItem(GameObject associate) {
-        associatedObjects.clear();
-        if (associate != null) {
-            addAssociatedItem(associate);
-        }
+    @Override
+    public boolean isAttackable() {
+        return true;
     }
 
     /**
@@ -264,10 +227,6 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
      */
     public void setArmour(Value armour) {
         this.armour = armour;
-    }
-
-    public void setEffect(Object object) {
-        //TODO
     }
 
     /**
@@ -300,6 +259,14 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
         if (colour != TeamColour.None) {
             setColour(colour.getGdxColour());
         }
+    }
+
+    /**
+     * Sets the units {@link Selector}: a visual guide used by the user to
+     * select game objects.
+     */
+    public void setSelector(Selector selector) {
+        this.selector = selector != null ? new GameObjectReference<>(selector) : null;
     }
 
     /**
@@ -361,8 +328,12 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     @Override
     public void setRoot(GameObjectContainer root) {
         super.setRoot(root);
-        for (GameObjectReference association: associatedObjects) {
-            association.setParent(root);
+
+        if (selector != null) {
+            selector.setParent(root);
+        }
+        if (associate != null) {
+            associate.setParent(root);
         }
     }
 
@@ -375,7 +346,6 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
             highlight.draw(batch, position, size);
         }
         super.draw(batch, alpha);
-        //effect.draw(batch,  position, size);
     }
 
     @Override
@@ -385,7 +355,6 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     }
 
     private void updateRenderables(float time) {
-        //effect.update(time);
         highlight.update(time);
         selection.update(time);
     }
@@ -416,7 +385,8 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
             .append(highlighted, unit.highlighted)
             .append(selected, unit.selected)
             .append(selectable, unit.selectable)
-            .append(associatedObjects, unit.associatedObjects)
+            .append(selector, unit.selector)
+            .append(associate, unit.associate)
             .isEquals();
     }
 
@@ -431,8 +401,17 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
             .append(highlighted)
             .append(selected)
             .append(selectable)
-            .append(associatedObjects)
+            .append(selector)
+            .append(associate)
             .toHashCode();
+    }
+
+    protected GameObject getAssociatedItem() {
+        return associate != null ? associate.get() : null;
+    }
+
+    protected void setAssociatedItem(GameObject associate) {
+       this.associate = associate != null ? new GameObjectReference<>(associate) : null;
     }
 
     private void setColour(Color colour) {

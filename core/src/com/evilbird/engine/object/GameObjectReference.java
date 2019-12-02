@@ -14,6 +14,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import static com.evilbird.engine.object.utility.GameObjectPredicates.itemWithId;
@@ -24,32 +25,34 @@ import static com.evilbird.engine.object.utility.GameObjectPredicates.itemWithId
  *
  * @author Blair Butterworth
  */
-public class GameObjectReference implements Supplier<GameObject>
+public class GameObjectReference<T extends GameObject> implements Supplier<T>
 {
     private Identifier reference;
-    private transient GameObject cache;
+
+    private transient T cache;
     private transient GameObjectComposite parent;
 
-    public GameObjectReference(GameObject gameObject) {
+    public GameObjectReference(T gameObject) {
         this(gameObject.getIdentifier(), gameObject.getRoot(), gameObject);
     }
 
-    public GameObjectReference(Identifier reference, GameObjectComposite parent) {
-        this(reference, parent, null);
-    }
-
-    private GameObjectReference(Identifier reference, GameObjectComposite parent, GameObject cache) {
+    private GameObjectReference(Identifier reference, GameObjectComposite parent, T cache) {
         this.reference = reference;
         this.cache = cache;
         this.parent = parent;
     }
 
     @Override
-    public GameObject get() {
+    @SuppressWarnings("unchecked")
+    public T get() {
         if (cache == null) {
-            cache = parent.find(itemWithId(reference));
+            cache = (T)parent.find(itemWithId(reference));
         }
         return cache;
+    }
+
+    public boolean contains(T element) {
+        return Objects.equals(get(), element);
     }
 
     public void setParent(GameObjectComposite parent) {

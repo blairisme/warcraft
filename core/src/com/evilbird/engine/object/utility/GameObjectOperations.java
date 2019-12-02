@@ -45,46 +45,46 @@ public class GameObjectOperations
      * {@code Actions} will be removed prior to assigning the new
      * {@code Action}.
      *
-     * @param gameObject      an {@code Item} that will receive the {@link Action}.
+     * @param object    an {@code Item} that will receive the {@link Action}.
      * @param action    the {@link Action} that will be assigned.
      *
      * @throws NullPointerException if either the given {@code Item} or
      *                              {@code Action} is {@code null}.
      */
-    public static void assignIfAbsent(GameObject gameObject, Action action) {
-        Objects.requireNonNull(gameObject);
+    public static void assignIfAbsent(GameObject object, Action action) {
+        Objects.requireNonNull(object);
         Objects.requireNonNull(action);
 
-        if (!hasAction(gameObject, action)) {
+        if (!hasAction(object, action)) {
             action.reset();
-            action.setSubject(gameObject);
-            gameObject.clearActions();
-            gameObject.addAction(action);
+            action.setSubject(object);
+            object.clearActions();
+            object.addAction(action);
         }
     }
 
     /**
-     * Searches the {@link GameObject} hierarchy (Items are owned other Items) for
-     * the first Item that matches the given {@link Predicate}, inclusive of
-     * the Item.
+     * Searches the {@link GameObject} hierarchy (Items are owned other Items)
+     * for the first {@code GameObject} that matches the given {@link Predicate},
+     * inclusive of the {@code GameObject}.
      *
-     * @param gameObject      an {@code Item} whose hierarchy will be tested using
-     *                  the given condition.
-     * @param predicate a {@code Predicate} to test for.
+     * @param object    a {@code GameObject} whose hierarchy will be tested
+     *                  using the given condition.
+     * @param condition a {@code Predicate} to test for.
      *
-     * @return  the first parent of the given Item that matches the specified
-     *          condition, or {@code null} if no match is found.
+     * @return  the first parent of the given {@code GameObject} that matches
+     *          the specified condition, or {@code null} if no match is found.
      *
-     * @throws NullPointerException if the given {@code Item} or
+     * @throws NullPointerException if the given {@code GameObject} or
      *                              {@code Predicate} is {@code null}.
      */
-    public static GameObject findAncestor(GameObject gameObject, Predicate<GameObject> predicate) {
-        Objects.requireNonNull(gameObject);
-        Objects.requireNonNull(predicate);
+    public static GameObject findAncestor(GameObject object, Predicate<GameObject> condition) {
+        Objects.requireNonNull(object);
+        Objects.requireNonNull(condition);
 
-        GameObject parent = gameObject;
+        GameObject parent = object;
         while (parent != null) {
-            if (predicate.test(parent)) {
+            if (condition.test(parent)) {
                 return parent;
             }
             parent = parent.getParent();

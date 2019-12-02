@@ -117,8 +117,8 @@ public class ConstructBuilding extends BasicAction
     }
 
     private void setAssociations(Gatherer builder, Building building) {
-        builder.setAssociatedItem(building);
-        building.setAssociatedItem(builder);
+        builder.setConstruction(building);
+        building.setConstructor(builder);
     }
 
     private void setPlacementSound(Building building) {

@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.action.selector;
 
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectGroup;
+import com.evilbird.warcraft.object.selector.Selector;
 import com.evilbird.warcraft.object.unit.Unit;
 
 import javax.inject.Inject;
@@ -37,14 +37,15 @@ public class SelectorCancel extends BasicAction
     @Override
     public boolean act(float time) {
         Unit subject = (Unit) getSubject();
-        GameObject selector = subject.getAssociatedItem();
+        Selector selector = subject.getSelector();
 
-        GameObjectGroup parent = selector.getParent();
-        parent.removeObject(selector);
+        if (selector != null) {
+            GameObjectGroup parent = selector.getParent();
+            parent.removeObject(selector);
 
-        subject.setAssociatedItem(null);
-        events.notifySelectorRemoved(subject, selector);
-
+            subject.setSelector(null);
+            events.notifySelectorRemoved(subject, selector);
+        }
         return ActionComplete;
     }
 }

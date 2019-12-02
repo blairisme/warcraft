@@ -37,7 +37,7 @@ public abstract class BuffSpellCancel extends BasicAction
     }
 
     protected void removeBadge(Combatant target) {
-        target.clearEffect();
+//        target.clearEffect(); //TODO
     }
 
     protected void removeBuff(Combatant target) {

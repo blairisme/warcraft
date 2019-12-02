@@ -57,6 +57,6 @@ public class SelectorCreateTest extends ActionTestCase
 
         Assert.assertTrue(action.act(1));
         Assert.assertTrue(player.getObjects().stream().anyMatch(item -> item == selector));
-        Assert.assertEquals(selector, ((Gatherer) gameObject).getAssociatedItem());
+        Assert.assertEquals(selector, ((Gatherer)gameObject).getSelector());
     }
 }

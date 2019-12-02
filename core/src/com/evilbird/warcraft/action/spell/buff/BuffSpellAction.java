@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.action.spell.buff;
 
-import com.evilbird.engine.common.graphics.renderable.Renderable;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.spell.SpellAction;
@@ -58,7 +57,7 @@ public abstract class BuffSpellAction extends SpellAction
 
     protected void setBadge(Combatant target) {
         if (badge != null) {
-            target.setEffect((Renderable)factory.get(badge));
+//            target.setEffect((Renderable)factory.get(badge)); //TODO
         }
     }
 

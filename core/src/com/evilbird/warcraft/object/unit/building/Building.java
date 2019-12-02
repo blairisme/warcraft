@@ -18,6 +18,7 @@ import com.evilbird.warcraft.object.common.resource.ResourceType;
 import com.evilbird.warcraft.object.common.upgrade.Upgrade;
 import com.evilbird.warcraft.object.common.upgrade.UpgradeContainer;
 import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -71,17 +72,10 @@ public class Building extends Unit implements ResourceContainer, UpgradeContaine
     }
 
     /**
-     * Returns whether of not the building is currently being constructed.
+     * Returns the {@link Gatherer} that is constructing the building.
      */
-    public boolean isConstructing() {
-        return constructing != 1;
-    }
-
-    /**
-     * Returns whether of not the building is currently producing something.
-     */
-    public boolean isProducing() {
-        return producing != 1;
+    public Gatherer getConstructor() {
+        return (Gatherer)getAssociatedItem();
     }
 
     /**
@@ -113,6 +107,27 @@ public class Building extends Unit implements ResourceContainer, UpgradeContaine
      */
     public Collection<Upgrade> getUpgrades() {
         return upgrades;
+    }
+
+    /**
+     * Returns whether of not the building is currently being constructed.
+     */
+    public boolean isConstructing() {
+        return constructing != 1;
+    }
+
+    /**
+     * Returns whether of not the building is currently producing something.
+     */
+    public boolean isProducing() {
+        return producing != 1;
+    }
+
+    /**
+     * Sets the {@link Gatherer} that is constructing the building.
+     */
+    public void setConstructor(Gatherer gatherer) {
+        setAssociatedItem(gatherer);
     }
 
     /**

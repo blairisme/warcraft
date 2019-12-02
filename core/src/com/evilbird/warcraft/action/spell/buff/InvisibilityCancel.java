@@ -30,7 +30,7 @@ public class InvisibilityCancel extends BasicAction
     @Override
     public boolean act(float delta) {
         Combatant target = (Combatant)getTarget();
-        target.clearEffect();
+//        target.clearEffect(); //TODO
         target.setAttackable(true);
         return ActionComplete;
     }

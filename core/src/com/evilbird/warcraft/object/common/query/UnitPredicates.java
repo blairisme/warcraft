@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.object.common.query;
 
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
@@ -28,7 +27,6 @@ import com.evilbird.warcraft.object.unit.resource.Resource;
 import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.function.Predicates.not;
-import static com.evilbird.engine.object.utility.GameObjectPredicates.hasType;
 import static com.evilbird.warcraft.action.common.path.ItemPathFinder.hasPath;
 import static com.evilbird.warcraft.object.common.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.object.common.resource.ResourceType.Oil;
@@ -214,26 +212,11 @@ public class UnitPredicates
         return destination -> hasPath(source, destination);
     }
 
-    public static Predicate<GameObject> isConstructing() {
-        return UnitOperations::isConstructing;
+    public static Predicate<GameObject> isConstructing(UnitType building) {
+        return object -> UnitOperations.isConstructing(object, building);
     }
 
-    public static Predicate<GameObject> associatedWith(GameObject withGameObject) {
-        return (item) -> item instanceof Unit && ((Unit)item).getAssociatedItem() == withGameObject;
-    }
-
-    public static Predicate<GameObject> associatedWith(Identifier type) {
-        return associatedWith(hasType(type));
-    }
-
-    public static Predicate<GameObject> associatedWith(Predicate<GameObject> condition) {
-        return (item) -> {
-            if (item instanceof Unit) {
-                Unit unit = (Unit)item;
-                GameObject associated = unit.getAssociatedItem();
-                return condition.test(associated);
-            }
-            return false;
-        };
+    public static Predicate<GameObject> isUnderConstruction() {
+        return UnitOperations::isUnderConstruction;
     }
 }

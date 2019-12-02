@@ -54,7 +54,7 @@ public class GatherObtainGold extends GatherObtain
 
         Resource resource = (Resource)getTarget();
         resource.setAnimation(ExtractGold);
-        resource.setAssociatedItem(gatherer);
+        resource.setGatherer(gatherer);
 
         return super.initialize();
     }
@@ -67,8 +67,8 @@ public class GatherObtainGold extends GatherObtain
         exclusion.restore(gatherer);
 
         Resource resource = (Resource)getTarget();
-        if (resource.getAssociatedItem() == gatherer) {
-            resource.setAssociatedItem(null);
+        if (resource.getGatherer() == gatherer) {
+            resource.setGatherer(null);
             resource.setAnimation(Idle);
         }
         return super.complete();
