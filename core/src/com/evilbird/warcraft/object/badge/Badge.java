@@ -13,6 +13,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.object.BasicGameObject;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectReference;
 
 import javax.inject.Inject;
 import java.util.Objects;
@@ -26,6 +28,8 @@ import java.util.Objects;
  */
 public class Badge extends BasicGameObject
 {
+    private GameObjectReference target;
+
     private transient Drawable badge;
     private transient Vector2 size;
     private transient Vector2 position;
@@ -78,6 +82,26 @@ public class Badge extends BasicGameObject
         super.setSize(size);
         this.size.set(size);
         updateBadgePosition();
+    }
+
+    public void setTarget(GameObject target) {
+        this.target = new GameObjectReference<>(target);
+        setPosition(target.getPosition());
+        setSize(target.getSize());
+    }
+
+    @Override
+    public void update(float time) {
+        super.update(time);
+
+        if (target != null) {
+            GameObject host = target.get();
+            Vector2 position = host.getPosition();
+
+            if (position != this.position) {
+                setPosition(position);
+            }
+        }
     }
 
     private void updateBadgePosition() {

@@ -10,6 +10,8 @@
 package com.evilbird.warcraft.action.spell.buff;
 
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.object.common.value.BuffValue;
 import com.evilbird.warcraft.object.common.value.Value;
 import com.evilbird.warcraft.object.common.value.ValueProperty;
@@ -37,7 +39,10 @@ public abstract class BuffSpellCancel extends BasicAction
     }
 
     protected void removeBadge(Combatant target) {
-//        target.clearEffect(); //TODO
+        GameObject effect = target.getEffect();
+        GameObjectGroup parent = effect.getParent();
+        parent.removeObject(effect);
+        target.setEffect(null);
     }
 
     protected void removeBuff(Combatant target) {

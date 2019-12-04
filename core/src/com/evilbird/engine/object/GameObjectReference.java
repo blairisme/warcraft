@@ -33,13 +33,9 @@ public class GameObjectReference<T extends GameObject> implements Supplier<T>
     private transient GameObjectComposite parent;
 
     public GameObjectReference(T gameObject) {
-        this(gameObject.getIdentifier(), gameObject.getRoot(), gameObject);
-    }
-
-    private GameObjectReference(Identifier reference, GameObjectComposite parent, T cache) {
-        this.reference = reference;
-        this.cache = cache;
-        this.parent = parent;
+        this.reference = gameObject.getIdentifier();
+        this.parent = gameObject.getRoot();
+        this.cache = gameObject;
     }
 
     @Override

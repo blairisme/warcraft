@@ -10,6 +10,8 @@
 package com.evilbird.warcraft.action.spell.attack;
 
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.object.unit.Unit;
 
 import javax.inject.Inject;
@@ -30,7 +32,10 @@ public class FlameShieldCancel extends BasicAction
     @Override
     public boolean act(float delta) {
         Unit target = (Unit)getTarget();
-//        target.clearEffect(); //TODO
+        GameObject effect = target.getEffect();
+        GameObjectGroup parent = effect.getParent();
+        parent.removeObject(effect);
+        target.setEffect(null);
         return ActionComplete;
     }
 }

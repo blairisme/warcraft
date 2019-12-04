@@ -10,13 +10,14 @@
 package com.evilbird.warcraft.object.unit.conjured.flameshield;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.evilbird.engine.common.graphics.animation.AnimationFrame;
 import com.evilbird.engine.object.AnimatedObjectStyle;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectReference;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredAreaEffect;
 
@@ -35,10 +36,13 @@ public class FlameShield extends ConjuredAreaEffect
     private static final transient float WIDTH = 16f;
     private static final transient float HEIGHT = 16f;
 
-    private transient List<Vector2> positions;
+    private GameObjectReference target;
+
     private transient List<Float> rotations;
     private transient List<Float> times;
     private transient Vector2 center;
+    private transient Vector2 offset;
+    private transient Vector2 location;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} containing
@@ -47,45 +51,49 @@ public class FlameShield extends ConjuredAreaEffect
      */
     public FlameShield(Skin skin, WarcraftPreferences preferences) {
         super(skin, preferences);
-        this.positions = new ArrayList<>(COUNT);
         this.rotations = new ArrayList<>(COUNT);
         this.times = new ArrayList<>(COUNT);
     }
 
+    /**
+     * Sets the recipient of the flame shield.
+     */
+    public void setTarget(GameObject target) {
+        Vector2 size = target.getSize();
+        this.target = new GameObjectReference<>(target);
+        this.center = new Vector2(size.x, size.y);
+        this.offset = new Vector2(size.x * 0.5f, size.y * 0.5f);
+    }
+
+    /**
+     * Renders the flame shield.
+     */
     @Override
     public void draw(Batch batch, float alpha) {
-        drawEffects((SpriteBatch)batch);
+        if (! rotations.isEmpty()) {
+            for (int index = 0; index < COUNT; index++) {
+                float rotation = rotations.get(index);
+                float time = times.get(index);
+                TextureRegion frame = getFrame(time);
+                batch.draw(frame, location.x, location.y, center.x, center.y, WIDTH, HEIGHT, 1f, 1f, rotation, true);
+            }
+        }
     }
 
     @Override
     public void update(float time) {
         super.update(time);
         initializeEffects();
-        updateEffects(time);
-        rotateEffects(time);
+        updatePosition();
+        updateFrames(time);
+        updateRotations(time);
     }
 
     private void initializeEffects() {
-        if (positions.isEmpty()) {
-            initializeAnimation();
-            initializePositions();
+        if (rotations.isEmpty()) {
             initializeRotations();
             initializeTimes();
         }
-    }
-
-    private void initializeAnimation() {
-        Vector2 size = getSize();
-        center = size.scl(0.5f);
-    }
-
-    private void initializePositions() {
-        Vector2 start = getPosition();
-        positions.add(start);
-        positions.add(start);
-        positions.add(start);
-        positions.add(start);
-        positions.add(start);
     }
 
     private void initializeRotations() {
@@ -104,23 +112,16 @@ public class FlameShield extends ConjuredAreaEffect
         times.add(0.4f);
     }
 
-    private void drawEffects(SpriteBatch batch) {
-        if (! positions.isEmpty()) {
-            for (int index = 0; index < COUNT; index++) {
-                Vector2 position = positions.get(index);
-                float rotation = rotations.get(index);
-                float time = times.get(index);
-
-                AnimationFrame frame = animation.getFrame(time);
-                TextureRegionDrawable drawable = (TextureRegionDrawable) frame.getDrawable();
-                TextureRegion region = drawable.getRegion();
-
-                batch.draw(region, position.x, position.y, center.x, center.y, WIDTH, HEIGHT, 1f, 1f, rotation, true);
-            }
+    private void updatePosition() {
+        if (target != null) {
+            GameObject object = target.get();
+            location = object.getPosition();
+            setPosition(location);
+            location.sub(offset);
         }
     }
 
-    private void updateEffects(float time) {
+    private void updateFrames(float time) {
         for (int index = 0; index < COUNT; index++) {
             float oldTime = times.get(index);
             float newTime = oldTime + time;
@@ -128,7 +129,7 @@ public class FlameShield extends ConjuredAreaEffect
         }
     }
 
-    private void rotateEffects(float time) {
+    private void updateRotations(float time) {
         for (int index = 0; index < COUNT; index++) {
             float increment = SPEED * time;
             float oldRotation = rotations.get(index);
@@ -138,5 +139,11 @@ public class FlameShield extends ConjuredAreaEffect
             }
             rotations.set(index, newRotation);
         }
+    }
+
+    private TextureRegion getFrame(float time) {
+        AnimationFrame frame = animation.getFrame(time);
+        TextureRegionDrawable drawable = (TextureRegionDrawable)frame.getDrawable();
+        return drawable.getRegion();
     }
 }

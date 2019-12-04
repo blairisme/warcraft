@@ -174,6 +174,10 @@ public class AssetBundle
         return assets.containsKey(id);
     }
 
+    protected boolean isSetRegistered(Object id) {
+        return assets.containsKey(id + "-1");
+    }
+
     protected Drawable getDrawable(Object id) {
         AssetDescriptor asset = assets.get(id);
         return TextureUtils.getDrawable(manager, asset.fileName);

@@ -11,7 +11,9 @@ package com.evilbird.warcraft.action.spell.buff;
 
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.action.spell.SpellAction;
+import com.evilbird.warcraft.object.badge.Badge;
 import com.evilbird.warcraft.object.badge.BadgeType;
 import com.evilbird.warcraft.object.common.spell.Spell;
 import com.evilbird.warcraft.object.common.value.BuffValue;
@@ -30,8 +32,8 @@ import java.util.Collection;
  */
 public abstract class BuffSpellAction extends SpellAction
 {
-    private BadgeType badge;
-    private BuffSpellCancel cancel;
+    private BadgeType badgeType;
+    private BuffSpellCancel spellCancel;
 
     public BuffSpellAction(
         Spell spell,
@@ -41,8 +43,8 @@ public abstract class BuffSpellAction extends SpellAction
         BuffSpellCancel cancel)
     {
         super(spell, effect, factory);
-        this.badge = badge;
-        this.cancel = cancel;
+        this.badgeType = badge;
+        this.spellCancel = cancel;
     }
 
     @Override
@@ -56,8 +58,13 @@ public abstract class BuffSpellAction extends SpellAction
     }
 
     protected void setBadge(Combatant target) {
-        if (badge != null) {
-//            target.setEffect((Renderable)factory.get(badge)); //TODO
+        if (badgeType != null) {
+            GameObjectGroup group = target.getParent();
+            Badge badge = (Badge)factory.get(badgeType);
+            group.addObject(badge);
+
+            badge.setTarget(target);
+            target.setEffect(badge);
         }
     }
 
@@ -79,8 +86,8 @@ public abstract class BuffSpellAction extends SpellAction
     }
 
     protected void setBuffCancel(SpellCaster caster, Combatant target) {
-        cancel.setSubject(caster);
-        cancel.setTarget(target);
-        target.addAction(cancel, new GameTimer(spell.getEffectDuration()));
+        spellCancel.setSubject(caster);
+        spellCancel.setTarget(target);
+        target.addAction(spellCancel, new GameTimer(spell.getEffectDuration()));
     }
 }

@@ -11,12 +11,13 @@ package com.evilbird.warcraft.action.spell.attack;
 
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.object.common.spell.Spell;
 import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitType;
-import com.evilbird.warcraft.object.unit.conjured.ConjuredObject;
+import com.evilbird.warcraft.object.unit.conjured.flameshield.FlameShield;
 
 import javax.inject.Inject;
 
@@ -46,12 +47,22 @@ public class FlameShieldSpell extends SpellAction
     private void addEffect() {
         GameObject caster = getSubject();
         Unit target = (Unit)getTarget();
+        setEffect(target);
+        setExpiry(caster, target);
+    }
 
-        ConjuredObject flameShield = (ConjuredObject)factory.get(UnitType.FlameShield);
-//        target.setEffect(flameShield); //TODO
+    private void setEffect(Unit target) {
+        GameObjectGroup group = target.getParent();
+        FlameShield flameShield = (FlameShield)factory.get(UnitType.FlameShield);
+        flameShield.setTarget(target);
 
+        group.addObject(flameShield);
+        target.setEffect(flameShield);
+    }
+
+    private void setExpiry(GameObject caster, Unit target) {
         cancelAction.setSubject(caster);
-        cancelAction.setTarget(flameShield);
-        flameShield.addAction(cancelAction, spell.getEffectDuration());
+        cancelAction.setTarget(target);
+        target.addAction(cancelAction, spell.getEffectDuration());
     }
 }

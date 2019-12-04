@@ -15,7 +15,6 @@ import com.evilbird.engine.action.framework.StateTransitionAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.common.WarcraftFaction;
-import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 

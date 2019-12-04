@@ -128,7 +128,7 @@ public class CombatantAssets extends AssetBundle
     }
 
     public Sound getAttackSound() {
-        return isRegistered("attack-1") ? getSoundEffectSet("attack", 3) : SilentSoundEffect; //TODO
+        return isSetRegistered("attack") ? getSoundEffectSet("attack", 3) : SilentSoundEffect;
     }
 
     public Sound getDieSound() {

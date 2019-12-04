@@ -62,6 +62,7 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     private boolean selectable;
     private GameObjectReference selector;
     private GameObjectReference associate;
+    private GameObjectReference effect;
 
     private transient UnitStyle style;
     private transient Renderable highlight;
@@ -116,7 +117,17 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
         if (associate != null) {
             result.add(associate.get());
         }
+        if (effect != null) {
+            result.add(effect.get());
+        }
         return result;
+    }
+
+    /**
+     * Returns an effect associated with the unit, if any.
+     */
+    public GameObject getEffect() {
+        return effect != null ? effect.get() : null;
     }
 
     /**
@@ -183,7 +194,7 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     }
 
     /**
-     * Sets the units {@link Selector}: a visual guide used by the user to
+     * Returns the units {@link Selector}: a visual guide used by the user to
      * select game objects.
      */
     public Selector getSelector() {
@@ -227,6 +238,13 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
      */
     public void setArmour(Value armour) {
         this.armour = armour;
+    }
+
+    /**
+     * Sets an effect shown for the unit.
+     */
+    public void setEffect(GameObject effect) {
+        this.effect = effect != null ? new GameObjectReference<>(effect) : null;
     }
 
     /**
@@ -387,6 +405,7 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
             .append(selectable, unit.selectable)
             .append(selector, unit.selector)
             .append(associate, unit.associate)
+            .append(effect, unit.effect)
             .isEquals();
     }
 
@@ -403,6 +422,7 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
             .append(selectable)
             .append(selector)
             .append(associate)
+            .append(effect)
             .toHashCode();
     }
 
