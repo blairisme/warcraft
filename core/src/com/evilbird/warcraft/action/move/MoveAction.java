@@ -40,7 +40,7 @@ import static com.evilbird.engine.common.pathing.SpatialUtils.getClosest;
  *
  * @author Blair Butterworth
  */
-abstract class MoveAction extends BasicAction
+public abstract class MoveAction extends BasicAction
 {
     protected Events events;
     protected GameObjectGraph graph;

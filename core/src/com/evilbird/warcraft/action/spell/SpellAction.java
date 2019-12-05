@@ -46,6 +46,10 @@ public abstract class SpellAction extends BasicAction
         this.factory = factory;
     }
 
+    public Spell getSpell() {
+        return spell;
+    }
+
     @Override
     public boolean act(float time) {
         if (!initialized()) {
@@ -122,7 +126,7 @@ public abstract class SpellAction extends BasicAction
     }
 
     protected void load() {
-        SpellCaster caster = (SpellCaster) getSubject();
+        SpellCaster caster = (SpellCaster)getSubject();
         timer = new GameTimer(spell.getCastTime());
         timer.advance(caster.getCastingProgress() * timer.duration());
     }
@@ -132,14 +136,15 @@ public abstract class SpellAction extends BasicAction
     }
 
     protected boolean update() {
-        SpellCaster caster = (SpellCaster) getSubject();
+        SpellCaster caster = (SpellCaster)getSubject();
         caster.setCastingProgress(timer.completion());
         return ActionIncomplete;
     }
 
     protected boolean complete() {
-        SpellCaster caster = (SpellCaster) getSubject();
+        SpellCaster caster = (SpellCaster)getSubject();
         caster.setCastingProgress(1);
+        caster.setCastingSpell(null);
 
         Effect effect = caster.getSpellEffect();
         if (effect != null) {

@@ -83,4 +83,8 @@ public enum Spell
     public float getEffectDuration() {
         return 20;
     }
+
+    public float getCastRange() {
+        return 128f;
+    }
 }
