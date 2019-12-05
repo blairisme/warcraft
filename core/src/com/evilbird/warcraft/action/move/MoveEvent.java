@@ -61,7 +61,6 @@ public class MoveEvent implements Event
     public String toString() {
         return new ToStringBuilder(this)
             .append("subject", subject.getIdentifier())
-            //.append("location", location.getSpatialReference())
             .append("status", status)
             .toString();
     }

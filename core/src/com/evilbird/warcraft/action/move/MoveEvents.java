@@ -11,9 +11,15 @@ package com.evilbird.warcraft.action.move;
 
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.spatial.GameObjectNode;
 
 import javax.inject.Inject;
 
+/**
+ * A helper class for generating move events.
+ *
+ * @author Blair Butterworth
+ */
 public class MoveEvents
 {
     private Events events;
@@ -23,24 +29,24 @@ public class MoveEvents
         this.events = events;
     }
 
-    public void notifyMove(GameObject subject) {
-        notifyMoveUpdated(subject);
-        notifyMoveComplete(subject);
-    }
-
-    public void notifyMoveCancelled(GameObject subject) {
-        events.add(new MoveEvent(subject, MoveStatus.Cancelled));
-    }
-
-    public void notifyMoveComplete(GameObject subject) {
+    public void move(GameObject subject) {
+        events.add(new MoveEvent(subject, MoveStatus.Updated));
         events.add(new MoveEvent(subject, MoveStatus.Complete));
     }
 
-    public void notifyMoveFailed(GameObject subject) {
+    public void moveCancelled(GameObject subject) {
+        events.add(new MoveEvent(subject, MoveStatus.Cancelled));
+    }
+
+    public void moveComplete(GameObject subject) {
+        events.add(new MoveEvent(subject, MoveStatus.Complete));
+    }
+
+    public void moveFailed(GameObject subject) {
         events.add(new MoveEvent(subject, MoveStatus.Failed));
     }
 
-    public void notifyMoveUpdated(GameObject subject) {
-        events.add(new MoveEvent(subject, MoveStatus.Updated));
+    public void moveUpdate(GameObject subject, GameObjectNode node) {
+        events.add(new MoveEvent(subject, node, MoveStatus.Updated));
     }
 }

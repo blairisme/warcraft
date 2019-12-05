@@ -11,7 +11,6 @@ package com.evilbird.warcraft.action.move;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.lang.TextIdentifier;
-import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.test.data.item.TestCombatants;
@@ -48,7 +47,7 @@ public class MoveToItemActionTest extends GameTestCase
         item = TestCombatants.newTestCombatant(new TextIdentifier("moved"), UnitType.Footman, root, player);
         target = TestCombatants.newTestCombatant(new TextIdentifier("destination"), UnitType.Footman, root, player);
 
-        action = new MoveToItemAction(Mockito.mock(EventQueue.class));
+        action = new MoveToItemAction(Mockito.mock(MoveEvents.class));
         action.setSubject(item);
         action.setTarget(target);
     }

@@ -52,7 +52,7 @@ public class MoveAdjacent
             graph.removeOccupants(subject);
             subject.setPosition(unoccupied.getWorldReference());
             graph.addOccupants(subject);
-            events.notifyMove(subject);
+            events.move(subject);
             return true;
         }
         return false;

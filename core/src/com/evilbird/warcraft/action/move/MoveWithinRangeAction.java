@@ -13,7 +13,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.pathing.SpatialUtils;
-import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
@@ -40,7 +39,7 @@ public class MoveWithinRangeAction extends MoveAction
     private ItemPathFilter filter;
 
     @Inject
-    public MoveWithinRangeAction(Events events) {
+    public MoveWithinRangeAction(MoveEvents events) {
         super(events);
         setIdentifier(MoveActions.MoveWithRange);
     }

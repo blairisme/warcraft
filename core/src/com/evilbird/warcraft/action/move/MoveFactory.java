@@ -19,7 +19,7 @@ import javax.inject.Inject;
 
 /**
  * Instances of this class create {@link Action Actions} that instruct a given
- * {@link GameObject} to move to the given target following a path that conforms to
+ * {@link GameObject} to move to a given target following a path that conforms to
  * its movement capability.
  *
  * @author Blair Butterworth

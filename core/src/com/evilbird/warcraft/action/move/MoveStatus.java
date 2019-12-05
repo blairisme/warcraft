@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.move;
 
 /**
- * Specifies the set of options for the state of the training sequence.
+ * Specifies the set of options describing states in the move sequence.
  *
  * @author Blair Butterworth
  */

@@ -87,7 +87,7 @@ public interface Action extends Identifiable
     void reset ();
 
     /**
-     * Sets the state of the action so it can be run again.
+     * Sets the state of the action so that it can be run again.
      */
     void restart();
 

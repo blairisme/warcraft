@@ -12,7 +12,6 @@ package com.evilbird.warcraft.action.move;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectNode;
@@ -36,16 +35,9 @@ public class MoveToVectorAction extends MoveAction
     private Vector2 destination;
 
     @Inject
-    public MoveToVectorAction(Events events) {
+    public MoveToVectorAction(MoveEvents events) {
         super(events);
         setIdentifier(MoveActions.MoveToLocation);
-    }
-
-    @Override
-    public void reset() {
-        super.reset();
-        filter = null;
-        destination = null;
     }
 
     public void setDestination(Vector2 destination) {
@@ -53,7 +45,7 @@ public class MoveToVectorAction extends MoveAction
     }
 
     @Override
-    protected Vector2 getDestination() {
+    public Vector2 getDestination() {
         if (destination == null) {
             GameObject gameObject = getSubject();
             GameObjectContainer root = gameObject.getRoot();
@@ -65,13 +57,13 @@ public class MoveToVectorAction extends MoveAction
     }
 
     @Override
-    protected boolean destinationReached(GameObjectNode node) {
+    public boolean destinationReached(GameObjectNode node) {
         Vector2 destination = getDestination();
         return Objects.equals(node.getWorldReference(), destination);
     }
 
     @Override
-    protected ItemPathFilter getPathFilter() {
+    public ItemPathFilter getPathFilter() {
         if (filter == null) {
             MovableObject item = (MovableObject) getSubject();
             filter = new ItemPathFilter();
@@ -79,5 +71,19 @@ public class MoveToVectorAction extends MoveAction
             filter.addTraversableCapability(item.getMovementCapability());
         }
         return filter;
+    }
+
+    @Override
+    public void reset() {
+        super.reset();
+        filter = null;
+        destination = null;
+    }
+
+    @Override
+    public void restart() {
+        super.restart();
+        filter = null;
+        destination = null;
     }
 }

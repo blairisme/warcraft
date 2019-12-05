@@ -11,13 +11,13 @@ package com.evilbird.warcraft.behaviour.ai.critter;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.collection.CollectionUtils;
-import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
+import com.evilbird.warcraft.action.move.MoveEvents;
 import com.evilbird.warcraft.action.move.MoveToVectorAction;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourElement;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
@@ -44,14 +44,14 @@ public class WanderBehaviour implements AiBehaviourElement
     private static final int MOVE_DISTANCE = 3;
     private static final int MOVE_PERIOD = 1;
 
-    private Events events;
+    private MoveEvents events;
     private Random random;
     private StopWatch timer;
     private List<GameObject> critters;
     private int distance;
 
     @Inject
-    public WanderBehaviour(Events events) {
+    public WanderBehaviour(MoveEvents events) {
         this.events = events;
         this.random = new Random();
         this.timer = new StopWatch();

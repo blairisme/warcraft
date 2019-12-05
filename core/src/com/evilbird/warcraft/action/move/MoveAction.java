@@ -12,7 +12,6 @@ package com.evilbird.warcraft.action.move;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
@@ -42,25 +41,15 @@ import static com.evilbird.engine.common.pathing.SpatialUtils.getClosest;
  */
 public abstract class MoveAction extends BasicAction
 {
-    protected Events events;
-    protected GameObjectGraph graph;
-    protected GameObjectNode waypoint;
-    protected GameObjectNode endpoint;
-    protected ItemNodePath path;
-    protected ListIterator<GameObjectNode> pathIterator;
+    protected transient MoveEvents events;
+    protected transient GameObjectGraph graph;
+    protected transient GameObjectNode waypoint;
+    protected transient GameObjectNode endpoint;
+    protected transient ItemNodePath path;
+    protected transient ListIterator<GameObjectNode> pathIterator;
 
-    public MoveAction(Events events) {
+    public MoveAction(MoveEvents events) {
         this.events = events;
-    }
-
-    @Override
-    public void reset() {
-        path = null;
-    }
-
-    @Override
-    public void restart() {
-        path = null;
     }
 
     @Override
@@ -85,26 +74,51 @@ public abstract class MoveAction extends BasicAction
         return updateWaypoint(gameObject);
     }
 
+    @Override
+    public void reset() {
+        super.reset();
+        path = null;
+        graph = null;
+        waypoint = null;
+        endpoint = null;
+        resetSubject();
+    }
+
+    @Override
+    public void restart() {
+        super.restart();
+        path = null;
+        waypoint = null;
+        endpoint = null;
+        resetSubject();
+    }
+
     protected boolean moveFailed(GameObject gameObject) {
+        resetSubject(gameObject);
         setError(new PathUnknownException(gameObject));
-        events.add(new MoveEvent(gameObject, MoveStatus.Failed));
+        events.moveFailed(gameObject);
         return ActionComplete;
     }
 
     protected boolean moveComplete(GameObject gameObject) {
-        resetItem(gameObject);
-        events.add(new MoveEvent(gameObject, MoveStatus.Complete));
+        updateOccupancy(gameObject);
+        resetSubject(gameObject);
+        events.moveComplete(gameObject);
         return ActionComplete;
     }
 
     protected boolean reinitializePath(GameObject gameObject) {
-        resetItem(gameObject);
+        updateOccupancy(gameObject);
         restart();
         return ActionIncomplete;
     }
 
-    protected void resetItem(GameObject gameObject) {
-        updateOccupancy(gameObject);
+    protected void resetSubject() {
+        GameObject subject = getSubject();
+        resetSubject(subject);
+    }
+
+    protected void resetSubject(GameObject gameObject) {
         if (gameObject instanceof AnimatedObject) {
             AnimatedObject animatedObject = (AnimatedObject) gameObject;
             animatedObject.setAnimation(UnitAnimation.Idle);
@@ -231,7 +245,7 @@ public abstract class MoveAction extends BasicAction
 
     protected boolean updateWaypoint(GameObject gameObject) {
         updateOccupancy(gameObject);
-        events.add(new MoveEvent(gameObject, waypoint, MoveStatus.Updated));
+        events.moveUpdate(gameObject, waypoint);
         waypoint = pathIterator.next();
         graph.addOccupants(waypoint, gameObject);
         return ActionIncomplete;

@@ -11,7 +11,6 @@ package com.evilbird.warcraft.action.move;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.engine.object.spatial.SpatialObject;
@@ -39,7 +38,7 @@ public class MoveToItemAction extends MoveAction
     private ItemPathFilter filter;
 
     @Inject
-    public MoveToItemAction(Events events) {
+    public MoveToItemAction(MoveEvents events) {
         super(events);
         setIdentifier(MoveActions.MoveToItem);
     }

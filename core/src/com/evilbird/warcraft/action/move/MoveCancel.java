@@ -45,7 +45,7 @@ public class MoveCancel extends BasicAction
     public boolean act(float delta) {
         AnimatedObject item = (AnimatedObject) getSubject();
         item.setAnimation(Idle);
-        events.notifyMoveCancelled(item);
+        events.moveCancelled(item);
         return ActionComplete;
     }
 }
