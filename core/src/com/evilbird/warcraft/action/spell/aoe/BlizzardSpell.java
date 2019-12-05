@@ -9,7 +9,8 @@
 
 package com.evilbird.warcraft.action.spell.aoe;
 
-import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.warcraft.action.move.MoveToItemAction;
+import com.evilbird.warcraft.action.spell.SpellSequence;
 import com.evilbird.warcraft.object.common.spell.Spell;
 import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.unit.UnitType;
@@ -17,14 +18,18 @@ import com.evilbird.warcraft.object.unit.UnitType;
 import javax.inject.Inject;
 
 /**
- * A spell that deals damage to all game objects in a given area.
+ * A spell that conjures a blizzard, dealing damage to all game objects in a
+ * given area for a period of time.
  *
  * @author Blair Butterworth
  */
-public class BlizzardSpell extends AoeSpellAction
+public class BlizzardSpell extends SpellSequence
 {
     @Inject
-    public BlizzardSpell(GameObjectFactory factory, AoeSpellCancel cancel) {
-        super(Spell.Blizzard, EffectType.Spell, UnitType.Blizzard, factory, cancel);
+    public BlizzardSpell(AoeSpellAction spell, MoveToItemAction move) {
+        super(spell, move);
+        spell.setSpell(Spell.Blizzard);
+        spell.setEffect(EffectType.Spell);
+        spell.setProduct(UnitType.Blizzard);
     }
 }

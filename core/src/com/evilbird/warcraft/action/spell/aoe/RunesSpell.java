@@ -9,7 +9,8 @@
 
 package com.evilbird.warcraft.action.spell.aoe;
 
-import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.warcraft.action.move.MoveToItemAction;
+import com.evilbird.warcraft.action.spell.SpellSequence;
 import com.evilbird.warcraft.object.common.spell.Spell;
 import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.unit.UnitType;
@@ -22,10 +23,13 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class RunesSpell extends AoeSpellAction
+public class RunesSpell extends SpellSequence
 {
     @Inject
-    public RunesSpell(GameObjectFactory factory, AoeSpellCancel cancel) {
-        super(Spell.Runes, EffectType.Spell, UnitType.RuneTrap, factory, cancel);
+    public RunesSpell(AoeSpellAction spell, MoveToItemAction move) {
+        super(spell, move);
+        spell.setSpell(Spell.Runes);
+        spell.setEffect(EffectType.Spell);
+        spell.setProduct(UnitType.RuneTrap);
     }
 }

@@ -26,7 +26,6 @@ import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.GameObjectReference;
-import com.evilbird.engine.object.spatial.SpatialObject;
 import com.evilbird.warcraft.common.TeamColour;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
@@ -51,7 +50,7 @@ import static com.evilbird.warcraft.object.common.value.FixedValue.Zero;
  *
  * @author Blair Butterworth
  */
-public class Unit extends AnimatedObject implements PerishableObject, SelectableObject, SpatialObject
+public class Unit extends AnimatedObject implements PerishableObject, SelectableObject
 {
     private Value armour;
     private float health;

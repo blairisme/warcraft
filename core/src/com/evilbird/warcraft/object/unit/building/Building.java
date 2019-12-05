@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.renderable.Renderable;
+import com.evilbird.engine.object.spatial.SpatialObject;
 import com.evilbird.warcraft.object.common.resource.ResourceContainer;
 import com.evilbird.warcraft.object.common.resource.ResourceType;
 import com.evilbird.warcraft.object.common.upgrade.Upgrade;
@@ -35,7 +36,7 @@ import static com.evilbird.engine.common.graphics.renderable.EmptyRenderable.Bla
  *
  * @author Blair Butterworth
  */
-public class Building extends Unit implements ResourceContainer, UpgradeContainer
+public class Building extends Unit implements ResourceContainer, UpgradeContainer, SpatialObject
 {
     private float producing;
     private float constructing;

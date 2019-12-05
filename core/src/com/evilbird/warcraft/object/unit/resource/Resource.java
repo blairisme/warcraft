@@ -11,6 +11,7 @@ package com.evilbird.warcraft.object.unit.resource;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.collection.Maps;
+import com.evilbird.engine.object.spatial.SpatialObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.resource.ResourceContainer;
 import com.evilbird.warcraft.object.common.resource.ResourceType;
@@ -31,7 +32,7 @@ import java.util.Map;
  *
  * @author Blair Butterworth
  */
-public class Resource extends Unit implements ResourceContainer
+public class Resource extends Unit implements ResourceContainer, SpatialObject
 {
     private Map<String, Double> resources;
 

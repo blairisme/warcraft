@@ -9,16 +9,16 @@
 
 package com.evilbird.warcraft.action.spell.aoe;
 
-import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
-import com.evilbird.warcraft.object.common.spell.Spell;
 import com.evilbird.warcraft.object.data.player.Player;
-import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.unit.UnitType;
-import com.evilbird.warcraft.object.unit.conjured.ConjuredObject;
+
+import javax.inject.Inject;
+
+import static com.evilbird.engine.common.lang.Alignment.Center;
 
 /**
  * A spell that creates a conjured area of effect object.
@@ -27,19 +27,29 @@ import com.evilbird.warcraft.object.unit.conjured.ConjuredObject;
  */
 public class AoeSpellAction extends SpellAction
 {
-    private UnitType aoeType;
-    private AoeSpellCancel cancelAction;
+    private transient UnitType type;
+    private transient AoeSpellCancel expiry;
 
-    public AoeSpellAction(
-        Spell spell,
-        EffectType castEffect,
-        UnitType aoeType,
-        GameObjectFactory factory,
-        AoeSpellCancel cancelAction)
-    {
-        super(spell, castEffect, factory);
-        this.aoeType = aoeType;
-        this.cancelAction = cancelAction;
+    @Inject
+    public AoeSpellAction(AoeSpellCancel expiry, GameObjectFactory factory) {
+        super(factory);
+        this.expiry = expiry;
+    }
+
+    /**
+     * Returns the AOE game object that will be produced when this spell action
+     * is executed.
+     */
+    public UnitType getProduct() {
+        return type;
+    }
+
+    /**
+     * Sets the AOE game object that will be produced when this spell action
+     * is executed.
+     */
+    public void setProduct(UnitType type) {
+        this.type = type;
     }
 
     @Override
@@ -49,14 +59,14 @@ public class AoeSpellAction extends SpellAction
         GameObject caster = getSubject();
         GameObject selector = getTarget();
 
-        ConjuredObject aoe = (ConjuredObject)factory.get(aoeType);
-        aoe.setPosition(selector.getPosition(Alignment.Center), Alignment.Center);
+        GameObject aoe = factory.get(type);
+        aoe.setPosition(selector.getPosition(Center), Center);
 
         Player player = UnitOperations.getPlayer(caster);
         player.addObject(aoe);
 
-        cancelAction.setSubject(caster);
-        cancelAction.setTarget(aoe);
-        aoe.addAction(cancelAction, spell.getEffectDuration());
+        expiry.setSubject(caster);
+        expiry.setTarget(aoe);
+        aoe.addAction(expiry, spell.getEffectDuration());
     }
 }

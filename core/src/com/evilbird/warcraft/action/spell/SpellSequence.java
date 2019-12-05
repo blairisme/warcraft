@@ -15,8 +15,13 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.move.MoveAction;
 import com.evilbird.warcraft.object.common.spell.Spell;
-import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 
+/**
+ * An {@link Action} implementation that moves a spell caster in range of its
+ * target before casting a spell.
+ *
+ * @author Blair Butterworth
+ */
 public class SpellSequence extends StateTransitionAction
 {
     private SpellAction spellAction;
@@ -32,14 +37,14 @@ public class SpellSequence extends StateTransitionAction
     protected Action nextAction(Action previous) {
         GameObject caster = getSubject();
         GameObject target = getTarget();
-        return nextAction(caster, target);
+        return nextAction(previous, caster, target);
     }
 
-    private Action nextAction(GameObject caster, GameObject target) {
+    private Action nextAction(Action previous, GameObject caster, GameObject target) {
         if (!inCastingRange(caster, target)) {
             return moveAction;
         }
-        if (isCastingSpell(caster)) {
+        if (previous != spellAction) {
             return spellAction;
         }
         return null;
@@ -48,10 +53,5 @@ public class SpellSequence extends StateTransitionAction
     private boolean inCastingRange(GameObject caster, GameObject target) {
         Spell spell = spellAction.getSpell();
         return GameObjectOperations.isNear(caster, spell.getCastRange(), target);
-    }
-
-    private boolean isCastingSpell(GameObject caster) {
-        SpellCaster spellCaster = (SpellCaster)caster;
-        return spellCaster.getCastingSpell() != null;
     }
 }

@@ -87,7 +87,7 @@ public abstract class SpellSelect extends BasicAction
     }
 
     protected void setCastingSpell() {
-        SpellCaster spellCaster = (SpellCaster) getSubject();
+        SpellCaster spellCaster = (SpellCaster)getSubject();
         spellCaster.setCastingSpell(spell);
     }
 

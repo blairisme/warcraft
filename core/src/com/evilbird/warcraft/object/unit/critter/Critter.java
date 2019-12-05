@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.object.unit.critter;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.object.spatial.SpatialObject;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.TerrainType;
@@ -26,7 +27,7 @@ import static com.evilbird.warcraft.object.common.capability.TerrainType.None;
  *
  * @author Blair Butterworth
  */
-public class Critter extends Unit implements MovableObject
+public class Critter extends Unit implements MovableObject, SpatialObject
 {
     private int movementSpeed;
     private TerrainType movementCapability;

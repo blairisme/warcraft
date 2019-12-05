@@ -40,14 +40,44 @@ public abstract class SpellAction extends BasicAction
     protected transient GameTimer timer;
     protected transient GameObjectFactory factory;
 
+    public SpellAction(GameObjectFactory factory) {
+        this.factory = factory;
+    }
+
     public SpellAction(Spell spell, EffectType effect, GameObjectFactory factory) {
         this.spell = spell;
         this.effect = effect;
         this.factory = factory;
     }
 
+    /**
+     * Returns the effect that will be shown on the actions target when the
+     * spell action is executed.
+     */
+    public EffectType getEffect() {
+        return effect;
+    }
+
+    /**
+     * Returns the spell that will be cast when the spell action is executed.
+     */
     public Spell getSpell() {
         return spell;
+    }
+
+    /**
+     * Sets the effect that will be shown on the actions target when the
+     * spell action is executed.
+     */
+    public void setEffect(EffectType effect) {
+        this.effect = effect;
+    }
+
+    /**
+     * Sets the spell that will be cast when the spell action is executed.
+     */
+    public void setSpell(Spell spell) {
+        this.spell = spell;
     }
 
     @Override

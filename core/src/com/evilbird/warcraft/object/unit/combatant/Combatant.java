@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.object.unit.combatant;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.object.spatial.SpatialObject;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
 import com.evilbird.warcraft.object.common.capability.OffensiveCapability;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
@@ -35,7 +36,7 @@ import static com.evilbird.warcraft.object.common.value.FixedValue.Zero;
  *
  * @author Blair Butterworth
  */
-public class Combatant extends Unit implements MovableObject, OffensiveObject
+public class Combatant extends Unit implements MovableObject, OffensiveObject, SpatialObject
 {
     private boolean attackable;
     private Value attackSpeed;

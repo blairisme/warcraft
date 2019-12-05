@@ -9,7 +9,8 @@
 
 package com.evilbird.warcraft.action.spell.aoe;
 
-import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.warcraft.action.move.MoveToItemAction;
+import com.evilbird.warcraft.action.spell.SpellSequence;
 import com.evilbird.warcraft.object.common.spell.Spell;
 import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.unit.UnitType;
@@ -17,14 +18,18 @@ import com.evilbird.warcraft.object.unit.UnitType;
 import javax.inject.Inject;
 
 /**
- * A spell that deals damage to all game objects in a given area.
+ * A spell that conjures death and decay, dealing damage to all game objects in
+ * a given area for a period of time.
  *
  * @author Blair Butterworth
  */
-public class DeathAndDecaySpell extends AoeSpellAction
+public class DeathAndDecaySpell extends SpellSequence
 {
     @Inject
-    public DeathAndDecaySpell(GameObjectFactory factory, AoeSpellCancel cancel) {
-        super(Spell.DeathAndDecay, EffectType.Spell, UnitType.DeathAndDecay, factory, cancel);
+    public DeathAndDecaySpell(AoeSpellAction spell, MoveToItemAction move) {
+        super(spell, move);
+        spell.setSpell(Spell.DeathAndDecay);
+        spell.setEffect(EffectType.Spell);
+        spell.setProduct(UnitType.DeathAndDecay);
     }
 }

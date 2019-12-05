@@ -9,7 +9,8 @@
 
 package com.evilbird.warcraft.action.spell.aoe;
 
-import com.evilbird.engine.object.GameObjectFactory;
+import com.evilbird.warcraft.action.move.MoveToItemAction;
+import com.evilbird.warcraft.action.spell.SpellSequence;
 import com.evilbird.warcraft.object.common.spell.Spell;
 import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.unit.UnitType;
@@ -17,15 +18,18 @@ import com.evilbird.warcraft.object.unit.UnitType;
 import javax.inject.Inject;
 
 /**
- * A spell that deals damage to all game objects in a given area as well as
- * stopping those objects from receiving commands.
+ * A spell that conjures a whirlwind, dealing damage to all game objects in a
+ * given area as well as stopping those objects from receiving commands.
  *
  * @author Blair Butterworth
  */
-public class WhirlwindSpell extends AoeSpellAction
+public class WhirlwindSpell extends SpellSequence
 {
     @Inject
-    public WhirlwindSpell(GameObjectFactory factory, AoeSpellCancel cancel) {
-        super(Spell.Whirlwind, EffectType.Spell, UnitType.Whirlwind, factory, cancel);
+    public WhirlwindSpell(AoeSpellAction spell, MoveToItemAction move) {
+        super(spell, move);
+        spell.setSpell(Spell.Whirlwind);
+        spell.setEffect(EffectType.Spell);
+        spell.setProduct(UnitType.Whirlwind);
     }
 }
