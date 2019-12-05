@@ -36,17 +36,17 @@ public class BuffSpellFactory extends SpellProvider
 {
     @Inject
     public BuffSpellFactory(
-        InjectedPool<BloodlustSpell> bloodlustSpell,
-        InjectedPool<BloodlustSpell> bloodlustSelect,
-        InjectedPool<DeathCoilSpell> deathCoilSpell,
+        InjectedPool<BloodlustSequence> bloodlustSpell,
+        InjectedPool<BloodlustSelect> bloodlustSelect,
+        InjectedPool<DeathCoilSequence> deathCoilSpell,
         InjectedPool<DeathCoilSelect> deathCoilSelect,
-        InjectedPool<HasteSpell> hasteSpell,
+        InjectedPool<HasteSequence> hasteSpell,
         InjectedPool<HasteSelect> hasteSelect,
-        InjectedPool<HealSpell> healSpell,
+        InjectedPool<HealSequence> healSpell,
         InjectedPool<HealSelect> healSelect,
-        InjectedPool<InvisibilitySpell> invisibilitySpell,
+        InjectedPool<InvisibilitySequence> invisibilitySpell,
         InjectedPool<InvisibilitySelect> invisibilitySelect,
-        InjectedPool<SlowSpell> slowSpell,
+        InjectedPool<SlowSequence> slowSpell,
         InjectedPool<SlowSelect> slowSelect)
     {
         addActionPool(BloodlustSpell, bloodlustSpell);

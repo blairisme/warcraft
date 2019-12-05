@@ -32,9 +32,9 @@ public class AttackSpellFactory extends SpellProvider
     public AttackSpellFactory(
         InjectedPool<ExorcismSpell> exorcismSpell,
         InjectedPool<ExorcismSelect> exorcismSelect,
-        InjectedPool<FlameShieldSpell> flameShieldSpell,
+        InjectedPool<FlameShieldSequence> flameShieldSpell,
         InjectedPool<FlameShieldSelect> flameShieldSelect,
-        InjectedPool<UnholyArmourSpell> unholyArmourSpell,
+        InjectedPool<UnholyArmourSequence> unholyArmourSpell,
         InjectedPool<UnholyArmourSelect> unholyArmourSelect)
     {
         addActionPool(ExorcismSpell, exorcismSpell);

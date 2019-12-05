@@ -29,9 +29,9 @@ public class CreatureSpellFactory extends SpellProvider
     @Inject
     public CreatureSpellFactory(
         InjectedPool<EyeOfKilroggSpell> eyeOfKilroggSpell,
-        InjectedPool<PolymorphSpell> polymorphSpell,
+        InjectedPool<PolymorphSequence> polymorphSpell,
         InjectedPool<PolymorphSelect> polymorphSelect,
-        InjectedPool<RaiseDeadSpell> raiseDeadSpell)
+        InjectedPool<RaiseDeadSequence> raiseDeadSpell)
     {
         addActionPool(EyeOfKilroggSpell, eyeOfKilroggSpell);
         addActionPool(PolymorphSpell, polymorphSpell);

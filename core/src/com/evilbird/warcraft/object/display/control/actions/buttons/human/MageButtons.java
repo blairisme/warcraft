@@ -52,7 +52,7 @@ import static java.util.Collections.singletonList;
 public class MageButtons extends BasicButtonController
 {
     private static final List<ActionButtonType> BASIC_BUTTONS =
-        asList(MoveButton, StopButton, LightningButton, FireballButton, BlizzardButton);
+        asList(MoveButton, StopButton, LightningButton, FireballButton);
 
     private static final List<ActionButtonType> CASTING_BUTTONS =
         singletonList(CancelButton);
