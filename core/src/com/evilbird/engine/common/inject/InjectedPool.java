@@ -32,7 +32,13 @@ public class InjectedPool<T> extends Pool<T>
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     protected T newObject() {
-        return provider.get();
+        T result = provider.get();
+        if (result instanceof PooledObject) {
+            PooledObject<T> pooledObject = (PooledObject<T>)result;
+            pooledObject.setPool(this);
+        }
+        return result;
     }
 }

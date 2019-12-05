@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.action.framework;
 
+import com.badlogic.gdx.utils.Pool;
 import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.action.TestBasicAction;
@@ -58,6 +59,7 @@ public class SequenceActionTest
     public void equalsTest() {
         EqualityVerifier.forClass(SequenceAction.class)
             .withMockedTransientFields(GameObject.class)
+            .withMockedType(Pool.class)
             .excludeTransientFields()
             .verify();
     }

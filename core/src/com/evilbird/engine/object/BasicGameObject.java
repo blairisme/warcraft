@@ -90,7 +90,7 @@ public class BasicGameObject implements GameObject
 
     @Override
     public void clearActions() {
-        CollectionUtils.forEach(actions, Action::reset);
+        CollectionUtils.forEach(actions, Action::free);
         actions.clear();
     }
 
@@ -269,8 +269,16 @@ public class BasicGameObject implements GameObject
 
     @Override
     public void update(float time) {
-        CollectionUtils.removeIf(pendingActions, pending -> schedule(pending, time));
-        CollectionUtils.removeIf(actions, action -> action.act(time));
+        CollectionUtils.removeIf(pendingActions, action -> schedule(action, time));
+        CollectionUtils.removeIf(actions, action -> execute(action, time));
+    }
+
+    private boolean execute(Action action, float time) {
+        boolean complete = action.act(time);
+        if (complete) {
+            action.free();
+        }
+        return complete;
     }
 
     private boolean schedule(PendingAction pending, float time) {

@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.action.attack;
 
+import com.badlogic.gdx.utils.Pool;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.verifier.EqualityVerifier;
@@ -38,8 +39,9 @@ public class ProximityAttackTest
     @Test
     public void equalsTest() {
         EqualityVerifier.forClass(ProximityAttack.class)
-                .withMockedTransientFields(GameObject.class)
-                .excludeTransientFields()
-                .verify();
+            .withMockedTransientFields(GameObject.class)
+            .withMockedType(Pool.class)
+            .excludeTransientFields()
+            .verify();
     }
 }

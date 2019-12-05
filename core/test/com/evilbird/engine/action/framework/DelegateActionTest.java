@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.action.framework;
 
+import com.badlogic.gdx.utils.Pool;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.common.lang.GenericIdentifier;
@@ -49,6 +50,7 @@ public class DelegateActionTest
     public void equalsTest() {
         EqualityVerifier.forClass(DelegateAction.class)
             .withMockedTransientFields(GameObject.class)
+            .withMockedType(Pool.class)
             .excludeTransientFields()
             .verify();
     }

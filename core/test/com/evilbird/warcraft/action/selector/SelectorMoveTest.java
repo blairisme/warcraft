@@ -20,6 +20,7 @@ package com.evilbird.warcraft.action.selector;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Pool;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.object.GameObject;
@@ -72,6 +73,7 @@ public class SelectorMoveTest extends GameTestCase
     public void equalsTest() {
         EqualityVerifier.forClass(SelectorMove.class)
             .withMockedTransientFields(GameObject.class)
+            .withMockedType(Pool.class)
             .excludeTransientFields()
             .verify();
     }

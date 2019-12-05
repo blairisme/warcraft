@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.action;
 
-import com.badlogic.gdx.utils.Pool.Poolable;
+import com.evilbird.engine.common.inject.PooledObject;
 import com.evilbird.engine.common.lang.Identifiable;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
@@ -24,7 +24,7 @@ import com.google.gson.annotations.JsonAdapter;
  * @author Blair Butterworth
  */
 @JsonAdapter(ActionAdapter.class)
-public interface Action extends Identifiable, Poolable
+public interface Action extends Identifiable
 {
     /**
      * Updates the Action based on time. Typically this is called each frame by
@@ -36,9 +36,10 @@ public interface Action extends Identifiable, Poolable
     boolean act(float delta);
 
     /**
-     * Sets the state of the action so it can be run again.
+     * Frees any resources held by the action. If the action is a
+     * {@link PooledObject} then the action is returned to the pool.
      */
-    void restart();
+    void free();
 
     /**
      * Returns the {@link GameObject} that the Action will operate on.
@@ -78,6 +79,17 @@ public interface Action extends Identifiable, Poolable
      * @return {@code true} if an error occurred during Action execution.
      */
     boolean hasError();
+
+    /**
+     * Resets the object for reuse. Object references should be set to
+     * {@code null} and fields may be set to default values.
+     */
+    void reset ();
+
+    /**
+     * Sets the state of the action so it can be run again.
+     */
+    void restart();
 
     /**
      * Sets the {@link GameObject} that the Action will operate on.

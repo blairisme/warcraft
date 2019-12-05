@@ -9,8 +9,10 @@
 
 package com.evilbird.engine.action.framework;
 
+import com.badlogic.gdx.utils.Pool;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionException;
+import com.evilbird.engine.common.inject.PooledObject;
 import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
@@ -27,42 +29,24 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  * @author Blair Butterworth
  */
-public abstract class BasicAction implements Action
+public abstract class BasicAction implements Action, PooledObject<Action>
 {
     private Identifier identifier;
     private ActionException error;
     private UserInput cause;
     private GameObjectReference item;
     private GameObjectReference target;
+    private transient Pool<Action> pool;
 
     public BasicAction() {
     }
 
-    public void reset() {
-        error = null;
-    }
-
     @Override
-    public void restart() {
-        error = null;
-    }
-
-    @Override
-    public GameObject getSubject() {
-        return item != null ? item.get() : null;
-    }
-
-    public GameObjectReference getItemReference() {
-        return item;
-    }
-
-    @Override
-    public GameObject getTarget() {
-        return target != null ? target.get() : null;
-    }
-
-    public GameObjectReference getTargetReference() {
-        return target;
+    public void free() {
+        Pool<Action> pool = getPool();
+        if (pool != null) {
+            pool.free(this);
+        }
     }
 
     @Override
@@ -84,8 +68,40 @@ public abstract class BasicAction implements Action
     }
 
     @Override
+    public Pool<Action> getPool() {
+        return pool;
+    }
+
+    @Override
+    public GameObject getSubject() {
+        return item != null ? item.get() : null;
+    }
+
+    public GameObjectReference getItemReference() {
+        return item;
+    }
+
+    @Override
+    public GameObject getTarget() {
+        return target != null ? target.get() : null;
+    }
+
+    public GameObjectReference getTargetReference() {
+        return target;
+    }
+
+    @Override
     public boolean hasError() {
         return getError() != null;
+    }
+
+    public void reset() {
+        error = null;
+    }
+
+    @Override
+    public void restart() {
+        error = null;
     }
 
     @Override
@@ -94,8 +110,13 @@ public abstract class BasicAction implements Action
     }
 
     @Override
+    public void setPool(Pool<Action> pool) {
+        this.pool = pool;
+    }
+
+    @Override
     public void setSubject(GameObject gameObject) {
-        this.item = gameObject != null ? new GameObjectReference(gameObject) : null;
+        this.item = gameObject != null ? new GameObjectReference<>(gameObject) : null;
     }
 
     public void setSubjectReference(GameObjectReference reference) {
@@ -104,7 +125,7 @@ public abstract class BasicAction implements Action
 
     @Override
     public void setTarget(GameObject target) {
-        this.target = target != null ? new GameObjectReference(target) : null;
+        this.target = target != null ? new GameObjectReference<>(target) : null;
     }
 
     public void setTargetReference(GameObjectReference reference) {

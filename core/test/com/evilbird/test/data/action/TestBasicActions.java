@@ -10,8 +10,8 @@
 package com.evilbird.test.data.action;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionException;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
@@ -23,12 +23,12 @@ public class TestBasicActions
     private TestBasicActions() {
     }
 
-    public static Action newBasicAction() {
+    public static BasicAction newBasicAction() {
         return newBasicAction(MoveActions.MoveToItem);
     }
 
-    public static Action newBasicAction(Identifier identifier) {
-        Action action = new TestBasicAction();
+    public static BasicAction newBasicAction(Identifier identifier) {
+        BasicAction action = new TestBasicAction();
         action.setSubject(TestItems.newItem("1"));
         action.setTarget(TestItems.newItem("2"));
         action.setCause(new UserInput(UserInputType.Action, Vector2.Zero, 1));

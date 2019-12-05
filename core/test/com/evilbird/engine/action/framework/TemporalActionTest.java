@@ -9,6 +9,7 @@
 
 package com.evilbird.engine.action.framework;
 
+import com.badlogic.gdx.utils.Pool;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.verifier.EqualityVerifier;
 import org.junit.Before;
@@ -34,8 +35,9 @@ public class TemporalActionTest
     @Test
     public void equalsTest() {
         EqualityVerifier.forClass(TemporalAction.class)
-                .withMockedTransientFields(GameObject.class)
-                .excludeTransientFields()
-                .verify();
+            .withMockedTransientFields(GameObject.class)
+            .withMockedType(Pool.class)
+            .excludeTransientFields()
+            .verify();
     }
 }

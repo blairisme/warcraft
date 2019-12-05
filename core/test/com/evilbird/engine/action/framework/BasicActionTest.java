@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.action.framework;
 
-import com.evilbird.engine.action.Action;
+import com.badlogic.gdx.utils.Pool;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.action.TestBasicAction;
 import com.evilbird.test.data.action.TestBasicActions;
@@ -24,25 +24,18 @@ import org.junit.Test;
  */
 public class BasicActionTest
 {
-    private Action action;
+    private BasicAction action;
 
     @Before
     public void setup() {
         action = TestBasicActions.newBasicAction();
     }
 
-//    @Test
-//    public void serializeTest() throws IOException {
-//        SerializationVerifier.forClass(TestBasicAction.class)
-//            .withDeserializedForm(action)
-//            .withSerializedResource("/action/framework/basicaction.json")
-//            .verify();
-//    }
-
     @Test
     public void equalsTest() {
         EqualityVerifier.forClass(TestBasicAction.class)
             .withMockedTransientFields(GameObject.class)
+            .withMockedType(Pool.class)
             .excludeTransientFields()
             .verify();
     }
