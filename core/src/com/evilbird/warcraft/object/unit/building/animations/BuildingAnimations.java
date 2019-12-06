@@ -63,7 +63,7 @@ public class BuildingAnimations extends AnimationCatalog
         buildingSite(construction, size);
         buildingUpgrade(base, size);
         construction(base, construction, size, time);
-        destruction(destruction, size);
+        destruction(destruction);
         damage(lightDamage, heavyDamage);
     }
 
@@ -117,11 +117,11 @@ public class BuildingAnimations extends AnimationCatalog
                 .reversed();
     }
 
-    private void destruction(Texture destruction, GridPoint2 size) {
+    private void destruction(Texture destruction) {
         animation(Death)
             .withTexture(destruction)
             .withSequence(0, 1)
-            .withSize(size)
+            .withSize(destruction.getWidth(), destruction.getWidth())
             .withInterval(10f)
             .singleDirection()
             .notLooping();
