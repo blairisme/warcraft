@@ -26,6 +26,8 @@ import java.util.Map.Entry;
  */
 public class AnimationLayoutBuilder
 {
+    private static final int BLANK_FRAME = -1;
+
     private int width;
     private int height;
     private int directions;
@@ -48,6 +50,14 @@ public class AnimationLayoutBuilder
         return new AnimationLayout(getFrames(sequences, width, height), interval, looping);
     }
 
+    public void addSequence(int start, int count) {
+        this.sequences.put(start, count);
+    }
+
+    public void addBlankFrame() {
+        this.sequences.put(BLANK_FRAME, 0);
+    }
+
     public void setDirections(int directions) {
         this.directions = directions;
     }
@@ -68,19 +78,22 @@ public class AnimationLayoutBuilder
         this.width = width;
         this.height = height;
     }
-    
-    public void addSequence(int start, int count) {
-        sequences.put(start, count);
-    }
 
     private Map<Range<Float>, List<Rectangle>> getFrames(Map<Integer, Integer> sequences, int width, int height) {
         Map<Range<Float>, List<Rectangle>> result = new HashMap<>(sequences.size());
         for (Entry<Integer, Integer> sequence: sequences.entrySet()) {
             int start = sequence.getValue();
             int count = sequence.getKey();
-            List<List<Rectangle>> regions = getRegions(directions, start, 0, count, width, height, reversed);
-            Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
-            result = combineFrames(result, frames);
+
+            if (count != BLANK_FRAME) {
+                List<List<Rectangle>> regions = getRegions(directions, start, 0, count, width, height, reversed);
+                Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
+                result = combineFrames(result, frames);
+            } else {
+                List<List<Rectangle>> regions = getRegions(directions, 1, 0, 0, 1, 1, reversed);
+                Map<Range<Float>, List<Rectangle>> frames = getFrames(regions);
+                result = combineFrames(result, frames);
+            }
         }
         return result;
     }

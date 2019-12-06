@@ -94,6 +94,11 @@ public class AnimationCatalogEntry implements AnimationCatalogProvider
         return this;
     }
 
+    public AnimationCatalogEntry withBlankFrame() {
+        layoutBuilder.addBlankFrame();
+        return this;
+    }
+
     public AnimationCatalogEntry withSize(GridPoint2 size) {
         layoutBuilder.setSize(size.x, size.y);
         return this;

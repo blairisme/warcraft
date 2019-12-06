@@ -30,6 +30,7 @@ public class ExplosionAnimations extends AnimationCatalog
         animation(Idle)
             .withTexture(texture)
             .withSequence(0, 16)
+            .withBlankFrame()
             .withSize(SIZE)
             .withInterval(0.15f)
             .singleDirection()
