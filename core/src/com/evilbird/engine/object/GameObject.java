@@ -31,7 +31,7 @@ import java.util.Collection;
  * @author Blair Butterworth
  */
 @JsonAdapter(GameObjectSerializer.class)
-public interface GameObject extends Identifiable, Positionable, Disablable, Visible
+public interface GameObject extends Identifiable<Identifier>, Positionable, Disablable, Visible
 {
     /**
      * Assigns an {@link Action} to the game object, a "bundle" of behaviour
@@ -48,9 +48,12 @@ public interface GameObject extends Identifiable, Positionable, Disablable, Visi
     void addAction(Action action, float delay);
 
     /**
-     * Removes the {@link Action Actions} assigned to the game object.
+     * Determines if the game object has currently been assigned an
+     * {@link Action}.
+     *
+     * @return {@code true} if the game object has an assigned Action.
      */
-    void clearActions();
+    boolean hasActions();
 
     /**
      * Returns the {@link Action Actions} assigned to the game object.
@@ -59,14 +62,6 @@ public interface GameObject extends Identifiable, Positionable, Disablable, Visi
      *          {@code null}.
      */
     Collection<Action> getActions();
-
-    /**
-     * Determines if the game object has currently been assigned an
-     * {@link Action}.
-     *
-     * @return {@code true} if the game object has an assigned Action.
-     */
-    boolean hasActions();
 
     /**
      * Returns the unique {@link Identifier} of the game object.
@@ -185,6 +180,16 @@ public interface GameObject extends Identifiable, Positionable, Disablable, Visi
      * @return a positive integer.
      */
     int getZIndex();
+
+    /**
+     * Removes the {@link Action Actions} assigned to the game object.
+     */
+    void removeActions();
+
+    /**
+     * Removes the given {@link Action} if assigned to the game object.
+     */
+    void removeAction(Action action);
 
     /**
      * Sets the unique {@link Identifier} of the game object.

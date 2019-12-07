@@ -17,8 +17,8 @@ import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
-import com.evilbird.warcraft.action.common.remove.RemoveEvents;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
+import com.evilbird.warcraft.action.death.RemoveEvents;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.common.production.ProductionCosts;
 import com.evilbird.warcraft.object.common.resource.ResourceSet;
@@ -151,7 +151,7 @@ public class ConstructBuilding extends BasicAction
     private void removeItem(GameObject gameObject) {
         GameObjectGroup parent = gameObject.getParent();
         parent.removeObject(gameObject);
-        removeEvents.notifyRemove(gameObject);
+        removeEvents.objectRemoved(gameObject);
     }
 
     private UnitType getBuilding(GameObject selector) {

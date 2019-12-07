@@ -18,7 +18,7 @@ import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.data.item.TestItemRoots;
 import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.test.testcase.GameTestCase;
-import com.evilbird.warcraft.action.common.remove.RemoveEvent;
+import com.evilbird.warcraft.action.death.RemoveEvent;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
 import org.junit.Assert;

@@ -7,21 +7,20 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.common.remove;
+package com.evilbird.warcraft.action.death;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
-import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
-import com.evilbird.warcraft.action.selection.SelectEvent;
+import com.evilbird.warcraft.action.selection.SelectEvents;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
@@ -52,21 +51,24 @@ public class DeathAction extends BasicAction
     private static final float DEATH_TIME = 1;
     private static final float DECOMPOSE_TIME = 30;
 
-    private Events events;
     private GameTimer deathTimer;
     private GameTimer decomposeTimer;
     private GameObjectFactory factory;
     private WarcraftPreferences preferences;
+    private SelectEvents selectEvents;
+    private RemoveEvents removeEvents;
 
     @Inject
     public DeathAction(
-        Events events,
+        SelectEvents selectEvents,
+        RemoveEvents removeEvents,
         GameObjectFactory factory,
         WarcraftPreferences preferences)
     {
-        this.events = events;
         this.factory = factory;
         this.preferences = preferences;
+        this.selectEvents = selectEvents;
+        this.removeEvents = removeEvents;
     }
 
     @Override
@@ -108,12 +110,21 @@ public class DeathAction extends BasicAction
 
     private boolean initialize() {
         PerishableObject subject = (PerishableObject) getSubject();
+//        initializeActions(subject);
         initializeVisuals(subject);
         initializeSelection(subject);
         initializeGraph(subject);
         initializeTimers(subject);
         initializeAssociation(subject);
         return ActionIncomplete;
+    }
+
+    private void initializeActions(PerishableObject subject) {
+        for (Action action: subject.getActions()) {
+            if (action != this) {
+                subject.removeAction(action);
+            }
+        }
     }
 
     private void initializeVisuals(PerishableObject subject) {
@@ -138,7 +149,6 @@ public class DeathAction extends BasicAction
         if (subject.hasAnimation(Death)) {
             subject.setAnimation(Death);
             subject.setSound(Die, preferences.getEffectsVolume());
-            subject.setTouchable(Touchable.disabled);
             subject.setZIndex(0);
         }
     }
@@ -155,11 +165,12 @@ public class DeathAction extends BasicAction
     }
 
     private void initializeSelection(PerishableObject subject) {
+        subject.setTouchable(Touchable.disabled);
         if (subject instanceof SelectableObject) {
             SelectableObject selectable = (SelectableObject)subject;
             selectable.setSelected(false);
             selectable.setSelectable(false);
-            events.add(new SelectEvent(selectable, false));
+            selectEvents.selectionUpdated(selectable, false);
         }
     }
 
@@ -236,7 +247,7 @@ public class DeathAction extends BasicAction
         if (gameObject != null) {
             GameObjectGroup parent = gameObject.getParent();
             parent.removeObject(gameObject);
-            events.add(new RemoveEvent(gameObject));
+            removeEvents.objectRemoved(gameObject);
         }
     }
 

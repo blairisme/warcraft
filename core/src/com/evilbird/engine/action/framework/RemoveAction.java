@@ -7,10 +7,9 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.common.remove;
+package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectGroup;
 

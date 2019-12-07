@@ -142,8 +142,8 @@ public class ConstructUpgrade extends BasicAction
             building.setSelected(false);
             improvement.setSelected(true);
 
-            selectEvents.notifySelected(building, false);
-            selectEvents.notifySelected(improvement, true);
+            selectEvents.selectionUpdated(building, false);
+            selectEvents.selectionUpdated(improvement, true);
         }
         constructEvents.notifyConstructComplete(improvement);
         return ActionComplete;

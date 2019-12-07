@@ -11,7 +11,6 @@ package com.evilbird.warcraft.action.selection;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
@@ -19,9 +18,7 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.test.testcase.ActionTestCase;
-import com.evilbird.warcraft.action.selector.SelectorActions;
 import com.evilbird.warcraft.action.selector.SelectorArea;
-import com.evilbird.warcraft.object.unit.Unit;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -84,25 +81,25 @@ public class SelectorAreaTest extends ActionTestCase
         assertEquals(new Vector2(30, 30), box.getSize());
     }
 
-    @Test
-    public void removeTest() {
-        Unit unit = (Unit) gameObject;
-        unit.setPosition(30, 30);
-        unit.setSize(10, 10);
-        unit.setSelected(false);
-        unit.setSelectable(true);
-        unit.setTouchable(Touchable.enabled);
-        gameObject.getRoot().addObject(gameObject);
-
-        Vector2 input1 = new Vector2(35, toScreen(35));
-        Vector2 input2 = new Vector2(50, toScreen(50));
-
-        action.setIdentifier(SelectorActions.HideAreaSelector);
-        action.setCause(new UserInput(UserInputType.PressUp, input1, input2, 1));
-
-        assertTrue(action.act(1));
-        assertTrue(unit.getSelected());
-    }
+//    @Test
+//    public void removeTest() {
+//        Unit unit = (Unit)gameObject;
+//        unit.setPosition(30, 30);
+//        unit.setSize(10, 10);
+//        unit.setSelected(false);
+//        unit.setSelectable(true);
+//        unit.setTouchable(Touchable.enabled);
+//        gameObject.getRoot().addObject(gameObject);
+//
+//        Vector2 input1 = new Vector2(35, toScreen(35));
+//        Vector2 input2 = new Vector2(50, toScreen(50));
+//
+//        action.setIdentifier(SelectorActions.HideAreaSelector);
+//        action.setCause(new UserInput(UserInputType.PressUp, input1, input2, 1));
+//
+//        assertTrue(action.act(1));
+//        assertTrue(unit.getSelected());
+//    }
 
     private GameObject getSelectionBox() {
         GameObjectContainer root = gameObject.getRoot();

@@ -53,7 +53,7 @@ public abstract class ActionTestCase extends GameTestCase
         gameObject = newItem();
         target = newTarget();
         cause = newCause();
-        player = (Player) gameObject.getParent();
+        player = (Player)gameObject.getParent();
 
         action = newAction();
         action.setSubject(gameObject);

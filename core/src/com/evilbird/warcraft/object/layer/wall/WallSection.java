@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.object.spatial.SpatialObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.TerrainType;
+import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.layer.LayerGroupCell;
 import com.evilbird.warcraft.object.layer.LayerType;
 
@@ -50,11 +51,17 @@ public class WallSection extends LayerGroupCell implements PerishableObject, Spa
         return getValue();
     }
 
+    /**
+     * Returns the team the {@code WallSection} belongs to.
+     */
     @Override
-    public int getTeam() {
-        return -1;
+    public Player getTeam() {
+        return null;
     }
 
+    /**
+     * Returns the type of terrain the {@code WallSection} resides in.
+     */
     @Override
     public TerrainType getTerrainType() {
         return TerrainType.Land;
@@ -66,7 +73,7 @@ public class WallSection extends LayerGroupCell implements PerishableObject, Spa
      */
     @Override
     public boolean isAttackable() {
-        return true;
+        return false;
     }
 
     /**

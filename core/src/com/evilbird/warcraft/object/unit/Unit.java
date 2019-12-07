@@ -25,6 +25,7 @@ import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.engine.object.GameObjectReference;
 import com.evilbird.warcraft.common.TeamColour;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
@@ -34,6 +35,7 @@ import com.evilbird.warcraft.object.common.value.FixedValue;
 import com.evilbird.warcraft.object.common.value.Value;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.selector.Selector;
+import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -201,12 +203,11 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     }
 
     /**
-     * Returns the team number of the {@code Unit Units} owner.
+     * Returns the team the {@code Unit} belongs to.
      */
     @Override
-    public int getTeam() {
-        Player player = (Player)getParent();
-        return player != null ? player.getTeam() : -1;
+    public Player getTeam() {
+        return (Player)getParent();
     }
 
     /**
@@ -266,6 +267,12 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
      */
     public void setHighlighted(boolean highlighted) {
         this.highlighted = highlighted;
+    }
+
+    @Override
+    public void setParent(GameObjectGroup parent) {
+        Validate.isInstanceOf(Player.class, parent);
+        super.setParent(parent);
     }
 
     /**

@@ -34,7 +34,7 @@ public class DeselectAction extends BasicAction
         SelectableObject selectable = (SelectableObject) getSubject();
         if (selectable.getSelected()) {
             selectable.setSelected(false);
-            events.notifySelected(selectable, false);
+            events.selectionUpdated(selectable, false);
         }
         return true;
     }

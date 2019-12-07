@@ -28,7 +28,7 @@ public class SelectEvents
         this.events = events;
     }
 
-    public void notifySelected(GameObject gameObject, boolean selected) {
+    public void selectionUpdated(GameObject gameObject, boolean selected) {
         events.add(new SelectEvent(gameObject, selected));
     }
 }

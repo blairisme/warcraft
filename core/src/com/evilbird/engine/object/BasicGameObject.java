@@ -89,19 +89,13 @@ public class BasicGameObject implements GameObject
     }
 
     @Override
-    public void clearActions() {
-        CollectionUtils.forEach(actions, Action::free);
-        actions.clear();
+    public boolean hasActions() {
+        return !actions.isEmpty();
     }
 
     @Override
     public Collection<Action> getActions() {
         return Collections.unmodifiableList(actions);
-    }
-
-    @Override
-    public boolean hasActions() {
-        return !actions.isEmpty();
     }
 
     @Override
@@ -179,6 +173,18 @@ public class BasicGameObject implements GameObject
     @Override
     public int getZIndex() {
         return index;
+    }
+
+    @Override
+    public void removeActions() {
+        CollectionUtils.forEach(actions, Action::free);
+        actions.clear();
+    }
+
+    @Override
+    public void removeAction(Action action) {
+        action.free();
+        actions.remove(action);
     }
 
     @Override

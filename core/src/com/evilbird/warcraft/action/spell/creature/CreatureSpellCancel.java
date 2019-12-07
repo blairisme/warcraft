@@ -12,7 +12,7 @@ package com.evilbird.warcraft.action.spell.creature;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectGroup;
-import com.evilbird.warcraft.action.common.remove.RemoveEvents;
+import com.evilbird.warcraft.action.death.RemoveEvents;
 
 import javax.inject.Inject;
 
@@ -37,7 +37,7 @@ public class CreatureSpellCancel extends BasicAction
         GameObject creature = getTarget();
         GameObjectGroup parent = creature.getParent();
         parent.removeObject(creature);
-        removeEvents.notifyRemove(creature);
+        removeEvents.objectRemoved(creature);
         return ActionComplete;
     }
 }

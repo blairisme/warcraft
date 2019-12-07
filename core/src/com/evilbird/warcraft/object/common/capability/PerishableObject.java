@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.object.common.capability;
 
 import com.evilbird.engine.object.GameObject;
+import com.evilbird.warcraft.object.data.player.Player;
 
 /**
  * Implementors of this interface represent an object that can be destroyed.
@@ -30,10 +31,9 @@ public interface PerishableObject extends GameObject
     float getHealth();
 
     /**
-     * Returns the team number of the {@code PerishableObject PerishableObjects}
-     * owner.
+     * Returns the team the {@code PerishableObject} belongs to.
      */
-    int getTeam();
+    Player getTeam();
 
     /**
      * Returns the type of terrain the {@code PerishableObject} resides in.
@@ -73,8 +73,10 @@ public interface PerishableObject extends GameObject
      * Returns whether the given {@code PerishableObject} is an enemy.
      */
     default boolean isEnemy(PerishableObject other) {
-        int thisTeam = this.getTeam();
-        int otherTeam = other.getTeam();
-        return thisTeam != otherTeam;
+        Player playerA = this.getTeam();
+        Player playerB = other.getTeam();
+        int teamA = playerA != null ? playerA.getTeam() : -1;
+        int teamB = playerB != null ? playerB.getTeam() : -1;
+        return teamA != teamB;
     }
 }

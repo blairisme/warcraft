@@ -9,11 +9,12 @@
 
 package com.evilbird.warcraft.action.common.death;
 
-import com.evilbird.engine.events.EventQueue;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
-import com.evilbird.warcraft.action.common.remove.DeathAction;
+import com.evilbird.warcraft.action.death.DeathAction;
+import com.evilbird.warcraft.action.death.RemoveEvents;
+import com.evilbird.warcraft.action.selection.SelectEvents;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
@@ -37,15 +38,17 @@ import static com.evilbird.warcraft.object.unit.UnitSound.Ready;
 public class DeathActionTest extends GameTestCase
 {
     private DeathAction action;
-    private EventQueue events;
+    private SelectEvents selectEvents;
+    private RemoveEvents removeEvents;
     private WarcraftPreferences preferences;
 
     @Before
     public void setup() {
         super.setup();
         preferences = Mockito.mock(WarcraftPreferences.class);
-        events = new EventQueue();
-        action = new DeathAction(events, objectFactory, preferences);
+        selectEvents = Mockito.mock(SelectEvents.class);
+        removeEvents = Mockito.mock(RemoveEvents.class);
+        action = new DeathAction(selectEvents, removeEvents, objectFactory, preferences);
     }
 
     @Test

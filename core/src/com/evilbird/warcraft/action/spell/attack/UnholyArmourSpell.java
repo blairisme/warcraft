@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.spell.attack;
 
 import com.evilbird.engine.object.GameObjectFactory;
-import com.evilbird.warcraft.action.common.remove.DeathAction;
+import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.object.common.value.AbsoluteBuffValue;
 import com.evilbird.warcraft.object.common.value.Value;

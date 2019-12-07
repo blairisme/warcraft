@@ -187,7 +187,7 @@ public class InteractionDefinition implements Interaction
         Objects.requireNonNull(displacement);
         return appliedAs((subject, actions) -> {
             if (displacement == Replacement) {
-                subject.clearActions();
+                subject.removeActions();
                 CollectionUtils.forEach(actions, subject::addAction);
             }
             else if (displacement == Addition) {

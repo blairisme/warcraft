@@ -115,7 +115,7 @@ public class InteractionContainer
                     GameObject parent = subject.getParent();
                     parent.addAction(action);
                 } else {
-                    subject.clearActions();
+                    subject.removeActions();
                     subject.addAction(action);
                 }
             }

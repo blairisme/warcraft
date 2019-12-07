@@ -11,6 +11,7 @@ package com.evilbird.warcraft.behaviour.ai.attack;
 
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
+import com.evilbird.warcraft.object.data.player.Player;
 
 import static com.evilbird.warcraft.object.common.capability.OffensivePlurality.Individual;
 
@@ -44,12 +45,25 @@ public class AttackStatus
         return target.isAlive()
             && target.isAttackable()
             && target.isEnemy(attacker)
+            && !isNeutral(target)
             && attacker.isAlive()
             && attacker.isAttackPossible(target)
-            && isAttackerIdle(attacker);
+            && isAttackerIdle(attacker)
+            && !isNeutral(attacker)
+            && !isCapturable(attacker);
     }
 
     private static boolean isAttackerIdle(OffensiveObject attacker) {
         return attacker.getAttackPlurality() != Individual || !attacker.hasActions();
+    }
+
+    private static boolean isNeutral(PerishableObject target) {
+        Player player = target.getTeam();
+        return player != null && player.isNeutral();
+    }
+
+    private static boolean isCapturable(PerishableObject target) {
+        Player player = target.getTeam();
+        return player != null && player.isCapturable();
     }
 }

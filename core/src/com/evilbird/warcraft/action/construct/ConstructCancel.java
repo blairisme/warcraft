@@ -11,8 +11,8 @@ package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
-import com.evilbird.warcraft.action.common.remove.DeathAction;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
+import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.object.common.production.ProductionCosts;
 import com.evilbird.warcraft.object.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.object.data.player.Player;
@@ -89,7 +89,7 @@ public class ConstructCancel extends DelegateAction
 
     private void configureBuilder(Gatherer builder, Building building) {
         builder.setConstruction(null);
-        builder.clearActions();
+        builder.removeActions();
 
         if (!builder.getVisible()) {
             exclusion.restore(builder);

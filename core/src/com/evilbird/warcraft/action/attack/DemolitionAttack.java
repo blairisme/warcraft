@@ -12,8 +12,8 @@ package com.evilbird.warcraft.action.attack;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.object.GameObjectGroup;
-import com.evilbird.warcraft.action.common.remove.DeathAction;
-import com.evilbird.warcraft.action.common.remove.RemoveEvents;
+import com.evilbird.warcraft.action.death.DeathAction;
+import com.evilbird.warcraft.action.death.RemoveEvents;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.action.selection.SelectEvents;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
@@ -109,7 +109,7 @@ public class DemolitionAttack extends AttackSequence
     private void killAttacker(OffensiveObject attacker) {
         GameObjectGroup parent = attacker.getParent();
         parent.removeObject(attacker);
-        removeEvents.notifyRemove(attacker);
+        removeEvents.objectRemoved(attacker);
     }
 
     protected void disableAttacker(OffensiveObject attacker) {
@@ -118,7 +118,7 @@ public class DemolitionAttack extends AttackSequence
             combatant.setSelected(false);
             combatant.setSelectable(false);
             combatant.setTouchable(Touchable.disabled);
-            selectEvents.notifySelected(combatant, false);
+            selectEvents.selectionUpdated(combatant, false);
         }
     }
 }

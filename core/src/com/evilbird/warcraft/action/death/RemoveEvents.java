@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.action.common.remove;
+package com.evilbird.warcraft.action.death;
 
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
@@ -28,7 +28,7 @@ public class RemoveEvents
         this.events = events;
     }
 
-    public void notifyRemove(GameObject gameObject) {
+    public void objectRemoved(GameObject gameObject) {
         events.add(new RemoveEvent(gameObject));
     }
 }

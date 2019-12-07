@@ -41,13 +41,6 @@ public class GroupDecorator extends Group
     }
 
     @Override
-    protected void drawChildren(Batch batch, float parentAlpha) {
-        objectGroup.drawChildrenBegin(batch, parentAlpha);
-        super.drawChildren(batch, parentAlpha);
-        objectGroup.drawChildrenEnd(batch, parentAlpha);
-    }
-
-    @Override
     public void positionChanged() {
         objectGroup.positionChanged();
     }

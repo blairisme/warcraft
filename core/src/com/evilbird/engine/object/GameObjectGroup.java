@@ -9,7 +9,6 @@
 
 package com.evilbird.engine.object;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -297,12 +296,6 @@ public class GameObjectGroup extends BasicGameObject implements GameObjectCompos
             }
         }
         return result;
-    }
-
-    public void drawChildrenBegin(Batch batch, float alpha) {
-    }
-
-    public void drawChildrenEnd(Batch batch, float alpha) {
     }
 
     @Override

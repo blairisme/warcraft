@@ -46,7 +46,7 @@ public class ItemExclusion
     public void disable(Unit item) {
         if (item.getSelected()) {
             item.setSelected(false);
-            events.notifySelected(item, false);
+            events.selectionUpdated(item, false);
         }
         item.setVisible(false);
         item.setSelectable(false);

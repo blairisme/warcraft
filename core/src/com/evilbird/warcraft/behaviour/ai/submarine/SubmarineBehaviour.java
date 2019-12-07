@@ -19,7 +19,7 @@ import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.attack.AttackActions;
 import com.evilbird.warcraft.action.attack.AttackEvent;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
-import com.evilbird.warcraft.action.common.remove.RemoveEvent;
+import com.evilbird.warcraft.action.death.RemoveEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourElement;
 import com.evilbird.warcraft.object.common.query.UnitOperations;

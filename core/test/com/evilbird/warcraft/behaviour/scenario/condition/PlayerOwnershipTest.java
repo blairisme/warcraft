@@ -20,7 +20,7 @@ import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.data.item.TestItemRoots;
 import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.test.testcase.GameTestCase;
-import com.evilbird.warcraft.action.common.remove.RemoveEvent;
+import com.evilbird.warcraft.action.death.RemoveEvent;
 import com.evilbird.warcraft.action.construct.ConstructEvent;
 import com.evilbird.warcraft.action.construct.ConstructStatus;
 import com.evilbird.warcraft.action.produce.ProduceEvent;

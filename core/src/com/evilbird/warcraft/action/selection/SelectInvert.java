@@ -105,7 +105,7 @@ public class SelectInvert extends BasicAction
     private void setSelected(SelectableObject selectable, boolean selected) {
         if (selectable.getSelected() != selected) {
             selectable.setSelected(selected);
-            events.notifySelected(selectable, selected);
+            events.selectionUpdated(selectable, selected);
         }
     }
 }

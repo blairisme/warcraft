@@ -11,8 +11,8 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
-import com.evilbird.warcraft.action.common.remove.DeathAction;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
+import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.object.unit.resource.Resource;
 
