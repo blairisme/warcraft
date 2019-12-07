@@ -98,10 +98,6 @@ public class DeathActionTest extends GameTestCase
         Assert.assertFalse(item.getSelected());
         Assert.assertFalse(item.getSelectable());
 
-        action.act(1);
-        Assert.assertEquals(UnitAnimation.Decompose, item.getAnimation());
-        Assert.assertTrue(parent.containsObject(item));
-
         action.act(30);
         Assert.assertFalse(parent.containsObject(item));
     }

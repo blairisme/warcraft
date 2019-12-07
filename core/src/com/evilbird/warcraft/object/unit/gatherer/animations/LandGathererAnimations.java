@@ -16,7 +16,6 @@ import com.evilbird.warcraft.object.unit.gatherer.GathererAssets;
 
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Attack;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Death;
-import static com.evilbird.warcraft.object.unit.UnitAnimation.Decompose;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.GatherWood;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.IdleBasic;
@@ -47,7 +46,7 @@ public class LandGathererAnimations extends AnimationCatalog
     }
 
     public LandGathererAnimations(Texture base, Texture gold, Texture wood, Texture decompose, GridPoint2 size) {
-        super(12);
+        super(11);
 
         requireNonNull(base);
         requireNonNull(gold);
@@ -58,8 +57,7 @@ public class LandGathererAnimations extends AnimationCatalog
         move(base, gold, wood, size);
         attack(base, size);
         chopping(base, size);
-        death(base, size);
-        decompose(decompose, size);
+        death(base, decompose, size);
     }
 
     private void idle(Texture base, Texture gold, Texture wood, GridPoint2 size) {
@@ -132,21 +130,19 @@ public class LandGathererAnimations extends AnimationCatalog
             .looping();
     }
 
-    private void death(Texture base, GridPoint2 size) {
-        animation(Death)
-            .withTexture(base)
-            .withSequence(size.y * 9, 3)
-            .withSize(size)
-            .withInterval(0.15f)
-            .notLooping();
-    }
-
-    private void decompose(Texture decompose, GridPoint2 size) {
-        animation(Decompose)
-            .withTexture(decompose)
-            .withSequence(0, 6)
-            .withSize(size)
-            .withInterval(5f)
-            .notLooping();
+    private void death(Texture base, Texture decompose, GridPoint2 size) {
+        sequence(Death)
+            .element()
+                .withTexture(base)
+                .withSequence(size.y * 9, 3)
+                .withSize(size)
+                .withInterval(0.15f)
+                .notLooping()
+            .element()
+                .withTexture(decompose)
+                .withSequence(0, 6)
+                .withSize(size)
+                .withInterval(5f)
+                .notLooping();
     }
 }

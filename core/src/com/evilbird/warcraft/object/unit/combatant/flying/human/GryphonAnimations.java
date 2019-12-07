@@ -76,6 +76,7 @@ public class GryphonAnimations extends AnimationCatalog
         animation(Death)
             .withTexture(base)
             .withSequence(size.y * 7, 6)
+            .withBlankFrame()
             .withSize(size)
             .withInterval(0.15f)
             .notLooping();

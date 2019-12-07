@@ -66,6 +66,7 @@ public class SpellCasterAnimations extends AnimationCatalog
         animation(Death)
             .withTexture(base)
             .withSequence(size.y * 10, (base.getHeight() / size.y) - 10)
+            .withBlankFrame()
             .withSize(size)
             .withInterval(0.15f)
             .notLooping();

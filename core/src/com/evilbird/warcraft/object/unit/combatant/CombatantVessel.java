@@ -58,7 +58,7 @@ public class CombatantVessel extends RangedCombatant
     @Override
     public void update(float time) {
         super.update(time);
-        if (timer.advance(time)) {
+        if (isAlive() && timer.advance(time)) {
             timer.reset();
             offset = offset == 0 ? OFFSET : 0;
             offsetRenderable.setOffset(0, offset);

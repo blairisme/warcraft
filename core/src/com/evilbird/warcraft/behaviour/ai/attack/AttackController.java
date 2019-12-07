@@ -60,8 +60,10 @@ public class AttackController
      * within the attackers capability to attack.
      */
     public List<PerishableObject> getTargets(OffensiveObject attacker) {
-        Identifier attackerId = attacker.getIdentifier();
-        if (cooldown.containsKey(attackerId)) {
+        if (! attacker.isAlive()) {
+            return Collections.emptyList();
+        }
+        if (cooldown.containsKey(attacker.getIdentifier())) {
             return Collections.emptyList();
         }
         if (attacker.getAttackPlurality() == Multiple) {

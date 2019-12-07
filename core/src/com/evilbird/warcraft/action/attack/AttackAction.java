@@ -10,13 +10,11 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.DelegateAction;
-import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.action.framework.CompositeAction;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitType;
-import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
@@ -29,8 +27,9 @@ import static com.evilbird.warcraft.object.unit.UnitType.RuneTrap;
  *
  * @author Blair Butterworth
  */
-public class AttackAction extends DelegateAction
+public class AttackAction extends CompositeAction
 {
+    private Action delegate;
     private BuildingAttack buildingAttack;
     private ConjuredAttack conjuredAttack;
     private DemolitionAttack demoAttack;
@@ -45,7 +44,7 @@ public class AttackAction extends DelegateAction
         MeleeAttack meleeAttack,
         RangedAttack rangedAttack)
     {
-        super(meleeAttack);
+        super(buildingAttack, conjuredAttack, demoAttack, meleeAttack, rangedAttack);
         this.buildingAttack = buildingAttack;
         this.conjuredAttack = conjuredAttack;
         this.demoAttack = demoAttack;
@@ -54,13 +53,21 @@ public class AttackAction extends DelegateAction
     }
 
     @Override
-    public void setSubject(GameObject gameObject) {
-        Validate.isInstanceOf(Unit.class, gameObject);
-        delegate = getAttackAction((Unit) gameObject);
-        super.setSubject(gameObject);
+    public boolean act(float delta) {
+        if (delegate == null) {
+            delegate = getAttackAction();
+        }
+        return delegate.act(delta);
     }
 
-    private Action getAttackAction(Unit unit) {
+    @Override
+    public void reset() {
+        super.reset();
+        delegate = null;
+    }
+
+    private Action getAttackAction() {
+        Unit unit = (Unit)getSubject();
         UnitType type = (UnitType)unit.getType();
 
         if (type.isBuilding()) {

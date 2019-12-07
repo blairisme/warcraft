@@ -22,7 +22,6 @@ import com.evilbird.warcraft.object.unit.combatant.Combatant;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.object.utility.GameObjectOperations.assignIfAbsent;
 
 /**
@@ -97,7 +96,7 @@ public class DemolitionAttack extends AttackSequence
     @Override
     protected boolean kill(OffensiveObject attacker, PerishableObject target) {
         killAttacker(attacker);
-        return ActionComplete;
+        return true;
     }
 
     private void killTarget(PerishableObject target) {

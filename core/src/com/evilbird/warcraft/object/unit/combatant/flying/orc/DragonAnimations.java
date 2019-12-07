@@ -75,6 +75,7 @@ public class DragonAnimations extends AnimationCatalog
         animation(Death)
             .withTexture(base)
             .withSequence(size.y * 5, 5)
+            .withBlankFrame()
             .withSize(size)
             .withInterval(0.15f)
             .notLooping();

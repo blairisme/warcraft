@@ -15,7 +15,6 @@ import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
 import com.evilbird.warcraft.object.unit.gatherer.GathererAssets;
 
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Death;
-import static com.evilbird.warcraft.object.unit.UnitAnimation.Decompose;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.IdleBasic;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.IdleOil;
@@ -42,7 +41,7 @@ public class SeaGathererAnimations extends AnimationCatalog
     }
 
     public SeaGathererAnimations(Texture base, Texture oil, Texture decompose, GridPoint2 size) {
-        super(8);
+        super(7);
 
         requireNonNull(base);
         requireNonNull(oil);
@@ -50,8 +49,7 @@ public class SeaGathererAnimations extends AnimationCatalog
 
         idle(base, oil, size);
         move(base, oil, size);
-        death(base, size);
-        decompose(decompose, size);
+        death(base, decompose, size);
     }
 
     private void idle(Texture base, Texture oil, GridPoint2 size) {
@@ -90,21 +88,20 @@ public class SeaGathererAnimations extends AnimationCatalog
             .looping();
     }
 
-    private void death(Texture base, GridPoint2 size) {
-        animation(Death)
-            .withTexture(base)
-            .withSequence(size.y, 2)
-            .withSize(size)
-            .withInterval(0.5f)
-            .notLooping();
-    }
+    private void death(Texture base, Texture decompose, GridPoint2 size) {
+        sequence(Death)
+            .element()
+                .withTexture(base)
+                .withSequence(size.y, 2)
+                .withSize(size)
+                .withInterval(0.5f)
+                .notLooping()
+            .element()
+                .withTexture(decompose)
+                .withSequence(432, 1)
+                .withSize(size)
+                .withInterval(2f)
+                .notLooping();
 
-    private void decompose(Texture decompose, GridPoint2 size) {
-        animation(Decompose)
-            .withTexture(decompose)
-            .withSequence(432, 1)
-            .withSize(size)
-            .withInterval(2f)
-            .notLooping();
     }
 }

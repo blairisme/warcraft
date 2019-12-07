@@ -131,7 +131,9 @@ public class ExplosiveProjectileAttack extends BasicProjectileAttack
         GameObjectContainer container = missile.getRoot();
         GameObjectGraph graph = container.getSpatialGraph();
         GameObjectNode node = graph.getNode(location);
-        damageOccupants(node.getOccupants());
+        if (node != null) {
+            damageOccupants(node.getOccupants());
+        }
     }
 
     private void damageOccupants(Collection<GameObject> targets) {

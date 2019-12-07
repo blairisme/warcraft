@@ -16,7 +16,6 @@ import com.evilbird.warcraft.object.unit.critter.CritterAssets;
 
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Attack;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Death;
-import static com.evilbird.warcraft.object.unit.UnitAnimation.Decompose;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Move;
 import static java.util.Objects.requireNonNull;
@@ -56,7 +55,6 @@ public class CritterAnimations extends AnimationCatalog
     }
 
     private void death(Texture base, GridPoint2 size) {
-        alias(Decompose, Death);
         animation(Death)
             .withTexture(base)
             .withSequence(size.y, 1)

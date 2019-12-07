@@ -17,6 +17,7 @@ import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantVessel;
 
 import static com.evilbird.engine.common.graphics.renderable.Alignment.BottomCenter;
+import static com.evilbird.engine.common.graphics.renderable.EmptyRenderable.BlankRenderable;
 
 /**
  * A {@link CombatantVessel} specialization representing a flying unit.
@@ -41,6 +42,14 @@ public class FlyingUnit extends CombatantVessel
     @Override
     public TerrainType getTerrainType() {
         return TerrainType.Air;
+    }
+
+    @Override
+    public void setHealth(float health) {
+        super.setHealth(health);
+        if (health == 0) {
+            shadow = BlankRenderable;
+        }
     }
 
     @Override

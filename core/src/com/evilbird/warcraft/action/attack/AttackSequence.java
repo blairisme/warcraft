@@ -81,7 +81,7 @@ public abstract class AttackSequence extends CompositeAction
     }
 
     protected boolean attackFailed(OffensiveObject attacker, PerishableObject target) {
-        return !target.getTouchable() || !target.getVisible();
+        return !target.getVisible() || !target.isAttackable() || !attacker.isAlive();
     }
 
     protected boolean failed(OffensiveObject attacker, PerishableObject target) {

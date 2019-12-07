@@ -37,7 +37,6 @@ import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.engine.common.lang.Alignment.Center;
 import static com.evilbird.warcraft.object.effect.EffectType.Explosion;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Death;
-import static com.evilbird.warcraft.object.unit.UnitAnimation.Decompose;
 import static com.evilbird.warcraft.object.unit.UnitSound.Die;
 
 /**
@@ -48,11 +47,9 @@ import static com.evilbird.warcraft.object.unit.UnitSound.Die;
  */
 public class DeathAction extends BasicAction
 {
-    private static final float DEATH_TIME = 1;
     private static final float DECOMPOSE_TIME = 30;
 
-    private GameTimer deathTimer;
-    private GameTimer decomposeTimer;
+    private GameTimer timer;
     private GameObjectFactory factory;
     private WarcraftPreferences preferences;
     private SelectEvents selectEvents;
@@ -76,10 +73,7 @@ public class DeathAction extends BasicAction
         if (! initialized()) {
             return initialize();
         }
-        if (!deathTimer.complete() && deathTimer.advance(time)) {
-            return decompose();
-        }
-        else if (deathTimer.complete() && decomposeTimer.advance(time)) {
+        if (timer.advance(time)) {
             return remove();
         }
         return ActionIncomplete;
@@ -88,14 +82,13 @@ public class DeathAction extends BasicAction
     @Override
     public void reset() {
         super.reset();
-        deathTimer = null;
-        decomposeTimer = null;
+        timer = null;
     }
 
     @Override
     public void restart() {
         super.restart();
-        throw new UnsupportedOperationException();
+        timer = null;
     }
 
     @Override
@@ -105,63 +98,60 @@ public class DeathAction extends BasicAction
     }
 
     private boolean initialized() {
-        return deathTimer != null;
+        return timer != null;
     }
 
     private boolean initialize() {
-        PerishableObject subject = (PerishableObject) getSubject();
-//        initializeActions(subject);
+        PerishableObject subject = (PerishableObject)getSubject();
+        initializeStatus(subject);
         initializeVisuals(subject);
         initializeSelection(subject);
-        initializeGraph(subject);
-        initializeTimers(subject);
         initializeAssociation(subject);
+        initializeGraph(subject);
+        initializeTimer();
         return ActionIncomplete;
     }
 
-    private void initializeActions(PerishableObject subject) {
-        for (Action action: subject.getActions()) {
-            if (action != this) {
-                subject.removeAction(action);
+    private void initializeStatus(PerishableObject subject) {
+        subject.setHealth(0);
+    }
+
+    private void initializeVisuals(PerishableObject subject) {
+        setDeathAnimation(subject);
+        setExplosionEffect(subject);
+    }
+
+    private void setDeathAnimation(PerishableObject subject) {
+        if (subject instanceof AnimatedObject) {
+            AnimatedObject animated = (AnimatedObject) subject;
+            if (animated.hasAnimation(Death)) {
+                animated.setAnimation(Death);
+                animated.setSound(Die, preferences.getEffectsVolume());
+                animated.setZIndex(0);
             }
         }
     }
 
-    private void initializeVisuals(PerishableObject subject) {
-        if (subject instanceof AnimatedObject) {
-            assignDeathAnimation((AnimatedObject)subject);
-        }
+    private void setExplosionEffect(PerishableObject subject) {
         if (isFabricated(subject)) {
-            assignExplosionEffect(subject);
+            GameObject explosion = factory.get(Explosion);
+            setTarget(explosion);
+
+            Vector2 position = subject.getPosition(Center);
+            explosion.setPosition(position, Center);
+
+            GameObjectGroup parent = subject.getParent();
+            parent.addObject(explosion);
         }
     }
 
-    private boolean isFabricated(GameObject subject) {
+    private boolean isFabricated(PerishableObject subject) {
         if (subject instanceof Unit) {
             Unit unit = (Unit)subject;
             UnitType type = (UnitType)unit.getType();
             return type.isSiege() || type.isBuilding();
         }
         return false;
-    }
-
-    private void assignDeathAnimation(AnimatedObject subject) {
-        if (subject.hasAnimation(Death)) {
-            subject.setAnimation(Death);
-            subject.setSound(Die, preferences.getEffectsVolume());
-            subject.setZIndex(0);
-        }
-    }
-
-    private void assignExplosionEffect(PerishableObject subject) {
-        GameObject explosion = factory.get(Explosion);
-        setTarget(explosion);
-
-        Vector2 position = subject.getPosition(Center);
-        explosion.setPosition(position, Center);
-
-        GameObjectGroup parent = subject.getParent();
-        parent.addObject(explosion);
     }
 
     private void initializeSelection(PerishableObject subject) {
@@ -186,57 +176,17 @@ public class DeathAction extends BasicAction
         }
     }
 
-    private void initializeTimers(PerishableObject subject) {
-        if (isInstantlyDestroyable(subject)) {
-            deathTimer = new GameTimer(DEATH_TIME);
-            decomposeTimer = new GameTimer(0);
-        }
-        else  {
-            deathTimer = new GameTimer(DEATH_TIME);
-            decomposeTimer = new GameTimer(DECOMPOSE_TIME);
-        }
-    }
-
-    private boolean isInstantlyDestroyable(GameObject subject) {
-        if (subject instanceof Unit) {
-            Unit unit = (Unit)subject;
-            UnitType type = (UnitType)unit.getType();
-            return type.isFlying() || type.isSiege() || type.isSpellCaster();
-        }
-        return false;
-    }
-
-    private boolean decompose() {
-        GameObject gameObject = getSubject();
-        if (isDecomposable(gameObject)) {
-            Unit unit = (Unit) gameObject;
-            unit.setAnimation(Decompose);
-        }
-        return ActionIncomplete;
-    }
-
-    private boolean isDecomposable(GameObject subject) {
-        if (subject instanceof Unit) {
-            Unit unit = (Unit)subject;
-            UnitType type = (UnitType)unit.getType();
-            return type.isMelee() || type.isRanged() || type.isNavalUnit();
-        }
-        return false;
+    private void initializeTimer() {
+        timer = new GameTimer(DECOMPOSE_TIME);
     }
 
     private boolean remove() {
-        GameObject subject = getSubject();
-        remove(subject);
-
-        GameObject explosion = getTarget();
-        remove(explosion);
-
-        Collection<GameObject> associations = getAssociations(subject);
-        remove(associations);
-
+        remove(getSubject());
+        remove(getTarget());
+        remove(getAssociations());
         return ActionComplete;
     }
-    
+
     private void remove(Collection<GameObject> gameObjects) {
         for (GameObject gameObject : gameObjects) {
             remove(gameObject);
@@ -249,6 +199,10 @@ public class DeathAction extends BasicAction
             parent.removeObject(gameObject);
             removeEvents.objectRemoved(gameObject);
         }
+    }
+
+    private Collection<GameObject> getAssociations() {
+        return getAssociations(getSubject());
     }
 
     private Collection<GameObject> getAssociations(GameObject gameObject) {

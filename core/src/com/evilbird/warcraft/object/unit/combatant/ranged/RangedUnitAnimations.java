@@ -16,7 +16,6 @@ import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Attack;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Death;
-import static com.evilbird.warcraft.object.unit.UnitAnimation.Decompose;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Move;
 import static java.util.Objects.requireNonNull;
@@ -40,17 +39,26 @@ public class RangedUnitAnimations extends AnimationCatalog
     }
 
     public RangedUnitAnimations(Texture base, Texture decompose, GridPoint2 size) {
-        super(5);
+        super(4);
 
         requireNonNull(base);
         requireNonNull(decompose);
         requireNonNull(size);
 
+        attack(base, size);
         idle(base, size);
         move(base, size);
-        death(base, size);
-        decompose(decompose, size);
-        attack(base, size);
+        death(base, decompose, size);
+    }
+
+    private void attack(Texture base, GridPoint2 size) {
+        animation(Attack)
+            .withTexture(base)
+            .withSequence(size.y * 5, 2)
+            .withSequence(0, 1)
+            .withSize(size)
+            .withInterval(0.15f)
+            .notLooping();
     }
 
     private void idle(Texture base, GridPoint2 size) {
@@ -71,31 +79,19 @@ public class RangedUnitAnimations extends AnimationCatalog
             .looping();
     }
 
-    private void death(Texture base, GridPoint2 size) {
-        animation(Death)
-            .withTexture(base)
-            .withSequence(size.y * 9, 3)
-            .withSize(size)
-            .withInterval(0.15f)
-            .notLooping();
-    }
-
-    private void decompose(Texture decompose, GridPoint2 size) {
-        animation(Decompose)
-            .withTexture(decompose)
-            .withSequence(0, 6)
-            .withSize(size)
-            .withInterval(5f)
-            .notLooping();
-    }
-
-    private void attack(Texture base, GridPoint2 size) {
-        animation(Attack)
-            .withTexture(base)
-            .withSequence(size.y * 5, 2)
-            .withSequence(0, 1)
-            .withSize(size)
-            .withInterval(0.15f)
-            .notLooping();
+    private void death(Texture base, Texture decompose, GridPoint2 size) {
+        sequence(Death)
+            .element()
+                .withTexture(base)
+                .withSequence(size.y * 9, 3)
+                .withSize(size)
+                .withInterval(0.15f)
+                .notLooping()
+            .element()
+                .withTexture(decompose)
+                .withSequence(0, 6)
+                .withSize(size)
+                .withInterval(5f)
+                .notLooping();
     }
 }

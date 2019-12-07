@@ -248,14 +248,14 @@ public enum UnitType implements GameObjectType
     }
 
     public boolean isFlying() {
-        return isFlyingAssault() || isScout();
+        return isFlyingAssault() || isFlyingScout();
     }
 
     public boolean isFlyingAssault() {
         return this == GryphonRider || this == Dragon || this == Daemon;
     }
 
-    public boolean isScout() {
+    public boolean isFlyingScout() {
         return this == GnomishFlyingMachine || this == GoblinZeppelin;
     }
 

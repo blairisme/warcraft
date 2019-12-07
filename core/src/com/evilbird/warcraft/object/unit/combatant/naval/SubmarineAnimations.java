@@ -16,7 +16,6 @@ import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Attack;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Death;
-import static com.evilbird.warcraft.object.unit.UnitAnimation.Decompose;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Move;
 import static java.util.Objects.requireNonNull;
@@ -36,15 +35,14 @@ public class SubmarineAnimations extends AnimationCatalog
     }
 
     public SubmarineAnimations(Texture base, Texture decompose, GridPoint2 size) {
-        super(5);
+        super(4);
 
         requireNonNull(base);
         requireNonNull(decompose);
         requireNonNull(size);
 
         idle(base, size);
-        death(base, size);
-        decompose(decompose);
+        death(base, decompose, size);
     }
 
     private void idle(Texture base, GridPoint2 size) {
@@ -58,21 +56,19 @@ public class SubmarineAnimations extends AnimationCatalog
             .looping();
     }
 
-    private void death(Texture base, GridPoint2 size) {
-        animation(Death)
-            .withTexture(base)
-            .withSequence(size.y, 2)
-            .withSize(size)
-            .withInterval(0.5f)
-            .notLooping();
-    }
-
-    private void decompose(Texture decompose) {
-        animation(Decompose)
-            .withTexture(decompose)
-            .withSequence(432, 1)
-            .withSize(DECOMPOSE_SIZE)
-            .withInterval(2f)
-            .notLooping();
+    private void death(Texture base, Texture decompose, GridPoint2 size) {
+        sequence(Death)
+            .element()
+                .withTexture(base)
+                .withSequence(size.y, 2)
+                .withSize(size)
+                .withInterval(0.5f)
+                .notLooping()
+            .element()
+                .withTexture(decompose)
+                .withSequence(432, 1)
+                .withSize(DECOMPOSE_SIZE)
+                .withInterval(2f)
+                .notLooping();
     }
 }
