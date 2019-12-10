@@ -61,9 +61,9 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     private Value sight;
     private boolean selected;
     private boolean selectable;
-    private GameObjectReference selector;
-    private GameObjectReference associate;
-    private GameObjectReference effect;
+    private GameObjectReference<Selector> selector;
+    private GameObjectReference<GameObject> associate;
+    private GameObjectReference<GameObject> effect;
 
     private transient UnitStyle style;
     private transient Renderable highlight;
@@ -199,7 +199,7 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
      * select game objects.
      */
     public Selector getSelector() {
-        return selector != null ? (Selector)selector.get() : null;
+        return selector != null ? selector.get() : null;
     }
 
     /**

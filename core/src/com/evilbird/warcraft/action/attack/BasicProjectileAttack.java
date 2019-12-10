@@ -10,11 +10,11 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.object.common.capability.MovableObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.RangedOffensiveObject;
 import com.evilbird.warcraft.object.projectile.Projectile;
@@ -23,9 +23,10 @@ import com.evilbird.warcraft.object.unit.UnitSound;
 
 import javax.inject.Inject;
 
+import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.engine.common.lang.Alignment.Center;
-import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.inRange;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.isShip;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.reorient;
 
@@ -37,19 +38,27 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.reorient;
  */
 public class BasicProjectileAttack extends BasicAction
 {
-    protected transient GameObjectFactory factory;
+    protected transient AttackDamage damage;
+    protected transient AttackEvents events;
+    protected transient GameObjectFactory objects;
     protected transient WarcraftPreferences preferences;
-    protected transient RangedOffensiveObject combatant;
+
+    protected transient RangedOffensiveObject attacker;
     protected transient Projectile projectile;
     protected transient PerishableObject target;
     protected transient Vector2 destination;
-
-    private transient float flightTime;
-    private transient float reloadTime;
+    protected transient float flightTime;
 
     @Inject
-    public BasicProjectileAttack(GameObjectFactory objectFactory, WarcraftPreferences preferences) {
-        this.factory = objectFactory;
+    public BasicProjectileAttack(
+        AttackEvents events,
+        AttackDamage damage,
+        GameObjectFactory objects,
+        WarcraftPreferences preferences)
+    {
+        this.damage = damage;
+        this.events = events;
+        this.objects = objects;
         this.preferences = preferences;
     }
 
@@ -58,17 +67,17 @@ public class BasicProjectileAttack extends BasicAction
         if (! initialized()) {
             initialize();
         }
+        if (! operationValid()) {
+            return operationFailed();
+        }
         if (! readyToFire()) {
-            reduceTimeToFire(time);
-            return ActionIncomplete;
+            return reduceTimeToFire(time);
         }
         if (! projectileLaunched()) {
-            launchProjectile();
-            return ActionIncomplete;
+            return launchProjectile();
         }
         if (! projectileReachedTarget()) {
-            repositionProjectile(time);
-            return ActionIncomplete;
+            return repositionProjectile(time);
         }
         else {
             return hitWithProjectile();
@@ -80,7 +89,7 @@ public class BasicProjectileAttack extends BasicAction
         super.reset();
         if (initialized()) {
             projectile.setVisible(false);
-            combatant = null;
+            attacker = null;
             projectile = null;
             target = null;
         }
@@ -92,33 +101,32 @@ public class BasicProjectileAttack extends BasicAction
         if (initialized()) {
             projectile.setVisible(false);
             flightTime = 0;
-            reloadTime = 0;
         }
     }
 
     private boolean initialized() {
-        return combatant != null && projectile != null && target != null;
+        return attacker != null && projectile != null && target != null;
     }
 
     protected void initialize() {
-        flightTime = 0;
-        reloadTime = 0;
-
         target = (PerishableObject)getTarget();
         destination = target.getPosition(Center);
 
-        combatant = (RangedOffensiveObject) getSubject();
-        reorientTowardsTarget();
+        attacker = (RangedOffensiveObject)getSubject();
+        reorient(attacker, target, isShip(attacker));
 
-        projectile = getProjectile(combatant);
+        projectile = getProjectile(attacker);
         projectile.setVisible(false);
-        projectile.setPosition(combatant.getPosition(Center));
+        projectile.setPosition(attacker.getPosition(Center));
+
+        flightTime = 0;
+        events.attackStarted(attacker, target);
     }
 
     private Projectile getProjectile(RangedOffensiveObject combatant) {
         Projectile result = combatant.getProjectile();
         if (result == null) {
-            result = (Projectile)factory.get(combatant.getProjectileType());
+            result = (Projectile) objects.get(combatant.getProjectileType());
             combatant.setProjectile(result);
 
             GameObjectGroup parent = combatant.getParent();
@@ -127,30 +135,43 @@ public class BasicProjectileAttack extends BasicAction
         return result;
     }
 
-    protected boolean readyToFire() {
-        return reloadTime == 0;
+    private boolean operationValid() {
+        return attacker.isAlive() && target.isAlive() && inRange(attacker, target);
     }
 
-    protected void reduceTimeToFire(float time) {
-        reloadTime = Math.max(reloadTime - time, 0);
+    private boolean operationFailed() {
+        events.attackFailed(attacker, target);
+        setError(new ActionException("Attack Failed"));
+        return ActionComplete;
+    }
+
+    protected boolean readyToFire() {
+        return attacker.getAttackTime() == 0;
+    }
+
+    protected boolean reduceTimeToFire(float time) {
+        attacker.setAttackTime(Math.max(attacker.getAttackTime() - time, 0));
+        return ActionIncomplete;
     }
 
     protected boolean projectileLaunched() {
         return projectile.getVisible();
     }
 
-    protected void launchProjectile() {
+    protected boolean launchProjectile() {
         flightTime = 0;
         destination = target.getPosition(Center);
 
         projectile.setVisible(true);
-        projectile.setPosition(combatant.getPosition(Center));
+        projectile.setPosition(attacker.getPosition(Center));
 
-        combatant.setAnimation(UnitAnimation.Attack);
-        combatant.setSound(UnitSound.Attack, preferences.getEffectsVolume());
+        attacker.setAnimation(UnitAnimation.Attack);
+        attacker.setSound(UnitSound.Attack, preferences.getEffectsVolume());
 
-        reorientTowardsTarget();
+        reorient(attacker, target, isShip(attacker));
         reorient(projectile, target, false);
+
+        return ActionIncomplete;
     }
 
     protected boolean projectileReachedTarget() {
@@ -158,10 +179,11 @@ public class BasicProjectileAttack extends BasicAction
         return position.equals(destination);
     }
 
-    protected void repositionProjectile(float time) {
+    protected boolean repositionProjectile(float time) {
         Vector2 position = projectile.getPosition(Center);
         Vector2 remaining = destination.cpy().sub(position);
         repositionProjectile(position, remaining, time);
+        return ActionIncomplete;
     }
 
     protected void repositionProjectile(Vector2 position, Vector2 remaining, float time) {
@@ -181,26 +203,19 @@ public class BasicProjectileAttack extends BasicAction
     protected boolean hitWithProjectile() {
         resetAttacker();
         resetProjectile();
-        damageTarget();
-        return !target.isAlive();
+        return damageTarget();
     }
 
     protected void resetAttacker() {
-        reloadTime = Math.max(combatant.getAttackSpeed() - flightTime, 0);
+        attacker.setAttackTime(Math.max(attacker.getAttackSpeed() - flightTime, 0));
     }
 
     protected void resetProjectile() {
         projectile.setVisible(false);
     }
 
-    private void damageTarget() {
-        projectile.setSound(UnitSound.Hit, preferences.getEffectsVolume());
-        target.setHealth(getDamagedHealth(combatant, target));
-    }
-
-    private void reorientTowardsTarget() {
-        if (combatant instanceof MovableObject) {
-            reorient((MovableObject)combatant, target, isShip(combatant));
-        }
+    private boolean damageTarget() {
+        damage.apply(attacker, target);
+        return target.isDead();
     }
 }

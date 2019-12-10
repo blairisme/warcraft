@@ -26,19 +26,19 @@ public class ProjectileAttack extends CompositeAction
 {
     private Action delegate;
     private Action basic;
-    private Action explosive;
+    private Action missile;
 
     @Inject
-    public ProjectileAttack(BasicProjectileAttack basic, ExplosiveProjectileAttack explosive) {
-        super(basic, explosive);
+    public ProjectileAttack(BasicProjectileAttack basic, MissileAttack missile) {
+        super(basic, missile);
         this.basic = basic;
-        this.explosive = explosive;
+        this.missile = missile;
     }
 
     @Override
     public boolean act(float delta) {
         if (delegate == null) {
-            delegate = isExplosive() ? explosive : basic;
+            delegate = isExplosive() ? missile : basic;
         }
         return delegate.act(delta);
     }

@@ -39,6 +39,7 @@ import static com.evilbird.warcraft.object.common.value.FixedValue.Zero;
 public class Combatant extends Unit implements MovableObject, OffensiveObject, SpatialObject
 {
     private boolean attackable;
+    private float attackTime;
     private Value attackSpeed;
     private Value basicDamage;
     private Value piercingDamage;
@@ -54,6 +55,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject, S
      */
     public Combatant(Skin skin) {
         super(skin);
+        this.attackTime = 0;
         this.attackSpeed = Zero;
         this.piercingDamage = Zero;
         this.basicDamage = Zero;
@@ -92,6 +94,13 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject, S
      */
     public Value getAttackSpeedValue() {
         return attackSpeed;
+    }
+
+    /**
+     * Returns the amount of time remaining until the attacker can attack again.
+     */
+    public float getAttackTime() {
+        return attackTime;
     }
 
     /**
@@ -221,6 +230,13 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject, S
     }
 
     /**
+     * Sets the amount of time remaining until the attacker can attack again.
+     */
+    public void setAttackTime(float attackTime) {
+        this.attackTime = attackTime;
+    }
+
+    /**
      * Sets whether the {@code OffensiveObject} is visible to potential
      * attackers.
      */
@@ -303,6 +319,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject, S
             .appendSuper(super.equals(obj))
             .append(attackable, combatant.attackable)
             .append(attackSpeed, combatant.attackSpeed)
+            .append(attackTime, combatant.attackTime)
             .append(basicDamage, combatant.basicDamage)
             .append(piercingDamage, combatant.piercingDamage)
             .append(movementSpeed, combatant.movementSpeed)
@@ -316,6 +333,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject, S
             .appendSuper(super.hashCode())
             .append(attackable)
             .append(attackSpeed)
+            .append(attackTime)
             .append(basicDamage)
             .append(piercingDamage)
             .append(movementSpeed)

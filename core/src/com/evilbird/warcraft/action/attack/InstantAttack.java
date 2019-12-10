@@ -21,7 +21,6 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
-import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
 
 /**
  * A {@link ProximityAttack} that only attacks once.
@@ -30,11 +29,19 @@ import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
  */
 public class InstantAttack extends BasicAction
 {
+    private transient AttackDamage damage;
+    private transient AttackEvents events;
     private transient GameTimer delay;
     private transient WarcraftPreferences preferences;
 
     @Inject
-    public InstantAttack(WarcraftPreferences preferences) {
+    public InstantAttack(
+        AttackDamage damage,
+        AttackEvents events,
+        WarcraftPreferences preferences)
+    {
+        this.damage = damage;
+        this.events = events;
         this.preferences = preferences;
     }
 
@@ -66,24 +73,29 @@ public class InstantAttack extends BasicAction
     }
 
     protected void attackTarget() {
-        OffensiveObject attacker = (OffensiveObject) getSubject();
+        OffensiveObject attacker = (OffensiveObject)getSubject();
+        PerishableObject target = (PerishableObject)getTarget();
+
+        setAttackerAnimation(attacker);
+        damage.apply(attacker, target);
+        events.attack(attacker, target);
+        delay = new GameTimer(attacker.getAttackSpeed());
+    }
+
+    private void setAttackerAnimation(OffensiveObject attacker) {
         if (attacker.hasAnimation(UnitAnimation.Attack)) {
             attacker.setAnimation(UnitAnimation.Attack);
         }
         if (attacker.hasSound(UnitSound.Attack)) {
             attacker.setSound(UnitSound.Attack, preferences.getEffectsVolume());
         }
-        PerishableObject target = (PerishableObject)getTarget();
-        target.setHealth(getDamagedHealth(attacker, target));
-
-        delay = new GameTimer(attacker.getAttackSpeed());
     }
 
-    public boolean isComplete() {
+    private boolean isComplete() {
         return delay != null && delay.complete();
     }
 
-    protected boolean waitForComplete(float time) {
+    private boolean waitForComplete(float time) {
         delay.advance(time);
         return ActionIncomplete;
     }

@@ -51,8 +51,7 @@ public class AttackEvent implements Event
     public boolean isFinished() {
         return status == AttackStatus.Complete
             || status == AttackStatus.Failed
-            || status == AttackStatus.Cancelled
-            || status == AttackStatus.Stopped;
+            || status == AttackStatus.Cancelled;
     }
 
     public boolean isFailed() {

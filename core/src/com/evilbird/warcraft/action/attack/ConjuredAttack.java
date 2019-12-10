@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.EmptyAction;
-import com.evilbird.warcraft.action.death.DeathAction;
+import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredObject;
 
@@ -26,7 +26,12 @@ import javax.inject.Inject;
 public class ConjuredAttack extends AttackSequence
 {
     @Inject
-    public ConjuredAttack(AttackEvents events, InstantAttack attack, DeathAction death) {
-        super(events, new EmptyAction(), attack, death);
+    public ConjuredAttack(InstantAttack attack) {
+        super(new EmptyAction(), attack);
+    }
+
+    @Override
+    protected boolean moveRequired(OffensiveObject attacker, PerishableObject target) {
+        return false;
     }
 }

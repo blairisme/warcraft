@@ -42,7 +42,9 @@ public abstract class StateTransitionAction extends CompositeAction
         }
         if (current.act(time)) {
             if (current.hasError()) {
-                return ActionComplete;
+                if (isCriticalError(current)) {
+                    return ActionComplete;
+                }
             }
             current.restart();
             previous = current;
@@ -52,4 +54,8 @@ public abstract class StateTransitionAction extends CompositeAction
     }
 
     protected abstract Action nextAction(Action previous);
+
+    protected boolean isCriticalError(Action action) {
+        return true;
+    }
 }

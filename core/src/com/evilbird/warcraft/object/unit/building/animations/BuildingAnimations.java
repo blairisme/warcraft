@@ -106,14 +106,12 @@ public class BuildingAnimations extends AnimationCatalog
                 .withSize(size)
                 .withInterval(duration)
                 .singleDirection()
-                .notLooping()
             .element()
                 .withTexture(base)
                 .withSequence(0, 2)
                 .withSize(size)
                 .withInterval(duration)
                 .singleDirection()
-                .notLooping()
                 .reversed();
     }
 

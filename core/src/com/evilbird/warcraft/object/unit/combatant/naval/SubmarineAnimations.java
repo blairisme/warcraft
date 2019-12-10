@@ -63,12 +63,10 @@ public class SubmarineAnimations extends AnimationCatalog
                 .withSequence(size.y, 2)
                 .withSize(size)
                 .withInterval(0.5f)
-                .notLooping()
             .element()
                 .withTexture(decompose)
                 .withSequence(432, 1)
                 .withSize(DECOMPOSE_SIZE)
-                .withInterval(2f)
-                .notLooping();
+                .withInterval(2f);
     }
 }

@@ -9,15 +9,8 @@
 
 package com.evilbird.engine.common.graphics.animation;
 
-import com.badlogic.gdx.utils.Array;
-import org.apache.commons.lang3.Range;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static com.evilbird.engine.common.collection.Arrays.union;
 
 /**
  * An entry in an {@link AnimationCatalog} representing a sequence of
@@ -35,32 +28,16 @@ public class AnimationCatalogSequence implements AnimationCatalogProvider
     }
 
     public Animation getAnimation() {
-        Animation animation = null;
+        List<Animation> animations = new ArrayList<>(sequence.size());
         for (AnimationCatalogProvider entry: sequence) {
-            Animation current = entry.getAnimation();
-            animation = animation == null ? current : combine(
-                (DirectionalAnimation)animation, (DirectionalAnimation)current);
+            animations.add(entry.getAnimation());
         }
-        return animation;
+        return new AnimationSequence(animations);
     }
 
     public AnimationCatalogSequenceElement element() {
         AnimationCatalogSequenceElement definition = new AnimationCatalogSequenceElement(this);
         sequence.add(definition);
         return definition;
-    }
-
-    private BasicAnimation combine(DirectionalAnimation source, DirectionalAnimation target) {
-        Map<Range<Float>, Array<AnimationFrame>> sourceFrameSet = source.getFrameRanges();
-        Map<Range<Float>, Array<AnimationFrame>> targetFrameSet = target.getFrameRanges();
-        Map<Range<Float>, Array<AnimationFrame>> combinedFrames = new HashMap<>(sourceFrameSet.size());
-
-        for (Map.Entry<Range<Float>, Array<AnimationFrame>> sourceFrameEntry : sourceFrameSet.entrySet()) {
-            Range<Float> range = sourceFrameEntry.getKey();
-            Array<AnimationFrame> sourceFrames = sourceFrameEntry.getValue();
-            Array<AnimationFrame> targetFrames = targetFrameSet.get(range);
-            combinedFrames.put(range, union(sourceFrames, targetFrames));
-        }
-        return new BasicAnimation(combinedFrames, source.getInterval(), source.getLooping());
     }
 }

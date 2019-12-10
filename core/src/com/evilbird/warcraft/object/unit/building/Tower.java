@@ -32,6 +32,7 @@ import static com.evilbird.warcraft.object.projectile.ProjectileType.Arrow;
 public class Tower extends Building implements RangedOffensiveObject
 {
     private float attackSpeed;
+    private float attackTime;
     private int attackRange;
     private int basicDamage;
     private int piercingDamage;
@@ -41,6 +42,7 @@ public class Tower extends Building implements RangedOffensiveObject
         super(skin);
         attackRange = 0;
         attackSpeed = 0;
+        attackTime = 0;
         basicDamage = 0;
         piercingDamage = 0;
         projectileType = Arrow;
@@ -78,6 +80,13 @@ public class Tower extends Building implements RangedOffensiveObject
     @Override
     public float getAttackSpeed() {
         return attackSpeed;
+    }
+
+    /**
+     * Returns the amount of time remaining until the attacker can attack again.
+     */
+    public float getAttackTime() {
+        return attackTime;
     }
 
     /**
@@ -127,6 +136,14 @@ public class Tower extends Building implements RangedOffensiveObject
     }
 
     /**
+     * Sets the distance that the {@code Tower} can reach with its
+     * attacks.
+     */
+    public void setAttackRange(int attackRange) {
+        this.attackRange = attackRange;
+    }
+
+    /**
      * Sets the rate at which the {@code Tower} attacks.
      */
     public void setAttackSpeed(float attackSpeed) {
@@ -134,13 +151,12 @@ public class Tower extends Building implements RangedOffensiveObject
     }
 
     /**
-     * Sets the distance that the {@code Tower} can reach with its
-     * attacks.
+     * Sets the amount of time remaining until the attacker can attack again.
      */
-    public void setAttackRange(int attackRange) {
-        this.attackRange = attackRange;
+    public void setAttackTime(float attackTime) {
+        this.attackTime = attackTime;
     }
-    
+
     /**
      * Sets the maximum amount of damage that the {@code Tower} deals
      * with each attack.
@@ -189,8 +205,9 @@ public class Tower extends Building implements RangedOffensiveObject
         Tower combatant = (Tower)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
-            .append(attackSpeed, combatant.attackSpeed)
             .append(attackRange, combatant.attackRange)
+            .append(attackSpeed, combatant.attackSpeed)
+            .append(attackTime, combatant.attackTime)
             .append(basicDamage, combatant.basicDamage)
             .append(piercingDamage, combatant.piercingDamage)
             .append(projectileType, combatant.projectileType)
@@ -201,8 +218,9 @@ public class Tower extends Building implements RangedOffensiveObject
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
-            .append(attackSpeed)
             .append(attackRange)
+            .append(attackSpeed)
+            .append(attackTime)
             .append(basicDamage)
             .append(piercingDamage)
             .append(projectileType)

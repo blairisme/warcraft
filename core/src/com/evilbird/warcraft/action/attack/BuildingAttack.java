@@ -11,13 +11,10 @@ package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.EmptyAction;
-import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 
 import javax.inject.Inject;
-
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 
 /**
  * An {@link Action} that causes a given {@link OffensiveObject
@@ -29,12 +26,12 @@ import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 public class BuildingAttack extends AttackSequence
 {
     @Inject
-    public BuildingAttack(AttackEvents events, ProjectileAttack attack, DeathAction death) {
-        super(events, new EmptyAction(), attack, death);
+    public BuildingAttack(ProjectileAttack attack) {
+        super(new EmptyAction(), attack);
     }
 
     @Override
-    protected boolean move(float time, OffensiveObject attacker, PerishableObject target) {
-        return ActionComplete;
+    protected boolean moveRequired(OffensiveObject attacker, PerishableObject target) {
+        return false;
     }
 }

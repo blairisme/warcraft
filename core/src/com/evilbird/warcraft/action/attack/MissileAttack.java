@@ -28,8 +28,6 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import java.util.Collection;
 
-import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
-
 /**
  * A {@link ProjectileAttack} specialization that supplements the default
  * projectile attack behaviour, displaying explosions as projectiles stroke
@@ -37,7 +35,7 @@ import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
  *
  * @author Blair Butterworth
  */
-public class ExplosiveProjectileAttack extends BasicProjectileAttack
+public class MissileAttack extends BasicProjectileAttack
 {
     private transient Provider<RemoveAction> removeProvider;
     private transient ExplosiveProjectile missile;
@@ -48,13 +46,15 @@ public class ExplosiveProjectileAttack extends BasicProjectileAttack
     private transient int explosions;
 
     @Inject
-    public ExplosiveProjectileAttack(
-        GameObjectFactory objectFactory,
+    public MissileAttack(
+        AttackEvents events,
+        AttackDamage damage,
+        GameObjectFactory objects,
         WarcraftPreferences preferences,
-        Provider<RemoveAction> removalFactory)
+        Provider<RemoveAction> removeProvider)
     {
-        super(objectFactory, preferences);
-        this.removeProvider = removalFactory;
+        super(events, damage, objects, preferences);
+        this.removeProvider = removeProvider;
         this.interval = new GameTimer(0);
         this.direction = new Vector2();
         this.offset = new Vector2();
@@ -75,9 +75,9 @@ public class ExplosiveProjectileAttack extends BasicProjectileAttack
     }
 
     @Override
-    protected void launchProjectile() {
-        super.launchProjectile();
+    protected boolean launchProjectile() {
         this.explosions = 0;
+        return super.launchProjectile();
     }
 
     @Override
@@ -99,7 +99,7 @@ public class ExplosiveProjectileAttack extends BasicProjectileAttack
             createExplosion();
             explosions++;
         }
-        return !target.isAlive();
+        return target.isDead();
     }
 
     private void createExplosion() {
@@ -114,7 +114,7 @@ public class ExplosiveProjectileAttack extends BasicProjectileAttack
     }
 
     private void createExplosion(Vector2 location) {
-        Effect explosion = (Effect)factory.get(missile.getExplosiveEffect());
+        Effect explosion = (Effect)objects.get(missile.getExplosiveEffect());
         explosion.setPosition(location);
 
         GameObjectGroup container = missile.getParent();
@@ -144,8 +144,8 @@ public class ExplosiveProjectileAttack extends BasicProjectileAttack
 
     private void damageOccupant(GameObject target) {
         if (target instanceof PerishableObject) {
-            PerishableObject perishable = (PerishableObject)target;
-            perishable.setHealth(getDamagedHealth(combatant, perishable));
+            damage.apply(attacker, (PerishableObject)target);
+            events.attack(attacker, target);
         }
     }
 }

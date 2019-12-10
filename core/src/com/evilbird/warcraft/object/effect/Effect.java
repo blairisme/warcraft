@@ -42,9 +42,7 @@ public class Effect extends AnimatedObject
     public float getDuration() {
         if (duration == -1) {
             Animation animation = style.animations.get(Idle);
-            float frameCount = animation.getFrames().size();
-            float frameInterval = animation.getInterval();
-            duration = frameCount * frameInterval;
+            duration = animation.getDuration();
         }
         return duration;
     }

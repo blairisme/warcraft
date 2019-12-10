@@ -30,11 +30,11 @@ public interface Animation
     Animation copy();
 
     /**
-     * Returns the interval between frames, specified in seconds.
+     * Returns the length of the animation, specified in seconds.
      *
-     * @return the number of seconds between frames.
+     * @return the number of seconds in the animation.
      */
-    float getInterval();
+    float getDuration();
 
     /**
      * Returns the next image of the animation, based on the given time. This
@@ -70,4 +70,10 @@ public interface Animation
      * @return a {@link GridPoint2}.
      */
     GridPoint2 getSize();
+
+    /**
+     * Determines whether the animation would be finished if played without
+     * looping, given the time.
+     */
+    boolean isFinished(float time);
 }

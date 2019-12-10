@@ -583,4 +583,15 @@ public class UnitOperations
         Vector2 newDirection = normalizedDirection.rotate(perpendicular ? 90 : 0);
         subject.setDirection(newDirection);
     }
+
+    /**
+     * Changes the orientation of the given {@link GameObject object}, provided
+     * it implements {@link MovableObject}, so that it faces the given
+     * {@link GameObject target}.
+     */
+    public static void reorient(GameObject subject, GameObject target, boolean perpendicular) {
+        if (subject instanceof MovableObject) {
+            reorient((MovableObject)subject, target, perpendicular);
+        }
+    }
 }

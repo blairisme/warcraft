@@ -28,6 +28,7 @@ public class AnimationCatalogSequenceElement implements AnimationCatalogProvider
     public AnimationCatalogSequenceElement(AnimationCatalogSequence sequence) {
         this.sequence = sequence;
         this.entry = new AnimationCatalogEntry();
+        this.entry.notLooping();
     }
 
     public Animation getAnimation() {
@@ -38,15 +39,15 @@ public class AnimationCatalogSequenceElement implements AnimationCatalogProvider
         return sequence.element();
     }
 
-    public AnimationCatalogSequenceElement looping() {
-        entry.looping();
-        return this;
-    }
-
-    public AnimationCatalogSequenceElement notLooping() {
-        entry.notLooping();
-        return this;
-    }
+//    public AnimationCatalogSequenceElement looping() {
+//        entry.looping();
+//        return this;
+//    }
+//
+//    public AnimationCatalogSequenceElement notLooping() {
+//        entry.notLooping();
+//        return this;
+//    }
 
     public AnimationCatalogSequenceElement reversed() {
         entry.reversed();

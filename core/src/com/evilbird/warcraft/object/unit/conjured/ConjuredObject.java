@@ -32,6 +32,7 @@ import static com.evilbird.warcraft.object.common.capability.OffensivePlurality.
 public class ConjuredObject extends Unit implements OffensiveObject
 {
     private float attackSpeed;
+    private float attackTime;
     private int attackRange;
     private int basicDamage;
     private int piercingDamage;
@@ -50,6 +51,7 @@ public class ConjuredObject extends Unit implements OffensiveObject
         super(skin);
         attackRange = 0;
         attackSpeed = 0;
+        attackTime = 0;
         basicDamage = 0;
         piercingDamage = 0;
     }
@@ -86,6 +88,13 @@ public class ConjuredObject extends Unit implements OffensiveObject
     @Override
     public float getAttackSpeed() {
         return attackSpeed;
+    }
+
+    /**
+     * Returns the amount of time remaining until the attacker can attack again.
+     */
+    public float getAttackTime() {
+        return attackTime;
     }
 
     /**
@@ -126,6 +135,14 @@ public class ConjuredObject extends Unit implements OffensiveObject
     }
 
     /**
+     * Sets the distance that the {@code ConjuredObject} can reach with its
+     * attacks.
+     */
+    public void setAttackRange(int attackRange) {
+        this.attackRange = attackRange;
+    }
+
+    /**
      * Sets the rate at which the {@code ConjuredObject} attacks.
      */
     public void setAttackSpeed(float attackSpeed) {
@@ -133,13 +150,12 @@ public class ConjuredObject extends Unit implements OffensiveObject
     }
 
     /**
-     * Sets the distance that the {@code ConjuredObject} can reach with its
-     * attacks.
+     * Sets the amount of time remaining until the attacker can attack again.
      */
-    public void setAttackRange(int attackRange) {
-        this.attackRange = attackRange;
+    public void setAttackTime(float attackTime) {
+        this.attackTime = attackTime;
     }
-    
+
     /**
      * Sets the maximum amount of damage that the {@code ConjuredObject} deals
      * with each attack.
@@ -172,8 +188,9 @@ public class ConjuredObject extends Unit implements OffensiveObject
         ConjuredObject combatant = (ConjuredObject)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
-            .append(attackSpeed, combatant.attackSpeed)
             .append(attackRange, combatant.attackRange)
+            .append(attackSpeed, combatant.attackSpeed)
+            .append(attackTime, combatant.attackTime)
             .append(basicDamage, combatant.basicDamage)
             .append(piercingDamage, combatant.piercingDamage)
             .isEquals();
@@ -183,8 +200,9 @@ public class ConjuredObject extends Unit implements OffensiveObject
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
-            .append(attackSpeed)
             .append(attackRange)
+            .append(attackSpeed)
+            .append(attackTime)
             .append(basicDamage)
             .append(piercingDamage)
             .toHashCode();

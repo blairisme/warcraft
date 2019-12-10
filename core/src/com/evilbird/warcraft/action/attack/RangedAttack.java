@@ -10,12 +10,9 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.action.move.MoveWithinRangeAction;
-import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.RangedOffensiveObject;
-import com.evilbird.warcraft.object.projectile.Projectile;
 
 import javax.inject.Inject;
 
@@ -29,17 +26,7 @@ import javax.inject.Inject;
 public class RangedAttack extends AttackSequence
 {
     @Inject
-    public RangedAttack(AttackEvents events, MoveWithinRangeAction move, ProjectileAttack attack, DeathAction death) {
-        super(events, move, attack, death);
-    }
-
-    @Override
-    protected void resetAttacker(OffensiveObject attacker) {
-        super.resetAttacker(attacker);
-        RangedOffensiveObject rangedAttacker = (RangedOffensiveObject)attacker;
-        Projectile projectile = rangedAttacker.getProjectile();
-        if (projectile != null) {
-            projectile.setVisible(false);
-        }
+    public RangedAttack(MoveWithinRangeAction move, ProjectileAttack attack) {
+        super(move, attack);
     }
 }

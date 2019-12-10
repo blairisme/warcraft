@@ -18,7 +18,6 @@ import static com.evilbird.warcraft.action.attack.AttackStatus.Cancelled;
 import static com.evilbird.warcraft.action.attack.AttackStatus.Complete;
 import static com.evilbird.warcraft.action.attack.AttackStatus.Failed;
 import static com.evilbird.warcraft.action.attack.AttackStatus.Started;
-import static com.evilbird.warcraft.action.attack.AttackStatus.Stopped;
 
 /**
  * Helper class for generating attack events.
@@ -27,19 +26,20 @@ import static com.evilbird.warcraft.action.attack.AttackStatus.Stopped;
  */
 public class AttackEvents
 {
-    private Events events;
+    private transient Events events;
 
     @Inject
     public AttackEvents(Events events) {
         this.events = events;
     }
 
-    public void attackStarted(GameObject attacker, GameObject target) {
+    public void attack(GameObject attacker, GameObject target) {
         addEvent(attacker, target, Started);
+        addEvent(attacker, target, Complete);
     }
 
-    public void attackStopped(GameObject attacker, GameObject target) {
-        addEvent(attacker, target, Stopped);
+    public void attackStarted(GameObject attacker, GameObject target) {
+        addEvent(attacker, target, Started);
     }
 
     public void attackComplete(GameObject attacker, GameObject target) {
@@ -54,7 +54,7 @@ public class AttackEvents
         addEvent(attacker, target, Cancelled);
     }
 
-    public void addEvent(GameObject attacker, GameObject target, AttackStatus status) {
+    private void addEvent(GameObject attacker, GameObject target, AttackStatus status) {
         events.add(new AttackEvent(attacker, target, status));
     }
 }

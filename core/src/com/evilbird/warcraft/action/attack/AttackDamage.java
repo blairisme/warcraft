@@ -9,9 +9,13 @@
 
 package com.evilbird.warcraft.action.attack;
 
+import com.evilbird.engine.action.Action;
+import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 
+import javax.inject.Inject;
+import javax.inject.Provider;
 import java.util.Random;
 
 /**
@@ -25,34 +29,50 @@ import java.util.Random;
  */
 public class AttackDamage
 {
-    private static Random random = new Random();
+    private static transient Random random = new Random();
+    private transient Provider<DeathAction> actions;
 
-    /**
-     * Disable construction of static helper class.
-     */
-    private AttackDamage() {
+    @Inject
+    public AttackDamage(Provider<DeathAction> actions) {
+        this.actions = actions;
     }
 
     /**
-     * Determines the health of the given target after a the given attacker has
-     * attacked it.
+     * Reduces the health of the given target according to the damage dealt by
+     * the given attacker. If the targets health is reduced to zero then a
+     * {@link DeathAction} is assigned to it.
      *
      * @param attacker  the attacking unit.
      * @param target    the target of the attacker.
-     * @return          the targets health minus the attack damage inflicted by
-     *                  the attacker.
      */
-    public static float getDamagedHealth(OffensiveObject attacker, PerishableObject target) {
+    public void apply(OffensiveObject attacker, PerishableObject target) {
+        if (target.isAlive()) {
+            target.setHealth(getDamagedHealth(attacker, target));
+
+            if (target.isDead()) {
+                assignDeath(target);
+            }
+        }
+    }
+
+    public void applyFull(PerishableObject target) {
+        if (target.isAlive()) {
+            target.setHealth(0);
+            assignDeath(target);
+        }
+    }
+
+    private float getDamagedHealth(OffensiveObject attacker, PerishableObject target) {
         int damage = vulnerable(target) ? getDamage(attacker, target) : 0;
         float health = target.getHealth();
         return Math.max(0, health - damage);
     }
 
-    private static boolean vulnerable(PerishableObject target) {
+    private boolean vulnerable(PerishableObject target) {
         return target.getArmour() != Integer.MAX_VALUE;
     }
 
-    private static int getDamage(OffensiveObject combatant, PerishableObject target) {
+    private int getDamage(OffensiveObject combatant, PerishableObject target) {
         int armour = target.getArmour();
         int basic = combatant.getBasicDamage();
         int piercing = combatant.getPiercingDamage();
@@ -62,5 +82,12 @@ public class AttackDamage
     private static int getDamage(int armour, int basic, int piercing) {
         int damage = Math.max(basic - armour, 0) + piercing;
         return random.nextBoolean() ? damage : (int)Math.ceil(damage / 2.0);
+    }
+
+    private void assignDeath(PerishableObject target) {
+        Action death = actions.get();
+        death.setSubject(target);
+        target.removeActions();
+        target.addAction(death);
     }
 }

@@ -44,6 +44,11 @@ public interface OffensiveObject extends PerishableObject, Animated, Audible
     float getAttackSpeed();
 
     /**
+     * Returns the amount of time remaining until the attacker can attack again.
+     */
+    float getAttackTime();
+
+    /**
      * Returns the amount of damage that the {@code OffensiveObject} deals
      * with each attack, specified in health units per attack. If the
      * {@code OffensiveObject} belongs to a {@code Player}, then the upgrades
@@ -72,4 +77,9 @@ public interface OffensiveObject extends PerishableObject, Animated, Audible
         OffensiveCapability capability = getAttackCapability();
         return capability.supports(perishable.getTerrainType());
     }
+
+    /**
+     * Sets the amount of time remaining until the attacker can attack again.
+     */
+    void setAttackTime(float attackTime);
 }

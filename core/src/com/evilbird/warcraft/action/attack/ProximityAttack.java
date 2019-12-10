@@ -10,10 +10,9 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.object.common.capability.MovableObject;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
@@ -23,7 +22,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
-import static com.evilbird.warcraft.action.attack.AttackDamage.getDamagedHealth;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.inRange;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.reorient;
 
 /**
@@ -34,11 +33,20 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.reorient;
  */
 public class ProximityAttack extends BasicAction
 {
-    private transient GameTimer delay;
+    private transient AttackDamage damage;
+    private transient AttackEvents events;
     private transient WarcraftPreferences preferences;
+    private transient OffensiveObject attacker;
+    private transient PerishableObject target;
 
     @Inject
-    public ProximityAttack(WarcraftPreferences preferences) {
+    public ProximityAttack(
+        AttackDamage damage,
+        AttackEvents events,
+        WarcraftPreferences preferences)
+    {
+        this.damage = damage;
+        this.events = events;
         this.preferences = preferences;
     }
 
@@ -46,6 +54,9 @@ public class ProximityAttack extends BasicAction
     public boolean act(float time) {
         if (! initialized()) {
             initialize();
+        }
+        if (! operationValid()) {
+            return operationFailed();
         }
         if (! readyToAttack()) {
             return delayAttack(time);
@@ -59,62 +70,51 @@ public class ProximityAttack extends BasicAction
     @Override
     public void reset() {
         super.reset();
-        delay = null;
-    }
-
-    @Override
-    public void restart() {
-        super.restart();
-        delay = null;
+        attacker = null;
+        target = null;
     }
 
     private boolean initialized() {
-        return delay != null;
+        return attacker != null;
     }
 
     protected void initialize() {
-        OffensiveObject attacker = (OffensiveObject) getSubject();
-        if (attacker.hasAnimation(UnitAnimation.Attack)) {
-            attacker.setAnimation(UnitAnimation.Attack);
-        }
-        if (attacker.hasSound(UnitSound.Attack)) {
-            attacker.setSound(UnitSound.Attack, preferences.getEffectsVolume());
-        }
-        if (attacker instanceof MovableObject) {
-            PerishableObject target = (PerishableObject)getTarget();
-            reorient((MovableObject)attacker, target, false);
-        }
-        delay = new GameTimer(attacker.getAttackSpeed());
+        attacker = (OffensiveObject)getSubject();
+        attacker.setAnimation(UnitAnimation.Attack);
+        target = (PerishableObject)getTarget();
+        events.attackStarted(attacker, target);
+    }
+
+    private boolean operationValid() {
+        return attacker.isAlive() && target.isAlive() && inRange(attacker, target);
+    }
+
+    private boolean operationFailed() {
+        events.attackFailed(attacker, target);
+        setError(new ActionException("Attack Failed"));
+        return ActionComplete;
     }
 
     private boolean readyToAttack() {
-        return delay.complete();
+        return attacker.getAttackTime() == 0;
     }
 
     protected boolean delayAttack(float time) {
-        delay.advance(time);
+        attacker.setAttackTime(Math.max(attacker.getAttackTime() - time, 0));
         return ActionIncomplete;
     }
 
     protected boolean attackTarget() {
-        OffensiveObject attacker = (OffensiveObject)getSubject();
-        if (attacker.hasSound(UnitSound.Attack)) {
-            attacker.setSound(UnitSound.Attack, preferences.getEffectsVolume());
-        }
-
-        PerishableObject target = (PerishableObject)getTarget();
-        target.setHealth(getDamagedHealth(attacker, target));
-
-        if (attacker instanceof MovableObject) {
-            reorient((MovableObject)attacker, target, false);
-        }
-        delay.reset();
-        return target.getHealth() == 0;
+        attacker.setAttackTime(attacker.getAttackSpeed());
+        attacker.setSound(UnitSound.Attack, preferences.getEffectsVolume());
+        reorient(attacker, target, false);
+        damage.apply(attacker, target);
+        return target.isDead();
     }
 
     private boolean attackComplete() {
-        OffensiveObject combatant = (OffensiveObject)getSubject();
-        combatant.setAnimation(UnitAnimation.Idle);
+        attacker.setAnimation(UnitAnimation.Idle);
+        events.attackComplete(attacker, target);
         return ActionComplete;
     }
 }

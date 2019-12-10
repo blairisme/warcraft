@@ -34,8 +34,8 @@ public abstract class BasicAction implements Action, PooledObject<Action>
     private Identifier identifier;
     private ActionException error;
     private UserInput cause;
-    private GameObjectReference item;
-    private GameObjectReference target;
+    private GameObjectReference<GameObject> item;
+    private GameObjectReference<GameObject> target;
     private transient Pool<Action> pool;
 
     public BasicAction() {
@@ -77,7 +77,7 @@ public abstract class BasicAction implements Action, PooledObject<Action>
         return item != null ? item.get() : null;
     }
 
-    public GameObjectReference getItemReference() {
+    public GameObjectReference<GameObject> getItemReference() {
         return item;
     }
 
@@ -86,7 +86,7 @@ public abstract class BasicAction implements Action, PooledObject<Action>
         return target != null ? target.get() : null;
     }
 
-    public GameObjectReference getTargetReference() {
+    public GameObjectReference<GameObject> getTargetReference() {
         return target;
     }
 
@@ -119,7 +119,7 @@ public abstract class BasicAction implements Action, PooledObject<Action>
         this.item = gameObject != null ? new GameObjectReference<>(gameObject) : null;
     }
 
-    public void setSubjectReference(GameObjectReference reference) {
+    public void setSubjectReference(GameObjectReference<GameObject> reference) {
         this.item = reference;
     }
 
@@ -128,7 +128,7 @@ public abstract class BasicAction implements Action, PooledObject<Action>
         this.target = target != null ? new GameObjectReference<>(target) : null;
     }
 
-    public void setTargetReference(GameObjectReference reference) {
+    public void setTargetReference(GameObjectReference<GameObject> reference) {
         this.target = reference;
     }
 
@@ -157,7 +157,7 @@ public abstract class BasicAction implements Action, PooledObject<Action>
             .append("identifier", identifier)
             .append("error", error)
             .append("cause", cause)
-            .append("item", item)
+            .append("subject", item)
             .append("target", target)
             .toString();
     }

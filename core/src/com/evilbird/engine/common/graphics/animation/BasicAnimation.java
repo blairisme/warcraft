@@ -101,19 +101,9 @@ public class BasicAnimation implements DirectionalAnimation
      *
      * @return a {@link List} of {@link Drawable Drawables}.
      */
+    @Override
     public List<AnimationFrame> getFrames() {
         return CollectionUtils.flatten(frames.values());
-    }
-
-    /**
-     * Returns a mapping of the sequence of images displayed by the Animation
-     * for each supported direction.
-     *
-     * @return  a collection of Drawables identified by the directions to
-     *          which they apply.
-     */
-    public Map<Range<Float>, Array<AnimationFrame>> getFrameRanges() {
-        return frames;
     }
 
     /**
@@ -139,12 +129,13 @@ public class BasicAnimation implements DirectionalAnimation
     }
 
     /**
-     * Returns the interval between frames, specified in seconds.
+     * Returns the length of the animation, specified in seconds.
      *
-     * @return the number of seconds between frames.
+     * @return the number of seconds in the animation.
      */
-    public float getInterval() {
-        return interval;
+    @Override
+    public float getDuration() {
+        return frames.size() * interval;
     }
 
     /**
@@ -154,8 +145,18 @@ public class BasicAnimation implements DirectionalAnimation
      * @return  {@code true} if the animation will loop, otherwise
      *          {@code false}.
      */
+    @Override
     public boolean getLooping() {
         return mode == PlayMode.LOOP;
+    }
+
+    /**
+     * Determines whether the animation would be finished if played without
+     * looping, given the time.
+     */
+    @Override
+    public boolean isFinished(float time) {
+        return animation.isAnimationFinished(time);
     }
 
     /**
