@@ -42,7 +42,7 @@ public class GoblinSappersFactory extends MeleeUnitFactory
     @Override
     public Combatant get(Identifier type) {
         Combatant result = builder.build();
-        result.setAttackSpeed(0.9f);
+        result.setAttackSpeed(0f);
         result.setArmour(2);
         result.setBasicDamage(50);
         result.setPiercingDamage(50);

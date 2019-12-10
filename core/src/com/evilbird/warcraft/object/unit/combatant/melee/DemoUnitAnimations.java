@@ -15,6 +15,7 @@ import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
 import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Attack;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Death;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Move;
 import static java.util.Objects.requireNonNull;
@@ -73,7 +74,7 @@ public class DemoUnitAnimations extends AnimationCatalog
      *                              are {@code null}.
      */
     public DemoUnitAnimations(Texture base, GridPoint2 size) {
-        super(3);
+        super(4);
 
         requireNonNull(base);
         requireNonNull(size);
@@ -88,9 +89,11 @@ public class DemoUnitAnimations extends AnimationCatalog
     }
 
     private void attack(Texture base, GridPoint2 size, int start, int count) {
+        alias(Death, Attack);
         animation(Attack)
             .withTexture(base)
             .withSequence(size.y * start, count)
+            .withBlankFrame()
             .withSize(size)
             .withInterval(0.15f)
             .notLooping();

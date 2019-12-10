@@ -42,7 +42,7 @@ public class DwarvenDemolitionSquadFactory extends MeleeUnitFactory
     @Override
     public Combatant get(Identifier type) {
         Combatant result = builder.build();
-        result.setAttackSpeed(0.75f);
+        result.setAttackSpeed(0f);
         result.setArmour(0);
         result.setBasicDamage(50);
         result.setPiercingDamage(50);

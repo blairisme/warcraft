@@ -22,6 +22,7 @@ import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
+import com.evilbird.warcraft.object.common.capability.OffensiveCapability;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
@@ -282,7 +283,7 @@ public class UnitOperations
     public static boolean isAttacker(GameObject gameObject) {
         if (gameObject instanceof OffensiveObject) {
             OffensiveObject combatant = (OffensiveObject) gameObject;
-            return combatant.getAttackSpeed() > 0;
+            return combatant.getAttackCapability() != OffensiveCapability.None;
         }
         return false;
     }

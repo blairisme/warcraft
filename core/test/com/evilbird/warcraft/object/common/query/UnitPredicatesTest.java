@@ -11,6 +11,7 @@ package com.evilbird.warcraft.object.common.query;
 
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectGroup;
+import com.evilbird.warcraft.object.common.capability.OffensiveCapability;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.building.Building;
@@ -246,7 +247,7 @@ public class UnitPredicatesTest
     @Test
     public void isAttackerTest() {
         Combatant combatant = mock(Combatant.class);
-        when(combatant.getAttackSpeed()).thenReturn(10f);
+        when(combatant.getAttackCapability()).thenReturn(OffensiveCapability.Air);
 
         Predicate<GameObject> predicate = UnitPredicates.isAttacker();
         assertTrue(predicate.test(combatant));
@@ -255,7 +256,7 @@ public class UnitPredicatesTest
     @Test
     public void isAttackerWithoutDamageTest() {
         Combatant combatant = mock(Combatant.class);
-        when(combatant.getAttackSpeed()).thenReturn(0f);
+        when(combatant.getAttackCapability()).thenReturn(OffensiveCapability.None);
 
         Predicate<GameObject> predicate = UnitPredicates.isAttacker();
         assertFalse(predicate.test(combatant));

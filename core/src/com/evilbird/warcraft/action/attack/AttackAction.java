@@ -32,7 +32,7 @@ public class AttackAction extends CompositeAction
     private Action delegate;
     private BuildingAttack buildingAttack;
     private ConjuredAttack conjuredAttack;
-    private DemolitionAttack demoAttack;
+    private DemolitionSequence demoAttack;
     private MeleeAttack meleeAttack;
     private RangedAttack rangedAttack;
 
@@ -40,7 +40,7 @@ public class AttackAction extends CompositeAction
     public AttackAction(
         BuildingAttack buildingAttack,
         ConjuredAttack conjuredAttack,
-        DemolitionAttack demoAttack,
+        DemolitionSequence demoAttack,
         MeleeAttack meleeAttack,
         RangedAttack rangedAttack)
     {

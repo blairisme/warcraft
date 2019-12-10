@@ -19,6 +19,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Attack;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Death;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Move;
 
@@ -42,6 +43,6 @@ public class DemoUnitAnimationsTest extends AnimationCatalogTestCase<DemoUnitAni
 
     @Override
     protected Collection<Identifier> getAnimationsIds() {
-        return Arrays.asList(Attack, Idle, Move);
+        return Arrays.asList(Attack, Death, Idle, Move);
     }
 }

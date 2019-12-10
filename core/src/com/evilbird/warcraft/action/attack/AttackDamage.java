@@ -32,6 +32,10 @@ public class AttackDamage
     private static transient Random random = new Random();
     private transient Provider<DeathAction> actions;
 
+    /**
+     * Constructs a new instance of this class given a factory that can produce
+     * {@link DeathAction DeathActions}.
+     */
     @Inject
     public AttackDamage(Provider<DeathAction> actions) {
         this.actions = actions;
@@ -55,10 +59,16 @@ public class AttackDamage
         }
     }
 
-    public void applyFull(PerishableObject target) {
-        if (target.isAlive()) {
-            target.setHealth(0);
-            assignDeath(target);
+    /**
+     * Reduces the health of the given {@link PerishableObject} to zero and
+     * assigns a {@link DeathAction} to it.
+     *
+     * @param object the {@code PerishableObject} to damage.
+     */
+    public void applyFull(PerishableObject object) {
+        if (object.isAlive()) {
+            object.setHealth(0);
+            assignDeath(object);
         }
     }
 
