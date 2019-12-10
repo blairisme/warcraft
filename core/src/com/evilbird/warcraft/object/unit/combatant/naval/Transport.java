@@ -11,6 +11,7 @@ package com.evilbird.warcraft.object.unit.combatant.naval;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.object.GameObjectReference;
+import com.evilbird.warcraft.object.common.capability.OffensiveCapability;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitStyle;
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.containsAny;
 import static com.evilbird.engine.common.collection.CollectionUtils.convert;
+import static com.evilbird.warcraft.object.common.capability.OffensiveCapability.None;
 
 /**
  * A {@link Ship} specialization that transports land {@link Unit Units} across
@@ -49,6 +51,15 @@ public class Transport extends Ship
      */
     public void addPassenger(Unit passenger) {
         passengers.add(new GameObjectReference<>(passenger));
+    }
+
+    /**
+     * Returns the no offensive attack capability, as {@code Transports} cannot
+     * attack.
+     */
+    @Override
+    public OffensiveCapability getAttackCapability() {
+        return None;
     }
 
     /**

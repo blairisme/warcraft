@@ -23,12 +23,12 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Move;
 
 /**
- * Instances of this unit test validate logic in the {@link FlyingMachineAnimations}
+ * Instances of this unit test validate logic in the {@link GnomishFlyingMachineAnimations}
  * class.
  *
  * @author Blair Butterworth
  */
-public class FlyingMachineAnimationsTest extends AnimationCatalogTestCase<FlyingMachineAnimations, FlyingUnitAssets>
+public class GnomishFlyingMachineAnimationsTest extends AnimationCatalogTestCase<GnomishFlyingMachineAnimations, FlyingUnitAssets>
 {
     @Override
     protected FlyingUnitAssets newAssets(AssetManager manager) {
@@ -36,8 +36,8 @@ public class FlyingMachineAnimationsTest extends AnimationCatalogTestCase<Flying
     }
 
     @Override
-    protected FlyingMachineAnimations newCatalog(FlyingUnitAssets assets) {
-        return new FlyingMachineAnimations(assets);
+    protected GnomishFlyingMachineAnimations newCatalog(FlyingUnitAssets assets) {
+        return new GnomishFlyingMachineAnimations(assets);
     }
 
     @Override

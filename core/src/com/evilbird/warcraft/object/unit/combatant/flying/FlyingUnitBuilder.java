@@ -20,7 +20,7 @@ import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 import com.evilbird.warcraft.object.unit.combatant.CombatantBuilder;
 import com.evilbird.warcraft.object.unit.combatant.CombatantSounds;
 import com.evilbird.warcraft.object.unit.combatant.ConjuredUnitSounds;
-import com.evilbird.warcraft.object.unit.combatant.flying.human.FlyingMachineAnimations;
+import com.evilbird.warcraft.object.unit.combatant.flying.human.GnomishFlyingMachineAnimations;
 import com.evilbird.warcraft.object.unit.combatant.flying.human.GryphonAnimations;
 import com.evilbird.warcraft.object.unit.combatant.flying.neutral.DaemonAnimations;
 import com.evilbird.warcraft.object.unit.combatant.flying.neutral.EyeOfKilroggAnimations;
@@ -71,7 +71,7 @@ public class FlyingUnitBuilder extends CombatantBuilder<FlyingUnit>
 
     @Override
     protected FlyingUnit newCombatant(Skin skin) {
-        return new FlyingUnit(skin);
+        return type.isFlyingScout() ? new FlyingScout(skin) : new FlyingUnit(skin);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class FlyingUnitBuilder extends CombatantBuilder<FlyingUnit>
             case Dragon: return new DragonAnimations(assets);
             case EyeOfKilrogg: return new EyeOfKilroggAnimations(assets);
             case GryphonRider: return new GryphonAnimations(assets);
-            case GnomishFlyingMachine: return new FlyingMachineAnimations(assets);
+            case GnomishFlyingMachine: return new GnomishFlyingMachineAnimations(assets);
             case GoblinZeppelin: return new GoblinZeppelinAnimations(assets);
             default: throw new UnsupportedOperationException();
         }

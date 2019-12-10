@@ -65,8 +65,9 @@ public class GoblinZeppelinAnimations extends AnimationCatalog
         animation(Death)
             .withTexture(explosion)
             .withSequence(0, 16)
+            .withBlankFrame()
             .withSize(64, 64)
-            .withInterval(0.10f)
+            .withInterval(0.15f)
             .notLooping();
     }
 

@@ -42,10 +42,6 @@ public class EyeOfKilroggFactory extends FlyingUnitFactory
     @Override
     public FlyingUnit get(Identifier type) {
         FlyingUnit result = builder.build();
-        result.setAttackSpeed(0);
-        result.setArmour(0);
-        result.setPiercingDamage(0);
-        result.setBasicDamage(0);
         result.setHealth(100);
         result.setHealthMaximum(100);
         result.setIdentifier(objectIdentifier("EyeOfKilrogg", result));

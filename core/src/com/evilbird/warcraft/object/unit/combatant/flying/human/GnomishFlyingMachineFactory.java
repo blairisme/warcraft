@@ -21,7 +21,6 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.object.common.capability.TerrainType.Air;
 import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
-import static com.evilbird.warcraft.object.projectile.ProjectileType.Arrow;
 import static com.evilbird.warcraft.object.unit.UnitType.GnomishFlyingMachine;
 
 /**
@@ -44,19 +43,13 @@ public class GnomishFlyingMachineFactory extends FlyingUnitFactory
     @Override
     public FlyingUnit get(Identifier type) {
         FlyingUnit result = builder.build();
-        result.setAttackSpeed(0);
-        result.setArmour(0);
-        result.setPiercingDamage(0);
-        result.setBasicDamage(0);
         result.setHealth(150);
         result.setHealthMaximum(150);
         result.setIdentifier(objectIdentifier("GnomishFlyingMachine", result));
         result.setMovementSpeed(8 * 17);
         result.setMovementCapability(Air);
-        result.setAttackRange(tiles(1));
         result.setSight(tiles(9));
         result.setType(GnomishFlyingMachine);
-        result.setProjectileType(Arrow);
         return result;
     }
 }

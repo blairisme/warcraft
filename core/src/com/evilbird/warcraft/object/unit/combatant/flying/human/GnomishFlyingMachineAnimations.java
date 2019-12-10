@@ -25,13 +25,13 @@ import static java.util.Objects.requireNonNull;
  *
  * @author Blair Butterworth
  */
-public class FlyingMachineAnimations extends AnimationCatalog
+public class GnomishFlyingMachineAnimations extends AnimationCatalog
 {
-    public FlyingMachineAnimations(FlyingUnitAssets assets) {
+    public GnomishFlyingMachineAnimations(FlyingUnitAssets assets) {
         this(assets.getBaseTexture(), assets.getSize());
     }
 
-    public FlyingMachineAnimations(Texture base, GridPoint2 size) {
+    public GnomishFlyingMachineAnimations(Texture base, GridPoint2 size) {
         super(3);
 
         requireNonNull(base);
@@ -45,8 +45,9 @@ public class FlyingMachineAnimations extends AnimationCatalog
         animation(Death)
             .withTexture(base)
             .withSequence(size.y * 2, 2)
+            .withBlankFrame()
             .withSize(size)
-            .withInterval(0.5f)
+            .withInterval(0.15f)
             .notLooping();
     }
 

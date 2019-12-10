@@ -20,7 +20,6 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.object.common.capability.TerrainType.Air;
 import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
-import static com.evilbird.warcraft.object.projectile.ProjectileType.Arrow;
 import static com.evilbird.warcraft.object.unit.UnitType.GoblinZeppelin;
 
 /**
@@ -42,11 +41,6 @@ public class GoblinZeppelinFactory extends FlyingUnitFactory
     @Override
     public FlyingUnit get(Identifier type) {
         FlyingUnit result = builder.build();
-        result.setAttackSpeed(1.5f);
-        result.setAttackRange(tiles(4));
-        result.setArmour(0);
-        result.setPiercingDamage(3);
-        result.setBasicDamage(9);
         result.setHealth(40);
         result.setHealthMaximum(40);
         result.setIdentifier(objectIdentifier("GoblinZeppelin", result));
@@ -54,7 +48,6 @@ public class GoblinZeppelinFactory extends FlyingUnitFactory
         result.setMovementCapability(Air);
         result.setSight(tiles(5));
         result.setType(GoblinZeppelin);
-        result.setProjectileType(Arrow);
         return result;
     }
 }

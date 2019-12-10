@@ -256,7 +256,7 @@ public enum UnitType implements GameObjectType
     }
 
     public boolean isFlyingScout() {
-        return this == GnomishFlyingMachine || this == GoblinZeppelin;
+        return this == GnomishFlyingMachine || this == GoblinZeppelin || this == EyeOfKilrogg;
     }
 
     public boolean isMelee() {
