@@ -12,6 +12,7 @@ package com.evilbird.warcraft.object.unit.combatant;
 import com.evilbird.engine.game.GameFactorySet;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.combatant.flying.FlyingUnitFactorySet;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererFactorySet;
 import com.evilbird.warcraft.object.unit.combatant.melee.MeleeUnitFactorySet;
 import com.evilbird.warcraft.object.unit.combatant.naval.NavalUnitFactorySet;
 import com.evilbird.warcraft.object.unit.combatant.ranged.RangedUnitFactorySet;
@@ -31,6 +32,7 @@ public class CombatantFactorySet extends GameFactorySet<Combatant>
     @Inject
     public CombatantFactorySet(
         FlyingUnitFactorySet flyingUnitFactory,
+        GathererFactorySet gathererFactory,
         MeleeUnitFactorySet meleeUnitFactory,
         NavalUnitFactorySet navalUnitFactory,
         RangedUnitFactorySet rangedUnitFactory,
@@ -38,6 +40,7 @@ public class CombatantFactorySet extends GameFactorySet<Combatant>
         SpellCasterFactorySet spellCasterFactory)
     {
         addProvider(flyingUnitFactory);
+        addProvider(gathererFactory);
         addProvider(meleeUnitFactory);
         addProvider(navalUnitFactory);
         addProvider(rangedUnitFactory);

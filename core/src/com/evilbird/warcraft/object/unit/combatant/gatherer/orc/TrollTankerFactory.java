@@ -15,7 +15,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.object.common.value.UpgradeValue;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
-import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererFactoryBase;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererFactory;
 
 import javax.inject.Inject;
 
@@ -42,7 +42,7 @@ import static com.evilbird.warcraft.object.unit.UnitType.TrollTanker;
  * </p>
  * @author Blair Butterworth
  */
-public class TrollTankerFactory extends GathererFactoryBase
+public class TrollTankerFactory extends GathererFactory
 {
     @Inject
     public TrollTankerFactory(Device device) {

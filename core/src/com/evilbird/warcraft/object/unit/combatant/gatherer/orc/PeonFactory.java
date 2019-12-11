@@ -14,7 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.object.common.value.UpgradeValue;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
-import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererFactoryBase;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererFactory;
 
 import javax.inject.Inject;
 
@@ -44,7 +44,7 @@ import static com.evilbird.warcraft.object.unit.UnitType.Peon;
  *
  * @author Blair Butterworth
  */
-public class PeonFactory extends GathererFactoryBase
+public class PeonFactory extends GathererFactory
 {
     @Inject
     public PeonFactory(Device device) {

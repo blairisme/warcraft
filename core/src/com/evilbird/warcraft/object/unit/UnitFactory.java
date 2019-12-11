@@ -12,7 +12,7 @@ package com.evilbird.warcraft.object.unit;
 import com.evilbird.engine.game.GameFactorySet;
 import com.evilbird.warcraft.object.unit.building.BuildingFactory;
 import com.evilbird.warcraft.object.unit.combatant.CombatantFactorySet;
-import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererFactory;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererFactorySet;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredFactory;
 import com.evilbird.warcraft.object.unit.critter.CritterFactory;
 import com.evilbird.warcraft.object.unit.resource.ResourceFactory;
@@ -33,14 +33,12 @@ public class UnitFactory extends GameFactorySet<Unit>
         CombatantFactorySet combatantFactory,
         ConjuredFactory conjuredFactory,
         CritterFactory critterFactory,
-        GathererFactory gathererFactory,
         ResourceFactory resourceFactory)
     {
         addProvider(buildingFactory);
         addProvider(conjuredFactory);
         addProvider(combatantFactory);
         addProvider(critterFactory);
-        addProvider(gathererFactory);
         addProvider(resourceFactory);
     }
 }

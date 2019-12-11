@@ -9,34 +9,33 @@
 
 package com.evilbird.warcraft.object.unit.combatant.gatherer;
 
-import com.evilbird.engine.game.GameFactorySet;
+import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.warcraft.object.unit.UnitType;
-import com.evilbird.warcraft.object.unit.combatant.Combatant;
-import com.evilbird.warcraft.object.unit.combatant.gatherer.human.OilTankerFactory;
-import com.evilbird.warcraft.object.unit.combatant.gatherer.human.PeasantFactory;
-import com.evilbird.warcraft.object.unit.combatant.gatherer.orc.PeonFactory;
-import com.evilbird.warcraft.object.unit.combatant.gatherer.orc.TrollTankerFactory;
-
-import javax.inject.Inject;
+import com.evilbird.warcraft.object.unit.combatant.CombatantFactory;
 
 /**
- * Instances of this factory create {@link Gatherer Gatherers}, a
- * {@link Combatant} specialization that can both fight and collect resources.
+ * A reusable class for creating {@link Gatherer}s, loading the
+ * necessary assets and defining the appropriate attributes.
  *
  * @author Blair Butterworth
  */
-public class GathererFactory extends GameFactorySet<Gatherer>
+public abstract class GathererFactory extends CombatantFactory<GathererAssets, GathererBuilder, Gatherer>
 {
-    @Inject
-    public GathererFactory(
-        OilTankerFactory oilTankerFactory,
-        PeasantFactory peasantFactory,
-        PeonFactory peonFactory,
-        TrollTankerFactory trollTankerFactory)
-    {
-        addProvider(UnitType.OilTanker, oilTankerFactory);
-        addProvider(UnitType.Peasant, peasantFactory);
-        addProvider(UnitType.Peon, peonFactory);
-        addProvider(UnitType.TrollTanker, trollTankerFactory);
+    public GathererFactory(AssetManager manager, UnitType type) {
+        this(manager, type, type);
+    }
+
+    public GathererFactory(AssetManager manager, UnitType assetType, UnitType buildType) {
+        super(manager, assetType, buildType);
+    }
+
+    @Override
+    protected GathererAssets newAssets(AssetManager manager, UnitType type) {
+        return new GathererAssets(manager, type);
+    }
+
+    @Override
+    protected GathererBuilder newBuilder(GathererAssets assets, UnitType type) {
+        return new GathererBuilder(assets, type);
     }
 }
