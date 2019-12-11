@@ -84,7 +84,7 @@ public interface Action extends Identifiable
      * Resets the object for reuse. Object references should be set to
      * {@code null} and fields may be set to default values.
      */
-    void reset ();
+    void reset();
 
     /**
      * Sets the state of the action so that it can be run again.

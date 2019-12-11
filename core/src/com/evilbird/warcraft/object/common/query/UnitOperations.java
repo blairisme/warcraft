@@ -477,7 +477,7 @@ public class UnitOperations
 
     /**
      * Determines if the given {@link GameObject} is a {@link Resource}: a game
-     * object that contains provides resources,
+     * object that contains provides resources.
      */
     public static boolean isResource(GameObject gameObject) {
         return gameObject instanceof Resource;

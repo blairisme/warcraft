@@ -5,6 +5,6 @@
 
 <suppressions>
     <suppress checks=".*" files=".*Test.*"/>
-    <suppress checks=".*" files=".*java/util/function.*"/>
+    <suppress checks=".*" files=".*java.*function.*"/>
     <suppress checks="LineLength" files=".*ButtonIconLayout.*"/>
 </suppressions>

@@ -12,7 +12,6 @@ package com.evilbird.warcraft.object.unit;
 import com.evilbird.engine.game.GameFactorySet;
 import com.evilbird.warcraft.object.unit.building.BuildingFactory;
 import com.evilbird.warcraft.object.unit.combatant.CombatantFactorySet;
-import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererFactorySet;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredFactory;
 import com.evilbird.warcraft.object.unit.critter.CritterFactory;
 import com.evilbird.warcraft.object.unit.resource.ResourceFactory;

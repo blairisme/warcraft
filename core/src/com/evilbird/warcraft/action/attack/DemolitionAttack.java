@@ -20,7 +20,8 @@ import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 
 /**
  * An {@link Action} that causes a given {@link OffensiveObject combatant} to
- * attack a {@link PerishableObject} using explosives, killing
+ * attack a {@link PerishableObject} using explosives, killing itself in the
+ * process.
  *
  * @author Blair Butterworth
  */

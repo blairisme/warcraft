@@ -26,7 +26,7 @@ import static com.evilbird.test.data.assets.TestDevices.newTestDevice;
  *
  * @author Blair Butterworth
  */
-public class serializer extends StateTestCase
+public class SerializerTest extends StateTestCase
 {
     private HudLoader hudLoader;
     private WarcraftMusic musicLoader;
