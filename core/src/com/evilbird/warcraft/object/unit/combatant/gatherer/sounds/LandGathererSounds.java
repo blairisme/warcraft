@@ -37,7 +37,7 @@ public class LandGathererSounds extends SoundCatalog
         sound(Complete, assets.getCompleteSound());
         sound(Ready, assets.getReadySound());
         sound(Attack, assets.getAttackSound());
-        sound(Die, assets.getDeadSound());
+        sound(Die, assets.getDieSound());
         sound(ChopWood, assets.getChoppingSound());
     }
 }

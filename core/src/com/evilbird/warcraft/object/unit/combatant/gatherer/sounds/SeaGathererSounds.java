@@ -34,6 +34,6 @@ public class SeaGathererSounds extends SoundCatalog
         sound(Build, assets.getConstructSound());
         sound(Complete, assets.getCompleteSound());
         sound(Ready, assets.getReadySound());
-        sound(Die, assets.getDeadSound());
+        sound(Die, assets.getDieSound());
     }
 }
