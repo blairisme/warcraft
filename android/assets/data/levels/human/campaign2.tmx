@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="32" nextobjectid="59">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="64" height="64" tilewidth="32" tileheight="32" infinite="0" nextlayerid="32" nextobjectid="59">
  <properties>
   <property name="Parent" value="Neutral"/>
  </properties>
@@ -203,6 +203,7 @@
    <property name="Controllable" type="bool" value="false"/>
    <property name="Faction" value="Human"/>
    <property name="Nation" value="Azeroth"/>
+   <property name="Passive" type="bool" value="true"/>
    <property name="Team" type="int" value="1"/>
    <property name="Type" value="Player"/>
    <property name="Viewable" type="bool" value="true"/>

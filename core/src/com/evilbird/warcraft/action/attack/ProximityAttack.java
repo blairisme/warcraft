@@ -83,6 +83,7 @@ public class ProximityAttack extends BasicAction
         attacker.setAnimation(UnitAnimation.Attack);
         target = (PerishableObject)getTarget();
         events.attackStarted(attacker, target);
+        reorient(attacker, target, false);
     }
 
     private boolean operationValid() {

@@ -25,6 +25,7 @@ import java.util.Map;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.filter;
 import static com.evilbird.engine.common.collection.CollectionUtils.findFirst;
+import static com.evilbird.warcraft.behaviour.ai.attack.AttackStatus.isValidAttacker;
 import static com.evilbird.warcraft.behaviour.ai.attack.AttackStatus.isValidTarget;
 import static com.evilbird.warcraft.object.common.capability.OffensivePlurality.Multiple;
 import static java.util.Collections.singletonList;
@@ -60,7 +61,7 @@ public class AttackController
      * within the attackers capability to attack.
      */
     public List<PerishableObject> getTargets(OffensiveObject attacker) {
-        if (! attacker.isAlive()) {
+        if (! isValidAttacker(attacker)) {
             return Collections.emptyList();
         }
         if (cooldown.containsKey(attacker.getIdentifier())) {

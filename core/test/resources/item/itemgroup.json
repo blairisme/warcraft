@@ -9,6 +9,7 @@
   "capturable": false,
   "controllable": false,
   "viewable": false,
+  "passive": false,
   "colour": "None",
   "nation": "Neutral",
   "faction": {

@@ -79,11 +79,4 @@ public class MoveToVectorAction extends MoveAction
         filter = null;
         destination = null;
     }
-
-    @Override
-    public void restart() {
-        super.restart();
-        filter = null;
-        destination = null;
-    }
 }

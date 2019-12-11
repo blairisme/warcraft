@@ -89,6 +89,7 @@ public class LevelLoader
     private static final String COLOUR_PROPERTY = "Colour";
     private static final String CAPTURABLE = "Capturable";
     private static final String CONTROLLABLE = "Controllable";
+    private static final String PASSIVE = "Passive";
     private static final String VIEWABLE = "Viewable";
 
     private TiledMapLoader mapLoader;
@@ -221,6 +222,7 @@ public class LevelLoader
         player.setTeam(getInt(properties, TEAM_PROPERTY));
         player.setCapturable(getBoolean(properties, CAPTURABLE));
         player.setControllable(getBoolean(properties, CONTROLLABLE));
+        player.setPassive(getBoolean(properties, PASSIVE));
         player.setViewable(getBoolean(properties, VIEWABLE));
         player.setColour(getEnum(properties, COLOUR_PROPERTY, TeamColour.class, TeamColour.None));
         player.setNation(getEnum(properties, NATION_PROPERTY, WarcraftNation.class, WarcraftNation.Unknown));

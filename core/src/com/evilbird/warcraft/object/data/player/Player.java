@@ -46,6 +46,7 @@ public class Player extends GameObjectGroup implements ResourceContainer
     private boolean capturable;
     private boolean controllable;
     private boolean viewable;
+    private boolean passive;
     private TeamColour colour;
     private WarcraftNation nation;
     private WarcraftFaction faction;
@@ -60,6 +61,7 @@ public class Player extends GameObjectGroup implements ResourceContainer
         this.colour = None;
         this.nation = Neutral;
         this.capturable = false;
+        this.passive = false;
         this.faction = WarcraftFaction.Neutral;
         this.resources = new LinkedHashMap<>();
         this.statistics = new LinkedHashMap<>();
@@ -81,14 +83,6 @@ public class Player extends GameObjectGroup implements ResourceContainer
     }
 
     /**
-     * Returns the players {@link WarcraftNation nation}, a distinct group
-     * within the players {@link Player#faction}.
-     */
-    public WarcraftNation getNation() {
-        return nation;
-    }
-
-    /**
      * Returns the players {@link WarcraftFaction faction}.
      */
     public WarcraftFaction getFaction() {
@@ -101,6 +95,14 @@ public class Player extends GameObjectGroup implements ResourceContainer
      */
     public int getLevel() {
         return level;
+    }
+
+    /**
+     * Returns the players {@link WarcraftNation nation}, a distinct group
+     * within the players {@link Player#faction}.
+     */
+    public WarcraftNation getNation() {
+        return nation;
     }
 
     /**
@@ -181,12 +183,28 @@ public class Player extends GameObjectGroup implements ResourceContainer
         return viewable;
     }
 
+    /**
+     * Returns whether or not AI behaviour should apply to the game objects
+     * owned by the player or not.
+     */
+    public boolean isPassive() {
+        return passive;
+    }
+
+    /**
+     * Decreases the value of the given {@link PlayerStatistic} by the
+     * specified amount.
+     */
     public void decrementStatistic(PlayerStatistic type, float value) {
         float current = getStatistic(type);
         float updated = Math.max(current - value, 0);
         setStatistic(type, updated);
     }
 
+    /**
+     * Increases the value of the given {@link PlayerStatistic} by the
+     * specified amount.
+     */
     public void incrementStatistic(PlayerStatistic type, float value) {
         float current = getStatistic(type);
         float updated = current + value;
@@ -218,14 +236,6 @@ public class Player extends GameObjectGroup implements ResourceContainer
     }
 
     /**
-     * Sets the players {@link WarcraftNation nation}, a distinct group
-     * within the players {@link Player#faction}.
-     */
-    public void setNation(WarcraftNation nation) {
-        this.nation = nation;
-    }
-
-    /**
      * Sets the players {@link WarcraftFaction faction}.
      */
     public void setFaction(WarcraftFaction faction) {
@@ -239,6 +249,22 @@ public class Player extends GameObjectGroup implements ResourceContainer
      */
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    /**
+     * Sets the players {@link WarcraftNation nation}, a distinct group
+     * within the players {@link Player#faction}.
+     */
+    public void setNation(WarcraftNation nation) {
+        this.nation = nation;
+    }
+
+    /**
+     * Sets whether or not AI behaviour should apply to the game objects
+     * owned by the player or not.
+     */
+    public void setPassive(boolean passive) {
+        this.passive = passive;
     }
 
     /**
@@ -332,6 +358,7 @@ public class Player extends GameObjectGroup implements ResourceContainer
             .append(team, player.team)
             .append(capturable, player.capturable)
             .append(controllable, player.controllable)
+            .append(passive, player.passive)
             .append(viewable, player.viewable)
             .append(nation, player.nation)
             .append(faction, player.faction)
@@ -350,6 +377,7 @@ public class Player extends GameObjectGroup implements ResourceContainer
             .append(team)
             .append(capturable)
             .append(controllable)
+            .append(passive)
             .append(viewable)
             .append(nation)
             .append(faction)

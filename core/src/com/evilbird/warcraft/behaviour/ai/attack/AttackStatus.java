@@ -34,7 +34,10 @@ public class AttackStatus
      * its still alive and isn't currently engaged in another action.
      */
     public static boolean isValidAttacker(OffensiveObject attacker) {
-        return attacker.isAlive() && isAttackerIdle(attacker);
+        return attacker.isAlive()
+            && isAttackerIdle(attacker)
+            && !isNeutral(attacker)
+            && !isPassive(attacker);
     }
 
     /**
@@ -45,12 +48,9 @@ public class AttackStatus
         return target.isAlive()
             && target.isAttackable()
             && target.isEnemy(attacker)
-            && !isNeutral(target)
-            && attacker.isAlive()
             && attacker.isAttackPossible(target)
-            && isAttackerIdle(attacker)
-            && !isNeutral(attacker)
-            && !isCapturable(attacker);
+            && !isNeutral(target)
+            && !isPassive(target);
     }
 
     private static boolean isAttackerIdle(OffensiveObject attacker) {
@@ -62,8 +62,8 @@ public class AttackStatus
         return player != null && player.isNeutral();
     }
 
-    private static boolean isCapturable(PerishableObject target) {
+    private static boolean isPassive(PerishableObject target) {
         Player player = target.getTeam();
-        return player != null && player.isCapturable();
+        return player != null && player.isPassive();
     }
 }
