@@ -13,10 +13,8 @@ import com.evilbird.engine.game.GameFactorySet;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
-import com.evilbird.warcraft.object.unit.combatant.ranged.human.BallistaFactory;
 import com.evilbird.warcraft.object.unit.combatant.ranged.human.ElvenArcherFactory;
 import com.evilbird.warcraft.object.unit.combatant.ranged.human.ElvenRangerFactory;
-import com.evilbird.warcraft.object.unit.combatant.ranged.orc.CatapultFactory;
 import com.evilbird.warcraft.object.unit.combatant.ranged.orc.TrollAxethrowerFactory;
 import com.evilbird.warcraft.object.unit.combatant.ranged.orc.TrollBerserkerFactory;
 import com.evilbird.warcraft.object.unit.combatant.ranged.orc.ZuljinFactory;
@@ -33,16 +31,12 @@ public class RangedUnitFactorySet extends GameFactorySet<Combatant>
 {
     @Inject
     public RangedUnitFactorySet(
-        BallistaFactory ballistaFactory,
-        CatapultFactory catapultFactory,
         ElvenArcherFactory elvenArcherFactory,
         ElvenRangerFactory elvenRangerFactory,
         TrollAxethrowerFactory trollAxeThrowerFactory,
         TrollBerserkerFactory trollBerserkerFactory,
         ZuljinFactory zuljinFactory)
     {
-        addProvider(UnitType.Ballista, ballistaFactory);
-        addProvider(UnitType.Catapult, catapultFactory);
         addProvider(UnitType.ElvenArcher, elvenArcherFactory);
         addProvider(UnitType.ElvenRanger, elvenRangerFactory);
         addProvider(UnitType.TrollAxethrower, trollAxeThrowerFactory);

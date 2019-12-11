@@ -14,6 +14,7 @@ import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantFactoryTestCase;
+import com.evilbird.warcraft.object.unit.combatant.siege.orc.CatapultFactory;
 
 import java.util.Map;
 
@@ -24,7 +25,7 @@ import static com.evilbird.warcraft.object.unit.UnitType.Catapult;
  *
  * @author Blair Butterworth
  */
-public class CatapultFactoryTest extends CombatantFactoryTestCase<com.evilbird.warcraft.object.unit.combatant.ranged.orc.CatapultFactory>
+public class CatapultFactoryTest extends CombatantFactoryTestCase<com.evilbird.warcraft.object.unit.combatant.siege.orc.CatapultFactory>
 {
     @Override
     protected UnitType getBuildType() {
@@ -32,8 +33,8 @@ public class CatapultFactoryTest extends CombatantFactoryTestCase<com.evilbird.w
     }
 
     @Override
-    protected com.evilbird.warcraft.object.unit.combatant.ranged.orc.CatapultFactory newFactory(DeviceDisplay display, AssetManager assets) {
-        return new com.evilbird.warcraft.object.unit.combatant.ranged.orc.CatapultFactory(assets);
+    protected com.evilbird.warcraft.object.unit.combatant.siege.orc.CatapultFactory newFactory(DeviceDisplay display, AssetManager assets) {
+        return new com.evilbird.warcraft.object.unit.combatant.siege.orc.CatapultFactory(assets);
     }
 
     @Override

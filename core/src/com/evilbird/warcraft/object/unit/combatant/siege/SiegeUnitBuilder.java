@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.unit.combatant.ranged;
+package com.evilbird.warcraft.object.unit.combatant.siege;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
@@ -19,16 +19,16 @@ import com.evilbird.warcraft.object.unit.combatant.CombatantSounds;
 import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
 
 /**
- * Creates a new ranged combatants whose visual and audible presentation is
+ * Creates a new siege combatant whose visual and audible presentation is
  * defined by the given {@link CombatantAssets}.
  *
  * @author Blair Butterworth
  */
-public class RangedUnitBuilder extends CombatantBuilder<RangedCombatant>
+public class SiegeUnitBuilder extends CombatantBuilder<RangedCombatant>
 {
-    private CombatantAssets assets;
+    private SiegeUnitAssets assets;
 
-    public RangedUnitBuilder(CombatantAssets assets, UnitType type) {
+    public SiegeUnitBuilder(SiegeUnitAssets assets, UnitType type) {
         super(assets, type);
         this.assets = assets;
     }
@@ -40,7 +40,7 @@ public class RangedUnitBuilder extends CombatantBuilder<RangedCombatant>
 
     @Override
     protected AnimationCatalog newAnimations() {
-        return new RangedUnitAnimations(assets);
+        return new SiegeUnitAnimations(assets);
     }
 
     @Override

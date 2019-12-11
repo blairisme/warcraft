@@ -14,13 +14,14 @@ import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantFactoryTestCase;
+import com.evilbird.warcraft.object.unit.combatant.siege.human.BallistaFactory;
 
 import java.util.Map;
 
 import static com.evilbird.warcraft.object.unit.UnitType.Ballista;
 
 /**
- * Instances of this unit test validate logic in the {@link com.evilbird.warcraft.object.unit.combatant.ranged.human.BallistaFactory} class.
+ * Instances of this unit test validate logic in the {@link com.evilbird.warcraft.object.unit.combatant.siege.human.BallistaFactory} class.
  *
  * @author Blair Butterworth
  */
@@ -32,8 +33,8 @@ public class BallistaFactoryTest extends CombatantFactoryTestCase<BallistaFactor
     }
 
     @Override
-    protected com.evilbird.warcraft.object.unit.combatant.ranged.human.BallistaFactory newFactory(DeviceDisplay display, AssetManager assets) {
-        return new com.evilbird.warcraft.object.unit.combatant.ranged.human.BallistaFactory(assets);
+    protected com.evilbird.warcraft.object.unit.combatant.siege.human.BallistaFactory newFactory(DeviceDisplay display, AssetManager assets) {
+        return new com.evilbird.warcraft.object.unit.combatant.siege.human.BallistaFactory(assets);
     }
 
     @Override

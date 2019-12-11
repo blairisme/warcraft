@@ -21,7 +21,7 @@ import com.evilbird.warcraft.object.unit.combatant.naval.orc.FerryFactory;
 import com.evilbird.warcraft.object.unit.combatant.naval.orc.GiantTurtleFactory;
 import com.evilbird.warcraft.object.unit.combatant.naval.orc.OgreJuggernaughtFactory;
 import com.evilbird.warcraft.object.unit.combatant.naval.orc.TrollDestroyerFactory;
-import com.evilbird.warcraft.object.unit.combatant.ranged.human.BallistaFactory;
+import com.evilbird.warcraft.object.unit.combatant.siege.human.BallistaFactory;
 
 import javax.inject.Inject;
 

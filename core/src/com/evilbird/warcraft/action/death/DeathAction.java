@@ -25,7 +25,6 @@ import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
 import com.evilbird.warcraft.object.unit.Unit;
-import com.evilbird.warcraft.object.unit.UnitType;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -35,6 +34,7 @@ import java.util.Collections;
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.engine.common.lang.Alignment.Center;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.isBuilding;
 import static com.evilbird.warcraft.object.effect.EffectType.Explosion;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Death;
 import static com.evilbird.warcraft.object.unit.UnitSound.Die;
@@ -133,7 +133,7 @@ public class DeathAction extends BasicAction
     }
 
     private void setExplosionEffect(PerishableObject subject) {
-        if (isFabricated(subject)) {
+        if (isBuilding(subject)) {
             GameObject explosion = factory.get(Explosion);
             setTarget(explosion);
 
@@ -143,15 +143,6 @@ public class DeathAction extends BasicAction
             GameObjectGroup parent = subject.getParent();
             parent.addObject(explosion);
         }
-    }
-
-    private boolean isFabricated(PerishableObject subject) {
-        if (subject instanceof Unit) {
-            Unit unit = (Unit)subject;
-            UnitType type = (UnitType)unit.getType();
-            return type.isSiege() || type.isBuilding();
-        }
-        return false;
     }
 
     private void initializeSelection(PerishableObject subject) {

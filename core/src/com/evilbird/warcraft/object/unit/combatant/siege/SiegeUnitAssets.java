@@ -7,22 +7,20 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.unit.combatant.ranged;
+package com.evilbird.warcraft.object.unit.combatant.siege;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.evilbird.engine.common.audio.sound.SilentSound;
-import com.evilbird.engine.common.audio.sound.Sound;
+import com.badlogic.gdx.graphics.Texture;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
-import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
 
 /**
- * Defines the assets that are required to display a {@link RangedCombatant},
+ * Defines the assets that are required to display a siege combatant
  * as well as any sound effects used by it.
  *
  * @author Blair Butterworth
  */
-public class RangedUnitAssets extends CombatantAssets
+public class SiegeUnitAssets extends CombatantAssets
 {
     /**
      * Constructs a new instance of this class given an {@link AssetManager}
@@ -36,12 +34,12 @@ public class RangedUnitAssets extends CombatantAssets
      * @throws IllegalArgumentException if either the given asset manager or
      *                                  unit type is {@code null}.
      */
-    public RangedUnitAssets(AssetManager manager, UnitType type) {
+    public SiegeUnitAssets(AssetManager manager, UnitType type) {
         super(manager, type);
-        register("hit", "data/sounds/common/unit/hit/${weapon}/1.mp3");
+        register("explosion", "data/textures/common/explosion/explosion.png");
     }
 
-    public Sound getHitSound() {
-        return isRegistered("hit") ? getSoundEffect("hit") : new SilentSound();
+    public Texture getExplosionTexture() {
+        return getTexture("explosion");
     }
 }

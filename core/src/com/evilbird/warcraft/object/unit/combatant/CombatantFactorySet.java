@@ -15,6 +15,7 @@ import com.evilbird.warcraft.object.unit.combatant.flying.FlyingUnitFactorySet;
 import com.evilbird.warcraft.object.unit.combatant.melee.MeleeUnitFactorySet;
 import com.evilbird.warcraft.object.unit.combatant.naval.NavalUnitFactorySet;
 import com.evilbird.warcraft.object.unit.combatant.ranged.RangedUnitFactorySet;
+import com.evilbird.warcraft.object.unit.combatant.siege.SiegeUnitFactorySet;
 import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCasterFactorySet;
 
 import javax.inject.Inject;
@@ -33,12 +34,14 @@ public class CombatantFactorySet extends GameFactorySet<Combatant>
         MeleeUnitFactorySet meleeUnitFactory,
         NavalUnitFactorySet navalUnitFactory,
         RangedUnitFactorySet rangedUnitFactory,
+        SiegeUnitFactorySet siegeUnitFactory,
         SpellCasterFactorySet spellCasterFactory)
     {
         addProvider(flyingUnitFactory);
         addProvider(meleeUnitFactory);
         addProvider(navalUnitFactory);
         addProvider(rangedUnitFactory);
+        addProvider(siegeUnitFactory);
         addProvider(spellCasterFactory);
     }
 }

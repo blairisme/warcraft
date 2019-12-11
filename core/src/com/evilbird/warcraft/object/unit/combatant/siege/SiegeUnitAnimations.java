@@ -7,14 +7,14 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.unit.combatant.ranged;
+package com.evilbird.warcraft.object.unit.combatant.siege;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
-import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Attack;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Death;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Move;
 import static java.util.Objects.requireNonNull;
@@ -27,17 +27,18 @@ import static java.util.Objects.requireNonNull;
  */
 public class SiegeUnitAnimations extends AnimationCatalog
 {
-    public SiegeUnitAnimations(CombatantAssets assets) {
-        this(assets.getBaseTexture(), assets.getSize());
+    public SiegeUnitAnimations(SiegeUnitAssets assets) {
+        this(assets.getBaseTexture(), assets.getExplosionTexture(), assets.getSize());
     }
 
-    public SiegeUnitAnimations(Texture base, GridPoint2 size) {
-        super(3);
+    public SiegeUnitAnimations(Texture base, Texture explosion, GridPoint2 size) {
+        super(4);
 
         requireNonNull(base);
         requireNonNull(size);
 
         attack(base, size);
+        death(explosion);
         idle(base, size);
         move(base, size);
     }
@@ -47,6 +48,16 @@ public class SiegeUnitAnimations extends AnimationCatalog
             .withTexture(base)
             .withSequence(size.y, 3)
             .withSize(size)
+            .withInterval(0.15f)
+            .notLooping();
+    }
+
+    private void death(Texture explosion) {
+        animation(Death)
+            .withTexture(explosion)
+            .withSequence(0, 16)
+            .withBlankFrame()
+            .withSize(64, 64)
             .withInterval(0.15f)
             .notLooping();
     }

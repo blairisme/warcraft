@@ -13,12 +13,14 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.test.testcase.AnimationCatalogTestCase;
 import com.evilbird.warcraft.object.unit.UnitType;
-import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
+import com.evilbird.warcraft.object.unit.combatant.siege.SiegeUnitAnimations;
+import com.evilbird.warcraft.object.unit.combatant.siege.SiegeUnitAssets;
 
 import java.util.Arrays;
 import java.util.Collection;
 
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Attack;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Death;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Move;
 
@@ -28,20 +30,20 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.Move;
  *
  * @author Blair Butterworth
  */
-public class SiegeUnitAnimationsTest extends AnimationCatalogTestCase<SiegeUnitAnimations, CombatantAssets>
+public class SiegeUnitAnimationsTest extends AnimationCatalogTestCase<SiegeUnitAnimations, SiegeUnitAssets>
 {
     @Override
-    protected CombatantAssets newAssets(AssetManager manager) {
-        return new CombatantAssets(manager, UnitType.Ballista);
+    protected SiegeUnitAssets newAssets(AssetManager manager) {
+        return new SiegeUnitAssets(manager, UnitType.Ballista);
     }
 
     @Override
-    protected SiegeUnitAnimations newCatalog(CombatantAssets assets) {
+    protected SiegeUnitAnimations newCatalog(SiegeUnitAssets assets) {
         return new SiegeUnitAnimations(assets);
     }
 
     @Override
     protected Collection<Identifier> getAnimationsIds() {
-        return Arrays.asList(Attack, Idle, Move);
+        return Arrays.asList(Attack, Death, Idle, Move);
     }
 }
