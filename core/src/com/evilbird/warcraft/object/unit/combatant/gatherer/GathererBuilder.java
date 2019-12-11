@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.unit.gatherer;
+package com.evilbird.warcraft.object.unit.combatant.gatherer;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
@@ -20,10 +20,10 @@ import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
 import com.evilbird.warcraft.object.unit.UnitStyle;
 import com.evilbird.warcraft.object.unit.UnitType;
-import com.evilbird.warcraft.object.unit.gatherer.animations.LandGathererAnimations;
-import com.evilbird.warcraft.object.unit.gatherer.animations.SeaGathererAnimations;
-import com.evilbird.warcraft.object.unit.gatherer.sounds.LandGathererSounds;
-import com.evilbird.warcraft.object.unit.gatherer.sounds.SeaGathererSounds;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.animations.LandGathererAnimations;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.animations.SeaGathererAnimations;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.sounds.LandGathererSounds;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.sounds.SeaGathererSounds;
 import org.apache.commons.lang3.Validate;
 
 import java.util.HashMap;

@@ -18,7 +18,7 @@ import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.resource.ResourceContainer;
 import com.evilbird.warcraft.object.common.resource.ResourceQuantity;
 import com.evilbird.warcraft.object.common.resource.ResourceType;
-import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;

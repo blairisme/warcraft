@@ -14,7 +14,7 @@ import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.StateTransitionAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
-import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import javax.inject.Inject;
 

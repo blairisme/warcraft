@@ -12,17 +12,18 @@ package com.evilbird.warcraft.object.unit.gatherer;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.test.testcase.AssetBundleTestCase;
 import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererAssets;
 
 /**
- * Instances of this unit test validate logic in the {@link GathererAssets}
+ * Instances of this unit test validate logic in the {@link com.evilbird.warcraft.object.unit.combatant.gatherer.GathererAssets}
  * class.
  *
  * @author Blair Butterworth
  */
-public class GathererAssetsTest extends AssetBundleTestCase<GathererAssets>
+public class GathererAssetsTest extends AssetBundleTestCase<com.evilbird.warcraft.object.unit.combatant.gatherer.GathererAssets>
 {
     @Override
-    protected GathererAssets getAssetBundle(AssetManager assets) {
+    protected com.evilbird.warcraft.object.unit.combatant.gatherer.GathererAssets getAssetBundle(AssetManager assets) {
         return new GathererAssets(assets, UnitType.Peasant);
     }
 }

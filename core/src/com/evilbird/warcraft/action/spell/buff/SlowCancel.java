@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.spell.buff;
 
 import com.evilbird.warcraft.object.common.value.ValueProperty;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
-import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import javax.inject.Inject;
 import java.util.Arrays;

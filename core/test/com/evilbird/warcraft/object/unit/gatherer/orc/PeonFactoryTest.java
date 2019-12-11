@@ -15,6 +15,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.test.testcase.GameFactoryTestCase;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.orc.PeonFactory;
 import com.evilbird.warcraft.state.WarcraftContext;
 
 import java.util.Arrays;
@@ -30,14 +31,14 @@ import static com.evilbird.warcraft.common.WarcraftSeason.Winter;
 import static com.evilbird.warcraft.object.unit.UnitType.Peon;
 
 /**
- * Instances of this unit test validate logic in the {@link PeonFactory} class.
+ * Instances of this unit test validate logic in the {@link com.evilbird.warcraft.object.unit.combatant.gatherer.orc.PeonFactory} class.
  *
  * @author Blair Butterworth
  */
-public class PeonFactoryTest extends GameFactoryTestCase<PeonFactory>
+public class PeonFactoryTest extends GameFactoryTestCase<com.evilbird.warcraft.object.unit.combatant.gatherer.orc.PeonFactory>
 {
     @Override
-    protected PeonFactory newFactory(DeviceDisplay display, AssetManager assets) {
+    protected com.evilbird.warcraft.object.unit.combatant.gatherer.orc.PeonFactory newFactory(DeviceDisplay display, AssetManager assets) {
         return new PeonFactory(assets);
     }
 

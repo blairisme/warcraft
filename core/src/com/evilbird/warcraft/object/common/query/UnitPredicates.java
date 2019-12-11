@@ -21,7 +21,7 @@ import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
-import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import java.util.function.Predicate;
 

@@ -19,7 +19,7 @@ import com.evilbird.warcraft.object.common.resource.ResourceType;
 import com.evilbird.warcraft.object.common.upgrade.Upgrade;
 import com.evilbird.warcraft.object.common.upgrade.UpgradeContainer;
 import com.evilbird.warcraft.object.unit.Unit;
-import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import java.util.ArrayList;
 import java.util.Collection;

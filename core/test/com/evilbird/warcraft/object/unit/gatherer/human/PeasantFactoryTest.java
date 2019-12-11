@@ -15,6 +15,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.test.testcase.GameFactoryTestCase;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.human.PeasantFactory;
 import com.evilbird.warcraft.state.WarcraftContext;
 
 import java.util.Arrays;
@@ -30,14 +31,14 @@ import static com.evilbird.warcraft.common.WarcraftSeason.Winter;
 import static com.evilbird.warcraft.object.unit.UnitType.Peasant;
 
 /**
- * Instances of this unit test validate logic in the {@link PeasantFactory} class.
+ * Instances of this unit test validate logic in the {@link com.evilbird.warcraft.object.unit.combatant.gatherer.human.PeasantFactory} class.
  *
  * @author Blair Butterworth
  */
-public class PeasantFactoryTest extends GameFactoryTestCase<PeasantFactory>
+public class PeasantFactoryTest extends GameFactoryTestCase<com.evilbird.warcraft.object.unit.combatant.gatherer.human.PeasantFactory>
 {
     @Override
-    protected PeasantFactory newFactory(DeviceDisplay display, AssetManager assets) {
+    protected com.evilbird.warcraft.object.unit.combatant.gatherer.human.PeasantFactory newFactory(DeviceDisplay display, AssetManager assets) {
         return new PeasantFactory(assets);
     }
 

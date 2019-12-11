@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.common.path;
 
 import com.evilbird.engine.object.GameObjectContainer;
-import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 import com.evilbird.warcraft.object.unit.resource.Resource;
 import com.evilbird.warcraft.state.StateTestCase;
 import org.junit.Test;

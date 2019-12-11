@@ -28,7 +28,7 @@ import com.evilbird.warcraft.action.produce.ProduceStatus;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
-import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

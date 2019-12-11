@@ -40,12 +40,12 @@ import com.evilbird.warcraft.object.unit.combatant.Combatant;
 import com.evilbird.warcraft.object.unit.combatant.CombatantVessel;
 import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
 import com.evilbird.warcraft.object.unit.combatant.flying.FlyingUnit;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 import com.evilbird.warcraft.object.unit.combatant.naval.Ship;
 import com.evilbird.warcraft.object.unit.combatant.naval.Submarine;
 import com.evilbird.warcraft.object.unit.combatant.naval.Transport;
 import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 import com.evilbird.warcraft.object.unit.critter.Critter;
-import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
 import com.evilbird.warcraft.object.unit.resource.Resource;
 
 import java.util.ArrayList;

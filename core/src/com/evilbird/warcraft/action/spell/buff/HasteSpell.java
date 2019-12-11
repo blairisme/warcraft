@@ -15,7 +15,7 @@ import com.evilbird.warcraft.object.common.spell.Spell;
 import com.evilbird.warcraft.object.common.value.ValueProperty;
 import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
-import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import javax.inject.Inject;
 import java.util.Arrays;

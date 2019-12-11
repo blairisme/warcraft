@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import javax.inject.Inject;
 

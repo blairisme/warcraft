@@ -7,15 +7,15 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.unit.gatherer.orc;
+package com.evilbird.warcraft.object.unit.combatant.gatherer.human;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.object.common.value.UpgradeValue;
 import com.evilbird.warcraft.object.unit.Unit;
-import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
-import com.evilbird.warcraft.object.unit.gatherer.GathererFactoryBase;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererFactoryBase;
 
 import javax.inject.Inject;
 
@@ -24,33 +24,33 @@ import static com.evilbird.warcraft.object.common.capability.TerrainType.Water;
 import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.OilProduction;
 import static com.evilbird.warcraft.object.common.value.FixedValue.Zero;
-import static com.evilbird.warcraft.object.unit.UnitType.TrollTanker;
+import static com.evilbird.warcraft.object.unit.UnitType.OilTanker;
 
 /**
  * <p>
- *  Instances of this factory create Troll Tankers, an ocean based oil gathering
- *  {@link Unit} available to the Orc faction.
+ * Instances of this factory create Oil Tankers, an ocean based oil gathering
+ * {@link Unit} available to the Human faction.
  * </p>
  * <p>
- *  The Orc Oil Tanker is crudely constructed, as its purpose is for bearing
- *  cargo - not weapons or troops. The Tanker, being little more than a
- *  collection of wood, bone and storage space, is crewed by a mob of Orcs
- *  scarcely more capable than the lowly Peons. Other than being able to pilot
- *  the craft, the crew of the Tanker performs tasks equivalent to those of a
- *  Peon - building Oil Platforms and returning their cargo so that it may be
- *  processed and used as the overseer chooses.
+ * As the only ships which do not require oil be built, Oil Tankers make
+ * possible the construction of the Alliance fleet. They are manned by hard
+ * working, dependable mariners who search for the rich oil deposits which lie
+ * beneath the waves. The crew of every Tanker is skilled in building Oil
+ * Platforms and ferrying the oil back to a Shipyard or Oil Refinery where it
+ * may be processed and put to use.
  * </p>
+ *
  * @author Blair Butterworth
  */
-public class TrollTankerFactory extends GathererFactoryBase
+public class OilTankerFactory extends GathererFactoryBase
 {
     @Inject
-    public TrollTankerFactory(Device device) {
+    public OilTankerFactory(Device device) {
         this(device.getAssetStorage());
     }
 
-    public TrollTankerFactory(AssetManager manager) {
-        super(manager, TrollTanker);
+    public OilTankerFactory(AssetManager manager) {
+        super(manager, OilTanker);
     }
 
     @Override
@@ -82,8 +82,8 @@ public class TrollTankerFactory extends GathererFactoryBase
     }
 
     private void setIdentityAttributes(Gatherer result) {
-        result.setIdentifier(objectIdentifier("TrollTanker", result));
-        result.setType(TrollTanker);
+        result.setIdentifier(objectIdentifier("OilTanker", result));
+        result.setType(OilTanker);
     }
 
     private void setMovementAttributes(Gatherer result) {

@@ -7,37 +7,33 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.unit.gatherer.sounds;
+package com.evilbird.warcraft.object.unit.combatant.gatherer.sounds;
 
 import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
-import com.evilbird.warcraft.object.unit.gatherer.GathererAssets;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererAssets;
 
 import static com.evilbird.warcraft.object.unit.UnitSound.Acknowledge;
-import static com.evilbird.warcraft.object.unit.UnitSound.Attack;
 import static com.evilbird.warcraft.object.unit.UnitSound.Build;
-import static com.evilbird.warcraft.object.unit.UnitSound.ChopWood;
 import static com.evilbird.warcraft.object.unit.UnitSound.Complete;
 import static com.evilbird.warcraft.object.unit.UnitSound.Die;
 import static com.evilbird.warcraft.object.unit.UnitSound.Ready;
 import static com.evilbird.warcraft.object.unit.UnitSound.Selected;
 
 /**
- * Defines a catalog of {@link Sound Sounds} used by land gatherers.
+ * Defines a catalog of {@link Sound Sounds} used by sea gatherers.
  *
  * @author Blair Butterworth
  */
-public class LandGathererSounds extends SoundCatalog
+public class SeaGathererSounds extends SoundCatalog
 {
-    public LandGathererSounds(GathererAssets assets) {
-        super(8);
+    public SeaGathererSounds(GathererAssets assets) {
+        super(6);
         sound(Selected, assets.getSelectedSound());
         sound(Acknowledge, assets.getAcknowledgeSound());
         sound(Build, assets.getConstructSound());
         sound(Complete, assets.getCompleteSound());
         sound(Ready, assets.getReadySound());
-        sound(Attack, assets.getAttackSound());
         sound(Die, assets.getDeadSound());
-        sound(ChopWood, assets.getChoppingSound());
     }
 }

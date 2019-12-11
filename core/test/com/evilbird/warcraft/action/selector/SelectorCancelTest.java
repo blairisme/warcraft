@@ -17,7 +17,7 @@ import com.evilbird.test.data.item.TestPlaceholders;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.object.selector.building.BuildingSelector;
 import com.evilbird.warcraft.object.unit.UnitType;
-import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

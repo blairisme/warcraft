@@ -7,15 +7,15 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.unit.gatherer;
+package com.evilbird.warcraft.object.unit.combatant.gatherer;
 
 import com.evilbird.engine.game.GameFactorySet;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
-import com.evilbird.warcraft.object.unit.gatherer.human.OilTankerFactory;
-import com.evilbird.warcraft.object.unit.gatherer.human.PeasantFactory;
-import com.evilbird.warcraft.object.unit.gatherer.orc.PeonFactory;
-import com.evilbird.warcraft.object.unit.gatherer.orc.TrollTankerFactory;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.human.OilTankerFactory;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.human.PeasantFactory;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.orc.PeonFactory;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.orc.TrollTankerFactory;
 
 import javax.inject.Inject;
 

@@ -14,7 +14,7 @@ import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.UnitType;
-import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import static com.evilbird.test.data.item.TestPlayers.newTestPlayer;
 import static com.evilbird.test.data.item.TestSkins.newTestSkin;

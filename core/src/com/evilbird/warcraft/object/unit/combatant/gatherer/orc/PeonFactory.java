@@ -7,14 +7,14 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.unit.gatherer.human;
+package com.evilbird.warcraft.object.unit.combatant.gatherer.orc;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.warcraft.object.common.value.UpgradeValue;
-import com.evilbird.warcraft.object.unit.gatherer.Gatherer;
-import com.evilbird.warcraft.object.unit.gatherer.GathererFactoryBase;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererFactoryBase;
 
 import javax.inject.Inject;
 
@@ -26,36 +26,33 @@ import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.MeleeDam
 import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.MeleeDefence;
 import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.WoodProduction;
 import static com.evilbird.warcraft.object.common.value.FixedValue.Zero;
-import static com.evilbird.warcraft.object.unit.UnitType.Peasant;
+import static com.evilbird.warcraft.object.unit.UnitType.Peon;
 
 /**
  * <p>
- * Instances of this factory create Peasants, the land based gathering unit
- * available to the human faction.
- *</p>
+ *   Instances of this factory create Peons, the land based gathering unit
+ *   available to the Orc faction.
+ * </p>
  * <p>
- * Peasants are trained from the hard-working and stouthearted citizens that
- * live in the numerous kingdoms of Lordaeron. By mining gold and harvesting
- * lumber to meet the ever increasing needs of the fighting force which must
- * push back the unrelenting Horde, they are the backbone of the Alliance.
- * Trained not only in the construction and maintenance of the myriad buildings
- * found in every community, but also those necessary to wage war, they take
- * great pride in the invaluable service they provide. Roused by tales of the
- * Orcish atrocities in Azeroth, these Peasants have learned to use both pick
- * and axe for their own defense if threatened.
- *</p>
+ *   The label of Peon denotes the lowest station amongst those in the Orcish
+ *   Horde. Inferior in all skills of import, these dogs are relegated to
+ *   menial tasks such as harvesting lumber and mining gold. Their labor is
+ *   also required for the construction and maintenance of buildings necessary
+ *   to support the vast undertakings of the Horde. Downtrodden, the Orc Peons
+ *   slave thanklessly to please their overseers.
+ * </p>
  *
  * @author Blair Butterworth
  */
-public class PeasantFactory extends GathererFactoryBase
+public class PeonFactory extends GathererFactoryBase
 {
     @Inject
-    public PeasantFactory(Device device) {
+    public PeonFactory(Device device) {
         this(device.getAssetStorage());
     }
 
-    public PeasantFactory(AssetManager manager) {
-        super(manager, Peasant);
+    public PeonFactory(AssetManager manager) {
+        super(manager, Peon);
     }
 
     @Override
@@ -80,17 +77,15 @@ public class PeasantFactory extends GathererFactoryBase
     private void setGatheringAttributes(Gatherer result) {
         result.setGoldGatherSpeed(5);
         result.setGoldCapacity(new UpgradeValue(GoldProduction, 100, 110, 125));
-
         result.setWoodGatherSpeed(45);
         result.setWoodCapacity(new UpgradeValue(WoodProduction, 100, 110, 125));
-
         result.setOilGatherSpeed(0);
         result.setOilCapacity(Zero);
     }
 
     private void setIdentityAttributes(Gatherer result) {
-        result.setIdentifier(objectIdentifier("Peasant", result));
-        result.setType(Peasant);
+        result.setIdentifier(objectIdentifier("Peon", result));
+        result.setType(Peon);
     }
 
     private void setMovementAttributes(Gatherer result) {

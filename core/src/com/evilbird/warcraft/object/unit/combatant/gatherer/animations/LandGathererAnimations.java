@@ -7,12 +7,12 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.unit.gatherer.animations;
+package com.evilbird.warcraft.object.unit.combatant.gatherer.animations;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
-import com.evilbird.warcraft.object.unit.gatherer.GathererAssets;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererAssets;
 
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Attack;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Death;
