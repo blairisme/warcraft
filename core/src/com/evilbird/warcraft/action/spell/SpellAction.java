@@ -148,7 +148,7 @@ public abstract class SpellAction extends BasicAction
     }
 
     protected void initializeMana(SpellCaster caster, GameObject target, Spell spell) {
-        caster.setMana(Math.max(0, caster.getMana() - spell.getManaCost()));
+        caster.setMana(Math.max(0, caster.getMana() - spell.getCastCost()));
     }
 
     private boolean loaded() {

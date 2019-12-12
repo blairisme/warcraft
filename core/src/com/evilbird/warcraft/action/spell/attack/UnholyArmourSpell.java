@@ -51,7 +51,7 @@ public class UnholyArmourSpell extends SpellAction
     }
 
     private void setHealth(Unit target) {
-        target.setHealth(Math.max(0, target.getHealth() - spell.getValue()));
+        target.setHealth(Math.max(0, target.getHealth() - spell.getEffectValue()));
     }
 
     private void setBuff(Unit target) {

@@ -87,6 +87,6 @@ public abstract class BasicButtonController implements ButtonController
     }
 
     protected boolean hasMana(SpellCaster caster, Spell spell) {
-        return caster.getMana() >= spell.getManaCost();
+        return caster.getMana() >= spell.getCastCost();
     }
 }

@@ -46,7 +46,7 @@ public class HealSpell extends SpellAction
     @Override
     protected void initialize(SpellCaster caster, GameObject target) {
         this.healAmount = getHealAmount(caster, (Unit)target);
-        this.manaCost = healAmount * Heal.getManaCost();
+        this.manaCost = healAmount * Heal.getCastCost();
         super.initialize(caster, target);
     }
 
@@ -62,7 +62,7 @@ public class HealSpell extends SpellAction
     }
 
     private float getHealAmount(SpellCaster caster, Unit target) {
-        float possible = Math.round(caster.getMana() / Heal.getManaCost());
+        float possible = Math.round(caster.getMana() / Heal.getCastCost());
         float remaining = target.getHealthMaximum() - target.getHealth();
         return Math.min(possible, remaining);
     }

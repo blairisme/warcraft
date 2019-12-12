@@ -41,7 +41,7 @@ public class ExorcismSpell extends SpellAction
         super.initialize();
 
         Unit target = (Unit)getTarget();
-        target.setHealth(Math.max(0, target.getHealth() - Exorcism.getValue()));
+        target.setHealth(Math.max(0, target.getHealth() - Exorcism.getEffectValue()));
 
         if (target.getHealth() == 0) {
             assignIfAbsent(target, death);

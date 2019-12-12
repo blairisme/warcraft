@@ -47,6 +47,6 @@ public class HolyVisionSpell extends SpellAction
         Vector2 location = target.getPosition(Center);
 
         Fog fog = (Fog)world.find(withType(OpaqueFog));
-        fog.revealLocations(location, Vector2.Zero, Spell.HolyVision.getValue());
+        fog.revealLocations(location, Vector2.Zero, Spell.HolyVision.getEffectValue());
     }
 }

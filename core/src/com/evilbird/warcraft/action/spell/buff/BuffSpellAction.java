@@ -80,7 +80,7 @@ public abstract class BuffSpellAction extends SpellAction
 
     protected Value setBuff(Spell spell, Value value) {
         if (!(value instanceof BuffValue)) {
-            return new BuffValue(spell.getValue(), value);
+            return new BuffValue(spell.getEffectValue(), value);
         }
         return value;
     }

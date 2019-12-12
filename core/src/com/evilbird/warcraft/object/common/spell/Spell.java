@@ -9,8 +9,6 @@
 
 package com.evilbird.warcraft.object.common.spell;
 
-import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
-
 /**
  * Defines spells available to spell casting game objects.
  *
@@ -18,73 +16,78 @@ import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
  */
 public enum Spell
 {
-    Blizzard,
-    Bloodlust,
-    DeathAndDecay,
-    DeathCoil,
-    Exorcism,
-    EyeOfKilrogg,
-    Fireball,
-    FlameShield,
-    Haste,
-    Heal,
-    HolyVision,
-    Invisibility,
-    Lightning,
-    Polymorph,
-    RaiseDead,
-    Runes,
-    Slow,
-    TouchOfDarkness,
-    UnholyArmour,
-    Whirlwind;
+    /* Name           Mana time range duration value */
+    Blizzard            (25, 1f, 128f, 20f, 5),
+    Bloodlust           (50, 1f, 128f, 20f, 2),
+    DeathAndDecay       (200, 1f, 128f, 20f, 5),
+    DeathCoil           (100, 1f, 128f, 20f, 5),
+    Exorcism            (4, 1f, 128f, 20f, 20),
+    EyeOfKilrogg        (70, 1f, 128f, 20f, 5),
+    Fireball            (100, 1f, 128f, 20f, 5),
+    FlameShield         (80, 1f, 128f, 20f, 5),
+    Haste               (50, 1f, 128f, 20f, 5),
+    Heal                (6, 1f, 128f, 20f, 40),
+    HolyVision          (70, 1f, 128f, 20f, 160),
+    Invisibility        (200, 1f, 128f, 20f, 5),
+    Lightning           (0, 1f, 128f, 20f, 5),
+    Polymorph           (200, 1f, 128f, 20f, 5),
+    RaiseDead           (200, 1f, 128f, 20f, 5),
+    Runes               (200, 1f, 128f, 20f, 5),
+    Slow                (50, 1f, 128f, 20f, 5),
+    TouchOfDarkness     (0, 1f, 128f, 20f, 5),
+    UnholyArmour        (80, 1f, 128f, 20f, 5),
+    Whirlwind           (200, 1f, 128f, 20f, 5);
 
-    public int getManaCost() {
-        switch (this) {
-            case Blizzard: return 25;
-            case Bloodlust: return 50;
-            case DeathAndDecay: return 200;
-            case DeathCoil: return 100;
-            case Exorcism: return 4;
-            case EyeOfKilrogg: return 70;
-            case Fireball: return 100;
-            case FlameShield: return 80;
-            case Haste: return 50;
-            case Heal: return 6;
-            case HolyVision: return 70;
-            case Invisibility: return 200;
-            case Lightning: return 0;
-            case Polymorph: return 200;
-            case RaiseDead: return 200;
-            case Runes: return 200;
-            case TouchOfDarkness: return 0;
-            case Slow: return 50;
-            case UnholyArmour: return 80;
-            case Whirlwind: return 200;
-            default: throw new UnsupportedOperationException();
-        }
+    private int castCost;
+    private float castTime;
+    private float castRange;
+    private float effectDuration;
+    private int effectValue;
+
+    Spell(int mana, float time, float range, float duration, int value) {
+        this.castCost = mana;
+        this.castTime = time;
+        this.castRange = range;
+        this.effectDuration = duration;
+        this.effectValue = value;
     }
 
-    public int getValue() {
-        switch (this) {
-            case Blizzard: return 0;
-            case Bloodlust: return 2;
-            case Exorcism: return 20;
-            case Heal: return 40;
-            case HolyVision: return tiles(5);
-            default: return 20;
-        }
+    /**
+     * Returns the amount of mana required to cast this spell.
+     */
+    public int getCastCost() {
+        return castCost;
     }
 
-    public float getCastTime() {
-        return 1f;
-    }
-
-    public float getEffectDuration() {
-        return 20;
-    }
-
+    /**
+     * Returns the maximum distance away from the spells target that the spell
+     * can be cast, specified in world pixels.
+     */
     public float getCastRange() {
-        return 128f;
+        return castRange;
+    }
+
+    /**
+     * Returns the amount of time required to cast the spell, specified in
+     * seconds.
+     */
+    public float getCastTime() {
+        return castTime;
+    }
+
+    /**
+     * Returns the length of time the spells effects last for, specified in
+     * seconds.
+     */
+    public float getEffectDuration() {
+        return effectDuration;
+    }
+
+    /**
+     * Returns a spell specific value indicate the scale of the effect produced
+     * by the spell.
+     */
+    public int getEffectValue() {
+        return effectValue;
     }
 }
