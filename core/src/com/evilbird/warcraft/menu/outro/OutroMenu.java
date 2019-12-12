@@ -126,7 +126,7 @@ public class OutroMenu extends Menu
 
     private Table createSummary() {
         Table summary = new Table(skin);
-        Cell cell = container.add(summary);
+        Cell<Table> cell = container.add(summary);
         cell.align(Align.top);
         cell.growX();
         cell.height(percentHeight(0.35f, container));
@@ -150,7 +150,7 @@ public class OutroMenu extends Menu
 
     private void addSummaryLabel(String title, String value) {
         Table labelSet = new Table();
-        Cell cell = summary.add(labelSet);
+        Cell<Table> cell = summary.add(labelSet);
         cell.growX();
 
         addSummaryLabel(labelSet, title, "default");
@@ -161,7 +161,7 @@ public class OutroMenu extends Menu
         Label label = new Label(text, skin, font);
         label.setAlignment(Align.center);
 
-        Cell cell = labelset.add(label);
+        Cell<Label> cell = labelset.add(label);
         cell.expand();
         cell.fill();
         cell.row();
@@ -171,7 +171,7 @@ public class OutroMenu extends Menu
         Table details = new Table(skin);
         ScrollPane scrollPane = new ScrollPane(details);
 
-        Cell cell = container.add(scrollPane);
+        Cell<ScrollPane> cell = container.add(scrollPane);
         cell.align(Align.top);
         cell.growX();
         cell.height(percentHeight(0.55f, container));
@@ -201,7 +201,7 @@ public class OutroMenu extends Menu
         Label label = new Label(text, skin);
         label.setAlignment(Align.center);
 
-        Cell cell = details.add(label);
+        Cell<Label> cell = details.add(label);
         cell.expandX();
         cell.fillX();
         cell.padBottom(12);
@@ -248,7 +248,7 @@ public class OutroMenu extends Menu
         bar.setValue(value);
         bar.setText(String.valueOf((int)value));
 
-        Cell cell = details.add(bar);
+        Cell<TextProgressBar> cell = details.add(bar);
         cell.align(Align.center);
         cell.width(80);
         cell.height(28);
@@ -261,7 +261,7 @@ public class OutroMenu extends Menu
         Label textLine = new Label(playerName, skin, "font-large");
         textLine.setAlignment(Align.center);
 
-        Cell cell = details.add(textLine);
+        Cell<Label> cell = details.add(textLine);
         cell.colspan(7);
         cell.expandX();
         cell.fillX();
@@ -274,7 +274,7 @@ public class OutroMenu extends Menu
     private LabelButton createButton() {
         LabelButton result = new LabelButton("", skin);
 
-        Cell cell = container.add(result);
+        Cell<LabelButton> cell = container.add(result);
         cell.align(Align.right);
         cell.pad(20);
         container.row();

@@ -202,7 +202,7 @@ public class MenuBehaviour implements Behaviour
             return PlayerStatistic.Razed;
         }
         if (target instanceof Unit) {
-            return PlayerStatistic.Units;
+            return PlayerStatistic.Kills;
         }
         throw new UnsupportedOperationException();
     }
