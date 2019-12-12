@@ -324,7 +324,7 @@ public class UnitOperations
         if (object instanceof Gatherer) {
             Gatherer gatherer = (Gatherer)object;
             Building building = gatherer.getConstruction();
-            return building.getType() == type;
+            return building != null && building.getType() == type;
         }
         return false;
     }

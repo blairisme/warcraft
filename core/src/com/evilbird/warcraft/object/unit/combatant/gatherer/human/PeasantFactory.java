@@ -19,7 +19,6 @@ import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererFactory;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.object.common.capability.TerrainType.Land;
 import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.GoldProduction;
 import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.MeleeDamage;
@@ -30,20 +29,20 @@ import static com.evilbird.warcraft.object.unit.UnitType.Peasant;
 
 /**
  * <p>
- * Instances of this factory create Peasants, the land based gathering unit
- * available to the human faction.
- *</p>
+ *   Instances of this factory create Peasants, the land based gathering unit
+ *   available to the human faction.
+ * </p>
  * <p>
- * Peasants are trained from the hard-working and stouthearted citizens that
- * live in the numerous kingdoms of Lordaeron. By mining gold and harvesting
- * lumber to meet the ever increasing needs of the fighting force which must
- * push back the unrelenting Horde, they are the backbone of the Alliance.
- * Trained not only in the construction and maintenance of the myriad buildings
- * found in every community, but also those necessary to wage war, they take
- * great pride in the invaluable service they provide. Roused by tales of the
- * Orcish atrocities in Azeroth, these Peasants have learned to use both pick
- * and axe for their own defense if threatened.
- *</p>
+ *   Peasants are trained from the hard-working and stouthearted citizens that
+ *   live in the numerous kingdoms of Lordaeron. By mining gold and harvesting
+ *   lumber to meet the ever increasing needs of the fighting force which must
+ *   push back the unrelenting Horde, they are the backbone of the Alliance.
+ *   Trained not only in the construction and maintenance of the myriad buildings
+ *   found in every community, but also those necessary to wage war, they take
+ *   great pride in the invaluable service they provide. Roused by tales of the
+ *   Orcish atrocities in Azeroth, these Peasants have learned to use both pick
+ *   and axe for their own defense if threatened.
+ * </p>
  *
  * @author Blair Butterworth
  */
@@ -95,7 +94,6 @@ public class PeasantFactory extends GathererFactory
 
     private void setMovementAttributes(Gatherer result) {
         result.setMovementSpeed(8 * 10);
-        result.setMovementCapability(Land);
         result.setSight(tiles(4));
     }
 }

@@ -20,7 +20,6 @@ import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererFactory;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.object.common.capability.TerrainType.Water;
 import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.OilProduction;
 import static com.evilbird.warcraft.object.common.value.FixedValue.Zero;
@@ -40,6 +39,7 @@ import static com.evilbird.warcraft.object.unit.UnitType.TrollTanker;
  *  Peon - building Oil Platforms and returning their cargo so that it may be
  *  processed and used as the overseer chooses.
  * </p>
+ *
  * @author Blair Butterworth
  */
 public class TrollTankerFactory extends GathererFactory
@@ -88,7 +88,6 @@ public class TrollTankerFactory extends GathererFactory
 
     private void setMovementAttributes(Gatherer result) {
         result.setMovementSpeed(8 * 10);
-        result.setMovementCapability(Water);
         result.setSight(tiles(4));
     }
 }

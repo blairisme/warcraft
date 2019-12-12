@@ -20,7 +20,6 @@ import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererFactory;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.object.common.capability.TerrainType.Water;
 import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.OilProduction;
 import static com.evilbird.warcraft.object.common.value.FixedValue.Zero;
@@ -28,16 +27,16 @@ import static com.evilbird.warcraft.object.unit.UnitType.OilTanker;
 
 /**
  * <p>
- * Instances of this factory create Oil Tankers, an ocean based oil gathering
- * {@link Unit} available to the Human faction.
+ *   Instances of this factory create Oil Tankers, an ocean based oil gathering
+ *   {@link Unit} available to the Human faction.
  * </p>
  * <p>
- * As the only ships which do not require oil be built, Oil Tankers make
- * possible the construction of the Alliance fleet. They are manned by hard
- * working, dependable mariners who search for the rich oil deposits which lie
- * beneath the waves. The crew of every Tanker is skilled in building Oil
- * Platforms and ferrying the oil back to a Shipyard or Oil Refinery where it
- * may be processed and put to use.
+ *   As the only ships which do not require oil be built, Oil Tankers make
+ *   possible the construction of the Alliance fleet. They are manned by hard
+ *   working, dependable mariners who search for the rich oil deposits which lie
+ *   beneath the waves. The crew of every Tanker is skilled in building Oil
+ *   Platforms and ferrying the oil back to a Shipyard or Oil Refinery where it
+ *   may be processed and put to use.
  * </p>
  *
  * @author Blair Butterworth
@@ -88,7 +87,6 @@ public class OilTankerFactory extends GathererFactory
 
     private void setMovementAttributes(Gatherer result) {
         result.setMovementSpeed(8 * 10);
-        result.setMovementCapability(Water);
         result.setSight(tiles(4));
     }
 }

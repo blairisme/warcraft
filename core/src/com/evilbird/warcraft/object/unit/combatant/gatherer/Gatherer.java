@@ -16,6 +16,7 @@ import com.evilbird.warcraft.object.common.resource.ResourceType;
 import com.evilbird.warcraft.object.common.value.FixedValue;
 import com.evilbird.warcraft.object.common.value.Value;
 import com.evilbird.warcraft.object.common.value.ValueProperty;
+import com.evilbird.warcraft.object.unit.UnitStyle;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -44,6 +45,13 @@ public class Gatherer extends Combatant implements ResourceContainer
     private Value woodCapacity;
     private Map<String, Double> resources;
 
+    /**
+     * Constructs a new instance of this class given a {@link Skin} describing
+     * its visual and auditory presentation.
+     *
+     * @param skin  a {@link Skin} instance containing, amongst others, a
+     *              {@link UnitStyle}.
+     */
     @Inject
     public Gatherer(Skin skin) {
         super(skin);

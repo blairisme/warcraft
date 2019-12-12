@@ -33,7 +33,7 @@ public class FlyingScout extends FlyingUnit
     }
 
     /**
-     * Returns the no offensive attack capability, as {@code FlyingScouts}
+     * Returns no offensive attack capability, as {@code FlyingScouts}
      * cannot attack.
      */
     @Override

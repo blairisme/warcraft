@@ -42,7 +42,7 @@ public class GathererBuilder extends CombatantBuilder<Gatherer>
 
     @Override
     protected Gatherer newCombatant(Skin skin) {
-        return new Gatherer(skin);
+        return type.isNavalUnit() ? new SeaGatherer(skin) : new LandGatherer(skin);
     }
 
     @Override

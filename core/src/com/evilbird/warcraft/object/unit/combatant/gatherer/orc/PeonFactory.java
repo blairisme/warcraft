@@ -19,7 +19,6 @@ import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererFactory;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.object.common.capability.TerrainType.Land;
 import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.GoldProduction;
 import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.MeleeDamage;
@@ -90,7 +89,6 @@ public class PeonFactory extends GathererFactory
 
     private void setMovementAttributes(Gatherer result) {
         result.setMovementSpeed(8 * 10);
-        result.setMovementCapability(Land);
         result.setSight(tiles(4));
     }
 }
