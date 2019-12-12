@@ -14,6 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.test.testcase.AnimationCatalogTestCase;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
+import com.evilbird.warcraft.object.unit.combatant.naval.animations.ShipAnimations;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,12 +25,12 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Move;
 
 /**
- * Instances of this unit test validate logic in the {@link ShipAnimations}
+ * Instances of this unit test validate logic in the {@link com.evilbird.warcraft.object.unit.combatant.naval.animations.ShipAnimations}
  * class.
  *
  * @author Blair Butterworth
  */
-public class ShipAnimationsTest extends AnimationCatalogTestCase<ShipAnimations, CombatantAssets>
+public class ShipAnimationsTest extends AnimationCatalogTestCase<com.evilbird.warcraft.object.unit.combatant.naval.animations.ShipAnimations, CombatantAssets>
 {
     @Override
     protected CombatantAssets newAssets(AssetManager manager) {
@@ -37,7 +38,7 @@ public class ShipAnimationsTest extends AnimationCatalogTestCase<ShipAnimations,
     }
 
     @Override
-    protected ShipAnimations newCatalog(CombatantAssets assets) {
+    protected com.evilbird.warcraft.object.unit.combatant.naval.animations.ShipAnimations newCatalog(CombatantAssets assets) {
         return new ShipAnimations(assets);
     }
 

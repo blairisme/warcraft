@@ -11,7 +11,6 @@ package com.evilbird.warcraft.object.unit.combatant.naval;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.warcraft.object.unit.UnitType;
-import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 import com.evilbird.warcraft.object.unit.combatant.CombatantFactory;
 import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
 
@@ -21,7 +20,7 @@ import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
  *
  * @author Blair Butterworth
  */
-public abstract class NavalUnitFactory extends CombatantFactory<CombatantAssets, NavalUnitBuilder, RangedCombatant>
+public abstract class NavalUnitFactory extends CombatantFactory<NavalUnitAssets, NavalUnitBuilder, RangedCombatant>
 {
     public NavalUnitFactory(AssetManager manager, UnitType type) {
         this(manager, type, type);
@@ -32,12 +31,12 @@ public abstract class NavalUnitFactory extends CombatantFactory<CombatantAssets,
     }
 
     @Override
-    protected CombatantAssets newAssets(AssetManager manager, UnitType type) {
-        return new CombatantAssets(manager, type);
+    protected NavalUnitAssets newAssets(AssetManager manager, UnitType type) {
+        return new NavalUnitAssets(manager, type);
     }
 
     @Override
-    protected NavalUnitBuilder newBuilder(CombatantAssets assets, UnitType type) {
+    protected NavalUnitBuilder newBuilder(NavalUnitAssets assets, UnitType type) {
         return new NavalUnitBuilder(assets, type);
     }
 }

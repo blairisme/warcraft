@@ -27,9 +27,6 @@ import static com.evilbird.engine.common.graphics.Colours.LIGHT_BLUE;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 import static com.evilbird.warcraft.object.unit.UnitDimensions.getDimensionName;
 import static com.evilbird.warcraft.object.unit.UnitDimensions.getDimensions;
-import static com.evilbird.warcraft.object.unit.UnitType.Daemon;
-import static com.evilbird.warcraft.object.unit.UnitType.Dragon;
-import static com.evilbird.warcraft.object.unit.UnitType.Mage;
 
 /**
  * Defines the assets that are required to display a {@link Combatant}, as well
@@ -58,7 +55,6 @@ public class CombatantAssets extends AssetBundle
         dimensions = getDimensions(type);
         registerTextures();
         registerGeneralSounds();
-        registerAttackSounds(type);
     }
 
     private static Map<String, String> assetPathVariables(UnitType type) {
@@ -83,24 +79,6 @@ public class CombatantAssets extends AssetBundle
         registerOptional("ready", "data/sounds/${faction}/unit/${name}/ready/1.mp3");
         registerOptionalSequence("acknowledge", "data/sounds/${faction}/unit/${name}/acknowledge/", ".mp3", 5);
         registerOptionalSequence("selected", "data/sounds/${faction}/unit/${name}/selected/", ".mp3", 6);
-    }
-
-    private void registerAttackSounds(UnitType type) {
-        if (type == Dragon || type == Daemon || type == Mage) {
-            registerOptionalSequence("attack", "data/sounds/common/unit/attack/fireball/", ".mp3", 1);
-        }if (type.isSiege() || type.isWarship()) {
-            registerOptionalSequence("attack", "data/sounds/common/unit/attack/siege/", ".mp3", 1);
-        } else if (type.isLandGatherer()) {
-            registerOptionalSequence("attack", "data/sounds/common/unit/attack/fist/", ".mp3", 1);
-        } else if (type.isOgre()) {
-            registerOptionalSequence("attack", "data/sounds/common/unit/attack/punch/", ".mp3", 1);
-        } else if (type.isMelee()) {
-            registerOptionalSequence("attack", "data/sounds/common/unit/attack/sword/", ".mp3", 3);
-        } else if (type.isRanged() && type.isHuman()) {
-            registerOptionalSequence("attack", "data/sounds/common/unit/attack/bow/", ".mp3", 1);
-        } else if (type.isRanged() && type.isOrc()) {
-            registerOptionalSequence("attack", "data/sounds/common/unit/attack/axe/", ".mp3", 1);
-        }
     }
 
     public Texture getBaseTexture() {
@@ -128,7 +106,7 @@ public class CombatantAssets extends AssetBundle
     }
 
     public Sound getAttackSound() {
-        return isSetRegistered("attack") ? getSoundEffectSet("attack", 3) : SilentSoundEffect;
+        return SilentSoundEffect;
     }
 
     public Sound getDieSound() {

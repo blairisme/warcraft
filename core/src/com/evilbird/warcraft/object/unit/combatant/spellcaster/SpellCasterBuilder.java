@@ -30,9 +30,9 @@ import static com.evilbird.warcraft.object.unit.UnitType.Mage;
 public class SpellCasterBuilder extends CombatantBuilder<SpellCaster>
 {
     private UnitType type;
-    private CombatantAssets assets;
+    private SpellCasterAssets assets;
 
-    public SpellCasterBuilder(CombatantAssets assets, UnitType type) {
+    public SpellCasterBuilder(SpellCasterAssets assets, UnitType type) {
         super(assets, type);
         this.assets = assets;
         this.type = type;

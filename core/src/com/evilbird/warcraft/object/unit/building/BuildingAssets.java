@@ -43,11 +43,36 @@ public class BuildingAssets extends AssetBundle
     private UnitType type;
     private GridPoint2 dimensions;
 
+    /**
+     * Constructs a new instance of this class given an {@link AssetManager}
+     * from which assets will be obtained and the {@link UnitType} whose assets
+     * will be obtained.
+     *
+     * @param manager   an asset manager used to load and unload assets.
+     * @param type      the type of unit whose assets will be loaded and
+     *                  unloaded.
+     * @param context   a {@link WarcraftContext} whose season will determine
+     *                  the type of textures returned by the asset bundle.
+     *
+     * @throws IllegalArgumentException if either the given asset manager or
+     *                                  unit type is {@code null}.
+     */
     public BuildingAssets(AssetManager manager, UnitType type, WarcraftContext context) {
         super(manager, assetPathVariables(type, context));
         this.type = type;
         this.dimensions = getDimensions(type);
+        registerTextures();
+        registerSounds();
+    }
 
+    private static Map<String, String> assetPathVariables(UnitType type, WarcraftContext context) {
+        return of("faction", toSnakeCase(type.getFaction().name()),
+                "season", toSnakeCase(context.getAssetSet().name()),
+                "name", toSnakeCase(type.name()),
+                "size", getDimensionName(type));
+    }
+
+    private void registerTextures() {
         register("base", "data/textures/${faction}/building/${season}/${name}.png");
         registerOptional("mask", "data/textures/${faction}/building/${season}/${name}_mask.png");
         register("construction", "data/textures/common/building/perennial/construction_${size}.png");
@@ -57,34 +82,20 @@ public class BuildingAssets extends AssetBundle
         register("flame", "data/textures/common/environmental/flame.png");
         register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, dimensions));
         register("highlight", "highlight_${size}", SyntheticTexture.class, withColour(LIGHT_BLUE, dimensions));
+    }
 
+    private void registerSounds() {
         register("selected", "data/sounds/common/building/selected/1.mp3");
         register("placement", "data/sounds/common/building/placement/1.mp3");
-        register("destroyed-1", "data/sounds/common/building/destroyed/1.mp3");
-        register("destroyed-2", "data/sounds/common/building/destroyed/2.mp3");
-        register("destroyed-3", "data/sounds/common/building/destroyed/3.mp3");
+        register("burning", "data/sounds/common/explosion/burning.mp3");
+        registerSequence("destroyed", "data/sounds/common/building/destroyed/", ".mp3", 3);
 
-        registerOptional("attack", "data/sounds/common/unit/attack/${weapon}/1.mp3");
-    }
-
-    private static Map<String, String> assetPathVariables(UnitType type, WarcraftContext context) {
-        return of("faction", toSnakeCase(type.getFaction().name()),
-                "season", toSnakeCase(context.getAssetSet().name()),
-                "name", toSnakeCase(type.name()),
-                "size", getDimensionName(type),
-                "weapon", getWeaponName(type));
-    }
-
-    private static String getWeaponName(UnitType type) {
-        if (type.isOffensiveTower()) {
-            if (type == GuardTower || type == LookoutTower) {
-                return "Bow";
-            }
-            if (type == CannonTower || type == BombardTower) {
-                return "siege";
-            }
+        if (type == GuardTower || type == LookoutTower) {
+            register("attack", "data/sounds/common/unit/attack/bow/1.mp3");
         }
-        return "none";
+        if (type == CannonTower || type == BombardTower) {
+            register("attack", "data/sounds/common/unit/attack/siege/1.mp3");
+        }
     }
 
     public Texture getBaseTexture() {
@@ -119,8 +130,16 @@ public class BuildingAssets extends AssetBundle
         return getTexture("fire");
     }
 
+    public Sound getAttackSound() {
+        return getOptionalSoundEffect("attack");
+    }
+
+    public Sound getBurningSound() {
+        return getSoundEffect("burning");
+    }
+
     public Sound getDestroyedSound() {
-        return getSoundEffectSet("destroyed-1", "destroyed-2", "destroyed-3");
+        return getSoundEffectSet("destroyed", 3);
     }
 
     public Sound getSelectedSound() {
@@ -129,10 +148,6 @@ public class BuildingAssets extends AssetBundle
 
     public Sound getPlacementSound() {
         return getSoundEffect("placement");
-    }
-
-    public Sound getAttackSound() {
-        return getOptionalSoundEffect("attack");
     }
 
     public GridPoint2 getSize() {

@@ -17,6 +17,8 @@ import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 import com.evilbird.warcraft.object.unit.combatant.CombatantBuilder;
 import com.evilbird.warcraft.object.unit.combatant.CombatantSounds;
 import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
+import com.evilbird.warcraft.object.unit.combatant.naval.animations.ShipAnimations;
+import com.evilbird.warcraft.object.unit.combatant.naval.animations.SubmarineAnimations;
 
 /**
  * Creates a new naval combatants whose visual and audible presentation is
@@ -26,10 +28,10 @@ import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
  */
 public class NavalUnitBuilder extends CombatantBuilder<RangedCombatant>
 {
-    private CombatantAssets assets;
+    private NavalUnitAssets assets;
     private UnitType type;
 
-    public NavalUnitBuilder(CombatantAssets assets, UnitType type) {
+    public NavalUnitBuilder(NavalUnitAssets assets, UnitType type) {
         super(assets, type);
         this.assets = assets;
         this.type = type;

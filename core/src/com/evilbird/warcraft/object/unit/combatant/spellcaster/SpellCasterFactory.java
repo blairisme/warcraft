@@ -11,7 +11,6 @@ package com.evilbird.warcraft.object.unit.combatant.spellcaster;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.warcraft.object.unit.UnitType;
-import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 import com.evilbird.warcraft.object.unit.combatant.CombatantFactory;
 
 /**
@@ -20,7 +19,7 @@ import com.evilbird.warcraft.object.unit.combatant.CombatantFactory;
  *
  * @author Blair Butterworth
  */
-public abstract class SpellCasterFactory extends CombatantFactory<CombatantAssets, SpellCasterBuilder, SpellCaster>
+public abstract class SpellCasterFactory extends CombatantFactory<SpellCasterAssets, SpellCasterBuilder, SpellCaster>
 {
     public SpellCasterFactory(AssetManager manager, UnitType type) {
         this (manager, type, type);
@@ -31,12 +30,12 @@ public abstract class SpellCasterFactory extends CombatantFactory<CombatantAsset
     }
 
     @Override
-    protected CombatantAssets newAssets(AssetManager manager, UnitType type) {
-        return new CombatantAssets(manager, type);
+    protected SpellCasterAssets newAssets(AssetManager manager, UnitType type) {
+        return new SpellCasterAssets(manager, type);
     }
 
     @Override
-    protected SpellCasterBuilder newBuilder(CombatantAssets assets, UnitType type) {
+    protected SpellCasterBuilder newBuilder(SpellCasterAssets assets, UnitType type) {
         return new SpellCasterBuilder(assets, type);
     }
 }

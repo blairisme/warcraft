@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.unit.combatant.naval;
+package com.evilbird.warcraft.object.unit.combatant.naval.animations;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
@@ -21,21 +21,21 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.Move;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Defines a catalog of animations as laid out in naval unit texture atlas
+ * Defines a catalog of animations as laid out in submarine unit texture atlas
  * files.
  *
  * @author Blair Butterworth
  */
-public class ShipAnimations extends AnimationCatalog
+public class SubmarineAnimations extends AnimationCatalog
 {
     private static final GridPoint2 DECOMPOSE_SIZE = new GridPoint2(72, 72);
 
-    public ShipAnimations(CombatantAssets assets) {
+    public SubmarineAnimations(CombatantAssets assets) {
         this(assets.getBaseTexture(), assets.getDecomposeTexture(), assets.getSize());
     }
 
-    public ShipAnimations(Texture base, Texture decompose, GridPoint2 size) {
-        super(5);
+    public SubmarineAnimations(Texture base, Texture decompose, GridPoint2 size) {
+        super(4);
 
         requireNonNull(base);
         requireNonNull(decompose);

@@ -26,9 +26,9 @@ import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
  */
 public class RangedUnitBuilder extends CombatantBuilder<RangedCombatant>
 {
-    private CombatantAssets assets;
+    private RangedUnitAssets assets;
 
-    public RangedUnitBuilder(CombatantAssets assets, UnitType type) {
+    public RangedUnitBuilder(RangedUnitAssets assets, UnitType type) {
         super(assets, type);
         this.assets = assets;
     }

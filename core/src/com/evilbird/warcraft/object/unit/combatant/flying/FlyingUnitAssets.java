@@ -12,8 +12,13 @@ package com.evilbird.warcraft.object.unit.combatant.flying;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
+
+import static com.evilbird.engine.common.audio.sound.SilentSound.SilentSoundEffect;
+import static com.evilbird.warcraft.object.unit.UnitType.Daemon;
+import static com.evilbird.warcraft.object.unit.UnitType.Dragon;
 
 /**
  * Defines the assets that are required to display a {@link FlyingUnit}, as well
@@ -37,8 +42,24 @@ public class FlyingUnitAssets extends CombatantAssets
      */
     public FlyingUnitAssets(AssetManager manager, UnitType type) {
         super(manager, type);
+
         register("explosion", "data/textures/common/explosion/explosion.png");
         register("shadow", "data/textures/common/unit/shadow.png");
+        register("dead", "data/sounds/common/explosion/explosion.mp3");
+
+        if (type == Dragon || type == Daemon) {
+            register("attack", "data/sounds/common/unit/attack/fireball/1.mp3");
+        }
+    }
+
+    @Override
+    public Sound getAttackSound() {
+        return isRegistered("attack") ? getSoundEffect("attack") : SilentSoundEffect;
+    }
+
+    @Override
+    public Sound getDieSound() {
+        return getSoundEffect("dead");
     }
 
     public Texture getExplosionTexture() {

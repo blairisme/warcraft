@@ -28,9 +28,9 @@ import com.evilbird.warcraft.object.unit.combatant.ConjuredUnitSounds;
 public class MeleeUnitBuilder extends CombatantBuilder<Combatant>
 {
     private UnitType type;
-    private CombatantAssets assets;
+    private MeleeUnitAssets assets;
 
-    public MeleeUnitBuilder(CombatantAssets assets, UnitType type) {
+    public MeleeUnitBuilder(MeleeUnitAssets assets, UnitType type) {
         super(assets, type);
         this.assets = assets;
         this.type = type;

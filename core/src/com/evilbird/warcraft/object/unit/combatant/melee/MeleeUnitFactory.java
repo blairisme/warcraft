@@ -12,7 +12,6 @@ package com.evilbird.warcraft.object.unit.combatant.melee;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
-import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 import com.evilbird.warcraft.object.unit.combatant.CombatantFactory;
 
 /**
@@ -21,7 +20,7 @@ import com.evilbird.warcraft.object.unit.combatant.CombatantFactory;
  *
  * @author Blair Butterworth
  */
-public abstract class MeleeUnitFactory extends CombatantFactory<CombatantAssets, MeleeUnitBuilder, Combatant>
+public abstract class MeleeUnitFactory extends CombatantFactory<MeleeUnitAssets, MeleeUnitBuilder, Combatant>
 {
     public MeleeUnitFactory(AssetManager manager, UnitType type) {
         this(manager, type, type);
@@ -32,12 +31,12 @@ public abstract class MeleeUnitFactory extends CombatantFactory<CombatantAssets,
     }
 
     @Override
-    protected CombatantAssets newAssets(AssetManager manager, UnitType type) {
-        return new CombatantAssets(manager, type);
+    protected MeleeUnitAssets newAssets(AssetManager manager, UnitType type) {
+        return new MeleeUnitAssets(manager, type);
     }
 
     @Override
-    protected MeleeUnitBuilder newBuilder(CombatantAssets assets, UnitType type) {
+    protected MeleeUnitBuilder newBuilder(MeleeUnitAssets assets, UnitType type) {
         return new MeleeUnitBuilder(assets, type);
     }
 }

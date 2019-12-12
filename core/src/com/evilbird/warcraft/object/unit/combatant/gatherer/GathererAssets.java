@@ -54,9 +54,8 @@ public class GathererAssets extends CombatantAssets
     private void registerSounds() {
         register("construct", "data/sounds/common/unit/construct/1.mp3");
         register("complete", "data/sounds/${faction}/unit/${name}/complete/1.mp3");
-
-        registerOptionalSequence("attack", "data/sounds/common/unit/attack/sword/", ".mp3", 3);
-        registerOptionalSequence("chopping", "data/sounds/common/unit/chopping/", ".mp3", 4);
+        register("attack", "data/sounds/common/unit/attack/fist/1.mp3");
+        registerSequence("chopping", "data/sounds/common/unit/chopping/", ".mp3", 4);
     }
 
     public Texture getMoveWithGoldTexture() {
@@ -96,7 +95,7 @@ public class GathererAssets extends CombatantAssets
     }
 
     public Sound getAttackSound() {
-        return getSoundEffectSet("attack", 3);
+        return getSoundEffect("attack");
     }
 
     public Sound getCompleteSound() {
