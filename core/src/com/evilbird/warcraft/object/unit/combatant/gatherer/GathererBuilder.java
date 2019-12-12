@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.object.unit.combatant.gatherer;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.audio.sound.SoundCatalog;
 import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
@@ -18,6 +19,9 @@ import com.evilbird.warcraft.object.unit.combatant.gatherer.animations.LandGathe
 import com.evilbird.warcraft.object.unit.combatant.gatherer.animations.SeaGathererAnimations;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.sounds.LandGathererSounds;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.sounds.SeaGathererSounds;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Creates a new {@link Gatherer} instance whose visual and audible
@@ -49,5 +53,17 @@ public class GathererBuilder extends CombatantBuilder<Gatherer>
     @Override
     protected SoundCatalog newSounds() {
         return type.isNavalUnit() ? new SeaGathererSounds(assets) : new LandGathererSounds(assets);
+    }
+
+    @Override
+    protected Map<Texture, Texture> newMasks() {
+        Map<Texture, Texture> masks = new HashMap<>(super.newMasks());
+        if (type.isNaval()) {
+            masks.put(assets.getMoveWithOilTexture(), assets.getMoveWithOilMask());
+        } else {
+            masks.put(assets.getMoveWithGoldTexture(), assets.getMoveWithGoldMask());
+            masks.put(assets.getMoveWithWoodTexture(), assets.getMoveWithWoodMask());
+        }
+        return masks;
     }
 }

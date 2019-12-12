@@ -37,6 +37,7 @@ public abstract class CombatantBuilder<T extends Combatant>
     private CombatantAssets assets;
     private SoundCatalog sounds;
     private AnimationCatalog animations;
+    private Map<Texture, Texture> masks;
 
     public CombatantBuilder(CombatantAssets assets, UnitType type) {
         this.type = type;
@@ -100,6 +101,13 @@ public abstract class CombatantBuilder<T extends Combatant>
     protected abstract SoundCatalog newSounds();
 
     private Map<Texture, Texture> getMasks() {
+        if (masks == null) {
+            masks = newMasks();
+        }
+        return masks;
+    }
+
+    protected Map<Texture, Texture> newMasks() {
         if (! type.isNeutral()) {
             return Maps.of(assets.getBaseTexture(), assets.getMaskTexture());
         }
