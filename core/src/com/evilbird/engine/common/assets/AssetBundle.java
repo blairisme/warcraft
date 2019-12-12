@@ -24,15 +24,11 @@ import com.evilbird.engine.common.audio.music.LazyLoadedMusic;
 import com.evilbird.engine.common.audio.music.MusicSequence;
 import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.audio.sound.SoundFactory;
-import com.evilbird.engine.common.collection.CollectionUtils;
-import com.evilbird.engine.common.collection.Lists;
-import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.file.FilenameUtils;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.common.text.StringSubstitutor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -243,14 +239,6 @@ public class AssetBundle
                 paths.add(descriptor.fileName);
             }
         }
-        return SoundFactory.newSound(manager, paths);
-    }
-
-    protected Sound getSoundEffectSet(Object ... ids) {
-        List<AssetDescriptor> effects = Maps.getAll(assets, Arrays.asList(ids));
-        CollectionUtils.removeIf(effects, it -> it == null);
-
-        Collection<String> paths = Lists.convert(effects, effect -> effect.fileName);
         return SoundFactory.newSound(manager, paths);
     }
 

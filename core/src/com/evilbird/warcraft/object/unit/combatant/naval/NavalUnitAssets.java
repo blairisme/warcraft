@@ -14,8 +14,6 @@ import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 
-import static com.evilbird.engine.common.audio.sound.SilentSound.SilentSoundEffect;
-
 /**
  * Defines the assets that are required to display naval combatants
  * as well as any sound effects used by it.
@@ -38,12 +36,17 @@ public class NavalUnitAssets extends CombatantAssets
      */
     public NavalUnitAssets(AssetManager manager, UnitType type) {
         super(manager, type);
-        if (type.isWarship()) {
-            register("attack", "data/sounds/common/unit/attack/siege/1.mp3");
-        }
+        register("attack", "data/sounds/common/unit/attack/siege/1.mp3");
+        register("dead", "data/sounds/common/unit/sinking/1.mp3");
     }
 
+    @Override
     public Sound getAttackSound() {
-        return isRegistered("attack") ? getSoundEffect("attack") : SilentSoundEffect;
+        return getSoundEffect("attack");
+    }
+
+    @Override
+    public Sound getDieSound() {
+        return getSoundEffect("dead");
     }
 }
