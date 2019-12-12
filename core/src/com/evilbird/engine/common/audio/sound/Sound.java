@@ -29,6 +29,12 @@ public interface Sound
     void pause();
 
     /**
+     * Plays the sound continuously. If the sound is already playing, it will
+     * be restarted.
+     */
+    void loop();
+
+    /**
      * Resumes playing the sound. If the sound wasn't paused, this has no effect.
      */
     void resume();

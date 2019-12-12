@@ -45,6 +45,12 @@ public class RandomSound implements Sound
     }
 
     @Override
+    public void loop() {
+        current = sounds.get(random.nextInt(sounds.size()));
+        current.loop();
+    }
+
+    @Override
     public void play() {
         current = sounds.get(random.nextInt(sounds.size()));
         current.play();

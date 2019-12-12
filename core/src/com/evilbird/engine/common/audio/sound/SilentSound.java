@@ -20,6 +20,10 @@ public class SilentSound implements Sound
     public static final SilentSound SilentSoundEffect = new SilentSound();
 
     @Override
+    public void loop() {
+    }
+
+    @Override
     public void play() {
     }
 

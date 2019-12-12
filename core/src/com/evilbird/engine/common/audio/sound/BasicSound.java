@@ -39,8 +39,12 @@ public class BasicSound implements Sound
     }
 
     @Override
+    public void loop() {
+        identifier = delegate.loop();
+    }
+
+    @Override
     public void play() {
-        //stop();
         identifier = delegate.play();
     }
 

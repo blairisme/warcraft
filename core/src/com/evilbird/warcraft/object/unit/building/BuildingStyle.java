@@ -9,8 +9,11 @@
 
 package com.evilbird.warcraft.object.unit.building;
 
+import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.graphics.renderable.Renderable;
 import com.evilbird.warcraft.object.unit.UnitStyle;
+
+import static com.evilbird.engine.common.audio.sound.SilentSound.SilentSoundEffect;
 
 /**
  * Defines the visual and auditory presentation of a {@link Building}.
@@ -32,6 +35,11 @@ public class BuildingStyle extends UnitStyle
     public Renderable heavyDamage;
 
     /**
+     * A {@link Sound} effect to play when a {@link Building} has been damaged.
+     */
+    public Sound damageSound;
+
+    /**
      * Creates a new instance of this class with no animations, sounds or
      * damage texture.
      */
@@ -39,6 +47,7 @@ public class BuildingStyle extends UnitStyle
         super();
         this.lightDamage = null;
         this.heavyDamage = null;
+        this.damageSound = SilentSoundEffect;
     }
 
     /**
@@ -55,5 +64,6 @@ public class BuildingStyle extends UnitStyle
         super(style);
         this.lightDamage = style.lightDamage;
         this.heavyDamage = style.heavyDamage;
+        this.damageSound = style.damageSound;
     }
 }

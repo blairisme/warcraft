@@ -52,6 +52,11 @@ public class LocalizedSound implements Sound
     }
 
     @Override
+    public void loop() {
+        sound.loop();
+    }
+
+    @Override
     public void play() {
         sound.play();
     }

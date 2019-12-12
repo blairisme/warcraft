@@ -11,8 +11,10 @@ package com.evilbird.warcraft.object.unit.building;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.renderable.Renderable;
+import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.spatial.SpatialObject;
 import com.evilbird.warcraft.object.common.resource.ResourceContainer;
 import com.evilbird.warcraft.object.common.resource.ResourceType;
@@ -27,6 +29,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import static com.evilbird.engine.common.audio.sound.SilentSound.SilentSoundEffect;
 import static com.evilbird.engine.common.graphics.renderable.EmptyRenderable.BlankRenderable;
 
 /**
@@ -38,13 +41,17 @@ import static com.evilbird.engine.common.graphics.renderable.EmptyRenderable.Bla
  */
 public class Building extends Unit implements ResourceContainer, UpgradeContainer, SpatialObject
 {
+    private static final transient float DAMAGE_SOUND_INTERVAL = 5f;
+
     private float producing;
     private float constructing;
     private Collection<Upgrade> upgrades;
     private Map<String, Double> resources;
 
     private transient BuildingStyle style;
-    private transient Renderable damage;
+    private transient Sound damageSound;
+    private transient GameTimer damageSoundInterval;
+    private transient Renderable damageAnimation;
     private transient float lightDamageThreshold;
     private transient float heavyDamageThreshold;
 
@@ -64,6 +71,8 @@ public class Building extends Unit implements ResourceContainer, UpgradeContaine
         constructing = 1;
         upgrades = Collections.emptyList();
         resources = new LinkedHashMap<>(2);
+        damageSound = SilentSoundEffect;
+        damageSoundInterval = new GameTimer(DAMAGE_SOUND_INTERVAL);
     }
 
     /**
@@ -144,6 +153,7 @@ public class Building extends Unit implements ResourceContainer, UpgradeContaine
     public void setHealth(float health) {
         super.setHealth(health);
         setDamageAnimation(health);
+        setDamageSound(health);
     }
 
     @Override
@@ -151,6 +161,7 @@ public class Building extends Unit implements ResourceContainer, UpgradeContaine
         super.setHealthMaximum(healthMaximum);
         setDamageThreshold(healthMaximum);
         setDamageAnimation();
+        setDamageSound();
     }
 
     /**
@@ -194,18 +205,23 @@ public class Building extends Unit implements ResourceContainer, UpgradeContaine
     public void setStyle(BuildingStyle style) {
         this.style = style;
         setDamageAnimation();
+        setDamageSound();
     }
 
     @Override
     public void draw(Batch batch, float alpha) {
         super.draw(batch, alpha);
-        damage.draw(batch, position, size);
+        damageAnimation.draw(batch, position, size);
     }
 
     @Override
     public void update(float time) {
         super.update(time);
-        damage.update(time);
+        damageAnimation.update(time);
+        if (damageSoundInterval.advance(time)) {
+            damageSoundInterval.reset();
+            damageSound.play();
+        }
     }
 
     private void setDamageAnimation() {
@@ -214,11 +230,23 @@ public class Building extends Unit implements ResourceContainer, UpgradeContaine
 
     private void setDamageAnimation(float health) {
         if (health > 0 && health < heavyDamageThreshold) {
-            damage = style.heavyDamage;
+            damageAnimation = style.heavyDamage;
         } else if (health >= heavyDamageThreshold && health < lightDamageThreshold) {
-            damage = style.lightDamage;
+            damageAnimation = style.lightDamage;
         } else {
-            damage = BlankRenderable;
+            damageAnimation = BlankRenderable;
+        }
+    }
+
+    private void setDamageSound() {
+        setDamageSound(getHealth());
+    }
+
+    private void setDamageSound(float health) {
+        if (health > 0 && health < lightDamageThreshold) {
+            damageSound = style.damageSound;
+        } else {
+            damageSound = SilentSoundEffect;
         }
     }
 

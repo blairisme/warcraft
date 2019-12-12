@@ -106,6 +106,7 @@ public class BuildingBuilder
         style.highlight = new FlashingRenderable(assets.getHighlightTexture());
         style.lightDamage = new AnimationRenderable(style.animations.get(LightDamage));
         style.heavyDamage = new AnimationRenderable(style.animations.get(HeavyDamage));
+        style.damageSound = assets.getBurningSound();
         return style;
     }
 
