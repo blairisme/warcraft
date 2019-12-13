@@ -21,6 +21,7 @@ import com.evilbird.warcraft.object.projectile.animations.LargeProjectileAnimati
 import com.evilbird.warcraft.object.projectile.animations.RotationalProjectileAnimation;
 import com.evilbird.warcraft.object.projectile.animations.SpellProjectileAnimation;
 
+import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.object.projectile.ExplosivePattern.Point;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.Axe;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.Bolt;
@@ -66,7 +67,8 @@ public class ProjectileBuilder
         projectile.setTouchable(Touchable.disabled);
         projectile.setExplosiveCount(1);
         projectile.setExplosiveInterval(0);
-        projectile.setExplosiveRadius(1);
+        projectile.setExplosiveRadius(tiles(1));
+        projectile.setExplosiveRange(tiles(0));
         projectile.setExplosivePattern(Point);
         return projectile;
     }

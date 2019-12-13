@@ -21,12 +21,15 @@ import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.effect.Effect;
+import com.evilbird.warcraft.object.projectile.ExplosivePattern;
 import com.evilbird.warcraft.object.projectile.ExplosiveProjectile;
 import com.evilbird.warcraft.object.unit.UnitSound;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
 import java.util.Collection;
+
+import static com.badlogic.gdx.math.Vector2.Zero;
 
 /**
  * A {@link ProjectileAttack} specialization that supplements the default
@@ -42,8 +45,8 @@ public class MissileAttack extends BasicProjectileAttack
     private transient GameTimer interval;
     private transient Vector2 direction;
     private transient Vector2 offset;
-    private transient int spacing;
     private transient int explosions;
+    private transient int spacing;
 
     @Inject
     public MissileAttack(
@@ -65,7 +68,9 @@ public class MissileAttack extends BasicProjectileAttack
         super.initialize();
         this.missile = (ExplosiveProjectile)projectile;
         this.interval = new GameTimer(missile.getExplosiveInterval(), missile.getExplosiveInterval());
-        this.spacing = missile.getExplosiveRadius() / missile.getExplosiveCount();
+        this.spacing = missile.getExplosivePattern() == ExplosivePattern.LinearSequence
+            ? missile.getExplosiveRange() / missile.getExplosiveCount()
+            : 0;
     }
 
     @Override
@@ -130,8 +135,7 @@ public class MissileAttack extends BasicProjectileAttack
     private void damageOccupants(Vector2 location) {
         GameObjectContainer container = missile.getRoot();
         GameObjectGraph graph = container.getSpatialGraph();
-        GameObjectNode node = graph.getNode(location);
-        if (node != null) {
+        for (GameObjectNode node: graph.getNodes(location, Zero, missile.getExplosiveRadius())) {
             damageOccupants(node.getOccupants());
         }
     }

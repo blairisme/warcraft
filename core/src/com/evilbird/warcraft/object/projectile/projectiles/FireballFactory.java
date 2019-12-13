@@ -42,7 +42,7 @@ public class FireballFactory extends ProjectileFactoryBase
         projectile.setType(Fireball);
         projectile.setIdentifier(objectIdentifier("Fireball", projectile));
         projectile.setSize(32, 32);
-        projectile.setExplosiveRadius(tiles(4));
+        projectile.setExplosiveRange(tiles(4));
         projectile.setExplosiveCount(3);
         projectile.setExplosiveEffect(Explosion);
         projectile.setExplosiveInterval(0.15f);

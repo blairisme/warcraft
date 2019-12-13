@@ -23,6 +23,7 @@ public class ExplosiveProjectile extends Projectile
 {
     private transient int count;
     private transient int radius;
+    private transient int range;
     private transient float interval;
     private transient EffectType effect;
     private transient ExplosivePattern pattern;
@@ -73,11 +74,21 @@ public class ExplosiveProjectile extends Projectile
     }
 
     /**
-     * Returns the destructive reach of the explosion that will be produced
-     * when the projectile strikes a target, specified in pixels.
+     * Returns the destructive reach of the explosion(s) produced when the
+     * explosive projectile strikes its target(s), specified in world pixels.
      */
     public int getExplosiveRadius() {
         return radius;
+    }
+
+    /**
+     * Returns the destructive reach of the explosion, specified in world
+     * pixels. The use of explosive reach varies depending on the projectiles
+     * explosive pattern. Some patterns do not support an explosive range, such
+     * as {@link ExplosivePattern#Point}.
+     */
+    public int getExplosiveRange() {
+        return range;
     }
 
     /**
@@ -115,10 +126,22 @@ public class ExplosiveProjectile extends Projectile
     }
 
     /**
-     * Sets the destructive reach of the explosion that will be produced when
-     * the projectile strikes a target, specified in pixels.
+     * Sets the destructive reach of the explosion(s) produced when the
+     * explosive projectile strikes its target(s), specified in world pixels.
      */
     public void setExplosiveRadius(int radius) {
         this.radius = radius;
     }
+
+    /**
+     * Sets the destructive reach of the explosion, specified in world
+     * pixels. The use of explosive reach varies depending on the projectiles
+     * explosive pattern. Some patterns do not support an explosive range, such
+     * as {@link ExplosivePattern#Point}.
+     */
+    public void setExplosiveRange(int range) {
+        this.range = range;
+    }
+
+
 }
