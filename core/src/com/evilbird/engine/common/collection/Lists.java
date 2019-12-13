@@ -16,7 +16,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Objects;
-import java.util.function.Function;
 
 /**
  * This class provides utility functions that operate on {@link List Lists}.
@@ -101,14 +100,6 @@ public class Lists
             list.add(element);
         }
         return list;
-    }
-
-    public static <A, B> List<B> convert(List<A> list, Function<A, B> converter) {
-        List<B> converted = new ArrayList<>(list.size());
-        for (A element: list) {
-            converted.add(converter.apply(element));
-        }
-        return converted;
     }
 
     /**

@@ -44,7 +44,7 @@ public class BallistaFactory extends SiegeUnitFactory
     @Override
     public RangedCombatant get(Identifier type) {
         RangedCombatant result = builder.build();
-        result.setAttackSpeed(3);
+        result.setAttackSpeed(4);
         result.setAttackRange(tiles(8));
         result.setArmour(0);
         result.setPiercingDamage(25);

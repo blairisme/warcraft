@@ -44,7 +44,7 @@ public class CatapultFactory extends SiegeUnitFactory
     @Override
     public RangedCombatant get(Identifier type) {
         RangedCombatant result = builder.build();
-        result.setAttackSpeed(3);
+        result.setAttackSpeed(4);
         result.setArmour(0);
         result.setBasicDamage(new UpgradeValue(SiegeDamage, 80, 95, 110));
         result.setPiercingDamage(25);

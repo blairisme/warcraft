@@ -16,27 +16,27 @@ package com.evilbird.warcraft.object.common.spell;
  */
 public enum Spell
 {
-    /* Name           Mana time range duration value */
-    Blizzard            (25, 1f, 128f, 20f, 5),
-    Bloodlust           (50, 1f, 128f, 20f, 2),
-    DeathAndDecay       (200, 1f, 128f, 20f, 5),
-    DeathCoil           (100, 1f, 128f, 20f, 5),
-    Exorcism            (4, 1f, 128f, 20f, 20),
-    EyeOfKilrogg        (70, 1f, 128f, 20f, 5),
-    Fireball            (100, 1f, 128f, 20f, 5),
-    FlameShield         (80, 1f, 128f, 20f, 5),
-    Haste               (50, 1f, 128f, 20f, 5),
-    Heal                (6, 1f, 128f, 20f, 40),
-    HolyVision          (70, 1f, 128f, 20f, 160),
-    Invisibility        (200, 1f, 128f, 20f, 5),
-    Lightning           (0, 1f, 128f, 20f, 5),
-    Polymorph           (200, 1f, 128f, 20f, 5),
-    RaiseDead           (200, 1f, 128f, 20f, 5),
-    Runes               (200, 1f, 128f, 20f, 5),
-    Slow                (50, 1f, 128f, 20f, 5),
-    TouchOfDarkness     (0, 1f, 128f, 20f, 5),
-    UnholyArmour        (80, 1f, 128f, 20f, 5),
-    Whirlwind           (200, 1f, 128f, 20f, 5);
+    /*               | Cost  | Time  | Range | Duration | Value | */
+    Blizzard            (25,    1f,     256f,   60f,    0_0),
+    Bloodlust           (50,    1f,     128f,   30f,    0_0),
+    DeathAndDecay       (200,   1f,     256f,   0_0f,   0_0),
+    DeathCoil           (100,   1f,     128f,   0_0f,   0_0),
+    Exorcism            (4,     1f,     128f,   0f,     0_0),
+    EyeOfKilrogg        (70,    1f,     0,      60f,    0),
+    Fireball            (100,   1f,     256f,   0f,     0_0),
+    FlameShield         (80,    1f,     256f,   30f,    2),
+    Haste               (50,    1f,     256f,   30f,    0_0),
+    Heal                (6,     1f,     128f,   0f,     4),
+    HolyVision          (70,    1f,     0,      60f,    160),
+    Invisibility        (200,   1f,     256f,   75f,    0),
+    Lightning           (0,     1f,     2,      0f,     9),
+    Polymorph           (200,   1f,     256f,   0f,     0),
+    RaiseDead           (200,   1f,     128f,   0f,     2),
+    Runes               (200,   1f,     128f,   75f,    0_0),
+    Slow                (50,    1f,     256f,   30f,    0_0),
+    TouchOfDarkness     (0,     1f,     96f,    0,      9),
+    UnholyArmour        (80,    1f,     256f,   30f,    0_0),
+    Whirlwind           (200,   1f,     256f,   60f,    0_0);
 
     private int castCost;
     private float castTime;

@@ -42,10 +42,10 @@ public class GryphonHammerFactory extends ProjectileFactoryBase
         projectile.setType(GryphonHammer);
         projectile.setIdentifier(objectIdentifier("GryphonHammer", projectile));
         projectile.setSize(32, 32);
-        projectile.setExplosiveRadius(tiles(4));
+        projectile.setExplosiveRadius(tiles(6));
         projectile.setExplosiveCount(3);
         projectile.setExplosiveEffect(Explosion);
-        projectile.setExplosiveInterval(0.15f);
+        projectile.setExplosiveInterval(0.2f);
         projectile.setExplosivePattern(LinearSequence);
         return projectile;
     }

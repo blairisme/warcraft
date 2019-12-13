@@ -11,6 +11,7 @@ package com.evilbird.engine.common.collection;
 
 import com.badlogic.gdx.utils.Array;
 
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -138,5 +139,13 @@ public class CollectionUtils
             }
         }
         return removed;
+    }
+
+    public static <T> Collection<T> restrictSize(Collection<T> collection, int size) {
+        if (collection.size() > size) {
+            Iterator<T> iterator = collection.iterator();
+            return Arrays.asList(iterator.next(), iterator.next());
+        }
+        return collection;
     }
 }

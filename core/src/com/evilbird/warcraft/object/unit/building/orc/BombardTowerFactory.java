@@ -43,7 +43,7 @@ public class BombardTowerFactory extends BuildingFactoryBase
     @Override
     public Building get(Identifier type) {
         Tower result = builder.buildOffensiveBuilding();
-        result.setAttackSpeed(3);
+        result.setAttackSpeed(5);
         result.setAttackRange(tiles(7));
         result.setArmour(20);
         result.setBasicDamage(50);

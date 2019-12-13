@@ -23,6 +23,7 @@ import javax.inject.Inject;
 import java.util.Collection;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.filter;
+import static com.evilbird.engine.common.collection.CollectionUtils.restrictSize;
 import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
 
 /**
@@ -33,7 +34,7 @@ import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
  */
 public class RaiseDeadSpell extends CreatureSpellAction
 {
-    private static final int RADIUS = tiles(5);
+    private static final int SEARCH_RADIUS = tiles(5);
 
     @Inject
     public RaiseDeadSpell(GameObjectFactory factory, CreateEvents events) {
@@ -53,14 +54,15 @@ public class RaiseDeadSpell extends CreatureSpellAction
         GameObject caster = getSubject();
         GameObjectContainer state = caster.getRoot();
         GameObjectGraph graph = state.getSpatialGraph();
-        Collection<GameObject> corpses = graph.getOccupants(caster, RADIUS);
-        return filter(corpses, this::isDeadCombatant);
+        Collection<GameObject> nearby = graph.getOccupants(caster, SEARCH_RADIUS);
+        Collection<GameObject> corpses = filter(nearby, this::isDeadCombatant);
+        return restrictSize(corpses, Spell.RaiseDead.getEffectValue());
     }
 
     private boolean isDeadCombatant(GameObject gameObject) {
         if (gameObject instanceof Combatant) {
             Combatant combatant = (Combatant) gameObject;
-            return combatant.getHealth() == 0;
+            return combatant.isDead();
         }
         return false;
     }
