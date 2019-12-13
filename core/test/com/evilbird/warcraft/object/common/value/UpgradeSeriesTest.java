@@ -9,8 +9,8 @@
 
 package com.evilbird.warcraft.object.common.value;
 
-import com.evilbird.warcraft.object.common.upgrade.Upgrade;
-import com.evilbird.warcraft.object.common.upgrade.UpgradeSeries;
+import com.evilbird.warcraft.data.upgrade.Upgrade;
+import com.evilbird.warcraft.data.upgrade.UpgradeSeries;
 import org.junit.Assert;
 import org.junit.Test;
 

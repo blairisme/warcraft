@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.action.common.transfer;
 
 import com.evilbird.engine.events.Events;
-import com.evilbird.warcraft.object.common.resource.ResourceContainer;
-import com.evilbird.warcraft.object.common.resource.ResourceType;
+import com.evilbird.warcraft.data.resource.ResourceContainer;
+import com.evilbird.warcraft.data.resource.ResourceType;
 
 import javax.inject.Inject;
 

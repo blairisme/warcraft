@@ -11,8 +11,8 @@ package com.evilbird.warcraft.object.unit.combatant.gatherer;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.warcraft.object.common.resource.ResourceContainer;
-import com.evilbird.warcraft.object.common.resource.ResourceType;
+import com.evilbird.warcraft.data.resource.ResourceContainer;
+import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.common.value.FixedValue;
 import com.evilbird.warcraft.object.common.value.Value;
 import com.evilbird.warcraft.object.common.value.ValueProperty;

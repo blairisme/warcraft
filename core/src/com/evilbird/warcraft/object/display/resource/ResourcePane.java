@@ -18,7 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.object.control.Table;
-import com.evilbird.warcraft.object.common.resource.ResourceType;
+import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.display.HudControl;
 
 /**

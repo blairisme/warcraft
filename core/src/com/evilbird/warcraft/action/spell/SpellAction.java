@@ -15,7 +15,7 @@ import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.object.GameObjectGroup;
-import com.evilbird.warcraft.object.common.spell.Spell;
+import com.evilbird.warcraft.data.spell.Spell;
 import com.evilbird.warcraft.object.effect.Effect;
 import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;

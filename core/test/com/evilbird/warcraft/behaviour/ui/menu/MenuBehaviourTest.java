@@ -22,7 +22,7 @@ import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.warcraft.action.common.transfer.TransferEvent;
 import com.evilbird.warcraft.action.selection.SelectEvent;
-import com.evilbird.warcraft.object.common.resource.ResourceType;
+import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.display.control.actions.ActionPane;
 import com.evilbird.warcraft.object.display.control.common.IconSet;

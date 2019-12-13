@@ -18,10 +18,10 @@ import com.evilbird.warcraft.object.display.control.actions.buttons.BasicButtonC
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.NavalDamage1;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.NavalDamage2;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.NavalDefence1;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.NavalDefence2;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.NavalDamage1;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.NavalDamage2;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.NavalDefence1;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.NavalDefence2;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.NavalDamage1Button;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.NavalDamage2Button;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.NavalDefence1Button;

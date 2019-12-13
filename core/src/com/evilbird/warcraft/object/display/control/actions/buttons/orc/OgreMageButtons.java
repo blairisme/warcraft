@@ -19,11 +19,11 @@ import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.evilbird.warcraft.object.common.spell.Spell.Bloodlust;
-import static com.evilbird.warcraft.object.common.spell.Spell.EyeOfKilrogg;
-import static com.evilbird.warcraft.object.common.spell.Spell.Runes;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.BloodlustUpgrade;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RunesUpgrade;
+import static com.evilbird.warcraft.data.spell.Spell.Bloodlust;
+import static com.evilbird.warcraft.data.spell.Spell.EyeOfKilrogg;
+import static com.evilbird.warcraft.data.spell.Spell.Runes;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.BloodlustUpgrade;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.RunesUpgrade;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.AttackButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BloodlustButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CancelButton;

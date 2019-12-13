@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.object.control.Grid;
-import com.evilbird.warcraft.object.common.resource.ResourceType;
+import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.data.player.PlayerStatistic;
 import com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStyle;

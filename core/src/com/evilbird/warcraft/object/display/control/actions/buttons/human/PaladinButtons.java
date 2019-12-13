@@ -19,11 +19,11 @@ import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.evilbird.warcraft.object.common.spell.Spell.Exorcism;
-import static com.evilbird.warcraft.object.common.spell.Spell.Heal;
-import static com.evilbird.warcraft.object.common.spell.Spell.HolyVision;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.ExorcismUpgrade;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.HealingUpgrade;
+import static com.evilbird.warcraft.data.spell.Spell.Exorcism;
+import static com.evilbird.warcraft.data.spell.Spell.Heal;
+import static com.evilbird.warcraft.data.spell.Spell.HolyVision;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.ExorcismUpgrade;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.HealingUpgrade;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.AttackButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CancelButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.DefendButton;

@@ -18,9 +18,9 @@ import com.evilbird.warcraft.object.display.control.actions.buttons.BasicButtonC
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.BloodlustUpgrade;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.MeleeType1;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RunesUpgrade;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.BloodlustUpgrade;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.MeleeType1;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.RunesUpgrade;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BloodlustUpgradeButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.MeleeType1Button;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.RunesUpgradeButton;

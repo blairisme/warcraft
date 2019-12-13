@@ -17,7 +17,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.control.Grid;
 import com.evilbird.warcraft.action.menu.MenuProvider;
-import com.evilbird.warcraft.object.common.resource.ResourceType;
+import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.display.HudControl;
 import com.evilbird.warcraft.object.display.control.actions.buttons.ButtonController;
 import com.evilbird.warcraft.object.display.control.actions.buttons.ButtonControllers;

@@ -14,7 +14,7 @@ import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.spell.SpellSelect;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
-import com.evilbird.warcraft.object.common.spell.Spell;
+import com.evilbird.warcraft.data.spell.Spell;
 
 import javax.inject.Inject;
 import java.util.function.Predicate;

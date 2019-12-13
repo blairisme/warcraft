@@ -18,12 +18,12 @@ import com.evilbird.warcraft.object.display.control.actions.buttons.BasicButtonC
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedAccuracy1;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedDamage1;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedDamage2;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedSight1;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedType1;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RangedWeapon1;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.RangedAccuracy1;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.RangedDamage1;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.RangedDamage2;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.RangedSight1;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.RangedType1;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.RangedWeapon1;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.RangedAccuracy1Button;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.RangedDamage1Button;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.RangedDamage2Button;

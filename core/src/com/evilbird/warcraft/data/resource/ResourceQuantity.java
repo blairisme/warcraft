@@ -7,16 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-/*
- * Blair Butterworth (c) 2019
- *
- * This work is licensed under the MIT License. To view a copy of this
- * license, visit
- *
- *      https://opensource.org/licenses/MIT
- */
-
-package com.evilbird.warcraft.object.common.resource;
+package com.evilbird.warcraft.data.resource;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 

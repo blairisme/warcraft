@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.common.spell;
+package com.evilbird.warcraft.data.spell;
 
 /**
  * Defines spells available to spell casting game objects.

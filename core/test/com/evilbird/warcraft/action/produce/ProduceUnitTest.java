@@ -28,8 +28,8 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import static com.evilbird.warcraft.action.produce.ProduceUnitActions.TrainFootman;
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Food;
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Gold;
+import static com.evilbird.warcraft.data.resource.ResourceType.Food;
+import static com.evilbird.warcraft.data.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.object.unit.UnitType.Footman;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

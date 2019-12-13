@@ -21,7 +21,7 @@ import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.death.RemoveEvents;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.common.production.ProductionCosts;
-import com.evilbird.warcraft.object.common.resource.ResourceSet;
+import com.evilbird.warcraft.data.resource.ResourceSet;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.selector.SelectorType;
 import com.evilbird.warcraft.object.unit.UnitType;

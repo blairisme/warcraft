@@ -14,7 +14,7 @@ import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
-import com.evilbird.warcraft.object.common.spell.Spell;
+import com.evilbird.warcraft.data.spell.Spell;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.unit.UnitType;

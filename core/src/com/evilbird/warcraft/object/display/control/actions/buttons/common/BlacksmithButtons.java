@@ -18,12 +18,12 @@ import com.evilbird.warcraft.object.display.control.actions.buttons.BasicButtonC
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.MeleeDamage1;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.MeleeDamage2;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.MeleeDefence1;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.MeleeDefence2;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.SiegeDamage1;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.SiegeDamage2;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.MeleeDamage1;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.MeleeDamage2;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.MeleeDefence1;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.MeleeDefence2;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.SiegeDamage1;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.SiegeDamage2;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.MeleeDamage1Button;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.MeleeDamage2Button;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.MeleeDefence1Button;

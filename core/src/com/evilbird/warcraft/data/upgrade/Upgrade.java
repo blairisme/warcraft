@@ -7,30 +7,30 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.common.upgrade;
+package com.evilbird.warcraft.data.upgrade;
 
 import com.evilbird.engine.common.collection.EnumUtils;
 import com.evilbird.engine.common.lang.Identifier;
 
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeRank.Advanced;
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeRank.Improved;
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.GoldProduction;
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.MeleeDamage;
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.MeleeDefence;
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.MeleeType;
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.NavalDamage;
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.NavalDefence;
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.OilProduction;
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.RangedAccuracy;
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.RangedDamage;
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.RangedSight;
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.RangedType;
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.RangedWeapon;
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.SiegeDamage;
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.WoodProduction;
+import static com.evilbird.warcraft.data.upgrade.UpgradeRank.Advanced;
+import static com.evilbird.warcraft.data.upgrade.UpgradeRank.Improved;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.GoldProduction;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.MeleeDamage;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.MeleeDefence;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.MeleeType;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.NavalDamage;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.NavalDefence;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.OilProduction;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.RangedAccuracy;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.RangedDamage;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.RangedSight;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.RangedType;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.RangedWeapon;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.SiegeDamage;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.WoodProduction;
 
 /**
- * Defines upgrades that can be applied to game entities to improve their
+ * Defines upgrades that can be applied to game objects to improve their
  * attributes. Upgrades usually represent a single rank in a series of
  * upgrades, where each rank provides a further improvement to a unit
  * attribute.

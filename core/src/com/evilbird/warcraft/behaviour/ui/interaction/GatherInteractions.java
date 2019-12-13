@@ -12,7 +12,7 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
-import com.evilbird.warcraft.object.common.resource.ResourceType;
+import com.evilbird.warcraft.data.resource.ResourceType;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -28,9 +28,9 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicab
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.hasResources;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isControllable;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isDepotFor;
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Gold;
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Oil;
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Wood;
+import static com.evilbird.warcraft.data.resource.ResourceType.Gold;
+import static com.evilbird.warcraft.data.resource.ResourceType.Oil;
+import static com.evilbird.warcraft.data.resource.ResourceType.Wood;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CancelButton;
 import static com.evilbird.warcraft.object.layer.LayerType.Tree;
 import static com.evilbird.warcraft.object.unit.UnitType.GoldMine;

@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.object.display.control.actions;
 
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.warcraft.object.common.upgrade.Upgrade;
+import com.evilbird.warcraft.data.upgrade.Upgrade;
 import com.evilbird.warcraft.object.unit.UnitType;
 import org.apache.commons.lang3.Validate;
 

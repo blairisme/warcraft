@@ -27,10 +27,10 @@ import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
 import com.evilbird.warcraft.object.common.capability.TerrainType;
-import com.evilbird.warcraft.object.common.resource.ResourceContainer;
-import com.evilbird.warcraft.object.common.resource.ResourceType;
-import com.evilbird.warcraft.object.common.spell.Spell;
-import com.evilbird.warcraft.object.common.upgrade.Upgrade;
+import com.evilbird.warcraft.data.resource.ResourceContainer;
+import com.evilbird.warcraft.data.resource.ResourceType;
+import com.evilbird.warcraft.data.spell.Spell;
+import com.evilbird.warcraft.data.upgrade.Upgrade;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.selector.Selector;
 import com.evilbird.warcraft.object.unit.Unit;
@@ -61,9 +61,9 @@ import static com.evilbird.engine.object.utility.GameObjectOperations.isNear;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.hasType;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.touchableWithType;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.hasPathTo;
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Gold;
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Oil;
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Wood;
+import static com.evilbird.warcraft.data.resource.ResourceType.Gold;
+import static com.evilbird.warcraft.data.resource.ResourceType.Oil;
+import static com.evilbird.warcraft.data.resource.ResourceType.Wood;
 
 /**
  * Instances of this class contain common operations for working with Items.

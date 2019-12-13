@@ -11,8 +11,8 @@ package com.evilbird.warcraft.object.common.production;
 
 import com.evilbird.engine.game.GameService;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.object.common.resource.ResourceQuantity;
-import com.evilbird.warcraft.object.common.upgrade.Upgrade;
+import com.evilbird.warcraft.data.resource.ResourceQuantity;
+import com.evilbird.warcraft.data.upgrade.Upgrade;
 import com.evilbird.warcraft.object.unit.UnitType;
 
 import javax.inject.Inject;
@@ -21,10 +21,10 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Food;
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Gold;
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Oil;
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Wood;
+import static com.evilbird.warcraft.data.resource.ResourceType.Food;
+import static com.evilbird.warcraft.data.resource.ResourceType.Gold;
+import static com.evilbird.warcraft.data.resource.ResourceType.Oil;
+import static com.evilbird.warcraft.data.resource.ResourceType.Wood;
 
 /**
  * Defines the resources required to create units and upgrades.

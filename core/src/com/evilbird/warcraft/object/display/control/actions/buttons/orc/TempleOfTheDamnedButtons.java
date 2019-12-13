@@ -18,11 +18,11 @@ import com.evilbird.warcraft.object.display.control.actions.buttons.BasicButtonC
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.DeathAndDecayUpgrade;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.HasteUpgrade;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.RaiseTheDeadUpgrade;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.UnholyArmourUpgrade;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.WhirlwindUpgrade;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.DeathAndDecayUpgrade;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.HasteUpgrade;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.RaiseTheDeadUpgrade;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.UnholyArmourUpgrade;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.WhirlwindUpgrade;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.DeathAndDecayUpgradeButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.DeathKnightButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.HasteUpgradeButton;

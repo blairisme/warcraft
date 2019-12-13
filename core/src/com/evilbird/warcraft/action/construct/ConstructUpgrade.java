@@ -16,7 +16,7 @@ import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.selection.SelectEvents;
 import com.evilbird.warcraft.object.common.production.ProductionCosts;
 import com.evilbird.warcraft.object.common.production.ProductionTimes;
-import com.evilbird.warcraft.object.common.resource.ResourceSet;
+import com.evilbird.warcraft.data.resource.ResourceSet;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
 import com.evilbird.warcraft.object.unit.UnitType;

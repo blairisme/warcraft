@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.common.upgrade;
+package com.evilbird.warcraft.data.upgrade;
 
 /**
  * Defines levels in an upgrade series.

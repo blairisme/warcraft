@@ -12,7 +12,7 @@ package com.evilbird.warcraft.object.unit.resource.neutral;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.warcraft.object.common.resource.ResourceType;
+import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.resource.Resource;
 import com.evilbird.warcraft.object.unit.resource.ResourceFactoryBase;

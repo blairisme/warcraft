@@ -12,7 +12,7 @@ package com.evilbird.warcraft.object.unit.combatant.naval.orc;
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
-import com.evilbird.warcraft.object.common.upgrade.UpgradeSeries;
+import com.evilbird.warcraft.data.upgrade.UpgradeSeries;
 import com.evilbird.warcraft.object.common.value.UpgradeValue;
 import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
 import com.evilbird.warcraft.object.unit.combatant.naval.NavalUnitFactory;
@@ -22,7 +22,7 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.object.common.capability.TerrainType.Water;
 import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.NavalDefence;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.NavalDefence;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.Cannonball;
 import static com.evilbird.warcraft.object.unit.UnitType.TrollDestroyer;
 

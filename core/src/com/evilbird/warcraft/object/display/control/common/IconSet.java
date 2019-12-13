@@ -14,7 +14,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.warcraft.common.WarcraftFaction;
-import com.evilbird.warcraft.object.common.upgrade.Upgrade;
+import com.evilbird.warcraft.data.upgrade.Upgrade;
 import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitAttack;

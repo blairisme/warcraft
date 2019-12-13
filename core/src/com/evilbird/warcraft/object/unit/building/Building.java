@@ -16,10 +16,10 @@ import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.renderable.Renderable;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.spatial.SpatialObject;
-import com.evilbird.warcraft.object.common.resource.ResourceContainer;
-import com.evilbird.warcraft.object.common.resource.ResourceType;
-import com.evilbird.warcraft.object.common.upgrade.Upgrade;
-import com.evilbird.warcraft.object.common.upgrade.UpgradeContainer;
+import com.evilbird.warcraft.data.resource.ResourceContainer;
+import com.evilbird.warcraft.data.resource.ResourceType;
+import com.evilbird.warcraft.data.upgrade.Upgrade;
+import com.evilbird.warcraft.data.upgrade.UpgradeContainer;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 

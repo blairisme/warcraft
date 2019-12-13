@@ -10,9 +10,9 @@
 package com.evilbird.warcraft.object.display.control.actions.buttons;
 
 import com.evilbird.warcraft.object.common.production.ProductionCosts;
-import com.evilbird.warcraft.object.common.resource.ResourceQuantity;
-import com.evilbird.warcraft.object.common.spell.Spell;
-import com.evilbird.warcraft.object.common.upgrade.Upgrade;
+import com.evilbird.warcraft.data.resource.ResourceQuantity;
+import com.evilbird.warcraft.data.spell.Spell;
+import com.evilbird.warcraft.data.upgrade.Upgrade;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.object.unit.UnitType;

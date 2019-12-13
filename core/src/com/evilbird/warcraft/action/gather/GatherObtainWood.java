@@ -20,7 +20,7 @@ import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 import javax.inject.Inject;
 
 import static com.evilbird.warcraft.object.common.query.UnitOperations.reorient;
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Wood;
+import static com.evilbird.warcraft.data.resource.ResourceType.Wood;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.IdleWood;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Move;

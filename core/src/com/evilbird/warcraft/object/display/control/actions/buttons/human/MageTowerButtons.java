@@ -18,11 +18,11 @@ import com.evilbird.warcraft.object.display.control.actions.buttons.BasicButtonC
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.BlizzardUpgrade;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.FlameShieldUpgrade;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.InvisibilityUpgrade;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.PolymorphUpgrade;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.SlowUpgrade;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.BlizzardUpgrade;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.FlameShieldUpgrade;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.InvisibilityUpgrade;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.PolymorphUpgrade;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.SlowUpgrade;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BlizzardUpgradeButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.FlameShieldUpgradeButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.InvisibilityUpgradeButton;

@@ -20,7 +20,7 @@ import com.evilbird.warcraft.object.unit.Unit;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.object.utility.GameObjectOperations.assignIfAbsent;
-import static com.evilbird.warcraft.object.common.spell.Spell.UnholyArmour;
+import static com.evilbird.warcraft.data.spell.Spell.UnholyArmour;
 
 /**
  * A spell that surrounds a target with a unholy armour, making it invulnerable

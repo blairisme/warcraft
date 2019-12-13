@@ -21,8 +21,8 @@ import javax.inject.Inject;
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.object.common.capability.TerrainType.Water;
 import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.NavalDamage;
-import static com.evilbird.warcraft.object.common.upgrade.UpgradeSeries.NavalDefence;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.NavalDamage;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.NavalDefence;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.FlamingCannonball;
 import static com.evilbird.warcraft.object.unit.UnitType.Battleship;
 

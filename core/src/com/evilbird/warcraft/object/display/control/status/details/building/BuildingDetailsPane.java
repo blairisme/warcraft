@@ -12,7 +12,7 @@ package com.evilbird.warcraft.object.display.control.status.details.building;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.control.Table;
-import com.evilbird.warcraft.object.common.resource.ResourceType;
+import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.display.control.status.details.DetailsPaneElement;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;

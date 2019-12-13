@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.object.data.player;
 
-import com.evilbird.warcraft.object.common.resource.ResourceQuantity;
+import com.evilbird.warcraft.data.resource.ResourceQuantity;
 
 import java.util.Collection;
 

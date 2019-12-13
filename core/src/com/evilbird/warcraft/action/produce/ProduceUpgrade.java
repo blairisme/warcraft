@@ -14,8 +14,8 @@ import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.object.common.production.ProductionCosts;
 import com.evilbird.warcraft.object.common.production.ProductionTimes;
-import com.evilbird.warcraft.object.common.resource.ResourceSet;
-import com.evilbird.warcraft.object.common.upgrade.Upgrade;
+import com.evilbird.warcraft.data.resource.ResourceSet;
+import com.evilbird.warcraft.data.upgrade.Upgrade;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.building.Building;
 

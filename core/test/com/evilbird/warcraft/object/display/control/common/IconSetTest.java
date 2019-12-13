@@ -16,7 +16,7 @@ import com.evilbird.test.data.assets.TestTextures;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.GameTestCase;
-import com.evilbird.warcraft.object.common.upgrade.Upgrade;
+import com.evilbird.warcraft.data.upgrade.Upgrade;
 import com.evilbird.warcraft.object.display.control.ControlPaneFactory;
 import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.object.unit.Unit;
@@ -25,13 +25,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.GoldProduction1;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.GoldProduction2;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.None;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.OilProduction1;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.OilProduction2;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.WoodProduction1;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.WoodProduction2;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.GoldProduction1;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.GoldProduction2;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.None;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.OilProduction1;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.OilProduction2;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.WoodProduction1;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.WoodProduction2;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.StopButton;
 
 /**

@@ -1,13 +1,13 @@
 /*
- * Blair Butterworth (c) 2019
+ * Copyright (c) 2019, Blair Butterworth
  *
  * This work is licensed under the MIT License. To view a copy of this
  * license, visit
  *
- *      https://opensource.org/licenses/MIT
+ *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.common.resource;
+package com.evilbird.warcraft.data.resource;
 
 import com.evilbird.engine.object.GameObject;
 
@@ -25,18 +25,18 @@ public interface ResourceContainer extends GameObject
     /**
      * Returns the value of a resource held in the {@code ResourceContainer}.
      */
-    float getResource(ResourceType resource);
+    float getResource(com.evilbird.warcraft.data.resource.ResourceType resource);
 
-    default Collection<ResourceQuantity> getResources() {
-        Collection<ResourceQuantity> resources = new ArrayList<>();
-        for (ResourceType resource: ResourceType.values()) {
-            resources.add(new ResourceQuantity(resource, getResource(resource)));
+    default Collection<com.evilbird.warcraft.data.resource.ResourceQuantity> getResources() {
+        Collection<com.evilbird.warcraft.data.resource.ResourceQuantity> resources = new ArrayList<>();
+        for (com.evilbird.warcraft.data.resource.ResourceType resource: com.evilbird.warcraft.data.resource.ResourceType.values()) {
+            resources.add(new com.evilbird.warcraft.data.resource.ResourceQuantity(resource, getResource(resource)));
         }
         return resources;
     }
 
-    default boolean hasResources(Iterable<ResourceQuantity> resources) {
-        for (ResourceQuantity resource: resources) {
+    default boolean hasResources(Iterable<com.evilbird.warcraft.data.resource.ResourceQuantity> resources) {
+        for (com.evilbird.warcraft.data.resource.ResourceQuantity resource: resources) {
             if (getResource(resource.getType()) < resource.getValue()){
                 return false;
             }
@@ -49,7 +49,7 @@ public interface ResourceContainer extends GameObject
      */
     void setResource(ResourceType resource, float value);
 
-    default void setResources(Iterable<ResourceQuantity> resources) {
+    default void setResources(Iterable<com.evilbird.warcraft.data.resource.ResourceQuantity> resources) {
         for (ResourceQuantity resource: resources) {
             setResource(resource.getType(), resource.getValue());
         }

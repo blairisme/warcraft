@@ -15,7 +15,7 @@ import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.action.spell.SpellAction;
 import com.evilbird.warcraft.object.badge.Badge;
 import com.evilbird.warcraft.object.badge.BadgeType;
-import com.evilbird.warcraft.object.common.spell.Spell;
+import com.evilbird.warcraft.data.spell.Spell;
 import com.evilbird.warcraft.object.common.value.BuffValue;
 import com.evilbird.warcraft.object.common.value.Value;
 import com.evilbird.warcraft.object.common.value.ValueProperty;

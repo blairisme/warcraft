@@ -32,8 +32,8 @@ import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.warcraft.common.TeamColour;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.common.WarcraftNation;
-import com.evilbird.warcraft.object.common.resource.ResourceContainer;
-import com.evilbird.warcraft.object.common.resource.ResourceType;
+import com.evilbird.warcraft.data.resource.ResourceContainer;
+import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.data.camera.CameraType;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.data.player.PlayerType;
@@ -52,10 +52,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Food;
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Gold;
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Oil;
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Wood;
+import static com.evilbird.warcraft.data.resource.ResourceType.Food;
+import static com.evilbird.warcraft.data.resource.ResourceType.Gold;
+import static com.evilbird.warcraft.data.resource.ResourceType.Oil;
+import static com.evilbird.warcraft.data.resource.ResourceType.Wood;
 
 /**
  * Instances of this class load persisted game state from files. Game state is

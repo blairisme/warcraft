@@ -19,7 +19,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.WoodProduction1;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.WoodProduction1;
 import static com.evilbird.warcraft.object.unit.UnitType.TrollLumberMill;
 
 /**

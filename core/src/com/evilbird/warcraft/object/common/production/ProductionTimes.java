@@ -11,7 +11,7 @@ package com.evilbird.warcraft.object.common.production;
 
 import com.evilbird.engine.game.GameService;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.object.common.upgrade.Upgrade;
+import com.evilbird.warcraft.data.upgrade.Upgrade;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitType;
 

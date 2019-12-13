@@ -11,9 +11,9 @@ package com.evilbird.warcraft.object.common.value;
 
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.object.GameObjectGroup;
-import com.evilbird.warcraft.object.common.upgrade.Upgrade;
-import com.evilbird.warcraft.object.common.upgrade.UpgradeRank;
-import com.evilbird.warcraft.object.common.upgrade.UpgradeSeries;
+import com.evilbird.warcraft.data.upgrade.Upgrade;
+import com.evilbird.warcraft.data.upgrade.UpgradeRank;
+import com.evilbird.warcraft.data.upgrade.UpgradeSeries;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.google.gson.annotations.JsonAdapter;

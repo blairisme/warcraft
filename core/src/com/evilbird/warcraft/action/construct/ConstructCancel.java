@@ -14,7 +14,7 @@ import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.object.common.production.ProductionCosts;
-import com.evilbird.warcraft.object.common.resource.ResourceQuantity;
+import com.evilbird.warcraft.data.resource.ResourceQuantity;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;

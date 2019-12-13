@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.produce;
 
-import com.evilbird.warcraft.object.common.upgrade.Upgrade;
+import com.evilbird.warcraft.data.upgrade.Upgrade;
 import org.junit.Assert;
 import org.junit.Test;
 

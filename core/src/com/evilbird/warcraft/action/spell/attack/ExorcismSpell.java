@@ -18,7 +18,7 @@ import com.evilbird.warcraft.object.unit.Unit;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.object.utility.GameObjectOperations.assignIfAbsent;
-import static com.evilbird.warcraft.object.common.spell.Spell.Exorcism;
+import static com.evilbird.warcraft.data.spell.Spell.Exorcism;
 
 /**
  * A spell that degrades the health of a given game object. Damage is dealt

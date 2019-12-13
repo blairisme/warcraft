@@ -28,7 +28,7 @@ import com.evilbird.warcraft.action.selection.SelectEvent;
 import com.evilbird.warcraft.action.selector.SelectorEvent;
 import com.evilbird.warcraft.action.selector.SelectorStatus;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
-import com.evilbird.warcraft.object.common.resource.ResourceType;
+import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.data.player.PlayerStatistic;
 import com.evilbird.warcraft.object.display.HudControl;

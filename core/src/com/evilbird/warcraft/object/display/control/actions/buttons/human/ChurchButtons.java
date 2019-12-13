@@ -18,9 +18,9 @@ import com.evilbird.warcraft.object.display.control.actions.buttons.BasicButtonC
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.ExorcismUpgrade;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.HealingUpgrade;
-import static com.evilbird.warcraft.object.common.upgrade.Upgrade.MeleeType1;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.ExorcismUpgrade;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.HealingUpgrade;
+import static com.evilbird.warcraft.data.upgrade.Upgrade.MeleeType1;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.ExorcismUpgradeButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.HealingUpgradeButton;
 import static java.util.Collections.singletonList;

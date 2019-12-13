@@ -11,7 +11,7 @@ package com.evilbird.warcraft.object.unit.combatant.spellcaster;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.object.AnimatedObjectStyle;
-import com.evilbird.warcraft.object.common.spell.Spell;
+import com.evilbird.warcraft.data.spell.Spell;
 import com.evilbird.warcraft.object.effect.Effect;
 import com.evilbird.warcraft.object.unit.combatant.RangedCombatant;
 import org.apache.commons.lang3.builder.EqualsBuilder;

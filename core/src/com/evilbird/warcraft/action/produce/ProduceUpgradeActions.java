@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.warcraft.object.common.upgrade.Upgrade;
+import com.evilbird.warcraft.data.upgrade.Upgrade;
 import org.apache.commons.lang3.StringUtils;
 
 import static com.evilbird.engine.common.collection.EnumUtils.isBetween;

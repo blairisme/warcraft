@@ -18,7 +18,7 @@ import com.evilbird.warcraft.object.unit.resource.Resource;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.object.common.resource.ResourceType.Gold;
+import static com.evilbird.warcraft.data.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.ExtractGold;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.IdleGold;
