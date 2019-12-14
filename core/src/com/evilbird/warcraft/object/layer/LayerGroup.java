@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Represents a {@link Layer} made up of a number of {@link LayerGroupCell
+ * Represents a {@link Layer} made up of a number of {@link LayerCell
  * cells}. Each cell has an independent value that when it reaches zero will
  * be assigned the cell, as specified by the {@link LayerGroupStyle} contained
  * in the {@link Skin} given when the LayerGroup is constructed. When setting a
@@ -42,7 +42,7 @@ public class LayerGroup extends Layer
 
     protected transient Skin skin;
     protected transient LayerGroupStyle style;
-    protected transient Map<GridPoint2, LayerGroupCell> cells;
+    protected transient Map<GridPoint2, LayerCell> cells;
 
     public LayerGroup(Skin skin) {
         this.skin = skin;
@@ -56,19 +56,19 @@ public class LayerGroup extends Layer
 
     @Override
     public void addObject(GameObject object) {
-        Validate.isAssignableFrom(LayerGroupCell.class, object.getClass());
+        Validate.isAssignableFrom(LayerCell.class, object.getClass());
         super.addObject(object);
 
-        LayerGroupCell cell = (LayerGroupCell) object;
+        LayerCell cell = (LayerCell) object;
         cells.put(cell.getLocation(), cell);
     }
 
     @Override
     public void removeObject(GameObject object) {
-        Validate.isAssignableFrom(LayerGroupCell.class, object.getClass());
+        Validate.isAssignableFrom(LayerCell.class, object.getClass());
         super.removeObject(object);
 
-        LayerGroupCell cell = (LayerGroupCell) object;
+        LayerCell cell = (LayerCell) object;
         cells.remove(cell.getLocation());
     }
 
@@ -82,13 +82,13 @@ public class LayerGroup extends Layer
 
     protected void addCells() {
         for (MapLayerEntry entry: new MapLayerIterable(layer)) {
-            LayerGroupCell groupCell = createCell(entry);
+            LayerCell groupCell = createCell(entry);
             addObject(groupCell);
         }
     }
 
-    protected LayerGroupCell createCell(MapLayerEntry entry) {
-        return new LayerGroupCell(entry.getPosition(), DEFAULT_VALUE);
+    protected LayerCell createCell(MapLayerEntry entry) {
+        return new LayerCell(entry.getPosition(), DEFAULT_VALUE);
     }
 
     public void setEmptyTexture(GridPoint2 tile) {

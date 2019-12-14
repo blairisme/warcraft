@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.maps.MapLayerEntry;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.layer.LayerGroup;
-import com.evilbird.warcraft.object.layer.LayerGroupCell;
+import com.evilbird.warcraft.object.layer.LayerCell;
 import com.google.gson.annotations.JsonAdapter;
 
 /**
@@ -31,7 +31,7 @@ public class Wall extends LayerGroup
     }
 
     @Override
-    protected LayerGroupCell createCell(MapLayerEntry entry) {
+    protected LayerCell createCell(MapLayerEntry entry) {
         return new WallSection(entry.getPosition());
     }
 }

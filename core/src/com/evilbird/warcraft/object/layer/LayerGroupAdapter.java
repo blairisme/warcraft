@@ -66,14 +66,14 @@ public abstract class LayerGroupAdapter <T extends LayerGroup> implements JsonSe
     protected JsonElement serializeCells(T source, JsonSerializationContext context) {
         JsonArray result = new JsonArray();
         for (GameObject gameObject : source.getObjects()) {
-            LayerGroupCell tree = (LayerGroupCell) gameObject;
+            LayerCell tree = (LayerCell) gameObject;
             JsonElement element = serializeCell(tree, context);
             result.add(element);
         }
         return result;
     }
 
-    protected JsonElement serializeCell(LayerGroupCell cell, JsonSerializationContext context) {
+    protected JsonElement serializeCell(LayerCell cell, JsonSerializationContext context) {
         JsonObject result = new JsonObject();
         result.addProperty(getValueProperty(), cell.getValue());
         result.add(LOCATION, context.serialize(cell.getLocation(), GridPoint2.class));
@@ -103,13 +103,13 @@ public abstract class LayerGroupAdapter <T extends LayerGroup> implements JsonSe
         return cells;
     }
 
-    protected LayerGroupCell deserializeCell(JsonObject json, JsonDeserializationContext context) {
+    protected LayerCell deserializeCell(JsonObject json, JsonDeserializationContext context) {
         GridPoint2 location = context.deserialize(json.get(LOCATION), GridPoint2.class);
         float value = json.get(getValueProperty()).getAsFloat();
         return createCell(location, value);
     }
 
-    protected abstract LayerGroupCell createCell(GridPoint2 location, float value);
+    protected abstract LayerCell createCell(GridPoint2 location, float value);
 
     protected abstract String getCellArrayProperty();
 

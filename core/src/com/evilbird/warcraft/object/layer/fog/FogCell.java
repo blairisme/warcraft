@@ -12,8 +12,8 @@ package com.evilbird.warcraft.object.layer.fog;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.object.GameObject;
+import com.evilbird.warcraft.object.layer.LayerCell;
 import com.evilbird.warcraft.object.layer.LayerGroup;
-import com.evilbird.warcraft.object.layer.LayerGroupCell;
 import com.evilbird.warcraft.object.layer.LayerType;
 
 /**
@@ -22,7 +22,7 @@ import com.evilbird.warcraft.object.layer.LayerType;
  *
  * @author Blair Butterworth
  */
-public class FogCell extends LayerGroupCell
+public class FogCell extends LayerCell
 {
     private static final float FULL_VALUE = 1;
     private static final float EMPTY_VALUE = 0;

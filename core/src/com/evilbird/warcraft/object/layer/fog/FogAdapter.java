@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.object.layer.fog;
 
 import com.badlogic.gdx.math.GridPoint2;
+import com.evilbird.warcraft.object.layer.LayerCell;
 import com.evilbird.warcraft.object.layer.LayerGroupAdapter;
-import com.evilbird.warcraft.object.layer.LayerGroupCell;
 
 /**
  * Instances of this class serialize and deserialize {@link Fog} objects.
@@ -34,7 +34,7 @@ public class FogAdapter extends LayerGroupAdapter<Fog>
     }
 
     @Override
-    protected LayerGroupCell createCell(GridPoint2 location, float value) {
+    protected LayerCell createCell(GridPoint2 location, float value) {
         return new FogCell(location, value);
     }
 }

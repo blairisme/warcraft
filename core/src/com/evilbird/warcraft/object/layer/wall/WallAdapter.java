@@ -11,7 +11,7 @@ package com.evilbird.warcraft.object.layer.wall;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.warcraft.object.layer.LayerGroupAdapter;
-import com.evilbird.warcraft.object.layer.LayerGroupCell;
+import com.evilbird.warcraft.object.layer.LayerCell;
 
 /**
  * Instances of this class serialize and deserialize {@link Wall Walls}.
@@ -34,7 +34,7 @@ public class WallAdapter extends LayerGroupAdapter<Wall>
     }
 
     @Override
-    protected LayerGroupCell createCell(GridPoint2 location, float value) {
+    protected LayerCell createCell(GridPoint2 location, float value) {
         return new WallSection(location, value);
     }
 }

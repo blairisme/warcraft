@@ -14,7 +14,7 @@ import com.evilbird.engine.object.spatial.SpatialObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.data.player.Player;
-import com.evilbird.warcraft.object.layer.LayerGroupCell;
+import com.evilbird.warcraft.object.layer.LayerCell;
 import com.evilbird.warcraft.object.layer.LayerType;
 
 /**
@@ -22,7 +22,7 @@ import com.evilbird.warcraft.object.layer.LayerType;
  *
  * @author Blair Butterworth
  */
-public class WallSection extends LayerGroupCell implements PerishableObject, SpatialObject
+public class WallSection extends LayerCell implements PerishableObject, SpatialObject
 {
     private static final transient float DEFAULT_HEALTH = 100;
 

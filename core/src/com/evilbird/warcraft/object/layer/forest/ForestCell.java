@@ -14,7 +14,7 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.spatial.SpatialObject;
 import com.evilbird.warcraft.data.resource.ResourceContainer;
 import com.evilbird.warcraft.data.resource.ResourceType;
-import com.evilbird.warcraft.object.layer.LayerGroupCell;
+import com.evilbird.warcraft.object.layer.LayerCell;
 import com.evilbird.warcraft.object.layer.LayerType;
 import org.apache.commons.lang3.Validate;
 
@@ -24,7 +24,7 @@ import org.apache.commons.lang3.Validate;
  *
  * @author Blair Butterworth
  */
-public class ForestCell extends LayerGroupCell implements ResourceContainer, SpatialObject
+public class ForestCell extends LayerCell implements ResourceContainer, SpatialObject
 {
     public ForestCell(GridPoint2 location, float value) {
         super(location, value);

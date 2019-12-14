@@ -23,7 +23,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class LayerGroupCell extends BasicGameObject
+public class LayerCell extends BasicGameObject
 {
     private static final int TILE_WIDTH = 32;
     private static final int TILE_HEIGHT = 32;
@@ -32,7 +32,7 @@ public class LayerGroupCell extends BasicGameObject
     protected GridPoint2 location;
 
     @Inject
-    public LayerGroupCell(GridPoint2 location, float value) {
+    public LayerCell(GridPoint2 location, float value) {
         setTouchable(Touchable.enabled);
         setVisible(true);
         setLocation(location);

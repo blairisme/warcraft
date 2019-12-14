@@ -23,7 +23,7 @@ import com.evilbird.warcraft.action.produce.ProduceEvent;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.layer.LayerGroup;
-import com.evilbird.warcraft.object.layer.LayerGroupCell;
+import com.evilbird.warcraft.object.layer.LayerCell;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.google.gson.annotations.JsonAdapter;
 
@@ -53,7 +53,7 @@ public class Fog extends LayerGroup
     @Override
     public void addObject(GameObject object) {
         super.addObject(object);
-        FogCell cell = (FogCell) object;
+        FogCell cell = (FogCell)object;
         if (cell.isRevealed()) {
             setAdjacentTextures(cell.getLocation());
         }
@@ -80,8 +80,17 @@ public class Fog extends LayerGroup
     }
 
     @Override
-    protected LayerGroupCell createCell(MapLayerEntry entry) {
+    protected LayerCell createCell(MapLayerEntry entry) {
         return new FogCell(entry.getPosition(), false);
+    }
+
+    public boolean isRevealed(int x, int y) {
+        return isRevealed(new GridPoint2(x, y));
+    }
+
+    public boolean isRevealed(GridPoint2 location) {
+        FogCell cell = (FogCell)cells.get(location);
+        return cell != null && cell.isRevealed();
     }
 
     @Override
