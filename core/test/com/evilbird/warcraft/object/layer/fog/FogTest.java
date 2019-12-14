@@ -56,8 +56,8 @@ public class FogTest extends GameTestCase
         fog.setIdentifier(new LayerIdentifier("data/levels/human/level1.tmx", "OpaqueFog", layer));
         fog.setType(LayerType.OpaqueFog);
 
-        root.clearObjects();
-        player.clearObjects();
+        root.removeObjects();
+        player.removeObjects();
 
         root.addObject(player);
         player.setRoot(root);

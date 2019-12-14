@@ -468,7 +468,7 @@ public class GameObjectGraph implements SpatialGraph<GameObjectNode>
         return result;
     }
 
-    private GridPoint2 toSpatial(Vector2 vector) {
+    public GridPoint2 toSpatial(Vector2 vector) {
         GridPoint2 result = new GridPoint2();
         result.x = (int)Math.floor(vector.x / nodeWidth);
         result.y = (int)Math.floor(vector.y / nodeHeight);

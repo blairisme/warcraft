@@ -87,8 +87,8 @@ public class GameObjectContainer implements GameObjectComposite
      * {@code GameObjectContainer}.
      */
     @Override
-    public void clearObjects() {
-        this.group.clearObjects();
+    public void removeObjects() {
+        this.group.removeObjects();
     }
 
     /**

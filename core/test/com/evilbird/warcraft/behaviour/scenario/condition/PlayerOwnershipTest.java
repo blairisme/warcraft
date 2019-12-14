@@ -58,7 +58,7 @@ public class PlayerOwnershipTest extends GameTestCase
         player1 = TestPlayers.newTestPlayer(Player1, root);
         player2 = TestPlayers.newTestPlayer(Player2, root);
 
-        root.clearObjects();
+        root.removeObjects();
         root.addObject(player1);
         root.addObject(player2);
 
@@ -66,8 +66,8 @@ public class PlayerOwnershipTest extends GameTestCase
         combatant2 = TestCombatants.newTestCombatant(new TextIdentifier("test2"), Footman, root, player1);
         combatant3 = TestCombatants.newTestCombatant(new TextIdentifier("test3"), Footman, root, player2);
 
-        player1.clearObjects();
-        player2.clearObjects();
+        player1.removeObjects();
+        player2.removeObjects();
         player1.addObject(combatant1);
         player1.addObject(combatant2);
         player2.addObject(combatant3);

@@ -96,7 +96,7 @@ public class DetailsPane extends Grid
     }
 
     public void setItem(GameObject gameObject) {
-        clearObjects();
+        removeObjects();
         showDetails(gameObject);
     }
 

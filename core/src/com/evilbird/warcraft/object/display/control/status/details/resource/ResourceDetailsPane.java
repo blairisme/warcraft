@@ -62,7 +62,7 @@ public class ResourceDetailsPane extends Grid implements DetailsPaneElement
     }
 
     private void createView(ResourceContainer resource) {
-        clearObjects();
+        removeObjects();
         add(addLabel(getText(resource), skin));
     }
 

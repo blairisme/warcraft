@@ -67,7 +67,7 @@ public class BuildingDetailsPane extends Table implements DetailsPaneElement
     }
 
     private void updateView(Building building) {
-        clearObjects();
+        removeObjects();
         UnitType buildingType = (UnitType)building.getType();
 
         if (building.isConstructing()){
@@ -105,7 +105,7 @@ public class BuildingDetailsPane extends Table implements DetailsPaneElement
     }
 
     private void showView(GameObject view) {
-        clearObjects();
+        removeObjects();
         add(view);
     }
 }

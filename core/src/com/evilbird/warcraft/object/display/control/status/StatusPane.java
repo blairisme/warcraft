@@ -92,7 +92,7 @@ public class StatusPane extends GameObjectGroup
     }
 
     private void updateDisplay() {
-        clearObjects();
+        removeObjects();
         if (selection.size() == 1) {
             showDetails(selection);
         } else {

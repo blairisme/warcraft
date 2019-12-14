@@ -84,7 +84,7 @@ public class GameObjectGroup extends BasicGameObject implements GameObjectCompos
     /**
      * Removes all {@link GameObject}s from this group.
      */
-    public void clearObjects() {
+    public void removeObjects() {
         Group group = (Group)delegate;
         group.clearChildren();
         objects.clear();

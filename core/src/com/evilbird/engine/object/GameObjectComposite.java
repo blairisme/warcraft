@@ -60,7 +60,7 @@ public interface GameObjectComposite
     /**
      * Removes all {@link GameObject}s from the {@code GameObjectComposite}.
      */
-    void clearObjects();
+    void removeObjects();
 
     /**
      * Removes a {@link GameObject} from the {@code GameObjectComposite}.

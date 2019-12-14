@@ -61,7 +61,7 @@ public class FoodProducerDetailsPane extends Grid
     }
 
     private void createView(Player player) {
-        clearObjects();
+        removeObjects();
         title = addLabel(getFoodUsage(), skin);
         grown = addLabel(getFoodGrown(player), skin);
         used = addLabel(getFoodUsed(player), skin);

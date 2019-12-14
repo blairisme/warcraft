@@ -56,7 +56,7 @@ public class GameEngine extends Game implements GameController
     private StateService stateService;
     private Runnable initialScreen;
     private GameAssets gameAssets;
-    private com.evilbird.engine.preferences.GamePreferences preferences;
+    private GamePreferences preferences;
 
     @Inject
     public GameEngine(

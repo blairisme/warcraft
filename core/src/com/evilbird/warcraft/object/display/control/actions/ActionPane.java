@@ -139,7 +139,7 @@ public class ActionPane extends Grid implements MenuProvider
     }
 
     private void updateView(boolean showCancel) {
-        clearObjects();
+        removeObjects();
         if (onlyCorporealSelected()) {
             populateView(showCancel);
         }

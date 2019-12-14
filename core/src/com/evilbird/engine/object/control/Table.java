@@ -99,7 +99,7 @@ public class Table extends GameObjectGroup
      * Removes all cells from the Table.
      */
     @Override
-    public void clearObjects() {
+    public void removeObjects() {
         objects.clear();
         control.clear();
         CollectionUtils.forEach(observers, GameObjectGroupObserver::objectsCleared);

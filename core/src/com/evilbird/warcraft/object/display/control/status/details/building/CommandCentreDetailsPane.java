@@ -68,7 +68,7 @@ public class CommandCentreDetailsPane extends Grid
     }
 
     private void createView(Player player) {
-        clearObjects();
+        removeObjects();
         title = addLabel(getProduction(), skin);
         gold = addLabel(getGold(), skin);
         lumber = addLabel(getLumber(), skin);

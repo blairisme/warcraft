@@ -56,7 +56,7 @@ public class DeathActionTest extends GameTestCase
         Building item = TestBuildings.newTestBuilding("barracks", UnitType.Barracks);
         Player parent = (Player)item.getParent();
 
-        parent.clearObjects();
+        parent.removeObjects();
         parent.addObject(item);
         action.setSubject(item);
 
@@ -83,7 +83,7 @@ public class DeathActionTest extends GameTestCase
         Combatant item = TestCombatants.newTestCombatant("footman");
         Player parent = (Player)item.getParent();
 
-        parent.clearObjects();
+        parent.removeObjects();
         parent.addObject(item);
         action.setSubject(item);
 

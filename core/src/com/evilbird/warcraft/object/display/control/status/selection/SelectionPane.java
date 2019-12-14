@@ -42,7 +42,7 @@ public class SelectionPane extends Grid
     }
 
     public void setItems(Collection<GameObject> selection) {
-        clearObjects();
+        removeObjects();
         addObjects(getUnitPanes(selection));
     }
 
