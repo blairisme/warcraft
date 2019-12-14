@@ -9,10 +9,30 @@
 
 package com.evilbird.warcraft.object.display.control.minimap;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.control.Table;
-import com.evilbird.warcraft.object.display.HudControl;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
+import com.evilbird.engine.object.spatial.GameObjectNode;
+import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.layer.Layer;
+import com.evilbird.warcraft.object.layer.LayerType;
+import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.building.Building;
+import com.evilbird.warcraft.object.unit.combatant.Combatant;
+import com.evilbird.warcraft.object.unit.resource.Resource;
+
+import static com.evilbird.warcraft.object.display.HudControl.MinimapPane;
+import static com.evilbird.warcraft.object.unit.UnitType.GoldMine;
+import static com.evilbird.warcraft.object.unit.UnitType.OilPatch;
 
 /**
  * Represents a user interface panel displayed near the top of the heads
@@ -27,7 +47,101 @@ public class MiniMapPane extends Table
         setSize(176, 136);
         setBackground("minimap-panel");
         setTouchable(Touchable.enabled);
-        setIdentifier(com.evilbird.warcraft.object.display.HudControl.MinimapPane);
-        setType(HudControl.MinimapPane);
+        setIdentifier(MinimapPane);
+        setType(MinimapPane);
+    }
+
+    public void initialize(GameObjectGraph graph) {
+        Pixmap pixmap = new Pixmap(graph.getNodeCountX(), graph.getNodeCountY(), Pixmap.Format.RGBA8888);
+        for (int y = 0; y < graph.getNodeCountY(); y++) {
+            for (int x = 0; x < graph.getNodeCountX(); x++) {
+                GameObjectNode node = graph.getNode(x, y);
+                GameObject occupant = getOccupant(node);
+                pixmap.setColor(getColour(occupant));
+                pixmap.drawPixel(x, graph.getNodeCountY() - 1 - y);
+            }
+        }
+        clearObjects();
+        Image image = new Image(new Texture(pixmap));
+        Cell<Actor> cell = super.add(image);
+        cell.width(176 - 40);
+        cell.height(136 - 10);
+        cell.pad(5, 20, 5, 20);
+    }
+
+    private GameObject getOccupant(GameObjectNode node) {
+        GameObject result = null;
+        for (GameObject occupant: node.getOccupants()) {
+            if (getOrder(result) < getOrder(occupant)) {
+                result = occupant;
+            }
+        }
+        return result;
+    }
+
+    private int getOrder(GameObject object) {
+        if (object instanceof Unit) {
+            return 100;
+        }
+        if (object instanceof Layer) {
+            LayerType type = (LayerType)object.getType();
+            return 1 + type.ordinal();
+        }
+        return 0;
+    }
+
+    private Color getColour(GameObject object) {
+        if (object instanceof Resource) {
+            return getResourceColour((Resource)object);
+        }
+        if (object instanceof Combatant || object instanceof Building) {
+            return getUnitColour((Unit)object);
+        }
+        if (object instanceof Layer) {
+            return getLayerColour((Layer)object);
+        }
+        return Color.BLACK;
+    }
+
+    private Color getLayerColour(Layer layer) {
+        LayerType type = (LayerType)layer.getType();
+
+        if (type == LayerType.Map || type == LayerType.Shore) {
+            return Color.WHITE;
+        }
+        if (type == LayerType.Sea) {
+            return Color.BLUE;
+        }
+        if (type == LayerType.Tree) {
+            return Color.GREEN;
+        }
+        if (type == LayerType.Mountain) {
+            return Color.DARK_GRAY;
+        }
+        if (type == LayerType.WallSection) {
+            return Color.LIGHT_GRAY;
+        }
+        return Color.BLACK;
+    }
+
+    private Color getResourceColour(Resource resource) {
+        UnitType type = (UnitType)resource.getType();
+
+        if (type == GoldMine) {
+            return Color.GOLD;
+        }
+        if (type == OilPatch) {
+            return Color.NAVY;
+        }
+        return Color.BLACK;
+    }
+
+    private Color getUnitColour(Unit unit) {
+        Player player = unit.getTeam();
+
+        if (player.isNeutral()) {
+            return Color.LIGHT_GRAY;
+        }
+        return player.getColour().getGdxColour();
     }
 }

@@ -83,6 +83,14 @@ public class Player extends GameObjectGroup implements ResourceContainer
     }
 
     /**
+     * Returns the colour of the players children, unit and buildings, visually
+     * denoting those game objects owned by the player.
+     */
+    public TeamColour getColour() {
+        return colour;
+    }
+
+    /**
      * Returns the players {@link WarcraftFaction faction}.
      */
     public WarcraftFaction getFaction() {

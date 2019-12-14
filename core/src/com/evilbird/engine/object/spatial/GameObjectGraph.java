@@ -120,11 +120,12 @@ public class GameObjectGraph implements SpatialGraph<GameObjectNode>
     }
 
     public GameObjectNode getNode(GridPoint2 spatialPosition) {
-        int x = spatialPosition.x;
-        int y = spatialPosition.y;
+        return getNode(spatialPosition.x, spatialPosition.y);
+    }
 
-        if (x >= 0 && x < nodeCountX && y >= 0 && y < nodeCountY) {
-            return nodes[x][y];
+    public GameObjectNode getNode(int spatialX, int spatialY) {
+        if (spatialX >= 0 && spatialX < nodeCountX && spatialY >= 0 && spatialY < nodeCountY) {
+            return nodes[spatialX][spatialY];
         }
         return null;
     }
