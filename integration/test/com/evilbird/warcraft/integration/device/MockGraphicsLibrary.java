@@ -288,7 +288,7 @@ public class MockGraphicsLibrary implements GL20
 
     @Override
     public int glCheckFramebufferStatus(int target) {
-        return 0;
+        return GL20.GL_FRAMEBUFFER_COMPLETE;
     }
 
     @Override

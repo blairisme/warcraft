@@ -87,6 +87,8 @@ public class GameTestCase
 
         Mockito.when(Gdx.gl20.glCreateShader(anyInt())).thenReturn(1);
         Mockito.when(Gdx.gl20.glCreateProgram()).thenReturn(1);
+        Mockito.when(Gdx.gl20.glCheckFramebufferStatus(anyInt())).thenReturn(GL20.GL_FRAMEBUFFER_COMPLETE);
+
         Mockito.doAnswer(new IntBufferMockAnswer()).when(Gdx.gl20).glGetShaderiv(anyInt(), anyInt(), any());
         Mockito.doAnswer(new IntBufferMockAnswer()).when(Gdx.gl20).glGetProgramiv(anyInt(), anyInt(), any());
 

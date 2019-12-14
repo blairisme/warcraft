@@ -25,18 +25,18 @@ public interface ResourceContainer extends GameObject
     /**
      * Returns the value of a resource held in the {@code ResourceContainer}.
      */
-    float getResource(com.evilbird.warcraft.data.resource.ResourceType resource);
+    float getResource(ResourceType resource);
 
-    default Collection<com.evilbird.warcraft.data.resource.ResourceQuantity> getResources() {
-        Collection<com.evilbird.warcraft.data.resource.ResourceQuantity> resources = new ArrayList<>();
-        for (com.evilbird.warcraft.data.resource.ResourceType resource: com.evilbird.warcraft.data.resource.ResourceType.values()) {
-            resources.add(new com.evilbird.warcraft.data.resource.ResourceQuantity(resource, getResource(resource)));
+    default Collection<ResourceQuantity> getResources() {
+        Collection<ResourceQuantity> resources = new ArrayList<>();
+        for (ResourceType resource: ResourceType.values()) {
+            resources.add(new ResourceQuantity(resource, getResource(resource)));
         }
         return resources;
     }
 
-    default boolean hasResources(Iterable<com.evilbird.warcraft.data.resource.ResourceQuantity> resources) {
-        for (com.evilbird.warcraft.data.resource.ResourceQuantity resource: resources) {
+    default boolean hasResources(Iterable<ResourceQuantity> resources) {
+        for (ResourceQuantity resource: resources) {
             if (getResource(resource.getType()) < resource.getValue()){
                 return false;
             }

@@ -70,13 +70,6 @@ public class MinimapUnitLayer extends BaseRenderable implements Renderable, Disp
         }
     }
 
-    @Override
-    public void update(float time) {
-        if (texture == null) {
-            invalidate(Zero, graph.getGraphSize());
-        }
-    }
-
     public void invalidate(Vector2 position, Vector2 size) {
         GridPoint2 start = graph.toSpatial(position);
         GridPoint2 count = graph.toSpatial(size);
@@ -85,6 +78,13 @@ public class MinimapUnitLayer extends BaseRenderable implements Renderable, Disp
             this.texture.dispose();
         }
         this.texture = new Texture(pixmap);
+    }
+
+    @Override
+    public void update(float time) {
+        if (texture == null) {
+            invalidate(Zero, graph.getGraphSize());
+        }
     }
 
     private void update(GridPoint2 start, GridPoint2 count) {
