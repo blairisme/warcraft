@@ -90,13 +90,13 @@ public class MenuBehaviour implements Behaviour
             updateTrainingRecipients();
             updateAttackRecipients();
             updateGatherRecipients();
-//            updateMap(world);
+            updateMap(world);
         }
         else {
             initializeResources();
             initializeSelection(world);
             initializePopulation(world);
-//            initializeMap(world);
+            initializeMap(world);
         }
     }
 
@@ -134,7 +134,7 @@ public class MenuBehaviour implements Behaviour
     }
 
     private void initializeMap(GameObjectContainer world) {
-        mapPane.initialize(world.getSpatialGraph());
+        mapPane.initialize(world);
     }
 
     private void updateSelectionRecipients() {
@@ -243,7 +243,7 @@ public class MenuBehaviour implements Behaviour
             || events.hasEvents(CreateEvent.class)
             || events.hasEvents(RemoveEvent.class))
         {
-            mapPane.initialize(world.getSpatialGraph());
+            mapPane.initialize(world);
         }
     }
 }

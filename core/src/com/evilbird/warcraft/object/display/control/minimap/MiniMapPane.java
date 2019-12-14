@@ -18,18 +18,22 @@ import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.control.Table;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.layer.Layer;
+import com.evilbird.warcraft.object.layer.LayerCell;
 import com.evilbird.warcraft.object.layer.LayerType;
+import com.evilbird.warcraft.object.layer.fog.Fog;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
 import com.evilbird.warcraft.object.unit.resource.Resource;
 
+import static com.evilbird.engine.object.utility.GameObjectPredicates.hasType;
 import static com.evilbird.warcraft.object.display.HudControl.MinimapPane;
 import static com.evilbird.warcraft.object.unit.UnitType.GoldMine;
 import static com.evilbird.warcraft.object.unit.UnitType.OilPatch;
@@ -51,22 +55,35 @@ public class MiniMapPane extends Table
         setType(MinimapPane);
     }
 
-    public void initialize(GameObjectGraph graph) {
-        Pixmap pixmap = new Pixmap(graph.getNodeCountX(), graph.getNodeCountY(), Pixmap.Format.RGBA8888);
-        for (int y = 0; y < graph.getNodeCountY(); y++) {
-            for (int x = 0; x < graph.getNodeCountX(); x++) {
-                GameObjectNode node = graph.getNode(x, y);
-                GameObject occupant = getOccupant(node);
-                pixmap.setColor(getColour(occupant));
-                pixmap.drawPixel(x, graph.getNodeCountY() - 1 - y);
-            }
-        }
+    public void initialize(GameObjectContainer container) {
         clearObjects();
-        Image image = new Image(new Texture(pixmap));
+        Image image = new Image(getMapTexture(container));
         Cell<Actor> cell = super.add(image);
         cell.width(176 - 40);
         cell.height(136 - 10);
         cell.pad(5, 20, 5, 20);
+    }
+
+    private Texture getMapTexture(GameObjectContainer container) {
+        GameObjectGraph graph = container.getSpatialGraph();
+        Fog fog = (Fog)container.find(hasType(LayerType.OpaqueFog));
+
+        Pixmap pixmap = new Pixmap(graph.getNodeCountX(), graph.getNodeCountY(), Pixmap.Format.RGBA8888);
+        for (int y = 0; y < graph.getNodeCountY(); y++) {
+            for (int x = 0; x < graph.getNodeCountX(); x++) {
+                if (fog.isRevealed(x, y)) {
+                    GameObjectNode node = graph.getNode(x, y);
+                    GameObject occupant = getOccupant(node);
+                    pixmap.setColor(getColour(occupant));
+                    pixmap.drawPixel(x, graph.getNodeCountY() - 1 - y);
+                }
+                else {
+                    pixmap.setColor(Color.BLACK);
+                    pixmap.drawPixel(x, graph.getNodeCountY() - 1 - y);
+                }
+            }
+        }
+        return new Texture(pixmap);
     }
 
     private GameObject getOccupant(GameObjectNode node) {
@@ -81,29 +98,31 @@ public class MiniMapPane extends Table
 
     private int getOrder(GameObject object) {
         if (object instanceof Unit) {
-            return 100;
+            return 3;
+        }
+        if (object instanceof LayerCell) {
+            return 2;
         }
         if (object instanceof Layer) {
-            LayerType type = (LayerType)object.getType();
-            return 1 + type.ordinal();
+            return 1;
         }
         return 0;
     }
 
     private Color getColour(GameObject object) {
         if (object instanceof Resource) {
-            return getResourceColour((Resource)object);
+            return getResourceColour(object);
         }
         if (object instanceof Combatant || object instanceof Building) {
             return getUnitColour((Unit)object);
         }
-        if (object instanceof Layer) {
-            return getLayerColour((Layer)object);
+        if (object instanceof Layer || object instanceof LayerCell) {
+            return getLayerColour(object);
         }
         return Color.BLACK;
     }
 
-    private Color getLayerColour(Layer layer) {
+    private Color getLayerColour(GameObject layer) {
         LayerType type = (LayerType)layer.getType();
 
         if (type == LayerType.Map || type == LayerType.Shore) {
@@ -124,7 +143,7 @@ public class MiniMapPane extends Table
         return Color.BLACK;
     }
 
-    private Color getResourceColour(Resource resource) {
+    private Color getResourceColour(GameObject resource) {
         UnitType type = (UnitType)resource.getType();
 
         if (type == GoldMine) {
@@ -140,7 +159,7 @@ public class MiniMapPane extends Table
         Player player = unit.getTeam();
 
         if (player.isNeutral()) {
-            return Color.LIGHT_GRAY;
+            return Color.RED;
         }
         return player.getColour().getGdxColour();
     }
