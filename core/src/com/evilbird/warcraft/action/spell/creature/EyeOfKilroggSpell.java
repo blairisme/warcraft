@@ -12,8 +12,8 @@ package com.evilbird.warcraft.action.spell.creature;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
-import com.evilbird.warcraft.object.common.capability.MovableObject;
 import com.evilbird.warcraft.data.spell.Spell;
+import com.evilbird.warcraft.object.common.capability.MovableObject;
 import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.unit.UnitType;
 

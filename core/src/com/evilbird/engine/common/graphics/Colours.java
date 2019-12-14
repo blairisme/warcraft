@@ -29,6 +29,7 @@ public class Colours
     public static final Color ROYAL_BLUE = new Color(0x0c48ccff);
     public static final Color SCARLET = new Color(0xa40000ff);
     public static final Color SILVER = new Color(0xe0e0e0ff);
+    public static final Color TRANSPARENT = new Color(0x00000000);
     public static final Color TURQUOISE = new Color(0x2cb494ff);
 
     /**

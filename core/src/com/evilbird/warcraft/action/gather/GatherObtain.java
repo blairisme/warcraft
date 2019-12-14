@@ -14,10 +14,10 @@ import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.death.DeathAction;
-import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.data.resource.ResourceContainer;
 import com.evilbird.warcraft.data.resource.ResourceQuantity;
 import com.evilbird.warcraft.data.resource.ResourceType;
+import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;

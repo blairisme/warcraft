@@ -70,7 +70,7 @@ public class MinimapBehaviour implements Behaviour
         for (Event event: events.getEvents(type)) {
             GameObject subject = event.getSubject();
             if (subject != null) {
-                mapPane.update(subject.getPosition(), subject.getSize());
+                mapPane.invalidate(subject.getPosition(), subject.getSize());
             }
         }
     }

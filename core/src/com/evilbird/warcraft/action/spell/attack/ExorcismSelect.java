@@ -13,8 +13,8 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.spell.SpellSelect;
-import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.data.spell.Spell;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
 
 import javax.inject.Inject;
 import java.util.function.Predicate;

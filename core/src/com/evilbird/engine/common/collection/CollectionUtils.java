@@ -11,8 +11,8 @@ package com.evilbird.engine.common.collection;
 
 import com.badlogic.gdx.utils.Array;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;

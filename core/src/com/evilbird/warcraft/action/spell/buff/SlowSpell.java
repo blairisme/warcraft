@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.action.spell.buff;
 
 import com.evilbird.engine.object.GameObjectFactory;
-import com.evilbird.warcraft.object.badge.BadgeType;
 import com.evilbird.warcraft.data.spell.Spell;
+import com.evilbird.warcraft.object.badge.BadgeType;
 import com.evilbird.warcraft.object.common.value.ValueProperty;
 import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;

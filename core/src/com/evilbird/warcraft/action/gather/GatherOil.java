@@ -22,11 +22,11 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
+import static com.evilbird.warcraft.data.resource.ResourceType.Oil;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.findClosest;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.hasResources;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isCorporeal;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isDepotFor;
-import static com.evilbird.warcraft.data.resource.ResourceType.Oil;
 import static com.evilbird.warcraft.object.unit.UnitType.OilPlatform;
 import static com.evilbird.warcraft.object.unit.UnitType.OilRig;
 

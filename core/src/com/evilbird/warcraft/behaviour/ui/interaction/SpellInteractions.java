@@ -11,8 +11,8 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.spell.SpellActions;
-import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.data.spell.Spell;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
 import com.evilbird.warcraft.object.selector.SelectorType;
 import com.evilbird.warcraft.object.unit.UnitType;

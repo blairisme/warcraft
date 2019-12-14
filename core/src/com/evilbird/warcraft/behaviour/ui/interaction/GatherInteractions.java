@@ -11,8 +11,8 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.data.resource.ResourceType;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -25,12 +25,12 @@ import static com.evilbird.warcraft.action.gather.GatherActions.GatherGold;
 import static com.evilbird.warcraft.action.gather.GatherActions.GatherOil;
 import static com.evilbird.warcraft.action.gather.GatherActions.GatherWood;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.hasResources;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isControllable;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isDepotFor;
 import static com.evilbird.warcraft.data.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.data.resource.ResourceType.Oil;
 import static com.evilbird.warcraft.data.resource.ResourceType.Wood;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.hasResources;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isControllable;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isDepotFor;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CancelButton;
 import static com.evilbird.warcraft.object.layer.LayerType.Tree;
 import static com.evilbird.warcraft.object.unit.UnitType.GoldMine;

@@ -38,13 +38,6 @@ public class MinimapPane extends Table
         setType(MinimapPane);
     }
 
-    @Override
-    public void setSkin(Skin skin) {
-        super.setSkin(skin);
-        MinimapStyle style = skin.get("default", MinimapStyle.class);
-        setBackground(style.frame);
-    }
-
     public boolean initialized() {
         return minimap != null;
     }
@@ -56,11 +49,28 @@ public class MinimapPane extends Table
         removeObjects();
         Cell<Actor> cell = add(image);
         cell.width(176 - 48);
-        cell.height(136 - 10);
-        cell.pad(5, 24, 5, 24);
+        cell.height(136 - 4);
+        cell.pad(2, 24, 2, 24);
     }
 
-    public void update(Vector2 position, Vector2 size) {
-        minimap.update(position, size);
+    public void invalidate(Vector2 position, Vector2 size) {
+        if (minimap != null) {
+            minimap.invalidate(position, size);
+        }
+    }
+
+    @Override
+    public void setSkin(Skin skin) {
+        super.setSkin(skin);
+        MinimapStyle style = skin.get("default", MinimapStyle.class);
+        setBackground(style.frame);
+    }
+
+    @Override
+    public void update(float delta) {
+        super.update(delta);
+        if (minimap != null) {
+            minimap.update(delta);
+        }
     }
 }
