@@ -13,6 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Rectangle;
@@ -116,19 +117,6 @@ public class TextureUtils
 
     /**
      * Generates a texture containing a 1 pixel wide rectangle of the given
-     * size.
-     *
-     * @param size      the size of the resulting rectangle.
-     * @param colour    the colour of the resulting rectangle.
-     *
-     * @return a new {@link Texture}. This method will not return {@code null}.
-     */
-    public static Texture getRectangle(GridPoint2 size, Color colour) {
-        return getRectangle(size.x, size.y, colour);
-    }
-
-    /**
-     * Generates a texture containing a 1 pixel wide rectangle of the given
      * width and height.
      *
      * @param width     the width of the resulting rectangle.
@@ -142,5 +130,27 @@ public class TextureUtils
         pixmap.setColor(colour);
         pixmap.drawRectangle(0, 0, pixmap.getWidth(), pixmap.getHeight());
         return new Texture(pixmap);
+    }
+
+    /**
+     * Alters the size of the given texture so that it conforms to the
+     * specified size.
+     */
+    public static Texture resizeTexture(Texture texture, int width, int height) {
+        TextureData textureData = texture.getTextureData();
+
+        Pixmap source = textureData.consumePixmap();
+        Pixmap destination = new Pixmap(width, height, source.getFormat());
+
+        destination.drawPixmap(source,
+            0, 0, source.getWidth(), source.getHeight(),
+            0, 0, destination.getWidth(), destination.getHeight()
+        );
+        Texture resized = new Texture(destination);
+
+        source.dispose();
+        destination.dispose();
+
+        return resized;
     }
 }

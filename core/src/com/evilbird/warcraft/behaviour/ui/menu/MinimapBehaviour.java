@@ -14,11 +14,11 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
-import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.death.RemoveEvent;
+import com.evilbird.warcraft.action.gather.GatherEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.object.display.HudControl;
 import com.evilbird.warcraft.object.display.control.minimap.MinimapPane;
@@ -64,14 +64,20 @@ public class MinimapBehaviour implements Behaviour
         updateMap(MoveEvent.class);
         updateMap(CreateEvent.class);
         updateMap(RemoveEvent.class);
+        updateMapGatherEvents();
     }
 
     private void updateMap(Class<? extends Event> type) {
         for (Event event: events.getEvents(type)) {
-            GameObject subject = event.getSubject();
-            if (subject != null) {
-                mapPane.invalidate(subject.getPosition(), subject.getSize());
-            }
+            mapPane.invalidate(event.getSubject());
+        }
+    }
+
+    private void updateMapGatherEvents() {
+        for (Event event: events.getEvents(GatherEvent.class)) {
+            GatherEvent gatherEvent = (GatherEvent)event;
+            mapPane.invalidate(gatherEvent.getSubject());
+            mapPane.invalidate(gatherEvent.getRecipient());
         }
     }
 

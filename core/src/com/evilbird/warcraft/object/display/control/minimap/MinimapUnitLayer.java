@@ -43,14 +43,14 @@ import static com.evilbird.warcraft.object.unit.UnitType.OilPatch;
  *
  * @author Blair Butterworth
  */
-public class MinimapUnits extends BaseRenderable implements Renderable, Disposable
+public class MinimapUnitLayer extends BaseRenderable implements Renderable, Disposable
 {
     private Texture texture;
     private Pixmap pixmap;
     private GameObjectGraph graph;
     private Fog fog;
 
-    public MinimapUnits(GameObjectContainer container) {
+    public MinimapUnitLayer(GameObjectContainer container) {
         this.graph = container.getSpatialGraph();
         this.fog = (Fog)container.find(hasType(LayerType.OpaqueFog));
         this.pixmap = new Pixmap(graph.getNodeCountX(), graph.getNodeCountY(), Pixmap.Format.RGBA8888);

@@ -9,11 +9,11 @@
 
 package com.evilbird.warcraft.object.display.control.minimap;
 
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.control.Table;
 
@@ -53,9 +53,9 @@ public class MinimapPane extends Table
         cell.pad(2, 24, 2, 24);
     }
 
-    public void invalidate(Vector2 position, Vector2 size) {
+    public void invalidate(GameObject object) {
         if (minimap != null) {
-            minimap.invalidate(position, size);
+            minimap.invalidate(object);
         }
     }
 

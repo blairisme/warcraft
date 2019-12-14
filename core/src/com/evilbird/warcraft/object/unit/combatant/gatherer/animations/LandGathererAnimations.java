@@ -117,14 +117,13 @@ public class LandGathererAnimations extends AnimationCatalog
             .withSequence(0, 1)
             .withSize(size)
             .withInterval(0.15f)
-            .notLooping();
+            .looping();
     }
 
     private void chopping(Texture base, GridPoint2 size) {
         animation(GatherWood)
             .withTexture(base)
             .withSequence(size.y * 5, 4)
-            .withSequence(0, 1)
             .withSize(size)
             .withInterval(0.15f)
             .looping();

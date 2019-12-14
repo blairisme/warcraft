@@ -25,6 +25,8 @@ import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.warcraft.object.layer.Layer;
 import com.evilbird.warcraft.object.layer.LayerType;
 
+import java.util.Collection;
+
 import static com.badlogic.gdx.graphics.Pixmap.Format.RGBA8888;
 
 /**
@@ -32,26 +34,33 @@ import static com.badlogic.gdx.graphics.Pixmap.Format.RGBA8888;
  *
  * @author Blair Butterworth
  */
-public class MinimapTerrain extends BaseRenderable implements Renderable, Disposable
+public class MinimapTerrainLayer extends BaseRenderable implements Renderable, Disposable
 {
     private Texture terrain;
     private GameObjectContainer container;
+    private Collection<LayerType> terrains;
 
-    public MinimapTerrain(GameObjectContainer container) {
+    public MinimapTerrainLayer(GameObjectContainer container, Collection<LayerType> terrains) {
         this.container = container;
+        this.terrains = terrains;
     }
 
     @Override
     public void dispose() {
-        if (terrain != null) {
-            terrain.dispose();
-        }
+        invalidate();
     }
 
     @Override
     public void draw(Batch batch, float x, float y, float width, float height) {
         if (terrain != null) {
             batch.draw(terrain, x, y, width, height);
+        }
+    }
+
+    public void invalidate() {
+        if (terrain != null) {
+            terrain.dispose();
+            terrain = null;
         }
     }
 
@@ -62,13 +71,13 @@ public class MinimapTerrain extends BaseRenderable implements Renderable, Dispos
         }
     }
 
-    private Texture generateTerrain() {
+    protected Texture generateTerrain() {
         GameObjectGraph graph = container.getSpatialGraph();
         Vector2 graphSize = graph.getGraphSize();
         return generateTerrain((int)graphSize.x, (int)graphSize.y);
     }
 
-    private Texture generateTerrain(int width, int height) {
+    protected Texture generateTerrain(int width, int height) {
         SpriteFrameBuffer frameBuffer = new SpriteFrameBuffer(RGBA8888, width, height, false);
         frameBuffer.begin();
 
@@ -80,15 +89,15 @@ public class MinimapTerrain extends BaseRenderable implements Renderable, Dispos
         spriteBatch.end();
         frameBuffer.end();
 
-        terrain = frameBuffer.obtainTexture();
+        Texture buffer = frameBuffer.obtainTexture();
 
         frameBuffer.dispose();
         spriteBatch.dispose();
 
-        return terrain;
+        return buffer;
     }
 
-    private void renderTerrain(Batch batch, int width, int height) {
+    protected void renderTerrain(Batch batch, int width, int height) {
         OrthographicCamera camera = new OrthographicCamera(width, height);
         camera.setToOrtho(true, width, height);
         
@@ -96,16 +105,13 @@ public class MinimapTerrain extends BaseRenderable implements Renderable, Dispos
         renderer.setBatch(batch);
         renderer.setView(camera);
 
-        renderTerrain(renderer, LayerType.Map);
-        renderTerrain(renderer, LayerType.Shore);
-        renderTerrain(renderer, LayerType.Sea);
-        renderTerrain(renderer, LayerType.Mountain);
-        renderTerrain(renderer, LayerType.Forest);
-
+        for (LayerType terrain: terrains) {
+            renderTerrain(renderer, terrain);
+        }
         renderer.dispose();
     }
-    
-    private void renderTerrain(TiledMapRenderer renderer, LayerType type) {
+
+    protected void renderTerrain(TiledMapRenderer renderer, LayerType type) {
         for (GameObject object: container.getObjects()) {
             if (object.getType() == type) {
                 Layer terrain = (Layer)object;
