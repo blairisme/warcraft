@@ -89,9 +89,9 @@ public class BasicProjectileAttack extends BasicAction
         super.reset();
         if (initialized()) {
             projectile.setVisible(false);
-            attacker = null;
-            projectile = null;
-            target = null;
+//            attacker = null;
+//            projectile = null;
+//            target = null;
         }
     }
 

@@ -26,6 +26,7 @@ import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.display.control.actions.ActionPane;
 import com.evilbird.warcraft.object.display.control.common.IconSet;
+import com.evilbird.warcraft.object.display.control.minimap.MiniMapPane;
 import com.evilbird.warcraft.object.display.control.status.StatusPane;
 import com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStrings;
 import com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStyle;

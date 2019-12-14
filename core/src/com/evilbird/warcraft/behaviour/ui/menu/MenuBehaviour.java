@@ -11,32 +11,28 @@ package com.evilbird.warcraft.behaviour.ui.menu;
 
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.events.EventQueue;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.action.attack.AttackEvent;
 import com.evilbird.warcraft.action.attack.AttackStatus;
-import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.common.transfer.TransferEvent;
 import com.evilbird.warcraft.action.construct.ConstructEvent;
 import com.evilbird.warcraft.action.construct.ConstructStatus;
-import com.evilbird.warcraft.action.death.RemoveEvent;
 import com.evilbird.warcraft.action.gather.GatherEvent;
 import com.evilbird.warcraft.action.gather.GatherStatus;
-import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.action.produce.ProduceEvent;
 import com.evilbird.warcraft.action.produce.ProduceStatus;
 import com.evilbird.warcraft.action.selection.SelectEvent;
 import com.evilbird.warcraft.action.selector.SelectorEvent;
 import com.evilbird.warcraft.action.selector.SelectorStatus;
-import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.data.resource.ResourceType;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.data.player.PlayerStatistic;
 import com.evilbird.warcraft.object.display.HudControl;
 import com.evilbird.warcraft.object.display.control.actions.ActionPane;
-import com.evilbird.warcraft.object.display.control.minimap.MiniMapPane;
 import com.evilbird.warcraft.object.display.control.status.StatusPane;
 import com.evilbird.warcraft.object.display.resource.ResourcePane;
 import com.evilbird.warcraft.object.layer.wall.WallSection;
@@ -65,15 +61,14 @@ import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Score;
  */
 public class MenuBehaviour implements Behaviour
 {
-    private EventQueue events;
+    private Events events;
     private Player player;
     private ActionPane actionPane;
-    private MiniMapPane mapPane;
     private StatusPane statusPane;
     private ResourcePane resourcePane;
 
     @Inject
-    public MenuBehaviour(EventQueue events) {
+    public MenuBehaviour(Events events) {
         this.events = events;
     }
 
@@ -90,13 +85,11 @@ public class MenuBehaviour implements Behaviour
             updateTrainingRecipients();
             updateAttackRecipients();
             updateGatherRecipients();
-            updateMap(world);
         }
         else {
             initializeResources();
             initializeSelection(world);
             initializePopulation(world);
-            initializeMap(world);
         }
     }
 
@@ -106,7 +99,6 @@ public class MenuBehaviour implements Behaviour
             resourcePane = (ResourcePane)hud.find(itemWithId(HudControl.ResourcePane));
             actionPane = (ActionPane)hud.find(itemWithId(HudControl.ActionPane));
             statusPane = (StatusPane)hud.find(itemWithId(HudControl.StatePane));
-            mapPane = (MiniMapPane)hud.find(itemWithId(HudControl.MinimapPane));
             return false;
         }
         return true;
@@ -131,10 +123,6 @@ public class MenuBehaviour implements Behaviour
         for (GameObject farm: world.findAll(UnitOperations::isFoodProducer)){
             player.incrementStatistic(PlayerStatistic.Population, 5);
         }
-    }
-
-    private void initializeMap(GameObjectContainer world) {
-        mapPane.initialize(world);
     }
 
     private void updateSelectionRecipients() {
@@ -235,15 +223,6 @@ public class MenuBehaviour implements Behaviour
             case Oil: return PlayerStatistic.Oil;
             case Wood: return PlayerStatistic.Wood;
             default: throw new UnsupportedOperationException();
-        }
-    }
-
-    private void updateMap(GameObjectContainer world) {
-        if (events.hasEvents(MoveEvent.class)
-            || events.hasEvents(CreateEvent.class)
-            || events.hasEvents(RemoveEvent.class))
-        {
-            mapPane.initialize(world);
         }
     }
 }
