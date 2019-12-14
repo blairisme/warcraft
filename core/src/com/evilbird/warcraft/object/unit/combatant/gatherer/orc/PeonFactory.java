@@ -19,11 +19,11 @@ import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererFactory;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.GoldProduction;
 import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.MeleeDamage;
 import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.MeleeDefence;
 import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.WoodProduction;
+import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.object.common.value.FixedValue.Zero;
 import static com.evilbird.warcraft.object.unit.UnitType.Peon;
 

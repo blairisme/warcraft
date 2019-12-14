@@ -46,15 +46,16 @@ import static com.evilbird.warcraft.object.unit.UnitType.OilPatch;
  */
 public class Minimap extends BaseDrawable implements Drawable, Disposable
 {
-    private Texture texture;
-    private Pixmap pixmap;
-    private GameObjectGraph graph;
     private Fog fog;
+    private GameObjectGraph graph;
+    private Pixmap pixmap;
+    private Texture texture;
 
     public Minimap(GameObjectContainer container) {
         this.graph = container.getSpatialGraph();
         this.fog = (Fog)container.find(hasType(LayerType.OpaqueFog));
         this.pixmap = new Pixmap(graph.getNodeCountX(), graph.getNodeCountY(), Pixmap.Format.RGBA8888);
+        this.pixmap.setBlending(Pixmap.Blending.None);
         this.texture = new Texture(1, 1, Pixmap.Format.RGBA8888);
         update();
     }
@@ -154,10 +155,6 @@ public class Minimap extends BaseDrawable implements Drawable, Disposable
 
     private Color getUnitColour(Unit unit) {
         Player player = unit.getTeam();
-
-        if (player.isNeutral()) {
-            return Color.RED;
-        }
         return player.getColour().getGdxColour();
     }
 

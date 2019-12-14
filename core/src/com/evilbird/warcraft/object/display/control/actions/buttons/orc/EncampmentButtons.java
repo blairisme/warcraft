@@ -19,10 +19,10 @@ import com.evilbird.warcraft.object.display.control.actions.buttons.BasicButtonC
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.evilbird.warcraft.object.common.query.UnitOperations.hasUnit;
-import static com.evilbird.warcraft.object.common.query.UnitOperations.hasUnits;
 import static com.evilbird.warcraft.data.upgrade.Upgrade.MeleeType1;
 import static com.evilbird.warcraft.data.upgrade.Upgrade.RangedType1;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.hasUnit;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.hasUnits;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CatapultButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.GruntButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.OgreButton;

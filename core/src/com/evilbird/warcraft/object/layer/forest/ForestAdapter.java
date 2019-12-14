@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.object.layer.forest;
 
 import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.warcraft.object.layer.LayerGroupAdapter;
 import com.evilbird.warcraft.object.layer.LayerCell;
+import com.evilbird.warcraft.object.layer.LayerGroupAdapter;
 
 /**
  * Instances of this class serialize and deserialize {@link Forest} objects.

@@ -19,10 +19,10 @@ import com.evilbird.warcraft.object.unit.combatant.melee.MeleeUnitFactory;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.object.common.capability.TerrainType.Land;
-import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.MeleeDamage;
 import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.MeleeDefence;
+import static com.evilbird.warcraft.object.common.capability.TerrainType.Land;
+import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.object.unit.UnitType.Grunt;
 
 /**

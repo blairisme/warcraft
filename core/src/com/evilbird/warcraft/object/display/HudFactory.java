@@ -48,7 +48,7 @@ public class HudFactory implements GameFactory<GameObject>
         GameObjectGroup hud = new GameObjectGroup();
         hud.setFillParent(true);
         hud.setTouchable(Touchable.childrenOnly);
-        hud.addObject(controlPaneFactory.get(com.evilbird.warcraft.object.display.HudControl.ResourcePane));
+        hud.addObject(controlPaneFactory.get(HudControl.ResourcePane));
         hud.addObject(resourcePaneFactory.get(HudControl.ControlPane));
         return hud;
     }

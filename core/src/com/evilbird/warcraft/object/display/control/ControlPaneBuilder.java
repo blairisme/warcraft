@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.warcraft.object.display.control.actions.ActionButtonStyle;
 import com.evilbird.warcraft.object.display.control.common.HealthBarStyle;
 import com.evilbird.warcraft.object.display.control.common.UnitPaneStyle;
+import com.evilbird.warcraft.object.display.control.minimap.MinimapStyle;
 import com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStyle;
 import com.evilbird.warcraft.object.display.control.status.selection.SelectionButtonStyle;
 
@@ -71,12 +72,12 @@ public class ControlPaneBuilder
         skin.add("default", getDetailsPaneStyle());
         skin.add("default", getControlPaneStyle());
         skin.add("default", getUnitPaneStyle());
+        skin.add("default", getMinimapStyle());
         skin.add("button-thin-medium", getButtonStyle());
         skin.add("building-progress", getBuildingProgressStyle());
         skin.add("action-button", getActionButtonStyle());
         skin.add("action-panel", assets.getActionPanel(), Drawable.class);
         skin.add("menu-panel", assets.getMenuPanel(), Drawable.class);
-        skin.add("minimap-panel", assets.getMinimapPanel(), Drawable.class);
         skin.add("selection-panel", assets.getSelectionPanel(), Drawable.class);
         addManaBarStyle(skin);
         return skin;
@@ -132,8 +133,8 @@ public class ControlPaneBuilder
         skin.add("mana-bar", labelStyle, LabelStyle.class);
     }
 
-    private com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStyle getDetailsPaneStyle() {
-        com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStyle style = new DetailsPaneStyle();
+    private DetailsPaneStyle getDetailsPaneStyle() {
+        DetailsPaneStyle style = new DetailsPaneStyle();
         style.strings = assets.getDetailsPaneStrings();
         style.icons = assets.getIcons();
         style.background = assets.getDetailsPanel();
@@ -141,8 +142,8 @@ public class ControlPaneBuilder
         return style;
     }
 
-    private com.evilbird.warcraft.object.display.control.common.HealthBarStyle getHealthBarStyle() {
-        com.evilbird.warcraft.object.display.control.common.HealthBarStyle style = new HealthBarStyle();
+    private HealthBarStyle getHealthBarStyle() {
+        HealthBarStyle style = new HealthBarStyle();
         style.highBar = assets.getHealthProgressHigh();
         style.mediumBar = assets.getHealthProgressMedium();
         style.lowBar = assets.getHealthProgressLow();
@@ -157,18 +158,24 @@ public class ControlPaneBuilder
         return style;
     }
 
-    private com.evilbird.warcraft.object.display.control.actions.ActionButtonStyle getActionButtonStyle() {
-        com.evilbird.warcraft.object.display.control.actions.ActionButtonStyle style = new ActionButtonStyle();
+    private ActionButtonStyle getActionButtonStyle() {
+        ActionButtonStyle style = new ActionButtonStyle();
         style.icons = assets.getIcons();
         style.disabledIcons = assets.getDisabledIcons();
         style.background = assets.getActionButton();
         return style;
     }
 
-    private com.evilbird.warcraft.object.display.control.common.UnitPaneStyle getUnitPaneStyle() {
-        com.evilbird.warcraft.object.display.control.common.UnitPaneStyle style = new UnitPaneStyle();
+    private UnitPaneStyle getUnitPaneStyle() {
+        UnitPaneStyle style = new UnitPaneStyle();
         style.icons = assets.getIcons();
         style.background = assets.getUnitPanel();
+        return style;
+    }
+
+    private MinimapStyle getMinimapStyle() {
+        MinimapStyle style = new MinimapStyle();
+        style.frame = assets.getMinimapPanel();
         return style;
     }
 }

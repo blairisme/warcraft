@@ -11,13 +11,13 @@ package com.evilbird.warcraft.object.display.control.minimap;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.control.Table;
 
+import static com.badlogic.gdx.scenes.scene2d.Touchable.enabled;
 import static com.evilbird.warcraft.object.display.HudControl.MinimapPane;
 
 /**
@@ -26,17 +26,23 @@ import static com.evilbird.warcraft.object.display.HudControl.MinimapPane;
  *
  * @author Blair Butterworth
  */
-public class MiniMapPane extends Table
+public class MinimapPane extends Table
 {
     private Minimap minimap;
 
-    public MiniMapPane(Skin skin) {
+    public MinimapPane(Skin skin) {
         setSkin(skin);
         setSize(176, 136);
-        setBackground("minimap-panel");
-        setTouchable(Touchable.enabled);
+        setTouchable(enabled);
         setIdentifier(MinimapPane);
         setType(MinimapPane);
+    }
+
+    @Override
+    public void setSkin(Skin skin) {
+        super.setSkin(skin);
+        MinimapStyle style = skin.get("default", MinimapStyle.class);
+        setBackground(style.frame);
     }
 
     public boolean initialized() {
@@ -50,8 +56,8 @@ public class MiniMapPane extends Table
         removeObjects();
         Cell<Actor> cell = add(image);
         cell.width(176 - 48);
-        cell.height(136 - 20);
-        cell.pad(10, 24, 10, 24);
+        cell.height(136 - 10);
+        cell.pad(5, 24, 5, 24);
     }
 
     public void update(Vector2 position, Vector2 size) {

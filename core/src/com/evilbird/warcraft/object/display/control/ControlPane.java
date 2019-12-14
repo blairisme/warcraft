@@ -19,7 +19,7 @@ import com.evilbird.engine.object.control.Table;
 import com.evilbird.warcraft.object.display.HudControl;
 import com.evilbird.warcraft.object.display.control.actions.ActionPane;
 import com.evilbird.warcraft.object.display.control.menu.MenuPane;
-import com.evilbird.warcraft.object.display.control.minimap.MiniMapPane;
+import com.evilbird.warcraft.object.display.control.minimap.MinimapPane;
 import com.evilbird.warcraft.object.display.control.status.StatusPane;
 
 /**
@@ -49,7 +49,7 @@ public class ControlPane extends Table
             addControl(container, new MenuPane(skin));
         }
         if (style.showMiniMap) {
-            addControl(container, new MiniMapPane(skin));
+            addControl(container, new MinimapPane(skin));
         }
         if (style.showStatus) {
             addControl(container, new StatusPane(skin));

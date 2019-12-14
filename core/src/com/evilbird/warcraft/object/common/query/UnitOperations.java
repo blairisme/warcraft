@@ -21,16 +21,16 @@ import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.common.path.ItemPathFilter;
+import com.evilbird.warcraft.data.resource.ResourceContainer;
+import com.evilbird.warcraft.data.resource.ResourceType;
+import com.evilbird.warcraft.data.spell.Spell;
+import com.evilbird.warcraft.data.upgrade.Upgrade;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
 import com.evilbird.warcraft.object.common.capability.OffensiveCapability;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
 import com.evilbird.warcraft.object.common.capability.TerrainType;
-import com.evilbird.warcraft.data.resource.ResourceContainer;
-import com.evilbird.warcraft.data.resource.ResourceType;
-import com.evilbird.warcraft.data.spell.Spell;
-import com.evilbird.warcraft.data.upgrade.Upgrade;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.selector.Selector;
 import com.evilbird.warcraft.object.unit.Unit;
@@ -60,10 +60,10 @@ import static com.evilbird.engine.object.utility.GameObjectOperations.findAncest
 import static com.evilbird.engine.object.utility.GameObjectOperations.isNear;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.hasType;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.touchableWithType;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.hasPathTo;
 import static com.evilbird.warcraft.data.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.data.resource.ResourceType.Oil;
 import static com.evilbird.warcraft.data.resource.ResourceType.Wood;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.hasPathTo;
 
 /**
  * Instances of this class contain common operations for working with Items.

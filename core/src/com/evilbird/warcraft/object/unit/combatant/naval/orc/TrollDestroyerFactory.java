@@ -20,9 +20,9 @@ import com.evilbird.warcraft.object.unit.combatant.naval.NavalUnitFactory;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.NavalDefence;
 import static com.evilbird.warcraft.object.common.capability.TerrainType.Water;
 import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
-import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.NavalDefence;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.Cannonball;
 import static com.evilbird.warcraft.object.unit.UnitType.TrollDestroyer;
 

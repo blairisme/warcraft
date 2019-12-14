@@ -20,8 +20,8 @@ import com.evilbird.warcraft.object.unit.combatant.gatherer.GathererFactory;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
-import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.OilProduction;
+import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
 import static com.evilbird.warcraft.object.common.value.FixedValue.Zero;
 import static com.evilbird.warcraft.object.unit.UnitType.OilTanker;
 

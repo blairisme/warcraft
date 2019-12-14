@@ -19,9 +19,9 @@ import com.evilbird.warcraft.object.unit.combatant.siege.SiegeUnitFactory;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
+import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.SiegeDamage;
 import static com.evilbird.warcraft.object.common.capability.TerrainType.Land;
 import static com.evilbird.warcraft.object.common.query.GameObjectUtils.tiles;
-import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.SiegeDamage;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.Bolt;
 import static com.evilbird.warcraft.object.unit.UnitType.Ballista;
 
