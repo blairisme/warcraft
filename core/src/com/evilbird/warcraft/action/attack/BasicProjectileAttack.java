@@ -47,7 +47,6 @@ public class BasicProjectileAttack extends BasicAction
     protected transient Projectile projectile;
     protected transient PerishableObject target;
     protected transient Vector2 destination;
-    protected transient float flightTime;
 
     @Inject
     public BasicProjectileAttack(
@@ -89,9 +88,9 @@ public class BasicProjectileAttack extends BasicAction
         super.reset();
         if (initialized()) {
             projectile.setVisible(false);
-//            attacker = null;
-//            projectile = null;
-//            target = null;
+            attacker = null;
+            projectile = null;
+            target = null;
         }
     }
 
@@ -100,7 +99,6 @@ public class BasicProjectileAttack extends BasicAction
         super.restart();
         if (initialized()) {
             projectile.setVisible(false);
-            flightTime = 0;
         }
     }
 
@@ -119,7 +117,6 @@ public class BasicProjectileAttack extends BasicAction
         projectile.setVisible(false);
         projectile.setPosition(attacker.getPosition(Center));
 
-        flightTime = 0;
         events.attackStarted(attacker, target);
     }
 
@@ -159,7 +156,6 @@ public class BasicProjectileAttack extends BasicAction
     }
 
     protected boolean launchProjectile() {
-        flightTime = 0;
         destination = target.getPosition(Center);
 
         projectile.setVisible(true);
@@ -197,7 +193,6 @@ public class BasicProjectileAttack extends BasicAction
             newPosition = position.cpy().add(delta);
         }
         projectile.setPosition(newPosition, Center);
-        flightTime += time;
     }
 
     protected boolean hitWithProjectile() {
@@ -207,7 +202,7 @@ public class BasicProjectileAttack extends BasicAction
     }
 
     protected void resetAttacker() {
-        attacker.setAttackTime(Math.max(attacker.getAttackSpeed() - flightTime, 0));
+        attacker.setAttackTime(Math.max(attacker.getAttackSpeed(), 0));
     }
 
     protected void resetProjectile() {
