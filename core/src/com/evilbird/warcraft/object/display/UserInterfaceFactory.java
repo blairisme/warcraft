@@ -27,29 +27,29 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class HudFactory implements GameFactory<GameObject>
+public class UserInterfaceFactory implements GameFactory<GameObject>
 {
     private ControlPaneFactory controlPaneFactory;
     private ResourcePaneFactory resourcePaneFactory;
 
     @Inject
-    public HudFactory(ControlPaneFactory controlPaneFactory, ResourcePaneFactory resourcePaneFactory) {
+    public UserInterfaceFactory(ControlPaneFactory controlPaneFactory, ResourcePaneFactory resourcePaneFactory) {
         this.controlPaneFactory = controlPaneFactory;
         this.resourcePaneFactory = resourcePaneFactory;
     }
 
     @Override
     public GameObject get(Identifier identifier) {
-        Validate.isInstanceOf(HudType.class, identifier);
-        return get((HudType)identifier);
+        Validate.isInstanceOf(UserInterfaceType.class, identifier);
+        return get((UserInterfaceType)identifier);
     }
 
-    private GameObject get(HudType hudType) {
+    private GameObject get(UserInterfaceType type) {
         GameObjectGroup hud = new GameObjectGroup();
         hud.setFillParent(true);
         hud.setTouchable(Touchable.childrenOnly);
-        hud.addObject(controlPaneFactory.get(HudControl.ResourcePane));
-        hud.addObject(resourcePaneFactory.get(HudControl.ControlPane));
+        hud.addObject(controlPaneFactory.get(UserInterfaceControl.ResourcePane));
+        hud.addObject(resourcePaneFactory.get(UserInterfaceControl.ControlPane));
         return hud;
     }
 

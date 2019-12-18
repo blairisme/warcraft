@@ -14,7 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.SerializerUtils;
 import com.evilbird.engine.game.GameService;
 import com.evilbird.engine.object.GameObjectContainer;
-import com.evilbird.warcraft.object.display.HudLoader;
+import com.evilbird.warcraft.object.display.UserInterfaceLoader;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -36,14 +36,14 @@ public class WarcraftStateSerializer implements JsonSerializer<WarcraftState>, J
     private static final String LEVEL = "level";
     private static final String BEHAVIOUR = "behaviour";
 
-    private HudLoader hudLoader;
     private LevelLoader levelLoader;
     private WarcraftMusic musicLoader;
     private BehaviourFactory behaviourFactory;
+    private UserInterfaceLoader userInterfaceLoader;
 
     public WarcraftStateSerializer() {
         GameService service = GameService.getInstance();
-        this.hudLoader = new HudLoader(service.getDevice(), service.getItemFactory());
+        this.userInterfaceLoader = new UserInterfaceLoader(service.getDevice(), service.getItemFactory());
         this.levelLoader = new LevelLoader(service.getDevice(), service.getItemFactory());
         this.behaviourFactory = service.getBehaviourFactory();
         this.musicLoader = new WarcraftMusic(service.getDevice());
@@ -51,12 +51,12 @@ public class WarcraftStateSerializer implements JsonSerializer<WarcraftState>, J
 
     @Inject
     public WarcraftStateSerializer(
-        HudLoader hudLoader,
+        UserInterfaceLoader userInterfaceLoader,
         LevelLoader levelLoader,
         WarcraftMusic musicLoader,
         BehaviourFactory behaviourFactory)
     {
-        this.hudLoader = hudLoader;
+        this.userInterfaceLoader = userInterfaceLoader;
         this.levelLoader = levelLoader;
         this.musicLoader = musicLoader;
         this.behaviourFactory = behaviourFactory;
@@ -98,7 +98,7 @@ public class WarcraftStateSerializer implements JsonSerializer<WarcraftState>, J
 
     private WarcraftState deserializedInstance() {
         WarcraftState state = new WarcraftState();
-        state.setHud(hudLoader.get());
+        state.setHud(userInterfaceLoader.get());
         state.setMusic(musicLoader.getMusic());
         return state;
     }

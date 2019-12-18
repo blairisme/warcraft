@@ -31,7 +31,7 @@ import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.data.player.PlayerStatistic;
-import com.evilbird.warcraft.object.display.HudControl;
+import com.evilbird.warcraft.object.display.UserInterfaceControl;
 import com.evilbird.warcraft.object.display.control.actions.ActionPane;
 import com.evilbird.warcraft.object.display.control.status.StatusPane;
 import com.evilbird.warcraft.object.display.resource.ResourcePane;
@@ -96,9 +96,9 @@ public class MenuBehaviour implements Behaviour
     private boolean initialized(GameObjectContainer world, GameObjectContainer hud) {
         if (player == null) {
             player = UnitOperations.getCorporealPlayer(world);
-            resourcePane = (ResourcePane)hud.find(itemWithId(HudControl.ResourcePane));
-            actionPane = (ActionPane)hud.find(itemWithId(HudControl.ActionPane));
-            statusPane = (StatusPane)hud.find(itemWithId(HudControl.StatePane));
+            resourcePane = (ResourcePane)hud.find(itemWithId(UserInterfaceControl.ResourcePane));
+            actionPane = (ActionPane)hud.find(itemWithId(UserInterfaceControl.ActionPane));
+            statusPane = (StatusPane)hud.find(itemWithId(UserInterfaceControl.StatePane));
             return false;
         }
         return true;

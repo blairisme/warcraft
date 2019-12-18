@@ -12,11 +12,18 @@ package com.evilbird.warcraft.object.display;
 import com.evilbird.engine.object.GameObjectType;
 
 /**
- * Defines options of specifying hud presentation varieties.
+ * Defines options for specifying interface control types.
  *
  * @author Blair Butterworth
  */
-public enum HudType implements GameObjectType
+public enum UserInterfaceControl implements GameObjectType
 {
-    Default
+    ActionPane,
+    ControlPane,
+    DetailsPane,
+    MenuPane,
+    MinimapPane,
+    ResourcePane,
+    SelectionPane,
+    StatePane,
 }

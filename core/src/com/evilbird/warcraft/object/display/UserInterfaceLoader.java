@@ -18,19 +18,19 @@ import com.evilbird.engine.object.GameObjectFactory;
 
 import javax.inject.Inject;
 
-public class HudLoader
+public class UserInterfaceLoader
 {
     private DeviceDisplay display;
     private GameObjectFactory objectFactory;
 
-    public HudLoader() {
+    public UserInterfaceLoader() {
         GameService service = GameService.getInstance();
         this.display = service.getDevice().getDeviceDisplay();
         this.objectFactory = service.getItemFactory();
     }
 
     @Inject
-    public HudLoader(Device device, GameObjectFactory objectFactory) {
+    public UserInterfaceLoader(Device device, GameObjectFactory objectFactory) {
         this.display = device.getDeviceDisplay();
         this.objectFactory = objectFactory;
     }
@@ -41,8 +41,8 @@ public class HudLoader
 
         GameObjectContainer result = new GameObjectContainer();
         result.setViewport(viewport);
-        result.setIdentifier(HudType.Default);
-        result.addObject(objectFactory.get(HudType.Default));
+        result.setIdentifier(UserInterfaceType.Hud);
+        result.addObject(objectFactory.get(UserInterfaceType.Hud));
         return result;
     }
 }

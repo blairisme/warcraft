@@ -20,15 +20,15 @@ import org.apache.commons.lang3.Validate;
 import javax.inject.Inject;
 
 /**
- * Instances of this factory create {@link com.evilbird.warcraft.object.display.resource.ResourcePane ResourcePanes}.
+ * Instances of this factory create {@link ResourcePane ResourcePanes}.
  *
  * @author Blair Butterworth
  */
-public class ResourcePaneFactory implements GameFactory<com.evilbird.warcraft.object.display.resource.ResourcePane>
+public class ResourcePaneFactory implements GameFactory<ResourcePane>
 {
     private AssetManager manager;
-    private com.evilbird.warcraft.object.display.resource.ResourcePaneAssets assets;
-    private com.evilbird.warcraft.object.display.resource.ResourcePaneBuilder builder;
+    private ResourcePaneAssets assets;
+    private ResourcePaneBuilder builder;
 
     @Inject
     public ResourcePaneFactory(Device device) {

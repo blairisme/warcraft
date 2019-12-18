@@ -18,7 +18,7 @@ import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.control.Table;
 
 import static com.badlogic.gdx.scenes.scene2d.Touchable.enabled;
-import static com.evilbird.warcraft.object.display.HudControl.MinimapPane;
+import static com.evilbird.warcraft.object.display.UserInterfaceControl.MinimapPane;
 
 /**
  * Represents a user interface panel displayed near the top of the heads

@@ -18,7 +18,7 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.control.Grid;
 import com.evilbird.warcraft.action.menu.MenuProvider;
 import com.evilbird.warcraft.data.resource.ResourceType;
-import com.evilbird.warcraft.object.display.HudControl;
+import com.evilbird.warcraft.object.display.UserInterfaceControl;
 import com.evilbird.warcraft.object.display.control.actions.buttons.ButtonController;
 import com.evilbird.warcraft.object.display.control.actions.buttons.ButtonControllers;
 import com.evilbird.warcraft.object.unit.Unit;
@@ -60,8 +60,8 @@ public class ActionPane extends Grid implements MenuProvider
         setCellPadding(1);
         setCellWidth(54);
         setCellHeight(46);
-        setIdentifier(HudControl.ActionPane);
-        setType(HudControl.ActionPane);
+        setIdentifier(UserInterfaceControl.ActionPane);
+        setType(UserInterfaceControl.ActionPane);
         setTouchable(Touchable.enabled);
     }
 

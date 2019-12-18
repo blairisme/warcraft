@@ -15,8 +15,8 @@ import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.object.badge.BadgeFactory;
 import com.evilbird.warcraft.object.badge.BadgeType;
 import com.evilbird.warcraft.object.data.DataFactory;
-import com.evilbird.warcraft.object.display.HudFactory;
-import com.evilbird.warcraft.object.display.HudType;
+import com.evilbird.warcraft.object.display.UserInterfaceFactory;
+import com.evilbird.warcraft.object.display.UserInterfaceType;
 import com.evilbird.warcraft.object.effect.EffectFactory;
 import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.layer.LayerFactory;
@@ -42,7 +42,7 @@ public class WarcraftObjectFactory extends GameFactorySet<GameObject> implements
         BadgeFactory badgeFactory,
         DataFactory dataFactory,
         EffectFactory effectFactory,
-        HudFactory hudFactory,
+        UserInterfaceFactory userInterfaceFactory,
         LayerFactory layerFactory,
         ProjectileFactory projectileFactory,
         SelectorFactory selectorFactory,
@@ -52,7 +52,7 @@ public class WarcraftObjectFactory extends GameFactorySet<GameObject> implements
         addProvider(dataFactory);
         addProvider(BadgeType.class, badgeFactory);
         addProvider(EffectType.class, effectFactory);
-        addProvider(HudType.class, hudFactory);
+        addProvider(UserInterfaceType.class, userInterfaceFactory);
         addProvider(LayerIdentifier.class, layerFactory);
         addProvider(ProjectileType.class, projectileFactory);
         addProvider(SelectorType.class, selectorFactory);

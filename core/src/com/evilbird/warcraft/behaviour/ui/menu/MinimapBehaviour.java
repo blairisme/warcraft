@@ -20,7 +20,7 @@ import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.death.RemoveEvent;
 import com.evilbird.warcraft.action.gather.GatherEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
-import com.evilbird.warcraft.object.display.HudControl;
+import com.evilbird.warcraft.object.display.UserInterfaceControl;
 import com.evilbird.warcraft.object.display.control.minimap.MinimapPane;
 
 import javax.inject.Inject;
@@ -55,7 +55,7 @@ public class MinimapBehaviour implements Behaviour
 
     public void loadMap(State state) {
         GameObjectContainer hud = state.getHud();
-        mapPane = (MinimapPane)hud.find(itemWithId(HudControl.MinimapPane));
+        mapPane = (MinimapPane)hud.find(itemWithId(UserInterfaceControl.MinimapPane));
         loaded = true;
     }
 

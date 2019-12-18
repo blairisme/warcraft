@@ -15,8 +15,8 @@ import com.evilbird.engine.device.DeviceControls;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.test.testcase.GameFactoryTestCase;
-import com.evilbird.warcraft.object.display.HudControl;
-import com.evilbird.warcraft.object.display.HudType;
+import com.evilbird.warcraft.object.display.UserInterfaceControl;
+import com.evilbird.warcraft.object.display.UserInterfaceType;
 import com.evilbird.warcraft.object.display.control.actions.ActionButtonStyle;
 import com.evilbird.warcraft.state.WarcraftContext;
 import org.junit.Assert;
@@ -57,15 +57,15 @@ public class ControlPaneFactoryTest extends GameFactoryTestCase<com.evilbird.war
         factory.load(new WarcraftContext(Human, Winter));
         assets.finishLoading();
 
-        com.evilbird.warcraft.object.display.control.ControlPane controlPane = (ControlPane)factory.get(HudType.Default);
+        com.evilbird.warcraft.object.display.control.ControlPane controlPane = (ControlPane)factory.get(UserInterfaceType.Hud);
         Assert.assertNotNull(controlPane);
-        Assert.assertEquals(HudControl.ControlPane, controlPane.getType());
+        Assert.assertEquals(UserInterfaceControl.ControlPane, controlPane.getType());
         Assert.assertTrue(controlPane.getSkin().has("action-button", ActionButtonStyle.class));
     }
 
     @Override
     protected Collection<Identifier> getProductIdentifiers() {
-        return Collections.singleton(HudControl.ControlPane);
+        return Collections.singleton(UserInterfaceControl.ControlPane);
     }
 
     @Override

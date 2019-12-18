@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.evilbird.engine.object.control.Table;
 
-import static com.evilbird.warcraft.object.display.HudControl.MenuPane;
+import static com.evilbird.warcraft.object.display.UserInterfaceControl.MenuPane;
 
 /**
  * Represents a user interface panel displayed at the top of the heads

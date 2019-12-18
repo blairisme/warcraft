@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.data.resource.ResourceType;
-import com.evilbird.warcraft.object.display.HudControl;
+import com.evilbird.warcraft.object.display.UserInterfaceControl;
 import com.evilbird.warcraft.object.display.control.status.details.DetailsPane;
 import com.evilbird.warcraft.object.display.control.status.selection.SelectionPane;
 import com.evilbird.warcraft.object.unit.building.Building;
@@ -42,8 +42,8 @@ public class StatusPane extends GameObjectGroup
         this.selectionPane = new SelectionPane(skin);
 
         setSize(176, 176);
-        setType(com.evilbird.warcraft.object.display.HudControl.StatePane);
-        setIdentifier(HudControl.StatePane);
+        setType(UserInterfaceControl.StatePane);
+        setIdentifier(UserInterfaceControl.StatePane);
         setTouchable(Touchable.enabled);
         addObject(selectionPane);
     }

@@ -14,7 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.test.testcase.GameFactoryTestCase;
-import com.evilbird.warcraft.object.display.HudControl;
+import com.evilbird.warcraft.object.display.UserInterfaceControl;
 import com.evilbird.warcraft.state.WarcraftContext;
 
 import java.util.Arrays;
@@ -49,7 +49,7 @@ public class ResourcePaneFactoryTest extends GameFactoryTestCase<com.evilbird.wa
 
     @Override
     protected Collection<Identifier> getProductIdentifiers() {
-        return Collections.singleton(HudControl.ResourcePane);
+        return Collections.singleton(UserInterfaceControl.ResourcePane);
     }
 
     @Override

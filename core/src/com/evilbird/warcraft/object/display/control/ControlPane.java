@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.object.BasicGameObject;
 import com.evilbird.engine.object.control.Table;
-import com.evilbird.warcraft.object.display.HudControl;
+import com.evilbird.warcraft.object.display.UserInterfaceControl;
 import com.evilbird.warcraft.object.display.control.actions.ActionPane;
 import com.evilbird.warcraft.object.display.control.menu.MenuPane;
 import com.evilbird.warcraft.object.display.control.minimap.MinimapPane;
@@ -38,7 +38,7 @@ public class ControlPane extends Table
     private void initialize(Skin skin) {
         setSkin(skin);
         setFillParent(true);
-        setType(HudControl.ControlPane);
+        setType(UserInterfaceControl.ControlPane);
         setTouchable(Touchable.childrenOnly);
     }
 

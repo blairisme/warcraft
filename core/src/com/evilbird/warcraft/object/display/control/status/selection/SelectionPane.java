@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.control.Grid;
-import com.evilbird.warcraft.object.display.HudControl;
+import com.evilbird.warcraft.object.display.UserInterfaceControl;
 import com.evilbird.warcraft.object.unit.Unit;
 
 import java.util.ArrayList;
@@ -36,8 +36,8 @@ public class SelectionPane extends Grid
         setCellPadding(3);
         setCellWidth(54);
         setCellHeight(53);
-        setIdentifier(com.evilbird.warcraft.object.display.HudControl.SelectionPane);
-        setType(HudControl.SelectionPane);
+        setIdentifier(UserInterfaceControl.SelectionPane);
+        setType(UserInterfaceControl.SelectionPane);
         setTouchable(Touchable.childrenOnly);
     }
 

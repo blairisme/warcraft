@@ -19,7 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.evilbird.engine.object.control.Table;
 import com.evilbird.warcraft.data.resource.ResourceType;
-import com.evilbird.warcraft.object.display.HudControl;
+import com.evilbird.warcraft.object.display.UserInterfaceControl;
 
 /**
  * Instances of this user interface control display the resources the user has
@@ -36,7 +36,7 @@ public class ResourcePane extends Table
 
     public ResourcePane(ResourcePaneStyle style) {
         setFillParent(true);
-        setIdentifier(HudControl.ResourcePane);
+        setIdentifier(UserInterfaceControl.ResourcePane);
         Table container = addContainer(style.background);
         goldLabel = addResource(container, style.goldIcon, style.font, style.colour);
         woodLabel = addResource(container, style.woodIcon, style.font, style.colour);

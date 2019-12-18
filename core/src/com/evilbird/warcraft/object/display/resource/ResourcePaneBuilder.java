@@ -11,7 +11,7 @@ package com.evilbird.warcraft.object.display.resource;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.warcraft.object.display.HudControl;
+import com.evilbird.warcraft.object.display.UserInterfaceControl;
 
 /**
  * Creates a new {@link ResourcePane} instance whose visual presentation is
@@ -29,8 +29,8 @@ public class ResourcePaneBuilder
 
     public ResourcePane build() {
         ResourcePane result = new ResourcePane(getStyle());
-        result.setIdentifier(com.evilbird.warcraft.object.display.HudControl.ResourcePane);
-        result.setType(HudControl.ResourcePane);
+        result.setIdentifier(UserInterfaceControl.ResourcePane);
+        result.setType(UserInterfaceControl.ResourcePane);
         result.setTouchable(Touchable.disabled);
         result.setVisible(true);
         return result;
