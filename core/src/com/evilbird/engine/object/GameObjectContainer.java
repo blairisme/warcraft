@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.game.GameController;
@@ -36,7 +37,7 @@ import java.util.function.Predicate;
  * @author Blair Butterworth
  */
 @JsonAdapter(GameObjectContainerSerializer.class)
-public class GameObjectContainer implements GameObjectComposite
+public class GameObjectContainer implements GameObjectComposite, Disposable
 {
     private GameObjectGroup group;
     private GameObjectGraph graph;
@@ -75,23 +76,6 @@ public class GameObjectContainer implements GameObjectComposite
     }
 
     /**
-     * Removes a {@link GameObject} from the {@code GameObjectContainer}.
-     */
-    @Override
-    public void removeObject(GameObject gameObject) {
-        this.group.removeObject(gameObject);
-    }
-
-    /**
-     * Removes all {@link GameObject GameObjects} from the item
-     * {@code GameObjectContainer}.
-     */
-    @Override
-    public void removeObjects() {
-        this.group.removeObjects();
-    }
-
-    /**
      * Determines whether the given {@link GameObject} is contained in the {@code
      * GameObjectContainer }: its one of its children.
      *
@@ -104,57 +88,20 @@ public class GameObjectContainer implements GameObjectComposite
     public boolean containsObject(GameObject gameObject) {
         return group.containsObject(gameObject);
     }
-    
+
     /**
-     * Returns a collection containing the children of the ItemComposite.
-     *
-     * @return the children of the ItemGroup.
+     * Release system resources used by the root.
      */
     @Override
-    public List<GameObject> getObjects() {
-        return this.group.getObjects();
+    public void dispose() {
+        delegate.dispose();
     }
 
     /**
-     * Returns a {@link GameObjectGraph}, a graph of the game space, represented
-     * as a 2 dimensional matrix of nodes, containing all of the touchable
-     * items contained in the item root.
-     *
-     * @return an {@link GameObjectGraph}. This method may return {@code null}.
+     * Draws the container.
      */
-    public GameObjectGraph getSpatialGraph() {
-        return graph;
-    }
-
-    /**
-     * Sets the {@link GameObjectGraph} associated with the GameObjectContainer . Any Items
-     * added to the GameObjectContainer  will automatically be provided to the ItemGraph
-     * to apply occupancy.
-     *
-     * @param graph an {@link GameObjectGraph}. Cannot be {@code null}.
-     */
-    public void setSpatialGraph(GameObjectGraph graph) {
-        Validate.notNull(graph);
-        this.graph = graph;
-        this.graphUpdater.setGraph(graph);
-    }
-
-    /**
-     * Returns the unique {@link Identifier} of the GameObjectContainer .
-     *
-     * @return an <code>Identifier</code>. Will not return {@code null}.
-     */
-    public Identifier getIdentifier() {
-        return group.getIdentifier();
-    }
-
-    /**
-     * Sets the unique {@link Identifier} of the GameObjectContainer .
-     *
-     * @param identifier an <code>Identifier</code>. Cannot be {@code null}.
-     */
-    public void setIdentifier(Identifier identifier) {
-        group.setIdentifier(identifier);
+    public void draw() {
+        delegate.draw();
     }
 
     /**
@@ -184,6 +131,12 @@ public class GameObjectContainer implements GameObjectComposite
     }
 
     /**
+     * Returns the group that contains all of the containers children.
+     */
+    public GameObjectGroup getBaseGroup() {
+        return group;
+    }
+    /**
      * Returns a {@link GameController} instance, used to control whats content
      * is rendered to the screen and to obtain system wide preferences.
      *
@@ -193,8 +146,102 @@ public class GameObjectContainer implements GameObjectComposite
         return controller;
     }
 
-    public GameObjectGroup getBaseGroup() {
-        return group;
+    /**
+     * Returns the unique {@link Identifier} of the GameObjectContainer .
+     *
+     * @return an <code>Identifier</code>. Will not return {@code null}.
+     */
+    public Identifier getIdentifier() {
+        return group.getIdentifier();
+    }
+
+    /**
+     * Returns a collection containing the children of the ItemComposite.
+     *
+     * @return the children of the ItemGroup.
+     */
+    @Override
+    public List<GameObject> getObjects() {
+        return this.group.getObjects();
+    }
+
+    /**
+     * Returns a {@link GameObjectGraph}, a graph of the game space, represented
+     * as a 2 dimensional matrix of nodes, containing all of the touchable
+     * items contained in the item root.
+     *
+     * @return an {@link GameObjectGraph}. This method may return {@code null}.
+     */
+    public GameObjectGraph getSpatialGraph() {
+        return graph;
+    }
+
+    /**
+     * Returns the roots {@link Viewport} which manages the {@link Camera} and
+     * determines how world coordinates are mapped to and from the screen.
+     *
+     * @return a viewport.
+     */
+    public Viewport getViewport() {
+        return delegate.getViewport();
+    }
+
+    /**
+     * Returns the {@link GameObject} at the specified location in world coordinates.
+     * Hit testing is performed in the order the item were inserted into the
+     * root, last inserted items being tested first. To get world coordinates
+     * from screen coordinates, use {@link #unproject(Vector2)}.
+     *
+     * @param coordinates the world coordinates to test.
+     * @param touchable   specifies if hit detection will respect the items
+     *                    touchability.
+     *
+     * @return the item at the specified location. This method may return
+     *         {@code null} if no item can be located.
+     */
+    public GameObject hit(Vector2 coordinates, boolean touchable) {
+        return group.hit(coordinates, touchable);
+    }
+
+    /**
+     * Transforms the given world coordinates into screen coordinates.
+     *
+     * @param coordinates The world coordinates to convert.
+     * @return The given world coordinates transformed into screen coordinates.
+     */
+    public Vector2 project(Vector2 coordinates) {
+        Vector2 result = new Vector2(coordinates);
+        return delegate.stageToScreenCoordinates(result);
+    }
+
+    /**
+     * Sets the {@link GameObjectGraph} associated with the GameObjectContainer . Any Items
+     * added to the GameObjectContainer  will automatically be provided to the ItemGraph
+     * to apply occupancy.
+     *
+     * @param graph an {@link GameObjectGraph}. Cannot be {@code null}.
+     */
+    public void setSpatialGraph(GameObjectGraph graph) {
+        Validate.notNull(graph);
+        this.graph = graph;
+        this.graphUpdater.setGraph(graph);
+    }
+
+    /**
+     * Removes a {@link GameObject} from the {@code GameObjectContainer}.
+     */
+    @Override
+    public void removeObject(GameObject gameObject) {
+        this.group.removeObject(gameObject);
+    }
+
+    /**
+     * Removes all {@link GameObject GameObjects} from the item
+     * {@code GameObjectContainer}.
+     */
+    @Override
+    public void removeObjects() {
+        this.group.removeObjects();
     }
 
     /**
@@ -208,30 +255,12 @@ public class GameObjectContainer implements GameObjectComposite
     }
 
     /**
-     * Draws the item graph.
-     */
-    public void draw() {
-        delegate.draw();
-    }
-
-    /**
-     * Updates every item in the item graph.
+     * Sets the unique {@link Identifier} of the GameObjectContainer .
      *
-     * @param delta the time between this frame and the last frame.
+     * @param identifier an <code>Identifier</code>. Cannot be {@code null}.
      */
-    public void update(float delta) {
-        delegate.getCamera().update();
-        delegate.act(delta);
-    }
-
-    /**
-     * Returns the roots {@link Viewport} which manages the {@link Camera} and
-     * determines how world coordinates are mapped to and from the screen.
-     *
-     * @return a viewport.
-     */
-    public Viewport getViewport() {
-        return delegate.getViewport();
+    public void setIdentifier(Identifier identifier) {
+        group.setIdentifier(identifier);
     }
 
     /**
@@ -258,13 +287,6 @@ public class GameObjectContainer implements GameObjectComposite
     }
 
     /**
-     * Release system resources used by the root.
-     */
-    public void dispose() {
-        delegate.dispose();
-    }
-
-    /**
      * Transforms the given screen coordinates into world coordinates.
      *
      * @param coordinates The screen coordinates to convert.
@@ -276,31 +298,13 @@ public class GameObjectContainer implements GameObjectComposite
     }
 
     /**
-     * Transforms the given world coordinates into screen coordinates.
+     * Updates every item in the item graph.
      *
-     * @param coordinates The world coordinates to convert.
-     * @return The given world coordinates transformed into screen coordinates.
+     * @param delta the time between this frame and the last frame.
      */
-    public Vector2 project(Vector2 coordinates) {
-        Vector2 result = new Vector2(coordinates);
-        return delegate.stageToScreenCoordinates(result);
-    }
-
-    /**
-     * Returns the {@link GameObject} at the specified location in world coordinates.
-     * Hit testing is performed in the order the item were inserted into the
-     * root, last inserted items being tested first. To get world coordinates
-     * from screen coordinates, use {@link #unproject(Vector2)}.
-     *
-     * @param coordinates the world coordinates to test.
-     * @param touchable   specifies if hit detection will respect the items
-     *                    touchability.
-     *
-     * @return the item at the specified location. This method may return
-     *         {@code null} if no item can be located.
-     */
-    public GameObject hit(Vector2 coordinates, boolean touchable) {
-        return group.hit(coordinates, touchable);
+    public void update(float delta) {
+        delegate.getCamera().update();
+        delegate.act(delta);
     }
 
     @Override

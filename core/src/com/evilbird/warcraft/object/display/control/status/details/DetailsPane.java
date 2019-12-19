@@ -72,25 +72,25 @@ public class DetailsPane extends Grid
     }
 
     public void setConstructing(Building building, boolean constructing) {
-        if (isShown(buildingDetails)) {
+        if (contains(buildingDetails)) {
             buildingDetails.setConstructing(building, constructing);
         }
     }
 
     public void setProducing(Building building, boolean producing) {
-        if (isShown(buildingDetails)) {
+        if (contains(buildingDetails)) {
             buildingDetails.setProducing(building, producing);
         }
     }
 
     public void setResource(ResourceType resource, float value) {
-        if (isShown(buildingDetails)) {
+        if (contains(buildingDetails)) {
             buildingDetails.setResource(resource, value);
         }
     }
 
     public void setResource(GameObject gameObject, ResourceType resource, float value) {
-        if (isShown(resourceDetails)) {
+        if (contains(resourceDetails)) {
             resourceDetails.setResource(gameObject, resource, value);
         }
     }

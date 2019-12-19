@@ -27,14 +27,17 @@ public class MenuFactory implements ActionProvider
 {
     private InjectedPool<MenuNavigateAction> navigatePool;
     private InjectedPool<MenuOverlayAction> overlayPool;
+    private InjectedPool<MapNavigate> mapNavigatePool;
 
     @Inject
     public MenuFactory(
+        InjectedPool<MapNavigate> mapNavigatePool,
         InjectedPool<MenuNavigateAction> navigatePool,
         InjectedPool<MenuOverlayAction> overlayPool)
     {
         this.overlayPool = overlayPool;
         this.navigatePool = navigatePool;
+        this.mapNavigatePool = mapNavigatePool;
     }
 
     @Override
@@ -49,6 +52,7 @@ public class MenuFactory implements ActionProvider
             case ActionsMenu:
             case BuildSimpleMenu:
             case BuildAdvancedMenu: return getNavigateAction(menuAction);
+            case MapNavigate: return mapNavigatePool.obtain();
             default: throw new UnsupportedOperationException();
         }
     }

@@ -34,7 +34,7 @@ public class PanAction extends BasicAction
     @Override
     public boolean act(float time) {
         UserInput cause = getCause();
-        Camera camera = (Camera) getSubject();
+        Camera camera = (Camera)getSubject();
 
         Vector2 delta = cause.getDelta();
         Vector2 scaled = delta.scl(camera.getZoom());

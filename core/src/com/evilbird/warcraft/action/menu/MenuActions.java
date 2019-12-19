@@ -21,12 +21,14 @@ import com.evilbird.warcraft.object.display.control.actions.ActionPaneView;
  */
 public enum MenuActions implements ActionIdentifier
 {
-    ActionsMenu(ActionPaneView.Actions),
-    BuildSimpleMenu(ActionPaneView.SimpleBuildings),
-    BuildAdvancedMenu(ActionPaneView.AdvancedBuildings),
-    IngameMenu(IngameMenuType.Root),
-    FailureMenu(IngameMenuType.Defeat),
-    VictoryMenu(IngameMenuType.Victory);
+    ActionsMenu         (ActionPaneView.Actions),
+    BuildSimpleMenu     (ActionPaneView.SimpleBuildings),
+    BuildAdvancedMenu   (ActionPaneView.AdvancedBuildings),
+    IngameMenu          (IngameMenuType.Root),
+    FailureMenu         (IngameMenuType.Defeat),
+    VictoryMenu         (IngameMenuType.Victory),
+    MapOpen             (null),
+    MapNavigate         (null);
 
     private Identifier menuIdentifier;
 

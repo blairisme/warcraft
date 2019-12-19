@@ -49,6 +49,25 @@ public class VectorUtils
     }
 
     /**
+     * Divides the given {@link Vector2} by the given factor.
+     *
+     * @param value     the value to divide.
+     * @param factor    the factor to divide the value by.
+     * @return          a new {@code Vector2}.
+     *
+     * @throws NullPointerException thrown if the given value is {@code null}.
+     */
+    public static Vector2 divide(Vector2 value, Vector2 factor) {
+        Objects.requireNonNull(value);
+        Objects.requireNonNull(factor);
+
+        Vector2 result = new Vector2();
+        result.x = factor.x != 0 ? value.x / factor.x : 0;
+        result.y = factor.y != 0 ? value.y / factor.y : 0;
+        return result;
+    }
+
+    /**
      * Multiplies the given {@link Vector2} by the given factor.
      *
      * @param value     the value to multiply.

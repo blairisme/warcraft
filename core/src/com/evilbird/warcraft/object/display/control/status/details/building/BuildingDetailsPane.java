@@ -54,10 +54,10 @@ public class BuildingDetailsPane extends Table implements DetailsPaneElement
     }
 
     public void setResource(ResourceType resource, float value) {
-        if (isShown(commandCentreDetails)) {
+        if (contains(commandCentreDetails)) {
             commandCentreDetails.setResource(resource, value);
         }
-        if (isShown(foodProducerDetails)) {
+        if (contains(foodProducerDetails)) {
             foodProducerDetails.setResource(resource, value);
         }
     }

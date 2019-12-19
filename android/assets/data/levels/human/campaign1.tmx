@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="18" nextobjectid="82">
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="18" nextobjectid="82">
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/winter.png" width="576" height="864"/>
  </tileset>
@@ -59,7 +59,7 @@
     <property name="Owner" value="Neutral"/>
    </properties>
   </object>
-  <object id="75" name="GoldMine1" type="GoldMine" gid="687" x="929.333" y="1024" width="96" height="96">
+  <object id="75" name="GoldMine1" type="GoldMine" gid="687" x="928" y="1024" width="96" height="96">
    <properties>
     <property name="Gold" type="float" value="5000"/>
     <property name="Owner" value="Neutral"/>

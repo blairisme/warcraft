@@ -17,10 +17,12 @@ import static com.evilbird.warcraft.action.menu.MenuActions.ActionsMenu;
 import static com.evilbird.warcraft.action.menu.MenuActions.BuildAdvancedMenu;
 import static com.evilbird.warcraft.action.menu.MenuActions.BuildSimpleMenu;
 import static com.evilbird.warcraft.action.menu.MenuActions.IngameMenu;
+import static com.evilbird.warcraft.action.menu.MenuActions.MapNavigate;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Standalone;
 import static com.evilbird.warcraft.object.display.UserInterfaceControl.MenuPane;
+import static com.evilbird.warcraft.object.display.UserInterfaceControl.MinimapPane;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BuildAdvancedButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BuildCancelButton;
 import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BuildSimpleButton;
@@ -43,6 +45,7 @@ public class MenuInteractions extends InteractionContainer
         super(factory);
         buildMenuInteractions();
         ingameMenuInteractions();
+        minimapInteractions();
     }
 
     private void buildMenuInteractions() {
@@ -73,5 +76,12 @@ public class MenuInteractions extends InteractionContainer
             .assignedTo(item -> null)
             .appliedTo((t, s) -> null, (t, s) -> null)
             .appliedAs(Standalone);
+    }
+
+    private void minimapInteractions() {
+        addAction(MapNavigate)
+            .whenTarget(MinimapPane)
+            .appliedTo(Target)
+            .appliedAs(Addition);
     }
 }
