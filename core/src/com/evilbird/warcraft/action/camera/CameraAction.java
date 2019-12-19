@@ -13,10 +13,10 @@ import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.GameObjectContainerType;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.object.data.camera.Camera;
 import com.evilbird.warcraft.object.data.camera.CameraType;
-import com.evilbird.warcraft.object.display.UserInterfaceType;
 
 import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
 
@@ -64,7 +64,7 @@ public abstract class CameraAction extends BasicAction
 
     protected GameObjectContainer getWorldContainer(GameObject subject) {
         GameObjectContainer container = subject.getRoot();
-        if (container != null && container.getIdentifier() == UserInterfaceType.Hud) {
+        if (container != null && container.getIdentifier() == GameObjectContainerType.Hud) {
             container = getWorldContainer(container);
         }
         return container;

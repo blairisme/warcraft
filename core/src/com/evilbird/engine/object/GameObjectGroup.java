@@ -288,11 +288,11 @@ public class GameObjectGroup extends BasicGameObject implements GameObjectCompos
     private <T extends GameObject> Collection<T> findAll(GameObjectComposite group, Predicate<T> predicate) {
         Collection<T> result = new ArrayList<>();
         for (GameObject gameObject : group.getObjects()) {
-            if (predicate.test((T) gameObject)) {
-                result.add((T) gameObject);
+            if (predicate.test((T)gameObject)) {
+                result.add((T)gameObject);
             }
             if (gameObject instanceof GameObjectComposite) {
-                result.addAll(findAll((GameObjectComposite) gameObject, predicate));
+                result.addAll(findAll((GameObjectComposite)gameObject, predicate));
             }
         }
         return result;

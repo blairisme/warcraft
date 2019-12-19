@@ -16,7 +16,7 @@ import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.warcraft.action.camera.CameraAction;
 import com.evilbird.warcraft.object.data.camera.Camera;
-import com.evilbird.warcraft.object.display.control.minimap.MinimapPane;
+import com.evilbird.warcraft.object.display.components.map.MapPane;
 
 import javax.inject.Inject;
 
@@ -37,7 +37,7 @@ public class MapNavigate extends CameraAction
 
     @Override
     public boolean act(float delta) {
-        MinimapPane mapPane = (MinimapPane)getSubject();
+        MapPane mapPane = (MapPane)getSubject();
 
         Vector2 controlPosition = mapPane.getMapPosition();
         Vector2 selectPosition = getMapSelectPosition(mapPane);
@@ -55,14 +55,14 @@ public class MapNavigate extends CameraAction
         return ActionComplete;
     }
 
-    private Vector2 getMapSelectPosition(MinimapPane mapPane) {
+    private Vector2 getMapSelectPosition(MapPane mapPane) {
         UserInput input = getCause();
         Vector2 inputPosition = input.getPosition();
         GameObjectContainer hudContainer = mapPane.getRoot();
         return hudContainer.unproject(inputPosition);
     }
 
-    private Vector2 getWorldSize(MinimapPane mapPane) {
+    private Vector2 getWorldSize(MapPane mapPane) {
         GameObjectContainer worldContainer = getWorldContainer(mapPane);
         GameObjectGraph spatialGraph = worldContainer.getSpatialGraph();
         return spatialGraph.getGraphSize();

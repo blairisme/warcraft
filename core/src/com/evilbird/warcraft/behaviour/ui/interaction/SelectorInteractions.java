@@ -12,7 +12,7 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.warcraft.action.selector.SelectorActions;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
-import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
+import com.evilbird.warcraft.object.display.components.actions.ActionButtonType;
 import com.evilbird.warcraft.object.selector.SelectorType;
 import com.evilbird.warcraft.object.unit.UnitType;
 
@@ -38,13 +38,13 @@ import static com.evilbird.warcraft.action.selector.SelectorActions.ShowWhirlwin
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BlizzardButton;
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CancelButton;
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.DeathAndDecayButton;
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.DetonateButton;
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.FireballButton;
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.RunesButton;
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.WhirlwindButton;
+import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.BlizzardButton;
+import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.CancelButton;
+import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.DeathAndDecayButton;
+import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.DetonateButton;
+import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.FireballButton;
+import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.RunesButton;
+import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.WhirlwindButton;
 
 /**
  * Defines user interactions that result in selectors.

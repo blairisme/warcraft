@@ -9,17 +9,17 @@
 
 package com.evilbird.warcraft.object.display;
 
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.game.GameContext;
-import com.evilbird.engine.game.GameFactory;
+import com.evilbird.engine.game.GameFactorySet;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.GameObjectGroup;
-import com.evilbird.warcraft.object.display.control.ControlPaneFactory;
-import com.evilbird.warcraft.object.display.resource.ResourcePaneFactory;
-import org.apache.commons.lang3.Validate;
+import com.evilbird.warcraft.object.display.views.control.ControlPaneFactory;
+import com.evilbird.warcraft.object.display.views.map.MapOverlayFactory;
+import com.evilbird.warcraft.object.display.views.resource.ResourceBarFactory;
 
 import javax.inject.Inject;
+
+import static com.evilbird.warcraft.object.display.UserInterfaceView.ControlBar;
+import static com.evilbird.warcraft.object.display.UserInterfaceView.MapOverlay;
+import static com.evilbird.warcraft.object.display.UserInterfaceView.ResourceBar;
 
 /**
  * Creates the graphical user interface shown to the user while the game plays
@@ -27,41 +27,16 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class UserInterfaceFactory implements GameFactory<GameObject>
+public class UserInterfaceFactory extends GameFactorySet<GameObject>
 {
-    private ControlPaneFactory controlPaneFactory;
-    private ResourcePaneFactory resourcePaneFactory;
-
     @Inject
-    public UserInterfaceFactory(ControlPaneFactory controlPaneFactory, ResourcePaneFactory resourcePaneFactory) {
-        this.controlPaneFactory = controlPaneFactory;
-        this.resourcePaneFactory = resourcePaneFactory;
-    }
-
-    @Override
-    public GameObject get(Identifier identifier) {
-        Validate.isInstanceOf(UserInterfaceType.class, identifier);
-        return get((UserInterfaceType)identifier);
-    }
-
-    private GameObject get(UserInterfaceType type) {
-        GameObjectGroup hud = new GameObjectGroup();
-        hud.setFillParent(true);
-        hud.setTouchable(Touchable.childrenOnly);
-        hud.addObject(controlPaneFactory.get(UserInterfaceControl.ResourcePane));
-        hud.addObject(resourcePaneFactory.get(UserInterfaceControl.ControlPane));
-        return hud;
-    }
-
-    @Override
-    public void load(GameContext context) {
-        controlPaneFactory.load(context);
-        resourcePaneFactory.load(context);
-    }
-
-    @Override
-    public void unload(GameContext context) {
-        controlPaneFactory.unload(context);
-        resourcePaneFactory.unload(context);
+    public UserInterfaceFactory(
+        ControlPaneFactory controlPaneFactory,
+        MapOverlayFactory mapOverlayFactory,
+        ResourceBarFactory resourceBarFactory)
+    {
+        addProvider(ControlBar, controlPaneFactory);
+        addProvider(ResourceBar, resourceBarFactory);
+        addProvider(MapOverlay, mapOverlayFactory);
     }
 }

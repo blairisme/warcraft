@@ -28,7 +28,7 @@ import static com.evilbird.warcraft.object.common.capability.TerrainType.Shallow
 import static com.evilbird.warcraft.object.common.capability.TerrainType.Water;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isControllable;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isMovableOver;
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.StopButton;
+import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.StopButton;
 import static com.evilbird.warcraft.object.layer.LayerType.Map;
 import static com.evilbird.warcraft.object.layer.LayerType.OpaqueFogSection;
 import static com.evilbird.warcraft.object.layer.LayerType.Sea;

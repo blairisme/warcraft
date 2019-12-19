@@ -21,11 +21,11 @@ import static com.evilbird.warcraft.action.menu.MenuActions.MapNavigate;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Target;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Addition;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionDisplacement.Standalone;
-import static com.evilbird.warcraft.object.display.UserInterfaceControl.MenuPane;
-import static com.evilbird.warcraft.object.display.UserInterfaceControl.MinimapPane;
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BuildAdvancedButton;
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BuildCancelButton;
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.BuildSimpleButton;
+import static com.evilbird.warcraft.object.display.components.UserInterfaceComponent.MenuPane;
+import static com.evilbird.warcraft.object.display.components.UserInterfaceComponent.MinimapPane;
+import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.BuildAdvancedButton;
+import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.BuildCancelButton;
+import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.BuildSimpleButton;
 
 /**
  * Defines user interactions that result in manipulation of the menu user

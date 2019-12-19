@@ -9,8 +9,8 @@
   },
   "level": {
     "id": {
-      "class": "Named",
-      "name": "world"
+      "class": "Container",
+      "enum": "World"
     },
     "graph": {
       "nodeWidth": 32,

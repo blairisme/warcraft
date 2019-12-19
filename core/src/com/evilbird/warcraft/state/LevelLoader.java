@@ -52,6 +52,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import static com.evilbird.engine.object.GameObjectContainerType.World;
 import static com.evilbird.warcraft.data.resource.ResourceType.Food;
 import static com.evilbird.warcraft.data.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.data.resource.ResourceType.Oil;
@@ -70,7 +71,6 @@ public class LevelLoader
     private static final String CORPOREAL_PLAYER_ID = "Player1";
     private static final String ENEMY_PLAYER_ID = "Player";
     private static final String NEUTRAL_PLAYER_ID = "Neutral";
-    private static final String WORLD_ID = "world";
 
     private static final String TOUCHABLE_PROPERTY = "Touchable";
     private static final String X_PROPERTY = "x";
@@ -119,7 +119,7 @@ public class LevelLoader
         GridPoint2 tileSize = map.getTileSize();
 
         GameObjectContainer result = new GameObjectContainer();
-        result.setIdentifier(new TextIdentifier(WORLD_ID));
+        result.setIdentifier(World);
         result.setViewport(new ScreenViewport());
         result.setSpatialGraph(new GameObjectGraph(tileSize.x, tileSize.y, mapSize.x, mapSize.y));
         result.addObjects(assignParents(getItems(map)));

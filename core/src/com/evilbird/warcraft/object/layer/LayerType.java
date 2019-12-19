@@ -18,7 +18,7 @@ import com.evilbird.engine.object.GameObjectType;
  */
 public enum LayerType implements GameObjectType
 {
-    Map, //Terrain
+    Map, //Land
     Sea,
     Shore,
     Forest,

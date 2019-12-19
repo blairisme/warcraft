@@ -13,7 +13,7 @@ import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.construct.ConstructActions;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
-import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
+import com.evilbird.warcraft.object.display.components.actions.ActionButtonType;
 import com.evilbird.warcraft.object.selector.SelectorType;
 import com.evilbird.warcraft.object.selector.building.BuildingSelector;
 import com.evilbird.warcraft.object.unit.UnitType;
@@ -29,7 +29,7 @@ import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isBuilding;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isConstructing;
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CancelButton;
+import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.CancelButton;
 
 /**
  * Defines user interactions that result in construction of building game

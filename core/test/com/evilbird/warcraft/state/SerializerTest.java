@@ -11,7 +11,6 @@ package com.evilbird.warcraft.state;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.evilbird.test.utils.JsonSerializerContext;
-import com.evilbird.warcraft.object.display.UserInterfaceLoader;
 import com.google.gson.JsonElement;
 import com.google.gson.internal.Streams;
 import com.google.gson.stream.JsonReader;
@@ -28,7 +27,7 @@ import static com.evilbird.test.data.assets.TestDevices.newTestDevice;
  */
 public class SerializerTest extends StateTestCase
 {
-    private UserInterfaceLoader userInterfaceLoader;
+    private WarcraftInterfaceLoader userInterfaceLoader;
     private WarcraftMusic musicLoader;
     private WarcraftStateSerializer adapter;
 
@@ -36,7 +35,7 @@ public class SerializerTest extends StateTestCase
     public void setup() {
         super.setup();
         device = newTestDevice();
-        userInterfaceLoader = new UserInterfaceLoader(device, objectFactory);
+        userInterfaceLoader = new WarcraftInterfaceLoader(device, objectFactory);
         musicLoader = new WarcraftMusic(device);
         adapter = new WarcraftStateSerializer(userInterfaceLoader, levelLoader, musicLoader, behaviourFactory);
         loadAssets();

@@ -31,10 +31,10 @@ import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.data.player.PlayerStatistic;
-import com.evilbird.warcraft.object.display.UserInterfaceControl;
-import com.evilbird.warcraft.object.display.control.actions.ActionPane;
-import com.evilbird.warcraft.object.display.control.status.StatusPane;
-import com.evilbird.warcraft.object.display.resource.ResourcePane;
+import com.evilbird.warcraft.object.display.components.UserInterfaceComponent;
+import com.evilbird.warcraft.object.display.components.actions.ActionPane;
+import com.evilbird.warcraft.object.display.components.status.StatusPane;
+import com.evilbird.warcraft.object.display.views.resource.ResourceBar;
 import com.evilbird.warcraft.object.layer.wall.WallSection;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitType;
@@ -65,7 +65,7 @@ public class MenuBehaviour implements Behaviour
     private Player player;
     private ActionPane actionPane;
     private StatusPane statusPane;
-    private ResourcePane resourcePane;
+    private ResourceBar resourceBar;
 
     @Inject
     public MenuBehaviour(Events events) {
@@ -96,9 +96,9 @@ public class MenuBehaviour implements Behaviour
     private boolean initialized(GameObjectContainer world, GameObjectContainer hud) {
         if (player == null) {
             player = UnitOperations.getCorporealPlayer(world);
-            resourcePane = (ResourcePane)hud.find(itemWithId(UserInterfaceControl.ResourcePane));
-            actionPane = (ActionPane)hud.find(itemWithId(UserInterfaceControl.ActionPane));
-            statusPane = (StatusPane)hud.find(itemWithId(UserInterfaceControl.StatePane));
+            resourceBar = (ResourceBar)hud.find(itemWithId(UserInterfaceComponent.ResourcePane));
+            actionPane = (ActionPane)hud.find(itemWithId(UserInterfaceComponent.ActionPane));
+            statusPane = (StatusPane)hud.find(itemWithId(UserInterfaceComponent.StatePane));
             return false;
         }
         return true;
@@ -108,7 +108,7 @@ public class MenuBehaviour implements Behaviour
         for (ResourceType resourceType: ResourceType.values()) {
             float resourceValue = player.getResource(resourceType);
             actionPane.setPlayerResource(resourceType, resourceValue);
-            resourcePane.setPlayerResource(resourceType, resourceValue);
+            resourceBar.setPlayerResource(resourceType, resourceValue);
             statusPane.setPlayerResource(resourceType, resourceValue);
         }
     }
@@ -140,7 +140,7 @@ public class MenuBehaviour implements Behaviour
 
             if (subject == player) {
                 actionPane.setPlayerResource(resource, amount);
-                resourcePane.setPlayerResource(resource, amount);
+                resourceBar.setPlayerResource(resource, amount);
                 statusPane.setPlayerResource(resource, amount);
             } else {
                 statusPane.setItemResource(subject, resource, amount);

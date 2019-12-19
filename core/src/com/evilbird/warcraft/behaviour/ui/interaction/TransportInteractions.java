@@ -22,7 +22,7 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicab
 import static com.evilbird.warcraft.object.common.capability.TerrainType.Land;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isControllable;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isMovableOver;
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.DisembarkButton;
+import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.DisembarkButton;
 
 /**
  * Defines user interactions that result in the transportation of game objects

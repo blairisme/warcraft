@@ -23,7 +23,7 @@ import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicab
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isAi;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isAttacker;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isControllable;
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CancelButton;
+import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.CancelButton;
 import static com.evilbird.warcraft.object.layer.LayerType.WallSection;
 
 /**

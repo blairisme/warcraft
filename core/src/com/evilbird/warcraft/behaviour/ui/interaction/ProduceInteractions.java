@@ -13,7 +13,7 @@ import com.evilbird.engine.action.ActionIdentifier;
 import com.evilbird.warcraft.action.produce.ProduceUnitActions;
 import com.evilbird.warcraft.action.produce.ProduceUpgradeActions;
 import com.evilbird.warcraft.data.upgrade.Upgrade;
-import com.evilbird.warcraft.object.display.control.actions.ActionButtonType;
+import com.evilbird.warcraft.object.display.components.actions.ActionButtonType;
 import com.evilbird.warcraft.object.unit.UnitType;
 
 import javax.inject.Inject;
@@ -21,7 +21,7 @@ import javax.inject.Provider;
 
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isBuilding;
-import static com.evilbird.warcraft.object.display.control.actions.ActionButtonType.CancelButton;
+import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.CancelButton;
 
 /**
  * Defines user interactions that result in the creation of new game

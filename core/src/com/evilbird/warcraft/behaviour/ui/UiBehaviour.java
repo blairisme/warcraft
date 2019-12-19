@@ -13,8 +13,8 @@ import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.behaviour.ui.interaction.InteractionBehaviour;
+import com.evilbird.warcraft.behaviour.ui.menu.MapBehaviour;
 import com.evilbird.warcraft.behaviour.ui.menu.MenuBehaviour;
-import com.evilbird.warcraft.behaviour.ui.menu.MinimapBehaviour;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -29,24 +29,24 @@ import java.util.List;
 public class UiBehaviour implements Behaviour
 {
     private InteractionBehaviour interactionBehaviour;
-    private MinimapBehaviour minimapBehaviour;
+    private MapBehaviour mapBehaviour;
     private MenuBehaviour menuBehaviour;
 
     @Inject
     public UiBehaviour(
         InteractionBehaviour interactionBehaviour,
-        MinimapBehaviour minimapBehaviour,
+        MapBehaviour mapBehaviour,
         MenuBehaviour menuBehaviour)
     {
         this.menuBehaviour = menuBehaviour;
-        this.minimapBehaviour = minimapBehaviour;
+        this.mapBehaviour = mapBehaviour;
         this.interactionBehaviour = interactionBehaviour;
     }
 
     @Override
     public void update(State state, List<UserInput> input, float time) {
         this.menuBehaviour.update(state, input, time);
-        this.minimapBehaviour.update(state, input, time);
+        this.mapBehaviour.update(state, input, time);
         this.interactionBehaviour.update(state, input, time);
     }
 }

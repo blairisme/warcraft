@@ -13,6 +13,7 @@ import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.common.reflect.BasicTypeRegistry;
 import com.evilbird.engine.common.reflect.TypeRegistry;
+import com.evilbird.engine.object.GameObjectContainerType;
 import com.evilbird.warcraft.action.attack.AttackActions;
 import com.evilbird.warcraft.action.camera.CameraActions;
 import com.evilbird.warcraft.action.confirm.ConfirmActions;
@@ -62,7 +63,7 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
     public WarcraftTypeRegistry() {
         registerCommon();
         registerIdentifiers();
-        registerItems();
+        registerObjects();
     }
 
     private void registerCommon() {
@@ -93,7 +94,7 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
         registerType("Introduction", IntroMenuType.class);
     }
 
-    private void registerItems() {
+    private void registerObjects() {
         registerType("Camera", Camera.class);
         registerType("CameraType", CameraType.class);
         registerType("Player", Player.class);
@@ -112,5 +113,6 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
         registerType("ResourceType", ResourceType.class);
         registerType("ResourceExtractor", OilPlatform.class);
         registerType("ProjectileType", ProjectileType.class);
+        registerType("Container", GameObjectContainerType.class);
     }
 }

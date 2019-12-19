@@ -24,13 +24,13 @@ import com.evilbird.warcraft.action.common.transfer.TransferEvent;
 import com.evilbird.warcraft.action.selection.SelectEvent;
 import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.data.player.Player;
-import com.evilbird.warcraft.object.display.control.actions.ActionPane;
-import com.evilbird.warcraft.object.display.control.common.IconSet;
-import com.evilbird.warcraft.object.display.control.status.StatusPane;
-import com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStrings;
-import com.evilbird.warcraft.object.display.control.status.details.DetailsPaneStyle;
-import com.evilbird.warcraft.object.display.resource.ResourcePane;
-import com.evilbird.warcraft.object.display.resource.ResourcePaneStyle;
+import com.evilbird.warcraft.object.display.components.actions.ActionPane;
+import com.evilbird.warcraft.object.display.components.common.IconSet;
+import com.evilbird.warcraft.object.display.components.status.StatusPane;
+import com.evilbird.warcraft.object.display.components.status.details.DetailsPaneStrings;
+import com.evilbird.warcraft.object.display.components.status.details.DetailsPaneStyle;
+import com.evilbird.warcraft.object.display.views.resource.ResourceBar;
+import com.evilbird.warcraft.object.display.views.resource.ResourceBarStyle;
 import com.evilbird.warcraft.state.WarcraftState;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,7 +59,7 @@ public class MenuBehaviourTest extends GameTestCase
     private Player player;
     private ActionPane actionPane;
     private StatusPane statusPane;
-    private ResourcePane resourcePane;
+    private ResourceBar resourceBar;
     private EventQueue events;
     private MenuBehaviour menuBehaviour;
 
@@ -70,7 +70,7 @@ public class MenuBehaviourTest extends GameTestCase
         LabelStyle labelStyle = new LabelStyle();
         labelStyle.font = Fonts.ARIAL;
 
-        ResourcePaneStyle resourceStyle = new ResourcePaneStyle();
+        ResourceBarStyle resourceStyle = new ResourceBarStyle();
         resourceStyle.font = Fonts.ARIAL;
 
         DetailsPaneStyle detailsPaneStyle = new DetailsPaneStyle();
@@ -87,12 +87,12 @@ public class MenuBehaviourTest extends GameTestCase
         when(skin.get(DetailsPaneStyle.class)).thenReturn(detailsPaneStyle);
 
         player = TestPlayers.newTestPlayer("player");
-        resourcePane = new ResourcePane(resourceStyle);
+        resourceBar = new ResourceBar(resourceStyle);
         actionPane = new ActionPane(skin);
         statusPane = new StatusPane(skin);
 
         GameObjectContainer world = TestItemRoots.newTestRoot(new TextIdentifier("world"), player);
-        GameObjectContainer hud = TestItemRoots.newTestRoot(new TextIdentifier("hud"), resourcePane, actionPane, statusPane);
+        GameObjectContainer hud = TestItemRoots.newTestRoot(new TextIdentifier("hud"), resourceBar, actionPane, statusPane);
 
         state = new WarcraftState();
         state.setWorld(world);
@@ -124,7 +124,7 @@ public class MenuBehaviourTest extends GameTestCase
         events.add(new TransferEvent(player, resource, value));
         menuBehaviour.update(state, Collections.emptyList(), 1);
 
-        assertEquals(String.valueOf(Math.round(value)), resourcePane.getResourceText(resource));
+        assertEquals(String.valueOf(Math.round(value)), resourceBar.getResourceText(resource));
         assertEquals(value, actionPane.getResource(resource), 0.1);
     }
 
