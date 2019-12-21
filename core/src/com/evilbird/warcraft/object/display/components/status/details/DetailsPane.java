@@ -9,6 +9,7 @@
 
 package com.evilbird.warcraft.object.display.components.status.details;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -41,10 +42,10 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.isResourc
  */
 public class DetailsPane extends Grid
 {
-    private com.evilbird.warcraft.object.display.components.status.details.common.UnitTitlePane generalTitle;
+    private UnitTitlePane generalTitle;
     private CombatantTitlePane combatantTitle;
-    private com.evilbird.warcraft.object.display.components.status.details.building.BuildingDetailsPane buildingDetails;
-    private com.evilbird.warcraft.object.display.components.status.details.combatant.CombatantDetailsPane combatantDetails;
+    private BuildingDetailsPane buildingDetails;
+    private CombatantDetailsPane combatantDetails;
     private SpellCasterDetailsPane spellCasterDetails;
     private ResourceDetailsPane resourceDetails;
 
@@ -67,7 +68,7 @@ public class DetailsPane extends Grid
     @Override
     public void setSkin(Skin skin) {
         super.setSkin(skin);
-        com.evilbird.warcraft.object.display.components.status.details.DetailsPaneStyle style = skin.get(DetailsPaneStyle.class);
+        DetailsPaneStyle style = skin.get(DetailsPaneStyle.class);
         setBackground(style.background);
     }
 
@@ -117,7 +118,7 @@ public class DetailsPane extends Grid
 
     private void setTitle(DetailsPaneElement view, GameObject gameObject) {
         view.setItem(gameObject);
-        Cell cell = add(view);
+        Cell<Actor> cell = add(view);
         cell.expandX();
         cell.fillX();
     }

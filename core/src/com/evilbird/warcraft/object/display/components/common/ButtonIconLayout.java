@@ -165,6 +165,7 @@ import static com.evilbird.warcraft.object.display.components.common.IconType.Un
  *
  * @author Blair Butterworth
  */
+@SuppressWarnings("checkstyle:LineLength")
 public class ButtonIconLayout
 {
     private final GridPoint2 size;

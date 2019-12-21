@@ -58,6 +58,7 @@ import static com.evilbird.warcraft.object.display.components.common.IconType.Un
  *
  * @author Blair Butterworth
  */
+@SuppressWarnings("checkstyle:LineLength")
 public class UpgradeIconLayout
 {
     private final GridPoint2 size;
@@ -66,40 +67,40 @@ public class UpgradeIconLayout
     public UpgradeIconLayout() {
         size = new GridPoint2(46, 38);
         icons = layout(
-            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            Unknown,            h(RangedType1),     o(RangedType1),     Unknown,            Unknown,
-            h(MeleeType1),      o(MeleeType1),      Unknown,            Unknown,            Unknown,
-            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            Unknown,            Unknown,            Unknown,            Unknown,            HasteUpgrade,
-            InvisibilityUpgrade,SlowUpgrade,        RunesUpgrade,       UnholyArmourUpgrade, Unknown,
-            FlameShieldUpgrade, Unknown,            Unknown,            DeathAndDecayUpgrade,WhirlwindUpgrade,
-            BlizzardUpgrade,    Unknown,            HealingUpgrade,     Unknown,            Unknown,
-            ExorcismUpgrade,    Unknown,            BloodlustUpgrade,   Unknown,            RaiseTheDeadUpgrade,
-            PolymorphUpgrade,   Unknown,            h(MeleeDamage1),    h(MeleeDamage2),    Unknown,
-            o(MeleeDamage1),    o(MeleeDamage2),    Unknown,            Unknown,            Unknown,
-            h(RangedDamage1),   h(RangedDamage2),   Unknown,            o(RangedDamage1),   o(RangedDamage2),
-            Unknown,            Unknown,            h(RangedWeapon1),   h(RangedSight1),    h(RangedAccuracy1),
-            o(RangedWeapon1),   o(RangedSight1),    o(RangedAccuracy1), o(SiegeDamage1),    o(SiegeDamage2),
-            h(SiegeDamage1),    h(SiegeDamage2),    Unknown,            Unknown,            Unknown,
-            h(NavalDamage1),    h(NavalDamage2),    Unknown,            o(NavalDamage1),    o(NavalDamage2),
-            Unknown,            o(NavalDefence1),   o(NavalDefence2),   Unknown,            h(NavalDefence1),
-            h(NavalDefence2),   Unknown,            Unknown,            Unknown,            Unknown,
-            Unknown,            Unknown,            Unknown,            Unknown,            Unknown,
-            h(MeleeDefence1),   h(MeleeDefence2),   Unknown,            o(MeleeDefence1),   o(MeleeDefence2)
+            Unknown,                Unknown,                Unknown,                Unknown,                Unknown,
+            Unknown,                human(RangedType1),     orc(RangedType1),       Unknown,                Unknown,
+            human(MeleeType1),      orc(MeleeType1),        Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,                Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,                Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,                Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,                Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,                Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,                Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,                Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,                Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,                Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,                Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,                Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,                Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,                Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,                Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,                Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,                Unknown,                Unknown,                HasteUpgrade,
+            InvisibilityUpgrade,    SlowUpgrade,            RunesUpgrade,           UnholyArmourUpgrade,    Unknown,
+            FlameShieldUpgrade,     Unknown,                Unknown,                DeathAndDecayUpgrade,   WhirlwindUpgrade,
+            BlizzardUpgrade,        Unknown,                HealingUpgrade,         Unknown,                Unknown,
+            ExorcismUpgrade,        Unknown,                BloodlustUpgrade,       Unknown,                RaiseTheDeadUpgrade,
+            PolymorphUpgrade,       Unknown,                human(MeleeDamage1),    human(MeleeDamage2),    Unknown,
+            orc(MeleeDamage1),      orc(MeleeDamage2),      Unknown,                Unknown,                Unknown,
+            human(RangedDamage1),   human(RangedDamage2),   Unknown,                orc(RangedDamage1),     orc(RangedDamage2),
+            Unknown,                Unknown,                human(RangedWeapon1),   human(RangedSight1),    human(RangedAccuracy1),
+            orc(RangedWeapon1),     orc(RangedSight1),      orc(RangedAccuracy1),   orc(SiegeDamage1),      orc(SiegeDamage2),
+            human(SiegeDamage1),    human(SiegeDamage2),    Unknown,                Unknown,                Unknown,
+            human(NavalDamage1),    human(NavalDamage2),    Unknown,                orc(NavalDamage1),      orc(NavalDamage2),
+            Unknown,                orc(NavalDefence1),     orc(NavalDefence2),     Unknown,                human(NavalDefence1),
+            human(NavalDefence2),   Unknown,                Unknown,                Unknown,                Unknown,
+            Unknown,                Unknown,                Unknown,                Unknown,                Unknown,
+            human(MeleeDefence1),   human(MeleeDefence2),   Unknown,                orc(MeleeDefence1),     orc(MeleeDefence2)
         );
     }
 
@@ -159,11 +160,11 @@ public class UpgradeIconLayout
         return result;
     }
 
-    private Identifier h(Identifier id) {
+    private Identifier human(Identifier id) {
         return combination(WarcraftFaction.Human, id);
     }
 
-    private Identifier o(Identifier id) {
+    private Identifier orc(Identifier id) {
         return combination(WarcraftFaction.Orc, id);
     }
 

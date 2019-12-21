@@ -19,6 +19,7 @@ import com.evilbird.warcraft.object.display.components.actions.ActionPaneView;
  *
  * @author Blair Butterworth
  */
+@SuppressWarnings("checkstyle:MethodParamPad")
 public enum MenuActions implements ActionIdentifier
 {
     ActionsMenu         (ActionPaneView.Actions),

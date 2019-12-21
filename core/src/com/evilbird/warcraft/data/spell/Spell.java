@@ -14,6 +14,7 @@ package com.evilbird.warcraft.data.spell;
  *
  * @author Blair Butterworth
  */
+@SuppressWarnings("checkstyle:MethodParamPad")
 public enum Spell
 {
     /*               | Cost  | Time  | Range | Duration | Value | */

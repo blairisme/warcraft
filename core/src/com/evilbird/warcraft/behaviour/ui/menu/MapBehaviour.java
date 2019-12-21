@@ -21,7 +21,6 @@ import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.death.RemoveEvent;
 import com.evilbird.warcraft.action.gather.GatherEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
-import com.evilbird.warcraft.object.display.components.UserInterfaceComponent;
 import com.evilbird.warcraft.object.display.components.map.MapPane;
 
 import javax.inject.Inject;

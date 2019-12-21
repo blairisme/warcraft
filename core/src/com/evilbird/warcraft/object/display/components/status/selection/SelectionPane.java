@@ -59,8 +59,8 @@ public class SelectionPane extends Grid
         return result;
     }
 
-    private com.evilbird.warcraft.object.display.components.status.selection.SelectionButton getSelectionButton(GameObject gameObject) {
-        com.evilbird.warcraft.object.display.components.status.selection.SelectionButton result = new SelectionButton(getSkin());
+    private SelectionButton getSelectionButton(GameObject gameObject) {
+        SelectionButton result = new SelectionButton(getSkin());
         result.set(gameObject);
         return result;
     }

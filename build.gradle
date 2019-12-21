@@ -17,7 +17,7 @@ buildscript {
         google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.2'
+        classpath 'com.android.tools.build:gradle:3.5.3'
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.8'
     }
 }
@@ -235,7 +235,7 @@ allprojects {
 
     plugins.withType(CheckstylePlugin) {
         checkstyle {
-            toolVersion = "8.18"
+            toolVersion = "8.27"
         }
     }
 

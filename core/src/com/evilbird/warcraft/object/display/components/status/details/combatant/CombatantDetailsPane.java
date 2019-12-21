@@ -78,25 +78,25 @@ public class CombatantDetailsPane extends Grid implements DetailsPaneElement
     }
 
     private void setArmourText(Combatant combatant) {
-        int basic = com.evilbird.warcraft.object.display.components.status.details.combatant.CombatantVisualization.getArmour(combatant);
-        int upgraded = com.evilbird.warcraft.object.display.components.status.details.combatant.CombatantVisualization.getArmourUpgrade(combatant);
+        int basic = CombatantVisualization.getArmour(combatant);
+        int upgraded = CombatantVisualization.getArmourUpgrade(combatant);
         armour.setText(style.strings.getArmour(basic, upgraded));
     }
 
     private void setDamageText(Combatant combatant) {
-        int damageMin = com.evilbird.warcraft.object.display.components.status.details.combatant.CombatantVisualization.getDamageMin(combatant);
-        int damageMax = com.evilbird.warcraft.object.display.components.status.details.combatant.CombatantVisualization.getDamageMax(combatant);
-        int damageUpgrade = com.evilbird.warcraft.object.display.components.status.details.combatant.CombatantVisualization.getDamageUpgrade(combatant);
+        int damageMin = CombatantVisualization.getDamageMin(combatant);
+        int damageMax = CombatantVisualization.getDamageMax(combatant);
+        int damageUpgrade = CombatantVisualization.getDamageUpgrade(combatant);
         damage.setText(style.strings.getDamage(damageMin, damageMax, damageUpgrade));
     }
 
     private void setRangeText(Combatant combatant) {
-        int value = com.evilbird.warcraft.object.display.components.status.details.combatant.CombatantVisualization.getRange(combatant);
+        int value = CombatantVisualization.getRange(combatant);
         range.setText(style.strings.getRange(value));
     }
 
     private void setSightText(Combatant combatant) {
-        int value = com.evilbird.warcraft.object.display.components.status.details.combatant.CombatantVisualization.getSight(combatant);
+        int value = CombatantVisualization.getSight(combatant);
         sight.setText(style.strings.getSight(value));
     }
 

@@ -136,6 +136,7 @@ public class GameObjectContainer implements GameObjectComposite, Disposable
     public GameObjectGroup getBaseGroup() {
         return group;
     }
+
     /**
      * Returns a {@link GameController} instance, used to control whats content
      * is rendered to the screen and to obtain system wide preferences.
