@@ -12,6 +12,7 @@ package com.evilbird.warcraft.action.selector;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.data.item.TestPlaceholders;
 import com.evilbird.test.testcase.ActionTestCase;
@@ -21,6 +22,8 @@ import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
+
+import java.util.Collection;
 
 import static com.evilbird.warcraft.object.selector.SelectorType.BarracksSelector;
 
@@ -52,11 +55,15 @@ public class SelectorCreateTest extends ActionTestCase
 
     @Test
     public void actTest() {
-        BuildingSelector selector = TestPlaceholders.newTestPlaceholder("placeholder");
+        BuildingSelector selector = TestPlaceholders.newTestPlaceholder("Selector");
         Mockito.when(objectFactory.get(BarracksSelector)).thenReturn(selector);
 
         Assert.assertTrue(action.act(1));
-        Assert.assertTrue(player.getObjects().stream().anyMatch(item -> item == selector));
+
+        GameObjectContainer container = selector.getRoot();
+        Collection<GameObject> objects = container.getObjects();
+
+        Assert.assertTrue(objects.stream().anyMatch(item -> item == selector));
         Assert.assertEquals(selector, ((Gatherer)gameObject).getSelector());
     }
 }

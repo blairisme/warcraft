@@ -16,7 +16,6 @@ import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.utils.TestUtils;
 import com.evilbird.test.verifier.EqualityVerifier;
@@ -37,7 +36,7 @@ import java.io.IOException;
  */
 public abstract class ActionTestCase extends GameTestCase
 {
-    protected GameObjectContainer root;
+    //protected GameObjectContainer root;
     protected GameObject gameObject;
     protected GameObject target;
     protected UserInput cause;

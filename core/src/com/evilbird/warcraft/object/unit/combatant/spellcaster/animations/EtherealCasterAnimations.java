@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.object.unit.combatant.spellcaster;
+package com.evilbird.warcraft.object.unit.combatant.spellcaster.animations;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
@@ -22,24 +22,34 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.Move;
 import static java.util.Objects.requireNonNull;
 
 /**
- * Defines a catalog of spell caster animations as laid out in spell caster
- * texture atlas files.
+ * Defines a catalog of spell caster animations as laid out in wizard texture
+ * atlas files, used for Human Mages and Orcish Death Knights.
  *
  * @author Blair Butterworth
  */
-public class SpellCasterAnimations extends AnimationCatalog
+public class EtherealCasterAnimations extends AnimationCatalog
 {
     private static final GridPoint2 SIZE = new GridPoint2(72, 72);
 
-    public SpellCasterAnimations(CombatantAssets assets) {
+    /**
+     * Creates a new instance of this class given a {@link CombatantAssets}
+     * bundle, containing the assets required by ethereal spell caster
+     * animations. Animations contained in this catalog will use a default
+     * unit size of 72 x 72.
+     *
+     * @param assets an asset bundle, which must contain a valid base texture.
+     *
+     * @throws NullPointerException if the given asset bundle is {@code null}.
+     */
+    public EtherealCasterAnimations(CombatantAssets assets) {
         this(assets.getBaseTexture());
     }
 
-    public SpellCasterAnimations(Texture general) {
+    public EtherealCasterAnimations(Texture general) {
         this(general, SIZE);
     }
 
-    public SpellCasterAnimations(Texture base, GridPoint2 size) {
+    public EtherealCasterAnimations(Texture base, GridPoint2 size) {
         super(5);
 
         requireNonNull(base);

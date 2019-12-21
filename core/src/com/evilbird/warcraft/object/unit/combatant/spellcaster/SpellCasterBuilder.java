@@ -16,7 +16,8 @@ import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 import com.evilbird.warcraft.object.unit.combatant.CombatantBuilder;
 import com.evilbird.warcraft.object.unit.combatant.CombatantSounds;
-import com.evilbird.warcraft.object.unit.combatant.melee.MeleeUnitAnimations;
+import com.evilbird.warcraft.object.unit.combatant.spellcaster.animations.AssaultCasterAnimations;
+import com.evilbird.warcraft.object.unit.combatant.spellcaster.animations.EtherealCasterAnimations;
 
 import static com.evilbird.warcraft.object.unit.UnitType.DeathKnight;
 import static com.evilbird.warcraft.object.unit.UnitType.Mage;
@@ -45,7 +46,7 @@ public class SpellCasterBuilder extends CombatantBuilder<SpellCaster>
 
     @Override
     protected AnimationCatalog newAnimations() {
-        return isEtherial() ? new SpellCasterAnimations(assets) : new MeleeUnitAnimations(assets);
+        return isEtherial() ? new EtherealCasterAnimations(assets) : new AssaultCasterAnimations(assets);
     }
 
     private boolean isEtherial() {

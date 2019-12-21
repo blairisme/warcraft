@@ -13,7 +13,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.Disposable;
-import com.evilbird.engine.common.graphics.DrawableUtils;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.object.BasicGameObject;
 import com.evilbird.warcraft.object.selector.SelectorType;

@@ -29,7 +29,7 @@ import static java.util.Objects.requireNonNull;
  */
 public class MeleeUnitAnimations extends AnimationCatalog
 {
-    private static final GridPoint2 SIZE = new GridPoint2(72, 72);
+    protected static final GridPoint2 SIZE = new GridPoint2(72, 72);
 
     /**
      * Creates a new instance of this class given a {@link CombatantAssets}

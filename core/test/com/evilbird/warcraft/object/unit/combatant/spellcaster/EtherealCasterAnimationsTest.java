@@ -14,6 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.test.testcase.AnimationCatalogTestCase;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
+import com.evilbird.warcraft.object.unit.combatant.spellcaster.animations.EtherealCasterAnimations;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -25,12 +26,12 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Move;
 
 /**
- * Instances of this unit test validate logic in the {@link SpellCasterAnimations}
+ * Instances of this unit test validate logic in the {@link EtherealCasterAnimations}
  * class.
  *
  * @author Blair Butterworth
  */
-public class SpellCasterAnimationsTest extends AnimationCatalogTestCase<SpellCasterAnimations, CombatantAssets>
+public class EtherealCasterAnimationsTest extends AnimationCatalogTestCase<EtherealCasterAnimations, CombatantAssets>
 {
     @Override
     protected CombatantAssets newAssets(AssetManager manager) {
@@ -38,8 +39,8 @@ public class SpellCasterAnimationsTest extends AnimationCatalogTestCase<SpellCas
     }
 
     @Override
-    protected SpellCasterAnimations newCatalog(CombatantAssets assets) {
-        return new SpellCasterAnimations(assets);
+    protected EtherealCasterAnimations newCatalog(CombatantAssets assets) {
+        return new EtherealCasterAnimations(assets);
     }
 
     @Override
