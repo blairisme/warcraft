@@ -68,6 +68,7 @@ public enum SelectorActions implements ActionIdentifier
     ShowDeathAndDecaySelector,
     ShowDemolitionSelector,
     ShowFireballSelector,
+    ShowHolyVisionSelector,
     ShowRuneTrapSelector,
     ShowWhirlwindSelector,
 

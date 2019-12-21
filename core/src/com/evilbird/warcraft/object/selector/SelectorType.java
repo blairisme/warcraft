@@ -69,6 +69,7 @@ public enum SelectorType implements GameObjectType
     DeathAndDecaySelector,
     DemolitionSelector,
     FireballSelector,
+    HolyVisionSelector,
     RuneTrapSelector,
     WhirlwindSelector,
 

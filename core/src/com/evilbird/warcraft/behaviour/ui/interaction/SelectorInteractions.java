@@ -33,6 +33,7 @@ import static com.evilbird.warcraft.action.selector.SelectorActions.ShowBlizzard
 import static com.evilbird.warcraft.action.selector.SelectorActions.ShowDeathAndDecaySelector;
 import static com.evilbird.warcraft.action.selector.SelectorActions.ShowDemolitionSelector;
 import static com.evilbird.warcraft.action.selector.SelectorActions.ShowFireballSelector;
+import static com.evilbird.warcraft.action.selector.SelectorActions.ShowHolyVisionSelector;
 import static com.evilbird.warcraft.action.selector.SelectorActions.ShowRuneTrapSelector;
 import static com.evilbird.warcraft.action.selector.SelectorActions.ShowWhirlwindSelector;
 import static com.evilbird.warcraft.behaviour.ui.interaction.InteractionApplicability.Selected;
@@ -43,6 +44,7 @@ import static com.evilbird.warcraft.object.display.components.actions.ActionButt
 import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.DeathAndDecayButton;
 import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.DetonateButton;
 import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.FireballButton;
+import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.HolyVisionButton;
 import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.RunesButton;
 import static com.evilbird.warcraft.object.display.components.actions.ActionButtonType.WhirlwindButton;
 
@@ -97,6 +99,7 @@ public class SelectorInteractions extends InteractionContainer
         showSelector(DeathAndDecayButton, ShowDeathAndDecaySelector);
         showSelector(DetonateButton, ShowDemolitionSelector);
         showSelector(FireballButton, ShowFireballSelector);
+        showSelector(HolyVisionButton, ShowHolyVisionSelector);
         showSelector(RunesButton, ShowRuneTrapSelector);
         showSelector(WhirlwindButton, ShowWhirlwindSelector);
     }

@@ -34,6 +34,7 @@ public enum SpellActions implements ActionIdentifier
     HealSpell,
     HealSelect,
     HolyVisionSpell,
+    HolyVisionSelect,
     InvisibilitySpell,
     InvisibilitySelect,
     PolymorphSpell,
