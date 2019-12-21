@@ -177,7 +177,7 @@ public class ControlPaneBuilder
     private MapPaneStyle getMinimapStyle() {
         MapPaneStyle style = new MapPaneStyle();
         style.background = assets.getMinimapPanel();
-        style.mapSize = new Vector2(128.0f, 128.0f);
+        style.size = new Vector2(128.0f, 128.0f);
         return style;
     }
 }

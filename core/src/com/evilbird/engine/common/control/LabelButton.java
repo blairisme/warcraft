@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
 import com.badlogic.gdx.utils.Disposable;
+import com.evilbird.engine.common.graphics.DrawableUtils;
 import com.evilbird.engine.common.graphics.TextureUtils;
 
 /**
@@ -106,7 +107,7 @@ public class LabelButton extends TextButton implements Disposable
         dispose();
         if (borderColour != null) {
             borderTexture = TextureUtils.getRectangle((int)getWidth(), (int)getHeight(), borderColour);
-            borderDrawable = TextureUtils.getDrawable(borderTexture);
+            borderDrawable = DrawableUtils.getDrawable(borderTexture);
         }
     }
 

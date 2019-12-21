@@ -16,21 +16,21 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Instances of this unit test validate logic in the {@link TextureUtils}
+ * Instances of this unit test validate logic in the {@link DrawableUtils}
  * class.
  *
  * @author Blair Butterworth
  */
-public class TextureUtilsTest extends GameTestCase
+public class DrawableUtilsTest extends GameTestCase
 {
     @Test
     public void getDrawableColorTest() {
-        Drawable drawable = TextureUtils.getDrawable(Colours.FOREST_GREEN);
+        Drawable drawable = DrawableUtils.getDrawable(Colours.FOREST_GREEN);
         Assert.assertNotNull(drawable);
     }
 
     @Test (expected = NullPointerException.class)
     public void getDrawableColorNullTest() {
-        TextureUtils.getDrawable((Color)null);
+        DrawableUtils.getDrawable((Color)null);
     }
 }

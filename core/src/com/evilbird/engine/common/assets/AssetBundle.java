@@ -25,7 +25,7 @@ import com.evilbird.engine.common.audio.music.MusicSequence;
 import com.evilbird.engine.common.audio.sound.Sound;
 import com.evilbird.engine.common.audio.sound.SoundFactory;
 import com.evilbird.engine.common.file.FilenameUtils;
-import com.evilbird.engine.common.graphics.TextureUtils;
+import com.evilbird.engine.common.graphics.DrawableUtils;
 import com.evilbird.engine.common.text.StringSubstitutor;
 
 import java.util.ArrayList;
@@ -182,17 +182,17 @@ public class AssetBundle
 
     protected Drawable getDrawable(Object id) {
         AssetDescriptor asset = assets.get(id);
-        return TextureUtils.getDrawable(manager, asset.fileName);
+        return DrawableUtils.getDrawable(manager, asset.fileName);
     }
 
     protected Drawable getDrawable(Object id, int x, int y, int width, int height) {
         AssetDescriptor asset = assets.get(id);
-        return TextureUtils.getDrawable(manager, asset.fileName, x, y, width, height);
+        return DrawableUtils.getDrawable(manager, asset.fileName, x, y, width, height);
     }
 
     protected Drawable getTiledDrawable(Object id) {
         AssetDescriptor asset = assets.get(id);
-        return TextureUtils.getTiledDrawable(manager, asset.fileName);
+        return DrawableUtils.getTiledDrawable(manager, asset.fileName);
     }
 
     protected BitmapFont getFont(Object id) {

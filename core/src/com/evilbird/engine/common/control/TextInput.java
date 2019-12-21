@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
 import com.badlogic.gdx.utils.Disposable;
+import com.evilbird.engine.common.graphics.DrawableUtils;
 import com.evilbird.engine.common.graphics.TextureUtils;
 
 /**
@@ -85,7 +86,7 @@ public class TextInput extends TextField implements Disposable
         dispose();
         if (borderColour != null) {
             borderTexture = TextureUtils.getRectangle((int)getWidth(), (int)getHeight(), borderColour);
-            borderDrawable = TextureUtils.getDrawable(borderTexture);
+            borderDrawable = DrawableUtils.getDrawable(borderTexture);
         }
     }
 

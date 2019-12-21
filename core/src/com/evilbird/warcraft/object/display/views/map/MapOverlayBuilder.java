@@ -13,6 +13,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.warcraft.object.display.components.map.MapPaneStyle;
 
+import static com.badlogic.gdx.graphics.Color.DARK_GRAY;
+import static com.evilbird.engine.common.graphics.Colours.SEMI_TRANSPARENT_70;
+import static com.evilbird.engine.common.graphics.DrawableUtils.getDrawable;
+import static com.evilbird.engine.common.graphics.TextureUtils.getRectangle;
+
 /**
  * Creates a new {@link MapOverlay} instance whose visual presentation is
  * defined by the given {@link MapOverlayAssets}.
@@ -21,10 +26,9 @@ import com.evilbird.warcraft.object.display.components.map.MapPaneStyle;
  */
 public class MapOverlayBuilder 
 {
-    private MapOverlayAssets assets;
+    private static final Vector2 SIZE = new Vector2(384.0f, 384.0f);
 
-    public MapOverlayBuilder(MapOverlayAssets assets) {
-        this.assets = assets;
+    public MapOverlayBuilder() {
     }
 
     public MapOverlay build() {
@@ -39,8 +43,9 @@ public class MapOverlayBuilder
 
     private MapPaneStyle getMapPaneStyle() {
         MapPaneStyle style = new MapPaneStyle();
-        style.background = assets.getBackground();
-        style.mapSize = new Vector2(224.0f, 224.0f);
+        style.background = getDrawable(getRectangle((int)SIZE.x + 2, (int)SIZE.y + 2, DARK_GRAY));
+        style.size = new Vector2(SIZE);
+        style.colour = SEMI_TRANSPARENT_70;
         return style;
     }
 }

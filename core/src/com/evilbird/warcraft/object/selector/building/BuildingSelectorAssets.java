@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.assets.AssetBundle;
-import com.evilbird.engine.common.graphics.TextureUtils;
+import com.evilbird.engine.common.graphics.DrawableUtils;
 import com.evilbird.warcraft.common.WarcraftSeason;
 import com.evilbird.warcraft.object.unit.UnitDimensions;
 import com.evilbird.warcraft.object.unit.UnitType;
@@ -81,6 +81,6 @@ public class BuildingSelectorAssets extends AssetBundle
     private Drawable getDrawable(Object id, UnitType type) {
         Texture texture = getTexture(id);
         GridPoint2 dimensions = getSize(type);
-        return TextureUtils.getDrawable(texture, Zero, dimensions);
+        return DrawableUtils.getDrawable(texture, Zero, dimensions);
     }
 }

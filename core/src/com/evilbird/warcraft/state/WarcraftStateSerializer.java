@@ -14,6 +14,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.SerializerUtils;
 import com.evilbird.engine.game.GameService;
 import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.warcraft.object.display.UserInterfaceBuilder;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
@@ -38,11 +39,11 @@ public class WarcraftStateSerializer implements JsonSerializer<WarcraftState>, J
     private LevelLoader levelLoader;
     private WarcraftMusic musicLoader;
     private BehaviourFactory behaviourFactory;
-    private WarcraftInterfaceLoader userInterfaceLoader;
+    private UserInterfaceBuilder userInterfaceLoader;
 
     public WarcraftStateSerializer() {
         GameService service = GameService.getInstance();
-        this.userInterfaceLoader = new WarcraftInterfaceLoader(service.getDevice(), service.getItemFactory());
+        this.userInterfaceLoader = new UserInterfaceBuilder(service.getDevice(), service.getItemFactory());
         this.levelLoader = new LevelLoader(service.getDevice(), service.getItemFactory());
         this.behaviourFactory = service.getBehaviourFactory();
         this.musicLoader = new WarcraftMusic(service.getDevice());
@@ -50,7 +51,7 @@ public class WarcraftStateSerializer implements JsonSerializer<WarcraftState>, J
 
     @Inject
     public WarcraftStateSerializer(
-        WarcraftInterfaceLoader userInterfaceLoader,
+        UserInterfaceBuilder userInterfaceLoader,
         LevelLoader levelLoader,
         WarcraftMusic musicLoader,
         BehaviourFactory behaviourFactory)

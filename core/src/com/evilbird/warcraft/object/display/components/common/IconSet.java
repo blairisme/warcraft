@@ -12,7 +12,7 @@ package com.evilbird.warcraft.object.display.components.common;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.common.graphics.TextureUtils;
+import com.evilbird.engine.common.graphics.DrawableUtils;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.data.upgrade.Upgrade;
 import com.evilbird.warcraft.object.display.components.actions.ActionButtonType;
@@ -62,7 +62,7 @@ public class IconSet
         GridPoint2 size = buttonIconLayout.getSize(button);
         GridPoint2 location = buttonIconLayout.getLocation(button);
 
-        return location != null ? TextureUtils.getDrawable(texture, location, size) : null;
+        return location != null ? DrawableUtils.getDrawable(texture, location, size) : null;
     }
 
     /**
@@ -84,7 +84,7 @@ public class IconSet
         GridPoint2 size = buttonIconLayout.getSize(button, faction, attack);
         GridPoint2 location = buttonIconLayout.getLocation(button, faction, attack);
 
-        return location != null ? TextureUtils.getDrawable(texture, location, size) : null;
+        return location != null ? DrawableUtils.getDrawable(texture, location, size) : null;
     }
 
     /**
@@ -99,7 +99,7 @@ public class IconSet
         GridPoint2 size = unitIconLayout.getSize(type);
         GridPoint2 location = unitIconLayout.getLocation(type);
 
-        return location != null ? TextureUtils.getDrawable(texture, location, size) : null;
+        return location != null ? DrawableUtils.getDrawable(texture, location, size) : null;
     }
 
     /**
@@ -117,6 +117,6 @@ public class IconSet
         GridPoint2 size = upgradeIconLayout.getSize(upgrade, faction, attack);
         GridPoint2 location = upgradeIconLayout.getLocation(upgrade, faction, attack);
 
-        return location != null ? TextureUtils.getDrawable(texture, location, size) : null;
+        return location != null ? DrawableUtils.getDrawable(texture, location, size) : null;
     }
 }

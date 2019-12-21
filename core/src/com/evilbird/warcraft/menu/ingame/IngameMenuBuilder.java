@@ -23,6 +23,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.control.LabelButtonStyle;
 import com.evilbird.engine.common.control.ScrollBarPaneStyle;
 import com.evilbird.engine.common.control.TextInputStyle;
+import com.evilbird.engine.common.graphics.DrawableUtils;
 import com.evilbird.engine.common.graphics.TextureUtils;
 import com.evilbird.engine.device.DeviceDisplay;
 
@@ -117,7 +118,7 @@ public class IngameMenuBuilder
         TextInputStyle defaultStyle = new TextInputStyle();
         defaultStyle.font = assets.getFont();
         defaultStyle.fontColor = Color.WHITE;
-        defaultStyle.cursor = TextureUtils.getDrawable(2, 20, Color.WHITE);
+        defaultStyle.cursor = DrawableUtils.getDrawable(TextureUtils.getRectangle(2, 20, Color.WHITE));
         defaultStyle.background = assets.getTextFieldBackground();
         defaultStyle.borderColour = null;
         defaultStyle.borderColourFocused = Color.GOLD;

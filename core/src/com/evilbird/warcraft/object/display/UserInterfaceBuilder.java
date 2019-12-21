@@ -7,7 +7,7 @@
  *        https://opensource.org/licenses/MIT
  */
 
-package com.evilbird.warcraft.state;
+package com.evilbird.warcraft.object.display;
 
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.evilbird.engine.device.Device;
@@ -28,13 +28,13 @@ import static com.evilbird.warcraft.object.display.UserInterfaceView.ResourceBar
  *
  * @author Blair Butterworth
  */
-public class WarcraftInterfaceLoader
+public class UserInterfaceBuilder
 {
     private DeviceDisplay display;
     private GameObjectFactory objectFactory;
 
     @Inject
-    public WarcraftInterfaceLoader(Device device, GameObjectFactory objectFactory) {
+    public UserInterfaceBuilder(Device device, GameObjectFactory objectFactory) {
         this.display = device.getDeviceDisplay();
         this.objectFactory = objectFactory;
     }

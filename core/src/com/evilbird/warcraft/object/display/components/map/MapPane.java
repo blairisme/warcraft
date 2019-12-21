@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.common.control.ControlUtils;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
@@ -80,10 +79,11 @@ public class MapPane extends Table
         if (! initialized()) {
             map = new Map(container);
             image = new Image(map);
+            image.setColor(style.colour);
 
             Cell<Actor> cell = add(image);
-            cell.width(style.mapSize.x);
-            cell.height(style.mapSize.y);
+            cell.width(style.size.x);
+            cell.height(style.size.y);
             cell.center();
         }
     }
@@ -106,9 +106,12 @@ public class MapPane extends Table
     public void setSkin(Skin skin) {
         super.setSkin(skin);
         style = skin.get("default", MapPaneStyle.class);
-        Drawable background = style.background;
-        setBackground(background);
-        setSize(background.getMinWidth(), background.getMinHeight());
+        if (style.background != null) {
+            setBackground(style.background);
+            setSize(style.background.getMinWidth(), style.background.getMinHeight());
+        } else {
+            setSize(style.size.x, style.size.y);
+        }
     }
 
     @Override

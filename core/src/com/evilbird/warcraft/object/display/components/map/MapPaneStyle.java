@@ -9,9 +9,11 @@
 
 package com.evilbird.warcraft.object.display.components.map;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
+import static com.badlogic.gdx.graphics.Color.WHITE;
 import static com.badlogic.gdx.math.Vector2.Zero;
 
 /**
@@ -29,15 +31,19 @@ public class MapPaneStyle
     /**
      * Determines the size of the map shown with the MapPane.
      */
-    public Vector2 mapSize;
+    public Vector2 size;
+
+    public Color colour;
 
     public MapPaneStyle() {
-        background = null;
-        mapSize = Zero;
+        this.background = null;
+        this.size = Zero;
+        this.colour = WHITE;
     }
 
     public MapPaneStyle(MapPaneStyle other) {
         this.background = other.background;
-        this.mapSize = other.mapSize;
+        this.size = other.size;
+        this.colour = other.colour;
     }
 }

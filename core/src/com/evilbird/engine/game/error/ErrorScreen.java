@@ -22,7 +22,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.engine.common.graphics.Colours;
-import com.evilbird.engine.common.graphics.TextureUtils;
+import com.evilbird.engine.common.graphics.DrawableUtils;
 import com.evilbird.engine.common.text.Fonts;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
@@ -84,7 +84,7 @@ public class ErrorScreen extends ScreenAdapter
     private Table createContainer() {
         Table container = new Table();
         container.setFillParent(true);
-        container.setBackground(TextureUtils.getDrawable(Colours.GRAPE));
+        container.setBackground(DrawableUtils.getDrawable(Colours.GRAPE));
         container.center();
 
         Label label = createLabel("Unfortunately something when wrong");

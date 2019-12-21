@@ -15,6 +15,7 @@ import com.evilbird.engine.common.serialization.JsonSerializer;
 import com.evilbird.engine.state.State;
 import com.evilbird.engine.state.StateIdentifier;
 import com.evilbird.test.utils.TestFileHandleResolver;
+import com.evilbird.warcraft.object.display.UserInterfaceBuilder;
 import com.evilbird.warcraft.type.WarcraftTypeRegistry;
 import org.junit.Assert;
 import org.junit.Before;
@@ -36,7 +37,7 @@ public class WarcraftStateServiceTest extends StateTestCase
     private TestFileHandleResolver deviceResolver;
     private FileHandle assetDirectory;
     private FileHandle saveDirectory;
-    private WarcraftInterfaceLoader userInterfaceLoader;
+    private UserInterfaceBuilder userInterfaceLoader;
     private WarcraftMusic musicLoader;
     private JsonSerializer serializer;
     private WarcraftStateSerializer adapter;
@@ -50,7 +51,7 @@ public class WarcraftStateServiceTest extends StateTestCase
         deviceResolver = new TestFileHandleResolver();
         deviceResolver.respondWith("saves", saveDirectory);
         assetResolver.respondWith("data/levels", assetDirectory);
-        userInterfaceLoader = new WarcraftInterfaceLoader(device, objectFactory);
+        userInterfaceLoader = new UserInterfaceBuilder(device, objectFactory);
         musicLoader = new WarcraftMusic(device);
         adapter = new WarcraftStateSerializer(userInterfaceLoader, levelLoader, musicLoader, behaviourFactory);
         serializer = new JsonSerializer(new WarcraftTypeRegistry(), Maps.of(WarcraftState.class, adapter));
