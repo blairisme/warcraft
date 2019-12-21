@@ -26,3 +26,5 @@ plugins:
 
 exclude_patterns:
   - "tools/"
+  - "**/test/"
+  - "**/java/util/"
