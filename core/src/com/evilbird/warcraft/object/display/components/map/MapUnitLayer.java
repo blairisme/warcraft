@@ -101,14 +101,21 @@ public class MapUnitLayer extends BaseRenderable implements Renderable, Disposab
     }
 
     private void update(int x, int y) {
-        pixmap.setColor(fog.isRevealed(x, y) ? getColour(x, y) : Color.BLACK);
+        pixmap.setColor(getColour(x, y));
         pixmap.drawPixel(x, graph.getNodeCountY() - 1 - y);
     }
 
+    private boolean getRevealed(int x, int y) {
+        return fog == null || fog.isRevealed(x, y);
+    }
+
     private Color getColour(int x, int y) {
-        GameObjectNode node = graph.getNode(x, y);
-        GameObject occupant = getOccupant(node);
-        return getColour(occupant);
+        if (getRevealed(x, y)) {
+            GameObjectNode node = graph.getNode(x, y);
+            GameObject occupant = getOccupant(node);
+            return getColour(occupant);
+        }
+        return Color.BLACK;
     }
 
     private Color getColour(GameObject object) {

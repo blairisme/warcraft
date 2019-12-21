@@ -30,6 +30,7 @@ public class AndroidCommands
     private MenuIdentifier menu;
     private boolean quickBuild;
     private boolean freeBuild;
+    private boolean upgradeCheat;
 
     public AndroidCommands(Intent intent) {
         Bundle bundle = intent.getExtras();
@@ -38,6 +39,7 @@ public class AndroidCommands
             scenario = getScenarioValue(bundle, "scenario");
             quickBuild = getBooleanValue(bundle, "quick-build");
             freeBuild = getBooleanValue(bundle, "free-build");
+            upgradeCheat = getBooleanValue(bundle, "all-upgrades");
         }
     }
 
@@ -77,6 +79,15 @@ public class AndroidCommands
      */
     public boolean isFreeBuildEnabled() {
         return freeBuild;
+    }
+
+    /**
+     * Instructs the game engine to make available all upgrades for free.
+     *
+     * @return {@code true} if enabled.
+     */
+    public boolean isUpgradeCheatEnabled() {
+        return upgradeCheat;
     }
 
     private MenuIdentifier getMenuValue(Bundle bundle, String key) {

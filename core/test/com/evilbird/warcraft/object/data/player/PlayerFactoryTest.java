@@ -36,7 +36,7 @@ public class PlayerFactoryTest extends GameFactoryTestCase<PlayerFactory> {
 
     @Override
     protected PlayerFactory newFactory(DeviceDisplay display, AssetManager assets) {
-        return new PlayerFactory(assets);
+        return new PlayerFactory(preferences);
     }
 
     @Override

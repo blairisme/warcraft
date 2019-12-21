@@ -24,6 +24,7 @@ import picocli.CommandLine.Option;
  *
  * @author Blair Butterworth
  */
+@SuppressWarnings("unused")
 public class DesktopCommands
 {
     @Option(names={"-c", "--campaign" }, paramLabel="CAMPAIGN",
@@ -38,6 +39,10 @@ public class DesktopCommands
         description="starts the game and shows the given menu")
     private String menu;
 
+    @Option(names={"-d", "--debug-control" }, paramLabel="DEBUG CONTROL",
+            description="game behaviour can be controlled via certain keys")
+    private boolean debugControl;
+
     @Option(names={"-q", "--quick-build" }, paramLabel="QUICK BUILD",
         description="units are produced quickly")
     private boolean quickBuild;
@@ -46,9 +51,9 @@ public class DesktopCommands
         description="units are produced for free")
     private boolean freeBuild;
 
-    @Option(names={"-d", "--debug-control" }, paramLabel="DEBUG CONTROL",
-        description="game behaviour can be controlled via certain keys")
-    private boolean debugControl;
+    @Option(names={"-u", "--all-upgrades" }, paramLabel="ALL UPGRADES",
+            description="units are produced for free")
+    private boolean upgradeCheat;
 
     /**
      * The state to show when the game engine starts. This command line
@@ -89,6 +94,16 @@ public class DesktopCommands
     }
 
     /**
+     * Instructs the game engine to do certain things in response to various
+     * key combinations.
+     *
+     * @return {@code true} if enabled.
+     */
+    public boolean isDebugControlEnabled() {
+        return debugControl;
+    }
+
+    /**
      * Instructs the game engine to produce units and buildings quickly.
      *
      * @return {@code true} if enabled.
@@ -107,12 +122,11 @@ public class DesktopCommands
     }
 
     /**
-     * Instructs the game engine to do certain things in response to various
-     * key combinations.
+     * Instructs the game engine to make available all upgrades for free.
      *
      * @return {@code true} if enabled.
      */
-    public boolean isDebugControlEnabled() {
-        return debugControl;
+    public boolean isUpgradeCheatEnabled() {
+        return upgradeCheat;
     }
 }

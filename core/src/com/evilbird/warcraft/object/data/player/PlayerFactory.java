@@ -9,14 +9,15 @@
 
 package com.evilbird.warcraft.object.data.player;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.device.Device;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
+import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.data.upgrade.Upgrade;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
+import java.util.EnumSet;
 
 import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
 
@@ -27,15 +28,11 @@ import static com.evilbird.engine.common.lang.TextIdentifier.objectIdentifier;
  */
 public class PlayerFactory implements GameFactory<Player>
 {
-    private AssetManager assetManager;
+    private WarcraftPreferences preferences;
 
     @Inject
-    public PlayerFactory(Device device) {
-        this(device.getAssetStorage());
-    }
-
-    public PlayerFactory(AssetManager assetManager) {
-        this.assetManager = assetManager;
+    public PlayerFactory(WarcraftPreferences preferences) {
+        this.preferences = preferences;
     }
 
     @Override
@@ -59,6 +56,10 @@ public class PlayerFactory implements GameFactory<Player>
         player.setPosition(0, 0);
         player.setSize(Float.MAX_VALUE, Float.MAX_VALUE);
         player.setVisible(true);
+
+        if (preferences.isUpgradeCheatEnabled()) {
+            player.setUpgrades(EnumSet.allOf(Upgrade.class), true);
+        }
         return player;
     }
 }

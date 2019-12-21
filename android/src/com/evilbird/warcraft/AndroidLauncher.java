@@ -81,7 +81,8 @@ public class AndroidLauncher extends AndroidApplication
     private void configureService(GameService service, AndroidCommands commands) {
         GamePreferences preferences = service.getPreferences();
         WarcraftPreferences warcraftPreferences = (WarcraftPreferences)preferences;
-        warcraftPreferences.setFreeBuildEnabled(commands.isFreeBuildEnabled());
-        warcraftPreferences.setQuickBuildEnabled(commands.isQuickBuildEnabled());
+        warcraftPreferences.setBuildCostCheatEnabled(commands.isFreeBuildEnabled());
+        warcraftPreferences.setBuildTimeCheatEnabled(commands.isQuickBuildEnabled());
+        warcraftPreferences.setUpgradeCheatEnabled(commands.isUpgradeCheatEnabled());
     }
 }

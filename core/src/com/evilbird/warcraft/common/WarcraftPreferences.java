@@ -27,15 +27,17 @@ import static com.badlogic.gdx.Gdx.app;
 public class WarcraftPreferences extends GamePreferences
 {
     private static final String IDENTIFIER = "warcraft";
-    private static final String FREE_BUILD = "freeBuild";
-    private static final String QUICK_BUILD = "quickBuild";
+    private static final String BUILD_COST_CHEAT = "buildCostCheat";
+    private static final String BUILD_TIME_CHEAT = "buildTimeCheat";
+    private static final String UPGRADE_CHEAT = "upgradeCheat";
     private static final String DEBUG_CONTROL = "debugControl";
     private static final String SPEECH_ENABLED = "speechEnabled";
     private static final String ACKNOWLEDGEMENT_ENABLED = "acknowledgementEnabled";
     private static final String BUILDING_SOUNDS_ENABLED = "buildingSoundsEnabled";
 
-    private static final boolean FREE_BUILD_DEFAULT = false;
-    private static final boolean QUICK_BUILD_DEFAULT = false;
+    private static final boolean BUILD_COST_CHEAT_DEFAULT = false;
+    private static final boolean BUILD_TIME_CHEAT_DEFAULT = false;
+    private static final boolean UPGRADE_CHEAT_DEFAULT = false;
     private static final boolean DEBUG_CONTROL_DEFAULT = false;
     private static final boolean SPEECH_ENABLED_DEFAULT = true;
     private static final boolean ACKNOWLEDGEMENT_ENABLED_DEFAULT = true;
@@ -53,14 +55,19 @@ public class WarcraftPreferences extends GamePreferences
         return preferences.getBoolean(DEBUG_CONTROL, DEBUG_CONTROL_DEFAULT);
     }
 
-    public boolean isQuickBuildEnabled() {
+    public boolean isBuildCostCheatEnabled() {
         Preferences preferences = getTransientPreferences();
-        return preferences.getBoolean(QUICK_BUILD, QUICK_BUILD_DEFAULT);
+        return preferences.getBoolean(BUILD_COST_CHEAT, BUILD_COST_CHEAT_DEFAULT);
     }
 
-    public boolean isFreeBuildEnabled() {
+    public boolean isBuildTimeCheatEnabled() {
         Preferences preferences = getTransientPreferences();
-        return preferences.getBoolean(FREE_BUILD, FREE_BUILD_DEFAULT);
+        return preferences.getBoolean(BUILD_TIME_CHEAT, BUILD_TIME_CHEAT_DEFAULT);
+    }
+
+    public boolean isUpgradeCheatEnabled() {
+        Preferences preferences = getTransientPreferences();
+        return preferences.getBoolean(UPGRADE_CHEAT, UPGRADE_CHEAT_DEFAULT);
     }
 
     public boolean isSpeechEnabled() {
@@ -83,14 +90,19 @@ public class WarcraftPreferences extends GamePreferences
         preferences.putBoolean(DEBUG_CONTROL, enabled);
     }
 
-    public void setFreeBuildEnabled(boolean enabled) {
+    public void setBuildCostCheatEnabled(boolean enabled) {
         Preferences preferences = getTransientPreferences();
-        preferences.putBoolean(FREE_BUILD, enabled);
+        preferences.putBoolean(BUILD_COST_CHEAT, enabled);
     }
 
-    public void setQuickBuildEnabled(boolean enabled) {
+    public void setBuildTimeCheatEnabled(boolean enabled) {
         Preferences preferences = getTransientPreferences();
-        preferences.putBoolean(QUICK_BUILD, enabled);
+        preferences.putBoolean(BUILD_TIME_CHEAT, enabled);
+    }
+
+    public void setUpgradeCheatEnabled(boolean enabled) {
+        Preferences preferences = getTransientPreferences();
+        preferences.putBoolean(UPGRADE_CHEAT, enabled);
     }
 
     public void setSpeechEnabled(boolean enabled) {

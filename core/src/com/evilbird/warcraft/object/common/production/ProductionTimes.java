@@ -37,7 +37,7 @@ public class ProductionTimes
     }
 
     public float buildTime(Upgrade upgrade) {
-        if (preferences.isQuickBuildEnabled()) {
+        if (preferences.isBuildTimeCheatEnabled()) {
             return 0;
         }
         switch (upgrade) {
@@ -67,7 +67,7 @@ public class ProductionTimes
     }
 
     public float buildTime(UnitType type) {
-        if (preferences.isQuickBuildEnabled()) {
+        if (preferences.isBuildTimeCheatEnabled()) {
             return 0;
         }
         if (type.isHuman()) {

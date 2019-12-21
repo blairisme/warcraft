@@ -46,7 +46,7 @@ public class ProductionCosts
     }
 
     public Collection<ResourceQuantity> costOf(Upgrade upgrade) {
-        if (preferences.isFreeBuildEnabled()) {
+        if (preferences.isBuildCostCheatEnabled()) {
             return resources(0, 0, 0, 0);
         }
         if (upgrade.isAttributeUpgrade()) {
@@ -59,7 +59,7 @@ public class ProductionCosts
     }
 
     public Collection<ResourceQuantity> costOf(UnitType type) {
-        if (preferences.isFreeBuildEnabled()) {
+        if (preferences.isBuildCostCheatEnabled()) {
             return resources(0, 0, 0, 0);
         }
         if (type.isHuman()) {
