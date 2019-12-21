@@ -45,12 +45,13 @@ public class SelectorCreate extends BasicAction
 
     @Override
     public boolean act(float time) {
-        Unit subject = (Unit) getSubject();
-        Player player = getPlayer(subject);
-
         Selector selector = (Selector)factory.get(selectorType());
+
+        Unit subject = (Unit)getSubject();
         selector.setPosition(selectorPosition(subject));
-        player.addObject(selector);
+
+        GameObjectContainer container = subject.getRoot();
+        container.addObject(selector);
 
         subject.setSelector(selector);
         events.notifySelectorAdded(subject, selector);

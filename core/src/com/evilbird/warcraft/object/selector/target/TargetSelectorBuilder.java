@@ -31,6 +31,7 @@ public class TargetSelectorBuilder
         result.setTouchable(Touchable.enabled);
         result.setVisible(true);
         result.setTexture(assets.getRuneSelect());
+        result.setZIndex(Integer.MAX_VALUE);
         return result;
     }
 }
