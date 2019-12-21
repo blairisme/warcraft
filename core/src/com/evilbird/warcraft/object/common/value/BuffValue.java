@@ -27,14 +27,14 @@ public class BuffValue implements ModifiedValue
     private float buff;
     private Value base;
 
-    public BuffValue(float buff, Value base) {
-        this.buff = buff;
+    public BuffValue(Value base, float scale) {
+        this.buff = scale;
         this.base = base;
     }
 
     @Override
     public float getValue(Unit unit) {
-        return base.getValue(unit) + buff;
+        return base.getValue(unit) * buff;
     }
 
     @Override

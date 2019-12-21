@@ -37,17 +37,27 @@ public class RaiseDeadSpell extends CreatureSpellAction
     private static final int SEARCH_RADIUS = tiles(5);
 
     @Inject
-    public RaiseDeadSpell(GameObjectFactory factory, CreateEvents events) {
-        super(Spell.RaiseDead, EffectType.Spell, UnitType.Skeleton, factory, events, null);
+    public RaiseDeadSpell(CreateEvents events, GameObjectFactory factory) {
+        super(factory, events, null);
+        setSpell(Spell.RaiseDead);
+        setEffect(EffectType.Spell);
+        setProduct(UnitType.Skeleton);
     }
 
     @Override
-    protected Combatant addCreature() {
+    protected void initialize() {
+        super.initialize();
+        GameObject caster = getSubject();
         for (GameObject corpse: nearbyCorpses()) {
-            GameObject creature = super.addCreature();
-            creature.setPosition(corpse.getPosition());
+            addCreature(caster, corpse);
         }
-        return null;
+    }
+
+    @Override
+    protected GameObject newCreature(GameObject caster, GameObject target) {
+        GameObject creature = super.newCreature(caster, target);
+        creature.setPosition(target.getPosition());
+        return creature;
     }
 
     private Collection<GameObject> nearbyCorpses() {
@@ -56,7 +66,7 @@ public class RaiseDeadSpell extends CreatureSpellAction
         GameObjectGraph graph = state.getSpatialGraph();
         Collection<GameObject> nearby = graph.getOccupants(caster, SEARCH_RADIUS);
         Collection<GameObject> corpses = filter(nearby, this::isDeadCombatant);
-        return restrictSize(corpses, Spell.RaiseDead.getEffectValue());
+        return restrictSize(corpses, (int)Spell.RaiseDead.getEffectValue());
     }
 
     private boolean isDeadCombatant(GameObject gameObject) {

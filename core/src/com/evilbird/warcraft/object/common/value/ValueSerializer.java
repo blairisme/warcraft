@@ -105,7 +105,7 @@ public class ValueSerializer implements JsonSerializer<Value>, JsonDeserializer<
     private Value deserializeBuff(JsonObject json, JsonDeserializationContext context) {
         float buff = json.get(BUFF).getAsFloat();
         Value original = context.deserialize(json.get(ORIGINAL), Value.class);
-        return new BuffValue(buff, original);
+        return new BuffValue(original, buff);
     }
 
     private Value deserializeAbsolute(JsonObject json, JsonDeserializationContext context) {

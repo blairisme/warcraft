@@ -37,12 +37,24 @@ public class SlowSpell extends BuffSpellAction
 
     @Override
     protected Collection<ValueProperty> buffedProperties(Combatant target) {
-        Gatherer gatherer = (Gatherer)target;
+        if (target instanceof Gatherer) {
+            return gathererProperties((Gatherer)target);
+        }
+        return combatantProperties(target);
+    }
+
+    protected Collection<ValueProperty> combatantProperties(Combatant combatant) {
         return Arrays.asList(
-            gatherer.getAttackSpeedProperty(),
-            gatherer.getMovementSpeedProperty(),
-            gatherer.getGoldGatherSpeedProperty(),
-            gatherer.getOilGatherSpeedProperty(),
-            gatherer.getWoodGatherSpeedProperty());
+                combatant.getAttackSpeedProperty(),
+                combatant.getMovementSpeedProperty());
+    }
+
+    private Collection<ValueProperty> gathererProperties(Gatherer gatherer) {
+        return Arrays.asList(
+                gatherer.getAttackSpeedProperty(),
+                gatherer.getMovementSpeedProperty(),
+                gatherer.getGoldGatherSpeedProperty(),
+                gatherer.getOilGatherSpeedProperty(),
+                gatherer.getWoodGatherSpeedProperty());
     }
 }

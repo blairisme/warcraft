@@ -53,9 +53,9 @@ public class DaemonFactory extends FlyingUnitFactory
         result.setIdentifier(objectIdentifier("Daemon", result));
         result.setMovementSpeed(8 * 14);
         result.setMovementCapability(Air);
+        result.setProjectileType(DaemonFire);
         result.setSight(tiles(6));
         result.setType(Daemon);
-        result.setProjectileType(DaemonFire);
         return result;
     }
 }

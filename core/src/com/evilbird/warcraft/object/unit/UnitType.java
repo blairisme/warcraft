@@ -190,7 +190,9 @@ public enum UnitType implements GameObjectType
     }
 
     public boolean isCombatant() {
-        return isBetween(this, Ballista, UtherLightbringer) || isBetween(this, Catapult, Zuljin);
+        return isBetween(this, Ballista, UtherLightbringer)
+            || isBetween(this, Catapult, Zuljin)
+            || isConjuredUnit();
     }
 
     public boolean isDemoTeam() {
@@ -261,8 +263,8 @@ public enum UnitType implements GameObjectType
 
     public boolean isMelee() {
         return this == Footman || this == Knight || this == Paladin || this == Peasant
-            || this == Grunt || this == Ogre || this == OgreMage || this == Peon
-            || this == AnduinLothar || this == UtherLightbringer;
+            || this == Grunt || this == Ogre || this == OgreMage || this == Chogall || this == Peon
+            || this == AnduinLothar || this == UtherLightbringer || this == Skeleton;
     }
 
     public boolean isRanged() {

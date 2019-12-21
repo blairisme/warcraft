@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="60">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="10" nextobjectid="64">
  <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
   <image source="../../textures/common/terrain/winter.png" width="576" height="864"/>
  </tileset>
@@ -216,6 +216,13 @@
  <tileset firstgid="2288" name="Dark Portal" tilewidth="128" tileheight="128" tilecount="1" columns="1">
   <image source="../../textures/neutral/building/winter/dark_portal.png" width="128" height="128"/>
  </tileset>
+ <tileset firstgid="2289" name="Eye of Kilrogg" tilewidth="32" tileheight="32" tilecount="8" columns="8">
+  <image source="../../textures/neutral/unit/eye_of_kilrogg.png" width="256" height="32"/>
+ </tileset>
+ <tileset firstgid="2297" name="Skeleton" tilewidth="72" tileheight="72" tilecount="112" columns="8">
+  <tileoffset x="-16" y="16"/>
+  <image source="../../textures/neutral/unit/skeleton.png" width="576" height="1008"/>
+ </tileset>
  <layer id="1" name="Map" width="32" height="32">
   <properties>
    <property name="ZIndex" type="int" value="0"/>
@@ -306,5 +313,9 @@
   <object id="59" name="Camera" type="Camera" x="512" y="416">
    <point/>
   </object>
+  <object id="60" name="Daemon1" type="Daemon" gid="2168" x="32" y="320" width="72" height="72"/>
+  <object id="61" name="EyeOfKilrogg1" type="EyeOfKilrogg" gid="2289" x="32" y="384" width="32" height="32"/>
+  <object id="62" name="Skeleton1" type="Skeleton" gid="2297" x="128" y="256" width="72" height="72"/>
+  <object id="63" name="Skeleton2" type="Skeleton" gid="2297" x="192" y="256" width="72" height="72"/>
  </objectgroup>
 </map>

@@ -19,6 +19,7 @@ import static com.evilbird.warcraft.object.unit.UnitType.CircleOfPower;
 import static com.evilbird.warcraft.object.unit.UnitType.Daemon;
 import static com.evilbird.warcraft.object.unit.UnitType.DarkPortal;
 import static com.evilbird.warcraft.object.unit.UnitType.Dragon;
+import static com.evilbird.warcraft.object.unit.UnitType.EyeOfKilrogg;
 import static com.evilbird.warcraft.object.unit.UnitType.Farm;
 import static com.evilbird.warcraft.object.unit.UnitType.Fortress;
 import static com.evilbird.warcraft.object.unit.UnitType.GoblinZeppelin;
@@ -85,6 +86,9 @@ public class UnitDimensions
             return SMALL;
         }
         if (type.isFlying()) {
+            if (type == EyeOfKilrogg) {
+                return EXTRA_SMALL;
+            }
             if (type == Daemon || type == GoblinZeppelin) {
                 return SMALLISH;
             }

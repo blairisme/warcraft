@@ -25,7 +25,7 @@ import java.util.Collection;
 import static com.evilbird.engine.common.collection.CollectionUtils.filter;
 
 /**
- * Instances of this {@link Action action} move an {@link GameObject} from its
+ * Instances of this {@link Action action} move a {@link GameObject} from its
  * current location to within attack range of a given target. The moving item
  * will be animated with a movement animation, as well choosing a path that
  * avoids obstacles.
@@ -53,10 +53,7 @@ public class MoveWithinRangeAction extends MoveAction
     @Override
     public GameObjectNode getEndNode(GameObjectNode node) {
         if (endNode == null) {
-            GameObject target = getTarget();
-            Combatant combatant = (Combatant) getSubject();
-            int range = combatant.getAttackRange();
-            Collection<GameObjectNode> nodes = graph.getAdjacentNodes(target.getPosition(), target.getSize(), range);
+            Collection<GameObjectNode> nodes = graph.getAdjacentNodes(getTarget(), getRange());
             Collection<GameObjectNode> traversable = filter(nodes, getPathFilter());
             endNode = !traversable.isEmpty() ? SpatialUtils.getClosest(traversable, node) : null;
         }
@@ -76,17 +73,16 @@ public class MoveWithinRangeAction extends MoveAction
     @Override
     public boolean destinationReached(GameObjectNode node) {
         GameObject target = getTarget();
-        Combatant combatant = (Combatant) getSubject();
         Vector2 targetPosition = target.getPosition(Alignment.Center);
         Vector2 nodePosition = node.getWorldReference(Alignment.Center);
         float distance = targetPosition.dst(nodePosition);
-        return distance < combatant.getAttackRange();
+        return distance < getRange();
     }
 
     @Override
     public ItemPathFilter getPathFilter() {
         if (filter == null) {
-            MovableObject item = (MovableObject) getSubject();
+            MovableObject item = (MovableObject)getSubject();
             filter = new ItemPathFilter();
             filter.addTraversableItem(item);
             filter.addTraversableCapability(item.getMovementCapability());
@@ -108,5 +104,10 @@ public class MoveWithinRangeAction extends MoveAction
         filter = null;
         endNode = null;
         targetNode = null;
+    }
+
+    protected int getRange() {
+        Combatant combatant = (Combatant)getSubject();
+        return combatant.getAttackRange();
     }
 }

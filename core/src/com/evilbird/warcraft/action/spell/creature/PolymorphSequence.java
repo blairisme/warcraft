@@ -9,8 +9,11 @@
 
 package com.evilbird.warcraft.action.spell.creature;
 
-import com.evilbird.warcraft.action.move.MoveToItemAction;
+import com.evilbird.warcraft.action.move.MoveWithCastingRangeAction;
 import com.evilbird.warcraft.action.spell.SpellSequence;
+import com.evilbird.warcraft.data.spell.Spell;
+import com.evilbird.warcraft.object.effect.EffectType;
+import com.evilbird.warcraft.object.unit.UnitType;
 
 import javax.inject.Inject;
 
@@ -24,7 +27,11 @@ import javax.inject.Inject;
 public class PolymorphSequence extends SpellSequence
 {
     @Inject
-    public PolymorphSequence(PolymorphSpell spell, MoveToItemAction move) {
-        super(spell, move);
+    public PolymorphSequence(PolymorphSpell cast, MoveWithCastingRangeAction move) {
+        super(cast, move);
+        move.setSpell(Spell.Polymorph);
+        cast.setSpell(Spell.Polymorph);
+        cast.setEffect(EffectType.Spell);
+        cast.setProduct(UnitType.Sheep);
     }
 }

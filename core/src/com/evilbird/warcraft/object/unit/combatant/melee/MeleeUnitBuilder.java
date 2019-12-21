@@ -18,6 +18,7 @@ import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 import com.evilbird.warcraft.object.unit.combatant.CombatantBuilder;
 import com.evilbird.warcraft.object.unit.combatant.CombatantSounds;
 import com.evilbird.warcraft.object.unit.combatant.ConjuredUnitSounds;
+import com.evilbird.warcraft.object.unit.combatant.melee.neutral.SkeletonAnimations;
 
 /**
  * Creates a new melee units whose visual and audible presentation is defined
@@ -43,11 +44,20 @@ public class MeleeUnitBuilder extends CombatantBuilder<Combatant>
 
     @Override
     protected AnimationCatalog newAnimations() {
-        return type.isDemoTeam() ? new DemoUnitAnimations(assets) : new MeleeUnitAnimations(assets);
+        if (type.isConjuredUnit()) {
+            return new SkeletonAnimations(assets);
+        }
+        if (type.isDemoTeam()) {
+            return new DemoUnitAnimations(assets);
+        }
+        return new MeleeUnitAnimations(assets);
     }
 
     @Override
     protected SoundCatalog newSounds() {
-        return type.isConjuredUnit() ? new ConjuredUnitSounds(assets) : new CombatantSounds(assets);
+        if (type.isConjuredUnit()) {
+            return new ConjuredUnitSounds(assets);
+        }
+        return new CombatantSounds(assets);
     }
 }

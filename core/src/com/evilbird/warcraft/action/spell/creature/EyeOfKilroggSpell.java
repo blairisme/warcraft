@@ -32,13 +32,16 @@ public class EyeOfKilroggSpell extends CreatureSpellAction
 {
     @Inject
     public EyeOfKilroggSpell(GameObjectFactory factory, CreateEvents events, CreatureSpellCancel cancel) {
-        super(Spell.EyeOfKilrogg, EffectType.Spell, UnitType.EyeOfKilrogg, factory, events, cancel);
+        super(factory, events, cancel);
+        setSpell(Spell.EyeOfKilrogg);
+        setEffect(EffectType.Spell);
+        setProduct(UnitType.EyeOfKilrogg);
     }
 
     @Override
-    protected GameObject addCreature() {
-        GameObject creature = super.addCreature();
-        moveAdjacent((MovableObject)creature, getSubject());
+    protected GameObject newCreature(GameObject caster, GameObject target) {
+        GameObject creature = super.newCreature(caster, target);
+        moveAdjacent((MovableObject)creature, caster);
         return creature;
     }
 }

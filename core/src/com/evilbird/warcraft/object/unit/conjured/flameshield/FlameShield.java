@@ -36,7 +36,7 @@ public class FlameShield extends ConjuredAreaEffect
     private static final transient float WIDTH = 16f;
     private static final transient float HEIGHT = 16f;
 
-    private GameObjectReference target;
+    private GameObjectReference<GameObject> target;
 
     private transient List<Float> rotations;
     private transient List<Float> times;

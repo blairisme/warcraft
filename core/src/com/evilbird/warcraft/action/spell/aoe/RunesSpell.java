@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.spell.aoe;
 
-import com.evilbird.warcraft.action.move.MoveToItemAction;
+import com.evilbird.warcraft.action.move.MoveWithCastingRangeAction;
 import com.evilbird.warcraft.action.spell.SpellSequence;
 import com.evilbird.warcraft.data.spell.Spell;
 import com.evilbird.warcraft.object.effect.EffectType;
@@ -26,8 +26,9 @@ import javax.inject.Inject;
 public class RunesSpell extends SpellSequence
 {
     @Inject
-    public RunesSpell(AoeSpellAction spell, MoveToItemAction move) {
+    public RunesSpell(AoeSpellAction spell, MoveWithCastingRangeAction move) {
         super(spell, move);
+        move.setSpell(Spell.Runes);
         spell.setSpell(Spell.Runes);
         spell.setEffect(EffectType.Spell);
         spell.setProduct(UnitType.RuneTrap);

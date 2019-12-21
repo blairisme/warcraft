@@ -15,6 +15,7 @@ import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 
 import static com.evilbird.engine.common.audio.sound.SilentSound.SilentSoundEffect;
+import static com.evilbird.warcraft.object.unit.UnitType.Skeleton;
 
 /**
  * Defines the assets that are required to display melee combatants
@@ -38,7 +39,7 @@ public class MeleeUnitAssets extends CombatantAssets
     public MeleeUnitAssets(AssetManager manager, UnitType type) {
         super(manager, type);
 
-        if (type.isOgre()) {
+        if (type.isOgre() || type == Skeleton) {
             register("attack", "data/sounds/common/unit/attack/punch/1.mp3");
         } else {
             registerSequence("attack", "data/sounds/common/unit/attack/sword/", ".mp3", 3);

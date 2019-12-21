@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.spell.aoe;
 
-import com.evilbird.warcraft.action.move.MoveToItemAction;
+import com.evilbird.warcraft.action.move.MoveWithCastingRangeAction;
 import com.evilbird.warcraft.action.spell.SpellSequence;
 import com.evilbird.warcraft.data.spell.Spell;
 import com.evilbird.warcraft.object.effect.EffectType;
@@ -26,10 +26,11 @@ import javax.inject.Inject;
 public class BlizzardSpell extends SpellSequence
 {
     @Inject
-    public BlizzardSpell(AoeSpellAction spell, MoveToItemAction move) {
-        super(spell, move);
-        spell.setSpell(Spell.Blizzard);
-        spell.setEffect(EffectType.Spell);
-        spell.setProduct(UnitType.Blizzard);
+    public BlizzardSpell(AoeSpellAction cast, MoveWithCastingRangeAction move) {
+        super(cast, move);
+        move.setSpell(Spell.Blizzard);
+        cast.setSpell(Spell.Blizzard);
+        cast.setEffect(EffectType.Spell);
+        cast.setProduct(UnitType.Blizzard);
     }
 }

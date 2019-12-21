@@ -9,6 +9,8 @@
 
 package com.evilbird.warcraft.data.spell;
 
+import static java.lang.Float.MAX_VALUE;
+
 /**
  * Defines spells available to spell casting game objects.
  *
@@ -17,35 +19,35 @@ package com.evilbird.warcraft.data.spell;
 @SuppressWarnings("checkstyle:MethodParamPad")
 public enum Spell
 {
-    /*               | Cost  | Time  | Range | Duration | Value | */
-    Blizzard            (25,    1f,     256f,   60f,    0_0),
-    Bloodlust           (50,    1f,     128f,   30f,    0_0),
-    DeathAndDecay       (200,   1f,     256f,   0_0f,   0_0),
-    DeathCoil           (100,   1f,     128f,   0_0f,   0_0),
-    Exorcism            (4,     1f,     128f,   0f,     0_0),
-    EyeOfKilrogg        (70,    1f,     0,      60f,    0),
-    Fireball            (100,   1f,     256f,   0f,     0_0),
-    FlameShield         (80,    1f,     256f,   30f,    2),
-    Haste               (50,    1f,     256f,   30f,    0_0),
-    Heal                (6,     1f,     128f,   0f,     4),
-    HolyVision          (70,    1f,     0,      60f,    160),
-    Invisibility        (200,   1f,     256f,   75f,    0),
-    Lightning           (0,     1f,     2,      0f,     9),
-    Polymorph           (200,   1f,     256f,   0f,     0),
-    RaiseDead           (200,   1f,     128f,   0f,     2),
-    Runes               (200,   1f,     128f,   75f,    0_0),
-    Slow                (50,    1f,     256f,   30f,    0_0),
-    TouchOfDarkness     (0,     1f,     96f,    0,      9),
-    UnholyArmour        (80,    1f,     256f,   30f,    0_0),
-    Whirlwind           (200,   1f,     256f,   60f,    0_0);
+    /*                 | Cost      | Time      | Range     | Duration | Value (Unit)                 */
+    Blizzard            (200,       1f,         256f,       60f,        50f     /* Damage Per Second */),
+    Bloodlust           (50,        1f,         128f,       30f,        2f      /* Buff Scale Factor */),
+    DeathAndDecay       (200,       1f,         256f,       60f,        0_0f    /* Damage Per Second */),
+    DeathCoil           (100,       1f,         128f,       0f,         4f      /* Health Per Mana */),
+    Exorcism            (4,         1f,         128f,       0f,         0_0f    /* Damage Per Second */),
+    EyeOfKilrogg        (70,        1f,         0f,         60f,        0f      /* No Effect */),
+    Fireball            (100,       1f,         256f,       0f,         50f     /* Damage Per Second */),
+    FlameShield         (80,        1f,         256f,       30f,        30f     /* Damage Per Second */),
+    Haste               (50,        1f,         256f,       30f,        2f      /* Buff Scale Factor */),
+    Heal                (6,         1f,         128f,       0f,         4f      /* Health Per Mana */),
+    HolyVision          (70,        1f,         MAX_VALUE,  60f,        160f),  /* Reveal Diameter */
+    Invisibility        (200,       1f,         256f,       75f,        0f      /* No Effect */),
+    Lightning           (0,         1f,         2,          0f,         9f      /* Damage Per Second */),
+    Polymorph           (200,       1f,         256f,       0f,         0f      /* No Effect */),
+    RaiseDead           (200,       1f,         128f,       0f,         2f      /* Number of Skeletons */),
+    Runes               (200,       1f,         128f,       75f,        50f     /* Damage Per Second */),
+    Slow                (50,        1f,         256f,       30f,        0.5f    /* Buff Scale Factor */),
+    TouchOfDarkness     (0,         1f,         96f,        0f,         9f      /* Damage Per Second */),
+    UnholyArmour        (80,        1f,         256f,       30f,        2f      /* Buff Scale Factor */),
+    Whirlwind           (200,       1f,         256f,       60f,        50f     /* Damage Per Second */);
 
     private int castCost;
     private float castTime;
     private float castRange;
     private float effectDuration;
-    private int effectValue;
+    private float effectValue;
 
-    Spell(int mana, float time, float range, float duration, int value) {
+    Spell(int mana, float time, float range, float duration, float value) {
         this.castCost = mana;
         this.castTime = time;
         this.castRange = range;
@@ -88,7 +90,7 @@ public enum Spell
      * Returns a spell specific value indicate the scale of the effect produced
      * by the spell.
      */
-    public int getEffectValue() {
+    public float getEffectValue() {
         return effectValue;
     }
 }

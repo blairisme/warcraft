@@ -10,6 +10,7 @@
 package com.evilbird.warcraft.action.spell.aoe;
 
 import com.evilbird.warcraft.action.move.MoveToItemAction;
+import com.evilbird.warcraft.action.move.MoveWithCastingRangeAction;
 import com.evilbird.warcraft.action.spell.SpellSequence;
 import com.evilbird.warcraft.data.spell.Spell;
 import com.evilbird.warcraft.object.effect.EffectType;
@@ -26,8 +27,9 @@ import javax.inject.Inject;
 public class DeathAndDecaySpell extends SpellSequence
 {
     @Inject
-    public DeathAndDecaySpell(AoeSpellAction spell, MoveToItemAction move) {
+    public DeathAndDecaySpell(AoeSpellAction spell, MoveWithCastingRangeAction move) {
         super(spell, move);
+        move.setSpell(Spell.DeathAndDecay);
         spell.setSpell(Spell.DeathAndDecay);
         spell.setEffect(EffectType.Spell);
         spell.setProduct(UnitType.DeathAndDecay);

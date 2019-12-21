@@ -14,10 +14,7 @@ import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
-import com.evilbird.warcraft.data.spell.Spell;
-import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.unit.Unit;
-import com.evilbird.warcraft.object.unit.UnitType;
 
 import javax.inject.Inject;
 
@@ -32,12 +29,8 @@ public class PolymorphSpell extends CreatureSpellAction
     private ItemExclusion exclusion;
 
     @Inject
-    public PolymorphSpell(
-        GameObjectFactory factory,
-        ItemExclusion exclusion,
-        CreateEvents events)
-    {
-        super(Spell.Polymorph, EffectType.Spell, UnitType.Sheep, factory, events, null);
+    public PolymorphSpell(CreateEvents events, GameObjectFactory factory, ItemExclusion exclusion) {
+        super(factory, events, null);
         this.exclusion = exclusion;
     }
 
@@ -53,10 +46,14 @@ public class PolymorphSpell extends CreatureSpellAction
     }
 
     @Override
-    protected GameObject addCreature() {
-        GameObject target = getTarget();
-        GameObject creature = super.addCreature();
+    protected GameObject newCreature(GameObject caster, GameObject target) {
+        GameObject creature = super.newCreature(caster, target);
         creature.setPosition(target.getPosition());
         return creature;
+    }
+
+    @Override
+    protected GameObjectGroup getParent(GameObject caster, GameObject target) {
+        return target.getParent();
     }
 }

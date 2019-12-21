@@ -121,7 +121,7 @@ public class Combatant extends Unit implements MovableObject, OffensiveObject, S
 
     /**
      * Returns the distance that the {@code Combatant} can reach with its
-     * attacks.
+     * attacks, specified in world pixels.
      */
     @Override
     public int getAttackRange() {
