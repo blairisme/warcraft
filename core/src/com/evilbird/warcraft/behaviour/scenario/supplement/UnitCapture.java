@@ -20,7 +20,6 @@ import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.action.selection.SelectFlash;
-import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.Unit;
@@ -41,12 +40,10 @@ import static com.evilbird.warcraft.object.unit.UnitSound.Captured;
  */
 public class UnitCapture implements SupplementaryBehaviour
 {
-    private WarcraftPreferences preferences;
     private Map<GameObjectNode, List<GameObject>> capturableItems;
 
     @Inject
-    public UnitCapture(WarcraftPreferences preferences) {
-        this.preferences = preferences;
+    public UnitCapture() {
     }
 
     @Override
@@ -128,7 +125,7 @@ public class UnitCapture implements SupplementaryBehaviour
     private void setSoundEffect(GameObject gameObject) {
         if (gameObject instanceof Unit) {
             Unit unit = (Unit) gameObject;
-            unit.setSound(Captured, preferences.getEffectsVolume());
+            unit.setSound(Captured);
         }
     }
 

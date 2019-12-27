@@ -16,7 +16,6 @@ import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.common.graphics.animation.AnimationFrame;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.AnimatedObjectStyle;
-import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredAreaEffect;
 import org.apache.commons.lang3.RandomUtils;
 
@@ -51,8 +50,8 @@ public class Blizzard extends ConjuredAreaEffect
      * a {@link AnimatedObjectStyle}, specifying the visual and auditory presentation
      * of the Blizzard.
      */
-    public Blizzard(Skin skin, WarcraftPreferences preferences) {
-        super(skin, preferences);
+    public Blizzard(Skin skin) {
+        super(skin);
         this.halePositions = new HashMap<>(10);
         this.haleTimers = new HashMap<>(10);
         this.timer = new GameTimer(0);

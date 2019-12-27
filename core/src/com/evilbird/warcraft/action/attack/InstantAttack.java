@@ -11,7 +11,6 @@ package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
-import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
@@ -32,17 +31,11 @@ public class InstantAttack extends BasicAction
     private transient AttackDamage damage;
     private transient AttackEvents events;
     private transient GameTimer delay;
-    private transient WarcraftPreferences preferences;
 
     @Inject
-    public InstantAttack(
-        AttackDamage damage,
-        AttackEvents events,
-        WarcraftPreferences preferences)
-    {
+    public InstantAttack(AttackDamage damage, AttackEvents events) {
         this.damage = damage;
         this.events = events;
-        this.preferences = preferences;
     }
 
     @Override
@@ -87,7 +80,7 @@ public class InstantAttack extends BasicAction
             attacker.setAnimation(UnitAnimation.Attack);
         }
         if (attacker.hasSound(UnitSound.Attack)) {
-            attacker.setSound(UnitSound.Attack, preferences.getEffectsVolume());
+            attacker.setSound(UnitSound.Attack);
         }
     }
 

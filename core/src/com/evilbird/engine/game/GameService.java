@@ -10,6 +10,7 @@
 package com.evilbird.engine.game;
 
 import com.evilbird.engine.action.ActionFactory;
+import com.evilbird.engine.audio.AudioManager;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.device.Device;
@@ -36,6 +37,11 @@ public class GameService implements GameInjector
     private GameInjector injector;
 
     @Override
+    public AudioManager getAudioService() {
+        return injector.getAudioService();
+    }
+
+    @Override
     public Device getDevice() {
         return injector.getDevice();
     }
@@ -56,8 +62,8 @@ public class GameService implements GameInjector
     }
 
     @Override
-    public GameObjectFactory getItemFactory() {
-        return injector.getItemFactory();
+    public GameObjectFactory getObjectFactory() {
+        return injector.getObjectFactory();
     }
 
     @Override

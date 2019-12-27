@@ -129,7 +129,7 @@ public class MissileAttack extends BasicProjectileAttack
         removal.setSubject(explosion);
         explosion.addAction(removal, explosion.getDuration());
 
-        projectile.setSound(UnitSound.Hit, preferences.getEffectsVolume());
+        projectile.setSound(UnitSound.Hit);
     }
 
     private void damageOccupants(Vector2 location) {

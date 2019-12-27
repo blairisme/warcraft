@@ -11,7 +11,7 @@ package com.evilbird.test.testcase;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
-import com.evilbird.engine.common.assets.AssetBundle;
+import com.evilbird.engine.assets.AssetBundle;
 import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
 import com.evilbird.engine.common.lang.Identifier;

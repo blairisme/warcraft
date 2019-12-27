@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.behaviour.scenario;
 
-import com.evilbird.warcraft.common.WarcraftPreferences;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,13 +24,11 @@ import javax.inject.Provider;
 public class ScenarioBehaviourFactoryTest
 {
     private ScenarioBehaviourFactory factory;
-    private WarcraftPreferences preferences;
 
     @Before
     public void setup() {
         Provider<ScenarioBehaviour> provider = () -> Mockito.mock(ScenarioBehaviour.class);
-        preferences = Mockito.mock(WarcraftPreferences.class);
-        factory = new ScenarioBehaviourFactory(provider, preferences);
+        factory = new ScenarioBehaviourFactory(provider);
     }
 
     @Test

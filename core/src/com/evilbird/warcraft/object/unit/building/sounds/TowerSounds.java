@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.object.unit.building.sounds;
 
-import com.evilbird.engine.common.audio.sound.Sound;
+import com.evilbird.engine.audio.sound.Sound;
 import com.evilbird.warcraft.object.unit.building.BuildingAssets;
 
 import static com.evilbird.warcraft.object.unit.UnitSound.Attack;

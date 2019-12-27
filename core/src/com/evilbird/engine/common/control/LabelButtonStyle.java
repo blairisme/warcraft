@@ -11,7 +11,7 @@ package com.evilbird.engine.common.control;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.evilbird.engine.common.audio.sound.Sound;
+import com.evilbird.engine.audio.sound.Sound;
 
 /**
  * Defines the visual presentation of a {@link LabelButton} control.

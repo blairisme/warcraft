@@ -11,8 +11,8 @@ package com.evilbird.engine.game;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.action.ActionFactory;
+import com.evilbird.engine.assets.AssetManagerFuture;
 import com.evilbird.engine.behaviour.BehaviourFactory;
-import com.evilbird.engine.common.assets.AssetManagerFuture;
 import com.evilbird.engine.common.concurrent.CompleteFuture;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.menu.MenuFactory;

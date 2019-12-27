@@ -11,9 +11,9 @@ package com.evilbird.test.testcase;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
-import com.evilbird.engine.common.assets.AssetBundle;
-import com.evilbird.engine.common.audio.sound.Sound;
-import com.evilbird.engine.common.audio.sound.SoundCatalog;
+import com.evilbird.engine.assets.AssetBundle;
+import com.evilbird.engine.audio.sound.Sound;
+import com.evilbird.engine.audio.sound.SoundCatalog;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.test.utils.AssetFileHandleResolver;
 import com.evilbird.test.utils.TestAssetManager;

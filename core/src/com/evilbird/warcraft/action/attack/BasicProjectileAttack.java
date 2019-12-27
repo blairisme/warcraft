@@ -162,7 +162,7 @@ public class BasicProjectileAttack extends BasicAction
         projectile.setPosition(attacker.getPosition(Center));
 
         attacker.setAnimation(UnitAnimation.Attack);
-        attacker.setSound(UnitSound.Attack, preferences.getEffectsVolume());
+        attacker.setSound(UnitSound.Attack);
 
         reorient(attacker, target, isShip(attacker));
         reorient(projectile, target, false);

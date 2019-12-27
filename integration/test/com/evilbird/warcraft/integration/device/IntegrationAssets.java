@@ -15,12 +15,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.evilbird.engine.common.assets.FontGeneratorLoader;
-import com.evilbird.engine.common.assets.FontLoader;
-import com.evilbird.engine.common.assets.LazyMusicLoader;
-import com.evilbird.engine.common.assets.SyntheticTexture;
-import com.evilbird.engine.common.assets.SyntheticTextureLoader;
-import com.evilbird.engine.common.audio.music.LazyLoadedMusic;
+import com.evilbird.engine.assets.FontGeneratorLoader;
+import com.evilbird.engine.assets.FontLoader;
+import com.evilbird.engine.assets.MusicLoader;
+import com.evilbird.engine.assets.SyntheticTexture;
+import com.evilbird.engine.assets.SyntheticTextureLoader;
+import com.evilbird.engine.audio.music.Music;
+import com.evilbird.engine.audio.sound.Sound;
 
 /**
  * Instances of this class provide access to game assets.
@@ -31,10 +32,11 @@ public class IntegrationAssets extends AssetManager
 {
     public IntegrationAssets() {
         super(new IntegrationFileHandleResolver());
+        setLoader(Music.class, new MusicLoader(getFileHandleResolver()));
+        setLoader(Sound.class, new IntegrationSoundLoader(getFileHandleResolver()));
         setLoader(TiledMap.class, new TmxMapLoader(getFileHandleResolver()));
         setLoader(BitmapFont.class, new FontLoader(getFileHandleResolver()));
         setLoader(FreeTypeFontGenerator.class, new FontGeneratorLoader(getFileHandleResolver()));
-        setLoader(LazyLoadedMusic.class, new LazyMusicLoader(getFileHandleResolver()));
         setLoader(SyntheticTexture.class, new SyntheticTextureLoader(getFileHandleResolver()));
     }
 

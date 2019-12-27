@@ -47,7 +47,7 @@ public class GameObjectSerializer extends AbstractAdapter<GameObject>
     @SerializedConstructor
     protected GameObjectSerializer() {
         GameService service = GameService.getInstance();
-        this.objectFactory = service.getItemFactory();
+        this.objectFactory = service.getObjectFactory();
         this.typeRegistry = service.getTypeRegistry();
     }
 

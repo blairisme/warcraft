@@ -13,15 +13,15 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.engine.common.assets.AssetBundle;
-import com.evilbird.engine.common.assets.SyntheticTexture;
+import com.evilbird.engine.assets.AssetBundle;
+import com.evilbird.engine.assets.SyntheticTexture;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.warcraft.state.WarcraftContext;
 
 import java.util.Map;
 
-import static com.evilbird.engine.common.assets.SyntheticTextureParameters.with;
-import static com.evilbird.engine.common.assets.SyntheticTextureType.Filled;
+import static com.evilbird.engine.assets.SyntheticTextureParameters.with;
+import static com.evilbird.engine.assets.SyntheticTextureType.Filled;
 import static com.evilbird.engine.common.graphics.Colours.OPAQUE;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 

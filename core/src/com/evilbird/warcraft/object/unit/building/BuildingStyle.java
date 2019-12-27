@@ -9,11 +9,11 @@
 
 package com.evilbird.warcraft.object.unit.building;
 
-import com.evilbird.engine.common.audio.sound.Sound;
+import com.evilbird.engine.audio.sound.Sound;
 import com.evilbird.engine.common.graphics.renderable.Renderable;
 import com.evilbird.warcraft.object.unit.UnitStyle;
 
-import static com.evilbird.engine.common.audio.sound.SilentSound.SilentSoundEffect;
+import static com.evilbird.engine.audio.sound.SilentSound.SilentSoundEffect;
 
 /**
  * Defines the visual and auditory presentation of a {@link Building}.

@@ -11,8 +11,8 @@ package com.evilbird.warcraft.object.unit.conjured;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.evilbird.engine.common.assets.AssetBundle;
-import com.evilbird.engine.common.audio.sound.Sound;
+import com.evilbird.engine.assets.AssetBundle;
+import com.evilbird.engine.audio.sound.Sound;
 import com.evilbird.warcraft.object.unit.UnitType;
 
 import java.util.Map;

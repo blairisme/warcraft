@@ -9,8 +9,8 @@
 
 package com.evilbird.engine.state;
 
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.utils.Disposable;
+import com.evilbird.engine.audio.music.Music;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.object.GameObjectContainer;
 

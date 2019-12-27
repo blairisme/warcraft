@@ -43,8 +43,8 @@ public class WarcraftStateSerializer implements JsonSerializer<WarcraftState>, J
 
     public WarcraftStateSerializer() {
         GameService service = GameService.getInstance();
-        this.userInterfaceLoader = new UserInterfaceBuilder(service.getDevice(), service.getItemFactory());
-        this.levelLoader = new LevelLoader(service.getDevice(), service.getItemFactory());
+        this.userInterfaceLoader = new UserInterfaceBuilder(service.getDevice(), service.getObjectFactory());
+        this.levelLoader = new LevelLoader(service.getDevice(), service.getObjectFactory());
         this.behaviourFactory = service.getBehaviourFactory();
         this.musicLoader = new WarcraftMusic(service.getDevice());
     }

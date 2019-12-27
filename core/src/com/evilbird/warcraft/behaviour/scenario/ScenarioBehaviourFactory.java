@@ -13,7 +13,6 @@ import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.common.inject.IdentifiedProvider;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.behaviour.scenario.supplement.UnitCapture;
-import com.evilbird.warcraft.common.WarcraftPreferences;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -62,15 +61,10 @@ import static com.evilbird.warcraft.object.unit.UnitType.Zuljin;
 public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
 {
     private Provider<ScenarioBehaviour> factory;
-    private WarcraftPreferences preferences;
 
     @Inject
-    public ScenarioBehaviourFactory(
-        Provider<ScenarioBehaviour> factory,
-        WarcraftPreferences preferences)
-    {
+    public ScenarioBehaviourFactory(Provider<ScenarioBehaviour> factory) {
         this.factory = factory;
-        this.preferences = preferences;
     }
 
     @Override
@@ -119,7 +113,7 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
         ScenarioBehaviour result = factory.get();
         result.setWinCondition(unitRepositionedTo("ElvenArcherCaptive", CircleOfPower));
         result.setLoseCondition(playerDestroyed(Player1));
-        result.addBehaviour(new UnitCapture(preferences));
+        result.addBehaviour(new UnitCapture());
         return result;
     }
 
@@ -141,7 +135,7 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
         ScenarioBehaviour result = factory.get();
         result.setWinCondition(playerDestroyed(Player2));
         result.setLoseCondition(playerDestroyed(Player1));
-        result.addBehaviour(new UnitCapture(preferences));
+        result.addBehaviour(new UnitCapture());
         return result;
     }
 
@@ -169,7 +163,7 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
             .and(playerDestroyed(Player5))
             .and(playerDestroyed(Player6)));
         result.setLoseCondition(playerDestroyed(Player1));
-        result.addBehaviour(new UnitCapture(preferences));
+        result.addBehaviour(new UnitCapture());
         return result;
     }
 
@@ -194,7 +188,7 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
             .and(playerDestroyed(Player3))
             .and(playerDestroyed(Player4)));
         result.setLoseCondition(playerDestroyed(Player1));
-        result.addBehaviour(new UnitCapture(preferences));
+        result.addBehaviour(new UnitCapture());
         return result;
     }
 
@@ -212,7 +206,7 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
         ScenarioBehaviour result = factory.get();
         result.setWinCondition(playerDestroyed(Player3));
         result.setLoseCondition(playerDestroyed(Player1));
-        result.addBehaviour(new UnitCapture(preferences));
+        result.addBehaviour(new UnitCapture());
         return result;
     }
 
@@ -255,7 +249,7 @@ public class ScenarioBehaviourFactory implements IdentifiedProvider<Behaviour>
         ScenarioBehaviour result = factory.get();
         result.setWinCondition(unitRepositionedTo(Zuljin, CircleOfPower));
         result.setLoseCondition(playerDestroyed(Player1));
-        result.addBehaviour(new UnitCapture(preferences));
+        result.addBehaviour(new UnitCapture());
         return result;
     }
 

@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.evilbird.engine.common.audio.sound.Sound;
+import com.evilbird.engine.audio.sound.Sound;
 import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.text.Fonts;

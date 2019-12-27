@@ -12,9 +12,10 @@ package com.evilbird.engine.object;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.audio.sound.LocalizedSound;
-import com.evilbird.engine.common.audio.sound.SilentSound;
-import com.evilbird.engine.common.audio.sound.Sound;
+import com.evilbird.engine.audio.AudioManager;
+import com.evilbird.engine.audio.sound.LocalizedSound;
+import com.evilbird.engine.audio.sound.SilentSound;
+import com.evilbird.engine.audio.sound.Sound;
 import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.common.graphics.animation.DirectionalAnimation;
 import com.evilbird.engine.common.graphics.renderable.AnimationRenderable;
@@ -24,6 +25,7 @@ import com.evilbird.engine.common.lang.Animated;
 import com.evilbird.engine.common.lang.Audible;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Styleable;
+import com.evilbird.engine.game.GameService;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -45,9 +47,10 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
 
     protected transient Skin skin;
     protected transient AnimatedObjectStyle style;
-    protected transient LocalizedSound sound;
-    protected transient Renderable renderable;
     protected transient Animation animation;
+    protected transient Renderable renderable;
+    protected transient LocalizedSound sound;
+    protected transient AudioManager audioManager;
 
     /**
      * Constructs a new instance of this class given a {@link Skin} containing
@@ -67,6 +70,7 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
         this.renderable = BlankRenderable;
         this.soundId = null;
         this.sound = new LocalizedSound(new SilentSound(), this);
+        this.audioManager = GameService.getInstance().getAudioService();
     }
 
     @Override
@@ -122,13 +126,12 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
     }
 
     @Override
-    public void setSound(Identifier id, float volume) {
+    public void setSound(Identifier id) {
         Validate.notNull(id);
         Validate.isTrue(style.sounds.containsKey(id), "%s is missing sound %s", getIdentifier(), id);
 
         sound = new LocalizedSound(style.sounds.get(id), this);
-        sound.setVolume(volume);
-        sound.play();
+        audioManager.play(sound);
         soundId = id;
     }
 

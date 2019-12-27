@@ -16,7 +16,7 @@ import com.badlogic.gdx.assets.loaders.SynchronousAssetLoader;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.Array;
-import com.evilbird.engine.common.assets.FontLoaderParameters;
+import com.evilbird.engine.assets.FontLoaderParameters;
 import com.evilbird.engine.common.collection.Arrays;
 import com.evilbird.engine.common.text.Fonts;
 

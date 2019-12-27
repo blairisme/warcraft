@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.object.unit.combatant;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.evilbird.engine.common.audio.sound.RandomSound;
+import com.evilbird.engine.audio.sound.RandomSound;
 import com.evilbird.test.testcase.AssetBundleTestCase;
 import com.evilbird.warcraft.object.unit.UnitType;
 import org.junit.Assert;

@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.object.unit.conjured.rune;
 
-import com.evilbird.engine.common.audio.sound.SoundCatalog;
+import com.evilbird.engine.audio.sound.SoundCatalog;
 import com.evilbird.warcraft.object.unit.UnitSound;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredAssets;
 

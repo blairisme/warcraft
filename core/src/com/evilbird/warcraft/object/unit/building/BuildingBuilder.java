@@ -12,7 +12,7 @@ package com.evilbird.warcraft.object.unit.building;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.audio.sound.SoundCatalog;
+import com.evilbird.engine.audio.sound.SoundCatalog;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
 import com.evilbird.engine.common.graphics.renderable.AnimationRenderable;

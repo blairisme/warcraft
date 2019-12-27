@@ -9,7 +9,7 @@
 
 package com.evilbird.engine.object;
 
-import com.evilbird.engine.common.audio.sound.Sound;
+import com.evilbird.engine.audio.sound.Sound;
 import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.common.lang.Identifier;
 

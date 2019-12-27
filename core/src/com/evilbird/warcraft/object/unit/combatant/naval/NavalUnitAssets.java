@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.object.unit.combatant.naval;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.evilbird.engine.common.audio.sound.Sound;
+import com.evilbird.engine.audio.sound.Sound;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 

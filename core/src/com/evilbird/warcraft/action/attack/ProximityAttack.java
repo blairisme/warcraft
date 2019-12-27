@@ -12,7 +12,6 @@ package com.evilbird.warcraft.action.attack;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.action.framework.BasicAction;
-import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
@@ -35,19 +34,13 @@ public class ProximityAttack extends BasicAction
 {
     private transient AttackDamage damage;
     private transient AttackEvents events;
-    private transient WarcraftPreferences preferences;
     private transient OffensiveObject attacker;
     private transient PerishableObject target;
 
     @Inject
-    public ProximityAttack(
-        AttackDamage damage,
-        AttackEvents events,
-        WarcraftPreferences preferences)
-    {
+    public ProximityAttack(AttackDamage damage, AttackEvents events) {
         this.damage = damage;
         this.events = events;
-        this.preferences = preferences;
     }
 
     @Override
@@ -107,7 +100,7 @@ public class ProximityAttack extends BasicAction
 
     protected boolean attackTarget() {
         attacker.setAttackTime(attacker.getAttackSpeed());
-        attacker.setSound(UnitSound.Attack, preferences.getEffectsVolume());
+        attacker.setSound(UnitSound.Attack);
         reorient(attacker, target, false);
         damage.apply(attacker, target);
         return target.isDead();

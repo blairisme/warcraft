@@ -11,7 +11,7 @@ package com.evilbird.warcraft.object.layer.wall;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.evilbird.engine.common.assets.AssetBundle;
+import com.evilbird.engine.assets.AssetBundle;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.warcraft.state.WarcraftContext;
 

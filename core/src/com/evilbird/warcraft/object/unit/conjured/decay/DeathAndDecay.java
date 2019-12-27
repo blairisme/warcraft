@@ -17,7 +17,6 @@ import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.common.graphics.animation.AnimationFrame;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.AnimatedObjectStyle;
-import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredAreaEffect;
 import org.apache.commons.lang3.RandomUtils;
 
@@ -47,8 +46,8 @@ public class DeathAndDecay extends ConjuredAreaEffect
      * a {@link AnimatedObjectStyle}, specifying the visual and auditory presentation
      * of the Death and Decay object.
      */
-    public DeathAndDecay(Skin skin, WarcraftPreferences preferences) {
-        super(skin, preferences);
+    public DeathAndDecay(Skin skin) {
+        super(skin);
         this.timer = new GameTimer(0);
         this.effects = new HashMap<>(10);
     }

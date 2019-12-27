@@ -21,7 +21,6 @@ import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.warcraft.action.selection.SelectEvents;
-import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
 import com.evilbird.warcraft.object.unit.Unit;
@@ -51,7 +50,6 @@ public class DeathAction extends BasicAction
 
     private GameTimer timer;
     private GameObjectFactory factory;
-    private WarcraftPreferences preferences;
     private SelectEvents selectEvents;
     private RemoveEvents removeEvents;
 
@@ -59,11 +57,9 @@ public class DeathAction extends BasicAction
     public DeathAction(
         SelectEvents selectEvents,
         RemoveEvents removeEvents,
-        GameObjectFactory factory,
-        WarcraftPreferences preferences)
+        GameObjectFactory factory)
     {
         this.factory = factory;
-        this.preferences = preferences;
         this.selectEvents = selectEvents;
         this.removeEvents = removeEvents;
     }
@@ -123,10 +119,10 @@ public class DeathAction extends BasicAction
 
     private void setDeathAnimation(PerishableObject subject) {
         if (subject instanceof AnimatedObject) {
-            AnimatedObject animated = (AnimatedObject) subject;
+            AnimatedObject animated = (AnimatedObject)subject;
             if (animated.hasAnimation(Death)) {
                 animated.setAnimation(Death);
-                animated.setSound(Die, preferences.getEffectsVolume());
+                animated.setSound(Die);
                 animated.setZIndex(0);
             }
         }

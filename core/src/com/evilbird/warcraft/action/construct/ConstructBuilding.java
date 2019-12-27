@@ -123,7 +123,7 @@ public class ConstructBuilding extends BasicAction
 
     private void setPlacementSound(Building building) {
         if (preferences.isBuildingSoundsEnabled()) {
-            building.setSound(Placement, preferences.getEffectsVolume());
+            building.setSound(Placement);
         }
     }
 

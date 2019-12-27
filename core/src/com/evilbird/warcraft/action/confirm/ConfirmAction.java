@@ -75,7 +75,7 @@ abstract class ConfirmAction extends BasicAction
     protected void playAcknowledgement() {
         if (preferences.isAcknowledgementEnabled()) {
             Audible audible = (Audible) getSubject();
-            audible.setSound(Acknowledge, preferences.getEffectsVolume());
+            audible.setSound(Acknowledge);
         }
     }
 

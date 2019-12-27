@@ -12,11 +12,11 @@ package com.evilbird.warcraft.object.unit.combatant.flying;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.evilbird.engine.common.audio.sound.Sound;
+import com.evilbird.engine.audio.sound.Sound;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 
-import static com.evilbird.engine.common.audio.sound.SilentSound.SilentSoundEffect;
+import static com.evilbird.engine.audio.sound.SilentSound.SilentSoundEffect;
 import static com.evilbird.warcraft.object.unit.UnitType.Daemon;
 import static com.evilbird.warcraft.object.unit.UnitType.Dragon;
 

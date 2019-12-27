@@ -13,7 +13,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.evilbird.engine.common.assets.AssetBundle;
+import com.evilbird.engine.assets.AssetBundle;
 import com.evilbird.engine.common.graphics.DrawableUtils;
 import com.evilbird.warcraft.common.WarcraftSeason;
 import com.evilbird.warcraft.object.unit.UnitDimensions;

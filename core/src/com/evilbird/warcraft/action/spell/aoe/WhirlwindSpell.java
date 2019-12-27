@@ -9,7 +9,6 @@
 
 package com.evilbird.warcraft.action.spell.aoe;
 
-import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.action.move.MoveWithCastingRangeAction;
 import com.evilbird.warcraft.action.spell.SpellSequence;
 import com.evilbird.warcraft.data.spell.Spell;

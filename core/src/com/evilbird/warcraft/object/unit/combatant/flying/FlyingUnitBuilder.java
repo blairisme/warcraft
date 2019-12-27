@@ -10,7 +10,7 @@
 package com.evilbird.warcraft.object.unit.combatant.flying;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.audio.sound.SoundCatalog;
+import com.evilbird.engine.audio.sound.SoundCatalog;
 import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
 import com.evilbird.engine.common.graphics.renderable.TextureRenderable;
 import com.evilbird.warcraft.object.unit.UnitAnimation;

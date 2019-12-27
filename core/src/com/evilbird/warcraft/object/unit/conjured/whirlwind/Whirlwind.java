@@ -15,7 +15,6 @@ import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
-import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredAreaEffect;
 
 import static org.apache.commons.lang3.RandomUtils.nextFloat;
@@ -40,8 +39,8 @@ public class Whirlwind extends ConjuredAreaEffect
      * a {@link AnimatedObjectStyle}, specifying the visual and auditory presentation
      * of the Whirlwind object.
      */
-    public Whirlwind(Skin skin, WarcraftPreferences preferences) {
-        super(skin, preferences);
+    public Whirlwind(Skin skin) {
+        super(skin);
         timer = new GameTimer(0);
     }
 

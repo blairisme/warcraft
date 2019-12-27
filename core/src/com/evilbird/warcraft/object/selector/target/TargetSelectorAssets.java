@@ -11,7 +11,7 @@ package com.evilbird.warcraft.object.selector.target;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.evilbird.engine.common.assets.AssetBundle;
+import com.evilbird.engine.assets.AssetBundle;
 
 /**
  * Provides access to the assets that are required to display target selectors.

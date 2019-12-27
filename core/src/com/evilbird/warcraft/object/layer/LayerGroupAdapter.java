@@ -45,7 +45,7 @@ public abstract class LayerGroupAdapter <T extends LayerGroup> implements JsonSe
 
     public LayerGroupAdapter() {
         GameService service = GameService.getInstance();
-        this.objectFactory = service.getItemFactory();
+        this.objectFactory = service.getObjectFactory();
         this.typeRegistry = service.getTypeRegistry();
     }
 

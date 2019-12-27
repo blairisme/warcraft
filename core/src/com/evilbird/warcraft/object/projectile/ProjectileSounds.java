@@ -9,8 +9,8 @@
 
 package com.evilbird.warcraft.object.projectile;
 
-import com.evilbird.engine.common.audio.sound.Sound;
-import com.evilbird.engine.common.audio.sound.SoundCatalog;
+import com.evilbird.engine.audio.sound.Sound;
+import com.evilbird.engine.audio.sound.SoundCatalog;
 
 import static com.evilbird.warcraft.object.unit.UnitSound.Hit;
 

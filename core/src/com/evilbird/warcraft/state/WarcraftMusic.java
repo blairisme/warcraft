@@ -10,8 +10,8 @@
 package com.evilbird.warcraft.state;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
-import com.evilbird.engine.common.assets.AssetBundle;
+import com.evilbird.engine.assets.AssetBundle;
+import com.evilbird.engine.audio.music.Music;
 import com.evilbird.engine.device.Device;
 
 import javax.inject.Inject;

@@ -11,10 +11,10 @@ package com.evilbird.warcraft.object.projectile;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.evilbird.engine.common.assets.AssetBundle;
-import com.evilbird.engine.common.audio.sound.Sound;
+import com.evilbird.engine.assets.AssetBundle;
+import com.evilbird.engine.audio.sound.Sound;
 
-import static com.evilbird.engine.common.audio.sound.SilentSound.SilentSoundEffect;
+import static com.evilbird.engine.audio.sound.SilentSound.SilentSoundEffect;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.Arrow;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.Axe;
 import static com.evilbird.warcraft.object.projectile.ProjectileType.Bolt;

@@ -102,7 +102,7 @@ public class IntroMenu extends Menu
         Label result = new Label("Title", skin);
         result.setAlignment(Align.center);
 
-        Cell cell = table.add(result);
+        Cell<Label> cell = table.add(result);
         cell.fillX();
         cell.expandX();
         cell.center();
@@ -119,7 +119,7 @@ public class IntroMenu extends Menu
 
         ScrollPane scrollPane = new ScrollPane(result);
 
-        Cell cell = table.add(scrollPane);
+        Cell<ScrollPane> cell = table.add(scrollPane);
         cell.align(Align.topLeft);
         cell.width(percentWidth(0.70f, table));
         cell.height(percentHeight(0.50f, table));
@@ -133,7 +133,7 @@ public class IntroMenu extends Menu
         Label result = new Label("Objectives", skin);
         result.setAlignment(Align.topLeft);
 
-        Cell cell = table.add(result);
+        Cell<Label> cell = table.add(result);
         cell.align(Align.right);
         cell.width(percentWidth(0.4f, table));
         cell.height(percentHeight(0.25f, table));
@@ -145,13 +145,18 @@ public class IntroMenu extends Menu
     private TextButton createButton(Skin skin, Table table) {
         LabelButton result = new LabelButton("Continue", skin);
         result.setDisabled(true);
-        result.addSelectListener(() -> showState(campaign));
+        result.addSelectListener(this::showCampaign);
 
-        Cell cell = table.add(result);
+        Cell<LabelButton> cell = table.add(result);
         cell.align(Align.right);
         cell.pad(10, 10, 10, 20);
         table.row();
 
         return result;
     }
+
+    private void showCampaign() {
+        showState(campaign);
+    }
+
 }

@@ -12,10 +12,11 @@ package com.evilbird.test.utils;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.evilbird.engine.common.assets.LazyMusicLoader;
-import com.evilbird.engine.common.assets.SyntheticTexture;
-import com.evilbird.engine.common.assets.SyntheticTextureLoader;
-import com.evilbird.engine.common.audio.music.LazyLoadedMusic;
+import com.evilbird.engine.assets.MusicLoader;
+import com.evilbird.engine.assets.SyntheticTexture;
+import com.evilbird.engine.assets.SyntheticTextureLoader;
+import com.evilbird.engine.audio.music.Music;
+import com.evilbird.engine.audio.sound.Sound;
 
 public class TestAssetManager
 {
@@ -25,7 +26,8 @@ public class TestAssetManager
     public static AssetManager getTestAssetManager(FileHandleResolver resolver) {
         AssetManager manager = new AssetManager(resolver);
         manager.setLoader(BitmapFont.class, new MockFontLoader(resolver));
-        manager.setLoader(LazyLoadedMusic.class, new LazyMusicLoader(resolver));
+        manager.setLoader(Music.class, new MusicLoader(resolver));
+        manager.setLoader(Sound.class, new MockSoundLoader(resolver));
         manager.setLoader(SyntheticTexture.class, new SyntheticTextureLoader(resolver));
         return manager;
     }

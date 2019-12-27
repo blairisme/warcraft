@@ -52,7 +52,7 @@ public class AnimatedObjectTest extends GameTestCase
         item.setPosition(12, 34);
         item.setDirection(new Vector2(1, 1));
         item.setAnimation(UnitAnimation.Build);
-        item.setSound(UnitSound.Attack, 1);
+        item.setSound(UnitSound.Attack);
         return item;
     }
 

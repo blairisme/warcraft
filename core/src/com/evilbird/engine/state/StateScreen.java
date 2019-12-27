@@ -12,8 +12,8 @@ package com.evilbird.engine.state;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.evilbird.engine.audio.AudioManager;
 import com.evilbird.engine.behaviour.Behaviour;
-import com.evilbird.engine.common.audio.music.MusicService;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceInput;
 import com.evilbird.engine.events.EventQueue;
@@ -36,14 +36,14 @@ public class StateScreen extends ScreenAdapter
     private GameObjectContainer world;
     private GameObjectContainer hud;
     private Behaviour behaviour;
-    private MusicService music;
+    private AudioManager audioManager;
     private GameController controller;
 
     @Inject
-    public StateScreen(Device device, EventQueue events, MusicService music) {
+    public StateScreen(Device device, EventQueue events, AudioManager audioManager) {
         this.input = device.getDeviceInput();
         this.events = events;
-        this.music = music;
+        this.audioManager = audioManager;
     }
 
     public State getState() {
@@ -89,7 +89,8 @@ public class StateScreen extends ScreenAdapter
     @Override
     public void show() {
         input.startMonitoring();
-        //music.play(state.getMusic());
+        audioManager.stop();
+        audioManager.play(state.getMusic());
     }
 
     public void resize(int width, int height) {

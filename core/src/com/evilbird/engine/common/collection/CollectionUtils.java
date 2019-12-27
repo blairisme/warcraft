@@ -141,6 +141,10 @@ public class CollectionUtils
         return removed;
     }
 
+    public static <T> boolean retainIf(Collection<T> collection, Predicate<? super T> condition) {
+        return removeIf(collection, condition.negate());
+    }
+
     public static <T> Collection<T> restrictSize(Collection<T> collection, int size) {
         if (collection.size() > size) {
             Iterator<T> iterator = collection.iterator();

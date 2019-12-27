@@ -90,7 +90,7 @@ public class SelectInvert extends BasicAction
     private void setSelectedSound(GameObject entity) {
         if (entity instanceof AnimatedObject && preferences.isAcknowledgementEnabled()) {
             AnimatedObject animatedObject = (AnimatedObject)entity;
-            animatedObject.setSound(Selected, preferences.getEffectsVolume());
+            animatedObject.setSound(Selected);
         }
     }
 

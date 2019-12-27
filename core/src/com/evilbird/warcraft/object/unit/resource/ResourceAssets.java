@@ -11,15 +11,15 @@ package com.evilbird.warcraft.object.unit.resource;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.evilbird.engine.common.assets.AssetBundle;
-import com.evilbird.engine.common.assets.SyntheticTexture;
-import com.evilbird.engine.common.audio.sound.Sound;
+import com.evilbird.engine.assets.AssetBundle;
+import com.evilbird.engine.assets.SyntheticTexture;
+import com.evilbird.engine.audio.sound.Sound;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.state.WarcraftContext;
 
 import java.util.Map;
 
-import static com.evilbird.engine.common.assets.SyntheticTextureParameters.withColour;
+import static com.evilbird.engine.assets.SyntheticTextureParameters.withColour;
 import static com.evilbird.engine.common.collection.Maps.of;
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
 import static com.evilbird.engine.common.graphics.Colours.LIGHT_BLUE;

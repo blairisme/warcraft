@@ -10,6 +10,7 @@
 package com.evilbird.engine.game;
 
 import com.evilbird.engine.action.ActionFactory;
+import com.evilbird.engine.audio.AudioManager;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.device.Device;
@@ -30,11 +31,13 @@ public interface GameInjector
 
     GamePreferences getPreferences();
 
-    GameObjectFactory getItemFactory();
+    AudioManager getAudioService();
 
     ActionFactory getActionFactory();
 
     BehaviourFactory getBehaviourFactory();
+
+    GameObjectFactory getObjectFactory();
 
     TypeRegistry getTypeRegistry();
 }

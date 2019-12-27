@@ -11,7 +11,7 @@ package com.evilbird.warcraft.object.unit.building;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.audio.sound.Sound;
+import com.evilbird.engine.audio.sound.Sound;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.renderable.Renderable;
 import com.evilbird.engine.common.time.GameTimer;
@@ -29,7 +29,7 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import static com.evilbird.engine.common.audio.sound.SilentSound.SilentSoundEffect;
+import static com.evilbird.engine.audio.sound.SilentSound.SilentSoundEffect;
 import static com.evilbird.engine.common.graphics.renderable.EmptyRenderable.BlankRenderable;
 
 /**
@@ -220,7 +220,7 @@ public class Building extends Unit implements ResourceContainer, UpgradeContaine
         damageAnimation.update(time);
         if (damageSoundInterval.advance(time)) {
             damageSoundInterval.reset();
-            damageSound.play();
+            audioManager.play(damageSound);
         }
     }
 

@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.state;
 
-import com.badlogic.gdx.audio.Music;
+import com.evilbird.engine.audio.music.Music;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;

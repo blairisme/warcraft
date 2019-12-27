@@ -13,7 +13,6 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
-import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
@@ -36,16 +35,10 @@ import static com.evilbird.warcraft.object.unit.UnitSound.ChopWood;
 public class GatherObtainWood extends GatherObtain
 {
     private transient GameTimer timer;
-    private transient WarcraftPreferences preferences;
 
     @Inject
-    public GatherObtainWood(
-        GatherEvents events,
-        ResourceTransfer resources,
-        WarcraftPreferences preferences)
-    {
+    public GatherObtainWood(GatherEvents events, ResourceTransfer resources) {
         super(events, null, resources);
-        this.preferences = preferences;
         setResource(Wood);
     }
 
@@ -81,7 +74,7 @@ public class GatherObtainWood extends GatherObtain
         if (timer.advance(time)) {
             timer.reset();
             Gatherer gatherer = (Gatherer) getSubject();
-            gatherer.setSound(ChopWood, preferences.getEffectsVolume());
+            gatherer.setSound(ChopWood);
         }
         return super.update(time);
     }

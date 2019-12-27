@@ -40,7 +40,6 @@ public class DeathActionTest extends GameTestCase
     private DeathAction action;
     private SelectEvents selectEvents;
     private RemoveEvents removeEvents;
-    private WarcraftPreferences preferences;
 
     @Before
     public void setup() {
@@ -48,7 +47,7 @@ public class DeathActionTest extends GameTestCase
         preferences = Mockito.mock(WarcraftPreferences.class);
         selectEvents = Mockito.mock(SelectEvents.class);
         removeEvents = Mockito.mock(RemoveEvents.class);
-        action = new DeathAction(selectEvents, removeEvents, objectFactory, preferences);
+        action = new DeathAction(selectEvents, removeEvents, objectFactory);
     }
 
     @Test
@@ -61,7 +60,7 @@ public class DeathActionTest extends GameTestCase
         action.setSubject(item);
 
         item.setAnimation(Idle);
-        item.setSound(Ready, 1);
+        item.setSound(Ready);
         item.setSelected(true);
         item.setSelectable(true);
 
@@ -88,7 +87,7 @@ public class DeathActionTest extends GameTestCase
         action.setSubject(item);
 
         item.setAnimation(Idle);
-        item.setSound(Ready, 1);
+        item.setSound(Ready);
         item.setSelected(true);
         item.setSelectable(true);
 

@@ -10,21 +10,21 @@
 package com.evilbird.warcraft.menu.intro;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.I18NBundle;
-import com.evilbird.engine.common.assets.AssetBundle;
-import com.evilbird.engine.common.audio.music.MusicCombination;
-import com.evilbird.engine.common.audio.music.MusicSequence;
-import com.evilbird.engine.common.audio.sound.Sound;
+import com.evilbird.engine.assets.AssetBundle;
+import com.evilbird.engine.audio.music.Music;
+import com.evilbird.engine.audio.music.MusicComposite;
+import com.evilbird.engine.audio.music.MusicSequence;
+import com.evilbird.engine.audio.sound.Sound;
 import com.evilbird.engine.common.collection.Maps;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import static com.evilbird.engine.common.assets.AssetUtilities.fontSize;
+import static com.evilbird.engine.assets.AssetUtilities.fontSize;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 
 /**
@@ -105,7 +105,7 @@ public class IntroMenuAssets extends AssetBundle
         Music background = getMusic("music");
         background.setVolume(0.7f);
 
-        return new MusicCombination(narration, background);
+        return new MusicComposite(narration, background);
     }
 
     private List<Music> getNarrationSequence() {

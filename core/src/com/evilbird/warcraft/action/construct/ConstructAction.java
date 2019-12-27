@@ -107,7 +107,7 @@ public class ConstructAction extends TemporalAction
         Gatherer builder = (Gatherer)getSubject();
         if (preferences.isBuildingSoundsEnabled() && timer.advance(time)) {
             timer.reset();
-            builder.setSound(Build, preferences.getEffectsVolume());
+            builder.setSound(Build);
         }
         return ActionIncomplete;
     }
@@ -139,7 +139,7 @@ public class ConstructAction extends TemporalAction
         moveAdjacent(builder, building);
 
         if (preferences.isSpeechEnabled()) {
-            builder.setSound(Complete, preferences.getEffectsVolume());
+            builder.setSound(Complete);
         }
     }
 

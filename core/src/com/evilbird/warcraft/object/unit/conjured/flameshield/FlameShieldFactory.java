@@ -14,7 +14,6 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
-import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredAssets;
 
@@ -34,16 +33,14 @@ public class FlameShieldFactory implements GameFactory<FlameShield>
     protected AssetManager manager;
     protected ConjuredAssets assets;
     protected FlameShieldBuilder builder;
-    protected WarcraftPreferences preferences;
 
     @Inject
-    public FlameShieldFactory(Device device, WarcraftPreferences preferences) {
-        this(device.getAssetStorage(), preferences);
+    public FlameShieldFactory(Device device) {
+        this(device.getAssetStorage());
     }
 
-    public FlameShieldFactory(AssetManager manager, WarcraftPreferences preferences) {
+    public FlameShieldFactory(AssetManager manager) {
         this.manager = manager;
-        this.preferences = preferences;
     }
 
     @Override
@@ -62,7 +59,7 @@ public class FlameShieldFactory implements GameFactory<FlameShield>
     @Override
     public void load(GameContext context) {
         assets = new ConjuredAssets(manager, UnitType.FlameShield);
-        builder = new FlameShieldBuilder(assets, preferences);
+        builder = new FlameShieldBuilder(assets);
         assets.load();
     }
 

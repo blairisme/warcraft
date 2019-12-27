@@ -149,7 +149,7 @@ public class ProduceUnit extends BasicAction
         player.addObject(product);
 
         if (preferences.isSpeechEnabled()) {
-            product.setSound(Ready, preferences.getEffectsVolume());
+            product.setSound(Ready);
         }
     }
 

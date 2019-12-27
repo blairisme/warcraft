@@ -18,7 +18,6 @@ import com.evilbird.engine.common.graphics.animation.AnimationFrame;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectReference;
-import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.unit.conjured.ConjuredAreaEffect;
 
 import java.util.ArrayList;
@@ -49,8 +48,8 @@ public class FlameShield extends ConjuredAreaEffect
      * a {@link AnimatedObjectStyle}, specifying the visual and auditory presentation
      * of the Flame Shield object.
      */
-    public FlameShield(Skin skin, WarcraftPreferences preferences) {
-        super(skin, preferences);
+    public FlameShield(Skin skin) {
+        super(skin);
         this.rotations = new ArrayList<>(COUNT);
         this.times = new ArrayList<>(COUNT);
     }

@@ -11,9 +11,9 @@ package com.evilbird.engine.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.evilbird.engine.common.audio.music.MusicService;
+import com.evilbird.engine.audio.AudioManager;
+import com.evilbird.engine.audio.music.Music;
 import com.evilbird.engine.game.GameController;
 
 import javax.inject.Inject;
@@ -30,11 +30,11 @@ public class MenuScreen extends ScreenAdapter
     private Menu menu;
     private MenuIdentifier identifier;
     private GameController controller;
-    private MusicService musicService;
+    private AudioManager audioManager;
 
     @Inject
-    public MenuScreen(MusicService musicService) {
-        this.musicService = musicService;
+    public MenuScreen(AudioManager audioManager) {
+        this.audioManager = audioManager;
     }
 
     public Menu getMenu() {
@@ -49,6 +49,7 @@ public class MenuScreen extends ScreenAdapter
         this.menu = menu;
         this.identifier = identifier;
         updateController();
+        updateMusic();
     }
 
     public void setController(GameController controller) {
@@ -96,8 +97,11 @@ public class MenuScreen extends ScreenAdapter
 
     private void updateMusic() {
         Music music = menu.getMusic();
-        if (music != null) {
-            musicService.play(music);
+        if (music == null) {
+            audioManager.stop();
+        }
+        else if (!audioManager.isPlaying(music)) {
+            audioManager.play(music);
         }
     }
 

@@ -17,6 +17,7 @@ import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.GL20;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
+import com.evilbird.engine.audio.AudioManager;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.behaviour.BehaviourIdentifier;
@@ -119,12 +120,14 @@ public class GameTestCase
     protected BehaviourFactory behaviourFactory;
     protected TypeRegistry typeRegistry;
     protected WarcraftPreferences preferences;
+    protected AudioManager audioManager;
 
     @Before
     public void setup() {
         device = newTestDevice();
         gameEngine = Mockito.mock(GameEngine.class);
         actionFactory = Mockito.mock(ActionFactory.class);
+        audioManager = Mockito.mock(AudioManager.class);
 
         behaviourFactory = Mockito.mock(BehaviourFactory.class);
         respondWithNewBehaviour();
@@ -138,11 +141,12 @@ public class GameTestCase
         gameInjector = Mockito.mock(GameInjector.class);
         Mockito.when(gameInjector.getDevice()).thenReturn(device);
         Mockito.when(gameInjector.getEngine()).thenReturn(gameEngine);
-        Mockito.when(gameInjector.getItemFactory()).thenReturn(objectFactory);
+        Mockito.when(gameInjector.getObjectFactory()).thenReturn(objectFactory);
         Mockito.when(gameInjector.getActionFactory()).thenReturn(actionFactory);
         Mockito.when(gameInjector.getBehaviourFactory()).thenReturn(behaviourFactory);
         Mockito.when(gameInjector.getTypeRegistry()).thenReturn(typeRegistry);
         Mockito.when(gameInjector.getPreferences()).thenReturn(preferences);
+        Mockito.when(gameInjector.getAudioService()).thenReturn(audioManager);
 
         gameService = GameService.getInstance();
         gameService.setInjector(gameInjector);

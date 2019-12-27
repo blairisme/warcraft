@@ -10,11 +10,11 @@
 package com.evilbird.warcraft.object.unit.combatant.spellcaster;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.evilbird.engine.common.audio.sound.Sound;
+import com.evilbird.engine.audio.sound.Sound;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 
-import static com.evilbird.engine.common.audio.sound.SilentSound.SilentSoundEffect;
+import static com.evilbird.engine.audio.sound.SilentSound.SilentSoundEffect;
 import static com.evilbird.warcraft.object.unit.UnitType.Chogall;
 import static com.evilbird.warcraft.object.unit.UnitType.DeathKnight;
 import static com.evilbird.warcraft.object.unit.UnitType.Mage;
