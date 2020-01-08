@@ -9,7 +9,7 @@
 
 package com.evilbird.warcraft.action.spell.creature;
 
-import com.evilbird.warcraft.action.move.MoveWithCastingRangeAction;
+import com.evilbird.warcraft.action.move.MoveWithinCastingRangeAction;
 import com.evilbird.warcraft.action.spell.SpellSequence;
 import com.evilbird.warcraft.data.spell.Spell;
 import com.evilbird.warcraft.object.effect.EffectType;
@@ -27,7 +27,7 @@ import javax.inject.Inject;
 public class PolymorphSequence extends SpellSequence
 {
     @Inject
-    public PolymorphSequence(PolymorphSpell cast, MoveWithCastingRangeAction move) {
+    public PolymorphSequence(PolymorphSpell cast, MoveWithinCastingRangeAction move) {
         super(cast, move);
         move.setSpell(Spell.Polymorph);
         cast.setSpell(Spell.Polymorph);

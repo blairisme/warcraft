@@ -23,12 +23,12 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class MoveWithCastingRangeAction extends MoveWithinRangeAction
+public class MoveWithinCastingRangeAction extends MoveWithinRangeAction
 {
     private transient Spell spell;
 
     @Inject
-    public MoveWithCastingRangeAction(MoveEvents events) {
+    public MoveWithinCastingRangeAction(MoveEvents events) {
         super(events);
     }
 
