@@ -53,6 +53,20 @@ public abstract class StateTransitionAction extends CompositeAction
         return ActionIncomplete;
     }
 
+    @Override
+    public void reset() {
+        super.reset();
+        current = null;
+        previous = null;
+    }
+
+    @Override
+    public void restart() {
+        super.restart();
+        current = null;
+        previous = null;
+    }
+
     protected abstract Action nextAction(Action previous);
 
     protected boolean isCriticalError(Action action) {

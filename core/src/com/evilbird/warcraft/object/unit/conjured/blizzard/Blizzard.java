@@ -74,8 +74,7 @@ public class Blizzard extends ConjuredAreaEffect
         if (timer.advance(time)) {
             timer = new GameTimer(RandomUtils.nextFloat(HALE_INTERVAL_MIN, HALE_INTERVAL_MAX));
 
-            Vector2 size = getSize();
-            Vector2 start = getPosition();
+            Vector2 start = new Vector2(Math.max(0, position.x), Math.max(0, position.y));
             Vector2 end = new Vector2(start.x + size.x, start.y + size.y);
 
             for (int i = 0; i < RandomUtils.nextInt(HALE_COUNT_MIN, HALE_COUNT_MAX); i++) {
