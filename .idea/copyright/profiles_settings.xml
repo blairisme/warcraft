@@ -1,7 +1,7 @@
 <component name="CopyrightManager">
   <settings>
     <module2copyright>
-      <element module="All" copyright="MIT" />
+      <element module="All" copyright="Mozilla Public License 2.0" />
     </module2copyright>
   </settings>
 </component>

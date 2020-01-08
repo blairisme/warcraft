@@ -41,8 +41,8 @@ This project is still under active development. Whilst significant progress has 
 
 ### Completed
 
-- Human campaign levels 1-3
-- Orc Campaign levels 1-3
+- Human campaign
+- Orc Campaign
 - Main menu system
 - In-game menu system
 - In-game user interface
@@ -52,10 +52,7 @@ This project is still under active development. Whilst significant progress has 
 
 ### Under active development
 
-- Buff/Debuff/Upgrade mechanism
-- Magic units
 - Campaign AI
-- Human and Campaign levels 4-12
 
 ### Planned for future development
 
