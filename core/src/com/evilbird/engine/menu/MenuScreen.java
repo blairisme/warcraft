@@ -94,7 +94,7 @@ public class MenuScreen extends ScreenAdapter
         menu.draw();
     }
 
-    private void updateMusic() {
+    protected void updateMusic() {
         Music music = menu.getMusic();
         if (music == null) {
             audioManager.stop();
@@ -104,7 +104,7 @@ public class MenuScreen extends ScreenAdapter
         }
     }
 
-    private void updateController() {
+    protected void updateController() {
         if (menu != null && controller != null) {
             menu.setController(controller);
         }

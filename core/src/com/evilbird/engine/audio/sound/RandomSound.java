@@ -8,10 +8,12 @@
 
 package com.evilbird.engine.audio.sound;
 
+import org.apache.commons.lang3.Validate;
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -22,7 +24,8 @@ import java.util.Random;
  */
 public class RandomSound implements Sound
 {
-    private Random random;
+    private static final transient Random random = new Random();
+
     private Sound current;
     private List<Sound> sounds;
 
@@ -30,17 +33,17 @@ public class RandomSound implements Sound
      * Constructs a new instance of this class, playing one of the given
      * {@link Sound Sounds} at random when played.
      *
-     * @param sounds a {@link Collection} of {@code Sounds}.
+     * @param soundSet a {@link Collection} of {@code Sounds}.
      *
      * @throws NullPointerException if the given {@code Collection} is
      *                              {@code null}.
      */
-    public RandomSound(Collection<Sound> sounds) {
-        Objects.requireNonNull(sounds);
+    public RandomSound(Collection<Sound> soundSet) {
+        Validate.notNull(soundSet);
+        Validate.notEmpty(soundSet);
 
-        this.current = null;
-        this.random = new Random();
-        this.sounds = new ArrayList<>(sounds);
+        sounds = new ArrayList<>(soundSet);
+        current = sounds.get(random.nextInt(sounds.size()));
     }
 
     @Override
@@ -50,37 +53,30 @@ public class RandomSound implements Sound
         }
     }
 
+    public List<Sound> getSounds() {
+        return Collections.unmodifiableList(sounds);
+    }
+
     @Override
     public boolean isPlaying() {
-        if (current != null) {
-            return current.isPlaying();
-        }
-        return false;
+        return current.isPlaying();
     }
 
     @Override
     public void play() {
-        if (sounds.size() > 0) {
-            current = sounds.get(random.nextInt(sounds.size()));
-            current.play();
-        }
+        current = sounds.get(random.nextInt(sounds.size()));
+        current.play();
     }
 
     @Override
     public void stop() {
-        if (current != null){
-            current.stop();
-        }
+        current.stop();
     }
 
     @Override
     public void setVolume(float volume) {
-        if (current != null){
-            current.setVolume(volume);
+        for (Sound sound : sounds) {
+            sound.setVolume(volume);
         }
-    }
-
-    public List<Sound> getSounds() {
-        return sounds;
     }
 }

@@ -11,6 +11,7 @@ package com.evilbird.warcraft.object.unit.combatant;
 import com.evilbird.engine.audio.sound.Sound;
 import com.evilbird.engine.audio.sound.SoundCatalog;
 
+import static com.evilbird.engine.audio.sound.SilentSound.SilentSoundEffect;
 import static com.evilbird.warcraft.object.unit.UnitSound.Acknowledge;
 import static com.evilbird.warcraft.object.unit.UnitSound.Attack;
 import static com.evilbird.warcraft.object.unit.UnitSound.Selected;
@@ -29,9 +30,8 @@ public class ConjuredUnitSounds extends SoundCatalog
      */
     public ConjuredUnitSounds(CombatantAssets assets) {
         super(4);
-        sound(Acknowledge, assets.getAcknowledgeSound());
-        sound(Selected, assets.getSelectedSound());
+        sound(Acknowledge, SilentSoundEffect);
+        sound(Selected, SilentSoundEffect);
         sound(Attack, assets.getAttackSound());
-        //sound(Die, assets.getDieSound());
     }
 }
