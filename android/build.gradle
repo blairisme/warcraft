@@ -135,3 +135,9 @@ task installer(dependsOn: 'assembleRelease', type: Copy) {
     into 'build/installer/'
     rename 'android-release.apk', 'Warcraft-Android.apk'
 }
+
+task prepareAssets(type: Copy) {
+    from "${project.rootDir}/assets"
+    into "${project.projectDir}/assets"
+}
+preBuild.dependsOn(prepareAssets)

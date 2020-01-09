@@ -1,5 +1,4 @@
 ## Java
-
 *.class
 *.war
 *.ear
@@ -64,7 +63,6 @@ nbactions.xml
 nb-configuration.xml
 
 ## Gradle
-
 .gradle
 gradle-app.setting
 build/
@@ -73,5 +71,5 @@ build/
 .DS_Store
 Thumbs.db
 
-design/design/
+## Android
 secure.properties

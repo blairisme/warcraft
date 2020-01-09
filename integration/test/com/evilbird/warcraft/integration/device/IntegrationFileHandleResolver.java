@@ -35,7 +35,7 @@ public class IntegrationFileHandleResolver implements FileHandleResolver
         if (directory == null) {
             throw new UnsupportedOperationException("Unable to locate root directory");
         }
-        assets = directory.resolve("android/assets");
+        assets = directory.resolve("assets");
     }
 
     private Path getWorkingDirectory() {
