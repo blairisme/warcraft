@@ -16,15 +16,15 @@ import com.evilbird.warcraft.object.unit.building.BuildingAssets;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 
 /**
- * Defines a catalog of animations as laid out in Goblin Alchemist texture
- * atlas files. Animations are provided for construction, destruction,
+ * Defines a catalog of animations as laid out in Goblin Alchemist or Church
+ * texture atlas files. Animations are provided for construction, destruction,
  * pre-construction and post-construction.
  *
  * @author Blair Butterworth
  */
-public class GoblinAlchemistAnimations extends BuildingAnimations
+public class TwinklingAnimations extends BuildingAnimations
 {
-    public GoblinAlchemistAnimations(BuildingAssets assets, ProductionTimes production) {
+    public TwinklingAnimations(BuildingAssets assets, ProductionTimes production) {
         super(assets, production);
         idle(assets.getBaseTexture(), assets.getSize());
     }

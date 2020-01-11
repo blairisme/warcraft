@@ -27,7 +27,7 @@ import com.evilbird.warcraft.object.unit.UnitStyle;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.animations.BuildingAnimations;
 import com.evilbird.warcraft.object.unit.building.animations.ExtractorAnimations;
-import com.evilbird.warcraft.object.unit.building.animations.GoblinAlchemistAnimations;
+import com.evilbird.warcraft.object.unit.building.animations.TwinklingAnimations;
 import com.evilbird.warcraft.object.unit.building.animations.TowerAnimations;
 import com.evilbird.warcraft.object.unit.building.sounds.BuildingSounds;
 import com.evilbird.warcraft.object.unit.building.sounds.TowerSounds;
@@ -131,8 +131,8 @@ public class BuildingBuilder
         if (archetype == UnitArchetype.Tower && attack != UnitAttack.None) {
             return new TowerAnimations(assets, times);
         }
-        if (type == UnitType.GoblinAlchemist) {
-            return new GoblinAlchemistAnimations(assets, times);
+        if (type == UnitType.GoblinAlchemist || type == UnitType.Church) {
+            return new TwinklingAnimations(assets, times);
         }
         return new BuildingAnimations(assets, times);
     }
