@@ -63,10 +63,12 @@ macAppBundle {
 //Task-: createExe
 launch4j {
     mainClassName = project.mainClass
-    icon = "${projectDir}/../assets/data/icons/WarcraftIcon.ico"
-    jar = "${projectDir}/build/libs/Warcraft2-1.0-all.jar"
+    icon = "${project.rootDir}/assets/data/icons/WarcraftIcon.ico"
+    jar = "${project.projectDir}/build/libs/Warcraft2-1.0-all.jar"
     outfile = "${appName}.exe"
-    //bundledJrePath = System.getProperty('java.home')
+    bundledJrePath = "runtime"
+    bundledJre64Bit	= true
+    bundledJreAsFallback = false
 }
 
 task macInstaller(dependsOn: createApp, type: Zip) {
@@ -77,6 +79,9 @@ task macInstaller(dependsOn: createApp, type: Zip) {
 
 task windowsInstaller(dependsOn: createExe, type: Zip) {
     from 'build/launch4j/Warcraft2.exe'
+    from ('runtime') {
+        into('runtime')
+    }
     archiveName 'Warcraft-Windows.zip'
     destinationDir file('build/installer')
 }
