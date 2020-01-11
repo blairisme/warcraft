@@ -14,13 +14,15 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.evilbird.engine.assets.AssetBundle;
 import com.evilbird.engine.common.graphics.DrawableUtils;
+import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.common.WarcraftSeason;
-import com.evilbird.warcraft.object.unit.UnitDimensions;
+import com.evilbird.warcraft.object.unit.UnitArchetype;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.state.WarcraftContext;
 
 import static com.evilbird.engine.common.math.GridPoints.Zero;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
+import static com.evilbird.warcraft.common.WarcraftFaction.Neutral;
 
 /**
  * Provides access to the assets that are required to display a
@@ -44,11 +46,14 @@ public class BuildingSelectorAssets extends AssetBundle
 
     private void registerBuildingTextures(WarcraftSeason seasonType) {
         for (UnitType type: UnitType.values()) {
-            if (type.isBuilding() && !type.isNeutral()) {
+            UnitArchetype archetype = type.getArchetype();
+            WarcraftFaction faction = type.getFaction();
+
+            if (archetype.isBuilding() && faction != Neutral) {
                 String name = toSnakeCase(type.name());
-                String faction = toSnakeCase(type.getFaction().name());
+                String group = toSnakeCase(faction.name());
                 String season = toSnakeCase(seasonType.name());
-                register(type, "data/textures/" + faction + "/building/" + season + "/" + name + ".png");
+                register(type, "data/textures/" + group + "/building/" + season + "/" + name + ".png");
             }
         }
     }
@@ -74,7 +79,7 @@ public class BuildingSelectorAssets extends AssetBundle
     }
 
     public GridPoint2 getSize(UnitType type) {
-        return UnitDimensions.getDimensions(type);
+        return type.getSize().getDimensions();
     }
 
     private Drawable getDrawable(Object id, UnitType type) {

@@ -66,29 +66,31 @@ public class ProductionTimes
     }
 
     public float buildTime(UnitType type) {
-        if (preferences.isBuildTimeCheatEnabled()) {
-            return 0;
-        }
-        if (type.isHuman()) {
-            return humanBuildTime(type);
-        }
-        else if (type.isOrc()) {
-            return orcBuildTime(type);
-        }
-        else if (type.isNeutral()) {
-            return 0;
-        }
-        throw new UnsupportedOperationException();
+//        if (preferences.isBuildTimeCheatEnabled()) {
+//            return 0;
+//        }
+//        if (type.isHuman()) {
+//            return humanBuildTime(type);
+//        }
+//        else if (type.isOrc()) {
+//            return orcBuildTime(type);
+//        }
+//        else if (type.isNeutral()) {
+//            return 0;
+//        }
+//        throw new UnsupportedOperationException();
+        return 0;
     }
 
     private float humanBuildTime(UnitType type) {
-        if (type.isBuilding()) {
-            return humanBuildingBuildTime(type);
-        }
-        else if (type.isCombatant()) {
-            return humanCombatantBuildTime(type);
-        }
-        throw new UnsupportedOperationException();
+//        if (type.isBuilding()) {
+//            return humanBuildingBuildTime(type);
+//        }
+//        else if (type.isCombatant()) {
+//            return humanCombatantBuildTime(type);
+//        }
+//        throw new UnsupportedOperationException();
+        return 0;
     }
 
     private float humanBuildingBuildTime(UnitType type) {
@@ -139,13 +141,14 @@ public class ProductionTimes
     }
 
     private float orcBuildTime(UnitType type) {
-        if (type.isBuilding()) {
-            return orcBuildingBuildTime(type);
-        }
-        else if (type.isCombatant()) {
-            return orcCombatantBuildTime(type);
-        }
-        throw new UnsupportedOperationException();
+//        if (type.isBuilding()) {
+//            return orcBuildingBuildTime(type);
+//        }
+//        else if (type.isCombatant()) {
+//            return orcCombatantBuildTime(type);
+//        }
+//        throw new UnsupportedOperationException();
+        return 0;
     }
 
     private float orcBuildingBuildTime(UnitType type) {

@@ -13,6 +13,8 @@ import com.evilbird.engine.audio.sound.SoundCatalog;
 import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
 import com.evilbird.engine.common.graphics.renderable.TextureRenderable;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
+import com.evilbird.warcraft.object.unit.UnitArchetype;
+import com.evilbird.warcraft.object.unit.UnitAttack;
 import com.evilbird.warcraft.object.unit.UnitStyle;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
@@ -27,6 +29,9 @@ import com.evilbird.warcraft.object.unit.combatant.flying.orc.DragonAnimations;
 import com.evilbird.warcraft.object.unit.combatant.flying.orc.GoblinZeppelinAnimations;
 
 import java.util.Random;
+
+import static com.evilbird.warcraft.object.unit.UnitArchetype.ConjuredUnit;
+import static com.evilbird.warcraft.object.unit.UnitAttack.None;
 
 /**
  * Creates a new {@link FlyingUnit FlyingUnits} whose visual and audible
@@ -70,7 +75,8 @@ public class FlyingUnitBuilder extends CombatantBuilder<FlyingUnit>
 
     @Override
     protected FlyingUnit newCombatant(Skin skin) {
-        return type.isFlyingScout() ? new FlyingScout(skin) : new FlyingUnit(skin);
+        UnitAttack attack = type.getAttack();
+        return attack == None ? new FlyingScout(skin) : new FlyingUnit(skin);
     }
 
     @Override
@@ -88,6 +94,7 @@ public class FlyingUnitBuilder extends CombatantBuilder<FlyingUnit>
 
     @Override
     protected SoundCatalog newSounds() {
-        return type.isConjuredUnit() ? new ConjuredUnitSounds(assets) : new CombatantSounds(assets);
+        UnitArchetype archetype = type.getArchetype();
+        return archetype == ConjuredUnit ? new ConjuredUnitSounds(assets) : new CombatantSounds(assets);
     }
 }

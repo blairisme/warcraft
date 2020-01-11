@@ -1,6 +1,7 @@
 <component name="ProjectDictionaryState">
   <dictionary name="blair">
     <words>
+      <w>anduin</w>
       <w>attackable</w>
       <w>axethrower</w>
       <w>azeroth</w>
@@ -19,7 +20,9 @@
       <w>ingame</w>
       <w>juggernaught</w>
       <w>kilrogg</w>
+      <w>lightbringer</w>
       <w>lordaeron</w>
+      <w>lothar</w>
       <w>mage</w>
       <w>mages</w>
       <w>mana</w>
@@ -30,8 +33,11 @@
       <w>polymorph</w>
       <w>renderable</w>
       <w>runestone</w>
+      <w>substitutor</w>
       <w>traversable</w>
       <w>unhighlighted</w>
+      <w>upgrader</w>
+      <w>uther</w>
       <w>warcraft</w>
       <w>waypoint</w>
     </words>

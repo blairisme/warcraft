@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.audio.sound.SoundCatalog;
 import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
+import com.evilbird.warcraft.object.unit.UnitArchetype;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantBuilder;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.animations.LandGathererAnimations;
@@ -22,6 +23,8 @@ import com.evilbird.warcraft.object.unit.combatant.gatherer.sounds.SeaGathererSo
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.evilbird.warcraft.object.unit.UnitArchetype.Tanker;
+
 /**
  * Creates a new {@link Gatherer} instance whose visual and audible
  * presentation is defined by the given {@link GathererAssets}.
@@ -30,34 +33,34 @@ import java.util.Map;
  */
 public class GathererBuilder extends CombatantBuilder<Gatherer>
 {
-    private UnitType type;
+    private UnitArchetype archetype;
     private GathererAssets assets;
 
     public GathererBuilder(GathererAssets assets, UnitType type) {
         super(assets, type);
         this.assets = assets;
-        this.type = type;
+        this.archetype = type.getArchetype();
     }
 
     @Override
     protected Gatherer newCombatant(Skin skin) {
-        return type.isNavalUnit() ? new SeaGatherer(skin) : new LandGatherer(skin);
+        return archetype == Tanker ? new SeaGatherer(skin) : new LandGatherer(skin);
     }
 
     @Override
     protected AnimationCatalog newAnimations() {
-        return type.isNavalUnit() ? new SeaGathererAnimations(assets) : new LandGathererAnimations(assets);
+        return archetype == Tanker ? new SeaGathererAnimations(assets) : new LandGathererAnimations(assets);
     }
 
     @Override
     protected SoundCatalog newSounds() {
-        return type.isNavalUnit() ? new SeaGathererSounds(assets) : new LandGathererSounds(assets);
+        return archetype == Tanker ? new SeaGathererSounds(assets) : new LandGathererSounds(assets);
     }
 
     @Override
     protected Map<Texture, Texture> newMasks() {
         Map<Texture, Texture> masks = new HashMap<>(super.newMasks());
-        if (type.isNaval()) {
+        if (archetype == Tanker) {
             masks.put(assets.getMoveWithOilTexture(), assets.getMoveWithOilMask());
         } else {
             masks.put(assets.getMoveWithGoldTexture(), assets.getMoveWithGoldMask());

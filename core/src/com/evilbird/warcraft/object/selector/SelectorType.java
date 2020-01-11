@@ -102,9 +102,9 @@ public enum SelectorType implements GameObjectType
         return EnumUtils.isBetween(selectorType, BlizzardSelector, WhirlwindSelector);
     }
 
-    public static SelectorType forBuilding(UnitType unitType) {
-        Validate.isTrue(unitType.isBuilding());
-        return SelectorType.valueOf(unitType.name() + "Selector");
+    public static SelectorType forBuilding(UnitType type) {
+        Validate.isTrue(type.getArchetype().isBuilding());
+        return SelectorType.valueOf(type.name() + "Selector");
     }
 
     public static UnitType getBuilding(SelectorType selectorType) {

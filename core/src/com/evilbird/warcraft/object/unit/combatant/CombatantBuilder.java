@@ -24,6 +24,8 @@ import com.evilbird.warcraft.object.unit.UnitType;
 import java.util.Collections;
 import java.util.Map;
 
+import static com.evilbird.warcraft.common.WarcraftFaction.Neutral;
+
 /**
  * Creates a new {@link Combatant} whose visual and audible presentation is
  * defined by the given {@link CombatantAssets}.
@@ -107,7 +109,7 @@ public abstract class CombatantBuilder<T extends Combatant>
     }
 
     protected Map<Texture, Texture> newMasks() {
-        if (! type.isNeutral()) {
+        if (type.getFaction() != Neutral) {
             return Maps.of(assets.getBaseTexture(), assets.getMaskTexture());
         }
         return Collections.emptyMap();

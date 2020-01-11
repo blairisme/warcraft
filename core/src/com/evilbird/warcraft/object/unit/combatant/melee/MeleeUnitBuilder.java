@@ -11,6 +11,7 @@ package com.evilbird.warcraft.object.unit.combatant.melee;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.audio.sound.SoundCatalog;
 import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
+import com.evilbird.warcraft.object.unit.UnitArchetype;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
 import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
@@ -18,6 +19,9 @@ import com.evilbird.warcraft.object.unit.combatant.CombatantBuilder;
 import com.evilbird.warcraft.object.unit.combatant.CombatantSounds;
 import com.evilbird.warcraft.object.unit.combatant.ConjuredUnitSounds;
 import com.evilbird.warcraft.object.unit.combatant.melee.neutral.SkeletonAnimations;
+
+import static com.evilbird.warcraft.object.unit.UnitArchetype.ConjuredUnit;
+import static com.evilbird.warcraft.object.unit.UnitArchetype.Demolition;
 
 /**
  * Creates a new melee units whose visual and audible presentation is defined
@@ -43,10 +47,12 @@ public class MeleeUnitBuilder extends CombatantBuilder<Combatant>
 
     @Override
     protected AnimationCatalog newAnimations() {
-        if (type.isConjuredUnit()) {
+        UnitArchetype archetype = type.getArchetype();
+
+        if (archetype == ConjuredUnit) {
             return new SkeletonAnimations(assets);
         }
-        if (type.isDemoTeam()) {
+        if (archetype == Demolition) {
             return new DemoUnitAnimations(assets);
         }
         return new MeleeUnitAnimations(assets);
@@ -54,7 +60,9 @@ public class MeleeUnitBuilder extends CombatantBuilder<Combatant>
 
     @Override
     protected SoundCatalog newSounds() {
-        if (type.isConjuredUnit()) {
+        UnitArchetype archetype = type.getArchetype();
+
+        if (archetype == ConjuredUnit) {
             return new ConjuredUnitSounds(assets);
         }
         return new CombatantSounds(assets);

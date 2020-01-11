@@ -13,8 +13,12 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.control.Table;
 import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.display.components.status.details.DetailsPaneElement;
+import com.evilbird.warcraft.object.unit.UnitArchetype;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
+
+import static com.evilbird.warcraft.object.unit.UnitArchetype.CommandCentre;
+import static com.evilbird.warcraft.object.unit.UnitArchetype.FoodProducer;
 
 /**
  * Instances of this user interface show details about a building, such as
@@ -67,7 +71,9 @@ public class BuildingDetailsPane extends Table implements DetailsPaneElement
 
     private void updateView(Building building) {
         removeObjects();
-        UnitType buildingType = (UnitType)building.getType();
+
+        UnitType type = (UnitType)building.getType();
+        UnitArchetype archetype = type.getArchetype();
 
         if (building.isConstructing()){
             showConstructionDetails(building);
@@ -75,10 +81,10 @@ public class BuildingDetailsPane extends Table implements DetailsPaneElement
         else if (building.isProducing()){
             showProductionDetails(building);
         }
-        else if (buildingType.isFoodProducer()){
+        else if (archetype == FoodProducer){
             showFoodProducerDetails(building);
         }
-        else if (buildingType.isCommandCentre()) {
+        else if (archetype == CommandCentre) {
             showCommandCentreDetails(building);
         }
     }

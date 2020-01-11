@@ -10,28 +10,29 @@ package com.evilbird.warcraft.data.resource;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 
 /**
- * Represents a collection of {@link com.evilbird.warcraft.data.resource.ResourceQuantity ResourceQuantities}.
+ * Represents a collection of {@link ResourceQuantity ResourceQuantities}.
  *
  * @author Blair Butterworth
  */
-public class ResourceSet implements Iterable<com.evilbird.warcraft.data.resource.ResourceQuantity>
+public class ResourceSet implements Iterable<ResourceQuantity>
 {
-    private Collection<com.evilbird.warcraft.data.resource.ResourceQuantity> resources;
+    private Collection<ResourceQuantity> resources;
 
-    public ResourceSet(Collection<com.evilbird.warcraft.data.resource.ResourceQuantity> resources) {
-        this.resources = resources;
+    public ResourceSet(Collection<ResourceQuantity> resources) {
+        this.resources = Collections.unmodifiableCollection(resources);
     }
 
     @Override
-    public Iterator<com.evilbird.warcraft.data.resource.ResourceQuantity> iterator() {
+    public Iterator<ResourceQuantity> iterator() {
         return resources.iterator();
     }
 
     public ResourceSet negate() {
-        Collection<com.evilbird.warcraft.data.resource.ResourceQuantity> negated = new ArrayList<>(resources.size());
+        Collection<ResourceQuantity> negated = new ArrayList<>(resources.size());
         for (ResourceQuantity quantity: resources) {
             negated.add(quantity.negate());
         }

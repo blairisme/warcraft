@@ -22,8 +22,7 @@ import static com.evilbird.engine.assets.SyntheticTextureParameters.withColour;
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
 import static com.evilbird.engine.common.graphics.Colours.LIGHT_BLUE;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
-import static com.evilbird.warcraft.object.unit.UnitDimensions.EXTRA_SMALL;
-import static com.evilbird.warcraft.object.unit.UnitDimensions.EXTRA_SMALL_NAME;
+import static com.evilbird.warcraft.object.unit.UnitSize.ExtraSmall;
 
 /**
  * Defines the assets that are required to display a {@link Critter}, as well
@@ -39,12 +38,14 @@ public class CritterAssets extends AssetBundle
         register("decompose", "data/textures/common/unit/decompose.png");
         register("annoyed", "data/sounds/neutral/unit/${name}/annoyed/1.mp3");
         register("selected", "data/sounds/neutral/unit/${name}/selected/1.mp3");
-        register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, EXTRA_SMALL));
-        register("highlight", "highlight_${size}", SyntheticTexture.class, withColour(LIGHT_BLUE, EXTRA_SMALL));
+        register("selection", "selection_${size}", SyntheticTexture.class,
+            withColour(FOREST_GREEN, ExtraSmall.getDimensions()));
+        register("highlight", "highlight_${size}", SyntheticTexture.class,
+            withColour(LIGHT_BLUE, ExtraSmall.getDimensions()));
     }
 
     private static Map<String, String> assetPathVariables(UnitType type) {
-        return Maps.of("name", toSnakeCase(type.name()), "size", EXTRA_SMALL_NAME);
+        return Maps.of("name", toSnakeCase(type.name()), "size", ExtraSmall.getLabel());
     }
 
     public Texture getBaseTexture() {

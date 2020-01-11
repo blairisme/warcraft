@@ -18,9 +18,10 @@ import com.evilbird.engine.common.lang.Identifier;
 public enum UnitAttack implements Identifier
 {
     None,
-    Melee,
-    Ranged,
-    Ship,
-    Siege,
+    Melee,  //Sword + Fist
+    Ranged, //Arrow + Axe
+    Naval,  //Torpedo + Cannon
+    Siege,  //Bolt + Rock
     Magic,
+    Explosive
 }

@@ -24,8 +24,6 @@ import static com.evilbird.engine.common.collection.Maps.of;
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
 import static com.evilbird.engine.common.graphics.Colours.LIGHT_BLUE;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
-import static com.evilbird.warcraft.object.unit.UnitDimensions.getDimensionName;
-import static com.evilbird.warcraft.object.unit.UnitDimensions.getDimensions;
 import static com.evilbird.warcraft.object.unit.UnitType.BombardTower;
 import static com.evilbird.warcraft.object.unit.UnitType.CannonTower;
 import static com.evilbird.warcraft.object.unit.UnitType.GuardTower;
@@ -59,7 +57,7 @@ public class BuildingAssets extends AssetBundle
     public BuildingAssets(AssetManager manager, UnitType type, WarcraftContext context) {
         super(manager, assetPathVariables(type, context));
         this.type = type;
-        this.dimensions = getDimensions(type);
+        this.dimensions = type.getSize().getDimensions();
         registerTextures();
         registerSounds();
     }
@@ -68,7 +66,7 @@ public class BuildingAssets extends AssetBundle
         return of("faction", toSnakeCase(type.getFaction().name()),
                 "season", toSnakeCase(context.getAssetSet().name()),
                 "name", toSnakeCase(type.name()),
-                "size", getDimensionName(type));
+                "size", type.getSize().getLabel());
     }
 
     private void registerTextures() {

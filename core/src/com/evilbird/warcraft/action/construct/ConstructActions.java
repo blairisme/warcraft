@@ -117,8 +117,8 @@ public enum ConstructActions implements ActionIdentifier
         return UnitType.valueOf(getName(this, "Construct", "Cancel"));
     }
 
-    public static ConstructActions forProduct(UnitType unitType) {
-        Validate.isTrue(unitType.isBuilding());
-        return ConstructActions.valueOf("Construct" + unitType.name());
+    public static ConstructActions forProduct(UnitType type) {
+        Validate.isTrue(type.getArchetype().isBuilding());
+        return ConstructActions.valueOf("Construct" + type.name());
     }
 }

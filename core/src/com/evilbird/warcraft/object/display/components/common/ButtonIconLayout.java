@@ -310,7 +310,7 @@ public class ButtonIconLayout
     }
 
     private Identifier naval(Identifier id) {
-        return combination(UnitAttack.Ship, id);
+        return combination(UnitAttack.Naval, id);
     }
 
     private Identifier combination(UnitAttack attack, Identifier id) {

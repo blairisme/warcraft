@@ -11,6 +11,7 @@ package com.evilbird.warcraft.object.unit.combatant.naval;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.audio.sound.SoundCatalog;
 import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
+import com.evilbird.warcraft.object.unit.UnitArchetype;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 import com.evilbird.warcraft.object.unit.combatant.CombatantBuilder;
@@ -28,20 +29,20 @@ import com.evilbird.warcraft.object.unit.combatant.naval.animations.SubmarineAni
 public class NavalUnitBuilder extends CombatantBuilder<RangedCombatant>
 {
     private NavalUnitAssets assets;
-    private UnitType type;
+    private UnitArchetype archetype;
 
     public NavalUnitBuilder(NavalUnitAssets assets, UnitType type) {
         super(assets, type);
         this.assets = assets;
-        this.type = type;
+        this.archetype = type.getArchetype();
     }
 
     @Override
     protected RangedCombatant newCombatant(Skin skin) {
-        if (type.isSubmarine()) {
+        if (archetype == UnitArchetype.Submarine) {
             return new Submarine(skin);
         }
-        if (type.isTransport()) {
+        if (archetype == UnitArchetype.Transportation) {
             return new Transport(skin);
         }
         return new Ship(skin);
@@ -49,7 +50,7 @@ public class NavalUnitBuilder extends CombatantBuilder<RangedCombatant>
 
     @Override
     protected AnimationCatalog newAnimations() {
-        return type.isSubmarine() ? new SubmarineAnimations(assets) : new ShipAnimations(assets);
+        return archetype == UnitArchetype.Submarine ? new SubmarineAnimations(assets) : new ShipAnimations(assets);
     }
 
     @Override

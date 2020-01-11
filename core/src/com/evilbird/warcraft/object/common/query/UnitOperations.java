@@ -33,6 +33,7 @@ import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.selector.Selector;
 import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.UnitArchetype;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
@@ -63,6 +64,10 @@ import static com.evilbird.warcraft.data.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.data.resource.ResourceType.Oil;
 import static com.evilbird.warcraft.data.resource.ResourceType.Wood;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.hasPathTo;
+import static com.evilbird.warcraft.object.unit.UnitArchetype.CommandCentre;
+import static com.evilbird.warcraft.object.unit.UnitArchetype.FoodProducer;
+import static com.evilbird.warcraft.object.unit.UnitArchetype.OilDepot;
+import static com.evilbird.warcraft.object.unit.UnitArchetype.WoodDepot;
 
 /**
  * Instances of this class contain common operations for working with Items.
@@ -379,9 +384,10 @@ public class UnitOperations
     public static boolean isDepotFor(GameObject gameObject, ResourceType resource) {
         if (gameObject instanceof Building) {
             UnitType type = (UnitType)gameObject.getType();
-            return (resource == Gold && type.isGoldDepot())
-                || (resource == Oil && type.isOilDepot())
-                || (resource == Wood && type.isWoodDepot());
+            UnitArchetype archetype = type.getArchetype();
+            return (resource == Gold && archetype == CommandCentre)
+                || (resource == Oil && archetype == OilDepot)
+                || (resource == Wood && archetype == WoodDepot);
         }
         return false;
     }
@@ -400,7 +406,8 @@ public class UnitOperations
         if (gameObject instanceof Unit) {
             Unit unit = (Unit) gameObject;
             UnitType type = (UnitType)unit.getType();
-            return type.isFoodProducer();
+            UnitArchetype archetype = type.getArchetype();
+            return archetype == FoodProducer;
         }
         return false;
     }

@@ -24,8 +24,6 @@ import static com.evilbird.engine.common.collection.Maps.of;
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
 import static com.evilbird.engine.common.graphics.Colours.LIGHT_BLUE;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
-import static com.evilbird.warcraft.object.unit.UnitDimensions.getDimensionName;
-import static com.evilbird.warcraft.object.unit.UnitDimensions.getDimensions;
 
 /**
  * Defines the assets that are required to display a {@link Combatant}, as well
@@ -51,7 +49,7 @@ public class CombatantAssets extends AssetBundle
      */
     public CombatantAssets(AssetManager manager, UnitType type) {
         super(manager, assetPathVariables(type));
-        dimensions = getDimensions(type);
+        this.dimensions = type.getSize().getDimensions();
         registerTextures();
         registerGeneralSounds();
     }
@@ -59,7 +57,7 @@ public class CombatantAssets extends AssetBundle
     private static Map<String, String> assetPathVariables(UnitType type) {
         return of("name", toSnakeCase(type.name()),
                 "faction", toSnakeCase(type.getFaction().name()),
-                "size", getDimensionName(type));
+                "size", type.getSize().getLabel());
     }
 
     private void registerTextures() {

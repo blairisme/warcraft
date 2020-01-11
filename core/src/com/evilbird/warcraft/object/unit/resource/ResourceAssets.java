@@ -23,8 +23,7 @@ import static com.evilbird.engine.common.collection.Maps.of;
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
 import static com.evilbird.engine.common.graphics.Colours.LIGHT_BLUE;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
-import static com.evilbird.warcraft.object.unit.UnitDimensions.LARGE;
-import static com.evilbird.warcraft.object.unit.UnitDimensions.LARGE_NAME;
+import static com.evilbird.warcraft.object.unit.UnitSize.Large;
 
 /**
  * Provides access to the assets that are required to display a
@@ -39,8 +38,10 @@ public class ResourceAssets extends AssetBundle
 
         register("base", "data/textures/neutral/resource/${season}/${name}.png");
         register("destruction", "data/textures/common/building/${season}/destroyed_site.png");
-        register("selection", "selection_${size}", SyntheticTexture.class, withColour(FOREST_GREEN, LARGE));
-        register("highlight", "highlight_${size}", SyntheticTexture.class, withColour(LIGHT_BLUE, LARGE));
+        register("selection", "selection_${size}", SyntheticTexture.class,
+            withColour(FOREST_GREEN, Large.getDimensions()));
+        register("highlight", "highlight_${size}", SyntheticTexture.class,
+            withColour(LIGHT_BLUE, Large.getDimensions()));
 
         register("selected", "data/sounds/neutral/resource/${name}/selected/1.mp3");
         registerOptionalSequence("destroyed", "data/sounds/common/building/destroyed/", ".mp3", 3);
@@ -49,7 +50,7 @@ public class ResourceAssets extends AssetBundle
     private static Map<String, String> assetPathVariables(UnitType type, WarcraftContext context) {
         return of("name", toSnakeCase(type.name()),
                 "season", toSnakeCase(context.getAssetSet().name()),
-                "size", LARGE_NAME);
+                "size", Large.getLabel());
     }
 
     public Texture getGeneralTexture() {

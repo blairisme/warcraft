@@ -8,9 +8,13 @@
 
 package com.evilbird.warcraft.action.construct;
 
+import com.evilbird.warcraft.common.WarcraftFaction;
+import com.evilbird.warcraft.object.unit.UnitArchetype;
 import com.evilbird.warcraft.object.unit.UnitType;
 import org.junit.Assert;
 import org.junit.Test;
+
+import static com.evilbird.warcraft.common.WarcraftFaction.Neutral;
 
 /**
  * Instances of this unit test validate the {@link ConstructActions} class.
@@ -28,11 +32,14 @@ public class ConstructActionsTest
 
     @Test
     public void forProductTest() {
-        for (UnitType unitType: UnitType.values()) {
-            if (unitType.isBuilding() && !unitType.isNeutral()) {
-                ConstructActions action = ConstructActions.forProduct(unitType);
+        for (UnitType type: UnitType.values()) {
+            UnitArchetype archetype = type.getArchetype();
+            WarcraftFaction faction = type.getFaction();
+
+            if (archetype.isBuilding() && faction != Neutral) {
+                ConstructActions action = ConstructActions.forProduct(type);
                 Assert.assertNotNull(action);
-                Assert.assertEquals(unitType, action.getProduct());
+                Assert.assertEquals(type, action.getProduct());
             }
         }
     }

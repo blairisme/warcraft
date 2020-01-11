@@ -10,6 +10,7 @@ package com.evilbird.warcraft.object.display.components.common;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.warcraft.object.unit.UnitArchetype;
 import com.evilbird.warcraft.object.unit.UnitType;
 
 import java.util.HashMap;
@@ -112,6 +113,7 @@ import static com.evilbird.warcraft.object.unit.UnitType.Zuljin;
  *
  * @author Blair Butterworth
  */
+@SuppressWarnings("checkstyle:LineLength")
 public class UnitIconLayout
 {
     private final GridPoint2 size;
@@ -126,7 +128,7 @@ public class UnitIconLayout
             DeathKnight,            Ballista,           Catapult,               OilTanker,              TrollTanker,
             Transport,              Ferry,              ElvenDestroyer,         TrollDestroyer,         Battleship,
             OgreJuggernaught,       GnomishSubmarine,   GiantTurtle,            GnomishFlyingMachine,   GoblinZeppelin,
-            GryphonRider,           Dragon,             AnduinLothar,           Guldan,               UtherLightbringer,
+            GryphonRider,           Dragon,             AnduinLothar,           Guldan,                 UtherLightbringer,
             Zuljin,                 Chogall,            Daemon,                 Farm,                   PigFarm,
             TownHall,               GreatHall,          Barracks,               Encampment,             LumberMill,
             TrollLumberMill,        Blacksmith,         Forge,                  Shipyard,               Dockyard,
@@ -165,8 +167,9 @@ public class UnitIconLayout
      * @return      the location of icon within an icon texture.
      */
     public GridPoint2 getLocation(UnitType type) {
-        if (type.isCritter()) {
-            type = Seal;
+        UnitArchetype archetype = type.getArchetype();
+        if (archetype == UnitArchetype.Critter) {
+            return locations.get(Seal);
         }
         return locations.get(type);
     }

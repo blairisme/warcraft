@@ -101,12 +101,12 @@ public enum ProduceUnitActions implements ActionIdentifier
     }
 
     public static ProduceUnitActions forProduct(UnitType type) {
-        Validate.isTrue(type.isCombatant());
+        Validate.isTrue(type.getArchetype().isUnit());
         return ProduceUnitActions.valueOf("Train" + type.name());
     }
 
     public static ProduceUnitActions forProductCancel(UnitType type) {
-        Validate.isTrue(type.isCombatant());
+        Validate.isTrue(type.getArchetype().isUnit());
         return ProduceUnitActions.valueOf("Train" + type.name() + "Cancel");
     }
 }

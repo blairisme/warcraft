@@ -13,6 +13,8 @@ import com.evilbird.engine.audio.sound.Sound;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 
+import static com.evilbird.warcraft.common.WarcraftFaction.Human;
+
 /**
  * Defines the assets that are required to display ranged combatants
  * as well as any sound effects used by it.
@@ -35,7 +37,7 @@ public class RangedUnitAssets extends CombatantAssets
     public RangedUnitAssets(AssetManager manager, UnitType type) {
         super(manager, type);
 
-        if (type.isHuman()) {
+        if (type.getFaction() == Human) {
             register("attack", "data/sounds/common/unit/attack/bow/1.mp3");
         } else {
             register("attack", "data/sounds/common/unit/attack/axe/1.mp3");

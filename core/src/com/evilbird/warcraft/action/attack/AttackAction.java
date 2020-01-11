@@ -13,11 +13,15 @@ import com.evilbird.engine.action.framework.CompositeAction;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.UnitArchetype;
+import com.evilbird.warcraft.object.unit.UnitAttack;
 import com.evilbird.warcraft.object.unit.UnitType;
 
 import javax.inject.Inject;
 
-import static com.evilbird.warcraft.object.unit.UnitType.RuneTrap;
+import static com.evilbird.warcraft.object.unit.UnitArchetype.ConjuredEffect;
+import static com.evilbird.warcraft.object.unit.UnitAttack.Explosive;
+import static com.evilbird.warcraft.object.unit.UnitAttack.Melee;
 
 /**
  * An {@link Action} that causes a given {@link OffensiveObject} to attack a
@@ -68,17 +72,19 @@ public class AttackAction extends CompositeAction
     private Action getAttackAction() {
         Unit unit = (Unit)getSubject();
         UnitType type = (UnitType)unit.getType();
+        UnitArchetype archetype = type.getArchetype();
+        UnitAttack attack = type.getAttack();
 
-        if (type.isBuilding()) {
+        if (archetype.isBuilding()) {
             return buildingAttack;
         }
-        if (type.isDemoTeam() || type == RuneTrap) {
+        if (attack == Explosive) {
             return demoAttack;
         }
-        if (type.isConjuredEffect()) {
+        if (archetype == ConjuredEffect) {
             return conjuredAttack;
         }
-        if (type.isMelee()) {
+        if (attack == Melee) {
             return meleeAttack;
         }
         return rangedAttack;

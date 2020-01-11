@@ -18,8 +18,11 @@ import com.evilbird.engine.common.graphics.renderable.AnimationRenderable;
 import com.evilbird.engine.common.graphics.renderable.FlashingRenderable;
 import com.evilbird.engine.common.graphics.renderable.TextureRenderable;
 import com.evilbird.engine.object.AnimatedObjectStyle;
+import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.object.common.production.ProductionTimes;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
+import com.evilbird.warcraft.object.unit.UnitArchetype;
+import com.evilbird.warcraft.object.unit.UnitAttack;
 import com.evilbird.warcraft.object.unit.UnitStyle;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.animations.BuildingAnimations;
@@ -45,6 +48,9 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.LightDamage;
 public class BuildingBuilder
 {
     private UnitType type;
+    private UnitArchetype archetype;
+    private UnitAttack attack;
+    private WarcraftFaction faction;
     private BuildingAssets assets;
     private ProductionTimes times;
     private SoundCatalog sounds;
@@ -55,11 +61,13 @@ public class BuildingBuilder
         Validate.notNull(assets);
         Validate.notNull(times);
         Validate.notNull(type);
-        Validate.isTrue(type.isBuilding());
 
-        this.type = type;
         this.assets = assets;
         this.times = times;
+        this.type = type;
+        this.archetype = type.getArchetype();
+        this.attack = type.getAttack();
+        this.faction = type.getFaction();
     }
 
     public Building build() {
@@ -117,10 +125,10 @@ public class BuildingBuilder
     }
 
     private AnimationCatalog newAnimations() {
-        if (type.isResourceExtractor()) {
+        if (archetype == UnitArchetype.OilProducer) {
             return new ExtractorAnimations(assets, times);
         }
-        if (type.isOffensiveTower()) {
+        if (archetype == UnitArchetype.Tower && attack != UnitAttack.None) {
             return new TowerAnimations(assets, times);
         }
         if (type == UnitType.GoblinAlchemist) {
@@ -137,7 +145,7 @@ public class BuildingBuilder
     }
 
     private SoundCatalog newSounds() {
-        if (type.isOffensiveTower()) {
+        if (archetype == UnitArchetype.Tower && attack != UnitAttack.None) {
             return new TowerSounds(assets);
         }
         return new BuildingSounds(assets);
@@ -145,7 +153,7 @@ public class BuildingBuilder
 
     private Map<Texture, Texture> getMasks() {
         if (masks == null) {
-            if (!type.isNeutral()) {
+            if (faction != WarcraftFaction.Neutral) {
                 masks = Maps.of(assets.getBaseTexture(), assets.getMaskTexture());
             } else {
                 masks = Collections.emptyMap();

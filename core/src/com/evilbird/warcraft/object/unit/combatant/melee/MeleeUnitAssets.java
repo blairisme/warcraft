@@ -10,10 +10,14 @@ package com.evilbird.warcraft.object.unit.combatant.melee;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.evilbird.engine.audio.sound.Sound;
+import com.evilbird.warcraft.common.WarcraftFaction;
+import com.evilbird.warcraft.object.unit.UnitArchetype;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.CombatantAssets;
 
 import static com.evilbird.engine.audio.sound.SilentSound.SilentSoundEffect;
+import static com.evilbird.warcraft.common.WarcraftFaction.Orc;
+import static com.evilbird.warcraft.object.unit.UnitArchetype.Cavalry;
 import static com.evilbird.warcraft.object.unit.UnitType.Skeleton;
 
 /**
@@ -38,7 +42,10 @@ public class MeleeUnitAssets extends CombatantAssets
     public MeleeUnitAssets(AssetManager manager, UnitType type) {
         super(manager, type);
 
-        if (type.isOgre() || type == Skeleton) {
+        UnitArchetype archetype = type.getArchetype();
+        WarcraftFaction faction = type.getFaction();
+
+        if ((faction == Orc && archetype == Cavalry) || type == Skeleton) {
             register("attack", "data/sounds/common/unit/attack/punch/1.mp3");
         } else {
             registerSequence("attack", "data/sounds/common/unit/attack/sword/", ".mp3", 3);

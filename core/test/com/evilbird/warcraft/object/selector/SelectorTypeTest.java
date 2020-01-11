@@ -8,9 +8,13 @@
 
 package com.evilbird.warcraft.object.selector;
 
+import com.evilbird.warcraft.common.WarcraftFaction;
+import com.evilbird.warcraft.object.unit.UnitArchetype;
 import com.evilbird.warcraft.object.unit.UnitType;
 import org.junit.Assert;
 import org.junit.Test;
+
+import static com.evilbird.warcraft.common.WarcraftFaction.Neutral;
 
 /**
  * Instances of this unit test validate the {@link SelectorType} class.
@@ -28,11 +32,14 @@ public class SelectorTypeTest
 
     @Test
     public void forBuildingTest() {
-        for (UnitType unitType: UnitType.values()) {
-            if (unitType.isBuilding() && !unitType.isNeutral()) {
-                SelectorType buildingSelectorType = SelectorType.forBuilding(unitType);
+        for (UnitType type: UnitType.values()) {
+            UnitArchetype archetype = type.getArchetype();
+            WarcraftFaction faction = type.getFaction();
+
+            if (archetype.isBuilding() && faction != Neutral) {
+                SelectorType buildingSelectorType = SelectorType.forBuilding(type);
                 Assert.assertNotNull(buildingSelectorType);
-                Assert.assertEquals(unitType, buildingSelectorType.getBuilding());
+                Assert.assertEquals(type, buildingSelectorType.getBuilding());
             }
         }
     }

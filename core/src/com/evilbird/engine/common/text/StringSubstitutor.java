@@ -11,6 +11,7 @@ package com.evilbird.engine.common.text;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 
 /**
  * Replaces variables in a given string with values. Variables are declared
@@ -25,7 +26,12 @@ public class StringSubstitutor
 
     private Map<String, String> variables;
 
+    /**
+     * Creates a new instance of this class given a {@link Map} of key value
+     * pairs. Keys are specified with out the substitution prefix "${".
+     */
     public StringSubstitutor(Map<String, String> variables) {
+        Objects.requireNonNull(variables);
         this.variables = new HashMap<>(variables.size());
         for (Entry<String, String> entry: variables.entrySet()) {
             this.variables.put(TOKEN_PREFIX + entry.getKey() + TOKEN_SUFFIX, entry.getValue());

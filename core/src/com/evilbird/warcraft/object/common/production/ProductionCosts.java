@@ -16,7 +16,6 @@ import com.evilbird.warcraft.object.unit.UnitType;
 
 import javax.inject.Inject;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -58,19 +57,20 @@ public class ProductionCosts
     }
 
     public Collection<ResourceQuantity> costOf(UnitType type) {
-        if (preferences.isBuildCostCheatEnabled()) {
-            return resources(0, 0, 0, 0);
-        }
-        if (type.isHuman()) {
-            return humanCosts(type);
-        }
-        else if (type.isOrc()) {
-            return orcCosts(type);
-        }
-        else if (type.isNeutral()) {
-            return Collections.emptyList();
-        }
-        throw new UnsupportedOperationException();
+//        if (preferences.isBuildCostCheatEnabled()) {
+//            return resources(0, 0, 0, 0);
+//        }
+//        if (type.isHuman()) {
+//            return humanCosts(type);
+//        }
+//        else if (type.isOrc()) {
+//            return orcCosts(type);
+//        }
+//        else if (type.isNeutral()) {
+//            return Collections.emptyList();
+//        }
+//        throw new UnsupportedOperationException();
+        return resources(0, 0, 0, 0);
     }
 
     private Collection<ResourceQuantity> attributeUpgradeCost(Upgrade upgrade) {
@@ -118,13 +118,14 @@ public class ProductionCosts
     }
 
     private Collection<ResourceQuantity> humanCosts(UnitType type) {
-        if (type.isBuilding()) {
-            return humanBuildingCost(type);
-        }
-        else if (type.isCombatant()) {
-            return humanCombatantCost(type);
-        }
-        throw new UnsupportedOperationException();
+//        if (type.isBuilding()) {
+//            return humanBuildingCost(type);
+//        }
+//        else if (type.isCombatant()) {
+//            return humanCombatantCost(type);
+//        }
+//        throw new UnsupportedOperationException();
+        return resources(0, 0, 0, 0);
     }
 
     private Collection<ResourceQuantity> humanBuildingCost(UnitType type) {
@@ -175,13 +176,14 @@ public class ProductionCosts
     }
 
     private Collection<ResourceQuantity> orcCosts(UnitType type) {
-        if (type.isBuilding()) {
-            return orcBuildingCost(type);
-        }
-        else if (type.isCombatant()) {
-            return orcCombatantCost(type);
-        }
-        throw new UnsupportedOperationException();
+//        if (type.isBuilding()) {
+//            return orcBuildingCost(type);
+//        }
+//        else if (type.isCombatant()) {
+//            return orcCombatantCost(type);
+//        }
+//        throw new UnsupportedOperationException();
+        return resources(0, 0, 0, 0);
     }
 
     private Collection<ResourceQuantity> orcBuildingCost(UnitType type) {
