@@ -38,41 +38,29 @@ import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.WoodProduction;
  */
 public enum Upgrade implements Identifier
 {
-    None,
-
-    MeleeDamage1(MeleeDamage, Improved),
-    MeleeDamage2(MeleeDamage, Advanced),
-
-    MeleeDefence1(MeleeDefence, Improved),
-    MeleeDefence2(MeleeDefence, Advanced),
-
-    MeleeType1(MeleeType, Advanced),
-
-    RangedDamage1(RangedDamage, Improved),
-    RangedDamage2(RangedDamage, Advanced),
-
-    RangedAccuracy1(RangedAccuracy, Improved),
-    RangedSight1(RangedSight, Improved),
-    RangedType1(RangedType, Improved),
-    RangedWeapon1(RangedWeapon, Improved),
-
-    NavalDamage1(NavalDamage, Improved),
-    NavalDamage2(NavalDamage, Advanced),
-
-    NavalDefence1(NavalDefence, Improved),
-    NavalDefence2(NavalDefence, Advanced),
-
-    SiegeDamage1(SiegeDamage, Improved),
-    SiegeDamage2(SiegeDamage, Advanced),
-
-    GoldProduction1(GoldProduction, Improved),
-    GoldProduction2(GoldProduction, Advanced),
-
-    OilProduction1(OilProduction, Improved),
-    OilProduction2(OilProduction, Advanced),
-
-    WoodProduction1(WoodProduction, Improved),
-    WoodProduction2(WoodProduction, Advanced),
+    MeleeDamage1        (MeleeDamage,       Improved),
+    MeleeDamage2        (MeleeDamage,       Advanced),
+    MeleeDefence1       (MeleeDefence,      Improved),
+    MeleeDefence2       (MeleeDefence,      Advanced),
+    MeleeType1          (MeleeType,         Advanced),
+    RangedDamage1       (RangedDamage,      Improved),
+    RangedDamage2       (RangedDamage,      Advanced),
+    RangedAccuracy1     (RangedAccuracy,    Improved),
+    RangedSight1        (RangedSight,       Improved),
+    RangedType1         (RangedType,        Improved),
+    RangedWeapon1       (RangedWeapon,      Improved),
+    NavalDamage1        (NavalDamage,       Improved),
+    NavalDamage2        (NavalDamage,       Advanced),
+    NavalDefence1       (NavalDefence,      Improved),
+    NavalDefence2       (NavalDefence,      Advanced),
+    SiegeDamage1        (SiegeDamage,       Improved),
+    SiegeDamage2        (SiegeDamage,       Advanced),
+    GoldProduction1     (GoldProduction,    Improved),
+    GoldProduction2     (GoldProduction,    Advanced),
+    OilProduction1      (OilProduction,     Improved),
+    OilProduction2      (OilProduction,     Advanced),
+    WoodProduction1     (WoodProduction,    Improved),
+    WoodProduction2     (WoodProduction,    Advanced),
 
     BlizzardUpgrade,
     BloodlustUpgrade,
@@ -87,14 +75,14 @@ public enum Upgrade implements Identifier
     RunesUpgrade,
     SlowUpgrade,
     UnholyArmourUpgrade,
-    WhirlwindUpgrade;
+    WhirlwindUpgrade,
+    None;
 
     private UpgradeRank rank;
     private UpgradeSeries series;
 
     Upgrade() {
-        rank = UpgradeRank.None;
-        series = UpgradeSeries.None;
+        this(UpgradeSeries.None, UpgradeRank.None);
     }
 
     Upgrade(UpgradeSeries series, UpgradeRank rank) {
@@ -105,10 +93,6 @@ public enum Upgrade implements Identifier
     /**
      * Returns the {@link UpgradeSeries} the {@code Upgrade} belongs to, if
      * any.
-     *
-     * @return  an {@code UpgradeSeries} value. {@link UpgradeSeries#None None}
-     *          is used to indicate that the {@code Upgrade} doesn't belong to
-     *          an {@code UpgradeSeries}.
      */
     public UpgradeSeries getSeries() {
         return series;
@@ -117,14 +101,11 @@ public enum Upgrade implements Identifier
     /**
      * Returns the {@link UpgradeRank} of the {@code Upgrade} in the
      * {@link UpgradeSeries} it belongs to, if any.
-     *
-     * @return  an {@code UpgradeRank} value. {@link UpgradeRank#None None}
-     *          is used to indicate that the {@code Upgrade} doesn't belong to
-     *          an {@code UpgradeSeries}.
      */
     public UpgradeRank getRank() {
         return rank;
     }
+
 
     public boolean isAttributeUpgrade() {
         return EnumUtils.isBetween(this, MeleeDamage1, WoodProduction2);

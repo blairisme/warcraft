@@ -41,11 +41,11 @@ public class ResourceOperations
         return new ResourceQuantity(Food, food);
     }
 
-    public static ResourceSet R(ResourceQuantity ... quantities) {
+    public static ResourceSet Resources(ResourceQuantity ... quantities) {
         return new ResourceSet(Arrays.asList(quantities));
     }
 
-    public static ResourceSet Cost(int gold, int wood, int oil, int food) {
+    public static ResourceSet Resources(int gold, int wood, int oil, int food) {
         Set<ResourceQuantity> quantities = new HashSet<>();
         if (gold > 0) {
             quantities.add(new ResourceQuantity(Gold, gold));
