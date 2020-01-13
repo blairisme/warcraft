@@ -16,6 +16,7 @@ import com.evilbird.warcraft.object.unit.combatant.melee.human.AnduinLotharFacto
 import com.evilbird.warcraft.object.unit.combatant.melee.human.DwarvenDemolitionSquadFactory;
 import com.evilbird.warcraft.object.unit.combatant.melee.human.FootmanFactory;
 import com.evilbird.warcraft.object.unit.combatant.melee.human.KnightFactory;
+import com.evilbird.warcraft.object.unit.combatant.melee.human.UtherLightbringerFactory;
 import com.evilbird.warcraft.object.unit.combatant.melee.neutral.SkeletonFactory;
 import com.evilbird.warcraft.object.unit.combatant.melee.orc.GoblinSappersFactory;
 import com.evilbird.warcraft.object.unit.combatant.melee.orc.GruntFactory;
@@ -40,7 +41,8 @@ public class MeleeUnitFactorySet extends GameFactorySet<Combatant>
         GruntFactory gruntFactory,
         KnightFactory knightFactory,
         OgreFactory ogreFactory,
-        SkeletonFactory skeletonFactory)
+        SkeletonFactory skeletonFactory,
+        UtherLightbringerFactory utherLightbringerFactory)
     {
         addProvider(UnitType.AnduinLothar, anduinLotharFactory);
         addProvider(UnitType.DwarvenDemolitionSquad, dwarvenDemolitionSquadFactory);
@@ -50,5 +52,6 @@ public class MeleeUnitFactorySet extends GameFactorySet<Combatant>
         addProvider(UnitType.Knight, knightFactory);
         addProvider(UnitType.Ogre, ogreFactory);
         addProvider(UnitType.Skeleton, skeletonFactory);
+        addProvider(UnitType.UtherLightbringer, utherLightbringerFactory);
     }
 }
