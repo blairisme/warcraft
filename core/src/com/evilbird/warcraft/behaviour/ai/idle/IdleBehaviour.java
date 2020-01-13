@@ -10,22 +10,20 @@ package com.evilbird.warcraft.behaviour.ai.idle;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.time.GameTimer;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.utility.GameObjectOperations;
+import com.evilbird.warcraft.action.common.create.CreateEvent;
+import com.evilbird.warcraft.action.death.RemoveEvent;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourElement;
-import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.common.capability.MovableObject;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
 
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Predicate;
-
-import static com.evilbird.engine.common.function.Predicates.either;
-import static com.evilbird.engine.object.utility.GameObjectPredicates.isIdle;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isAlive;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isCombatant;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isCritter;
 
 /**
  * Behaviour that randomly re-orients idle units.
@@ -38,37 +36,63 @@ public class IdleBehaviour implements AiBehaviourElement
     private static final int REORIENT_MIN = 2;
     private static final int REORIENT_MAX = 4;
 
+    private Events events;
     private Random random;
     private GameTimer stopWatch;
+    private List<GameObject> movables;
 
     @Inject
-    public IdleBehaviour() {
-        random = new Random();
-        stopWatch = new GameTimer(PERIOD);
+    public IdleBehaviour(Events events) {
+        this.events = events;
+        this.random = new Random();
+        this.stopWatch = new GameTimer(PERIOD);
     }
 
     @Override
-    public void applyBehaviour(GameObjectContainer root, float time) {
+    public void applyBehaviour(GameObjectContainer container, float time) {
+        initialize(container);
+        update();
+        reorient(time);
+    }
+
+    private void initialize(GameObjectContainer container) {
+        if (movables == null) {
+            movables = new ArrayList<>(container.findAll(UnitOperations::isMovable));
+        }
+    }
+
+    private void update() {
+        for (CreateEvent event: events.getEvents(CreateEvent.class)) {
+            GameObject subject = event.getSubject();
+            if (UnitOperations.isMovable(subject)) {
+                movables.add(subject);
+            }
+        }
+        for (RemoveEvent event: events.getEvents(RemoveEvent.class)) {
+            GameObject subject = event.getSubject();
+            if (UnitOperations.isMovable(subject)) {
+                movables.remove(subject);
+            }
+        }
+    }
+
+    private void reorient(float time) {
         if (stopWatch.advance(time)) {
             stopWatch.reset();
-            reorient(root);
+            reorientRandomSelection();
         }
     }
 
-    private void reorient(GameObjectContainer root) {
+    private void reorientRandomSelection() {
         for (int i = 0; i < REORIENT_MIN + random.nextInt(REORIENT_MAX); i++) {
-            Unit target = getTarget(root);
-            target.setDirection(getDirection());
+            MovableObject target = (MovableObject)movables.get(random.nextInt(movables.size()));
+            if (UnitOperations.isAlive(target) && GameObjectOperations.isIdle(target)) {
+                target.setDirection(getRandomDirection());
+            }
         }
     }
 
-    private Unit getTarget(GameObjectContainer root) {
-        Predicate<GameObject> targets = either(isCombatant(), isCritter()).and(isIdle()).and(isAlive());
-        List<GameObject> gameObjects =  new ArrayList<>(root.findAll(targets));
-        return (Unit) gameObjects.get(random.nextInt(gameObjects.size()));
-    }
-
-    private Vector2 getDirection() {
+    private Vector2 getRandomDirection() {
         Vector2 result = new Vector2(1, 1);
         result.rotate(random.nextInt(360));
         return result;

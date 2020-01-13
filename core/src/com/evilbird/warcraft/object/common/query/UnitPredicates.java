@@ -152,6 +152,14 @@ public class UnitPredicates
     }
 
     /**
+     *  Returns a condition that determines if the given {@link GameObject} is
+     *  a {@link MovableObject}.
+     */
+    public static Predicate<GameObject> isMovable() {
+        return UnitOperations::isMovable;
+    }
+
+    /**
      * Returns a condition that determines if the given {@link GameObject} is a
      * {@link MovableObject} with the capability to move over the given
      * {@link TerrainType terrain}.

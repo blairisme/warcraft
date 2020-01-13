@@ -442,6 +442,13 @@ public class UnitOperations
     }
 
     /**
+     * Determines if the given {@link GameObject} is a {@link MovableObject}.
+     */
+    public static boolean isMovable(GameObject gameObject) {
+        return gameObject instanceof MovableObject;
+    }
+
+    /**
      * Determines if the given {@link GameObject} is a {@link MovableObject}
      * with the capability to move over the given {@link TerrainType terrain}.
      */
