@@ -10,7 +10,7 @@ package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
-import com.evilbird.warcraft.object.common.production.ProductionCosts;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
@@ -18,6 +18,7 @@ import com.evilbird.warcraft.object.unit.building.Building;
 import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
+import static com.evilbird.warcraft.action.common.production.ProductionOperations.getProductionCost;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer;
 
 /**
@@ -30,17 +31,17 @@ public class ProduceUnitCancel extends BasicAction
 {
     private transient ProduceEvents events;
     private transient ResourceTransfer resources;
-    private transient ProductionCosts costs;
+    private transient WarcraftPreferences preferences;
 
     @Inject
     public ProduceUnitCancel(
         ProduceEvents events,
         ResourceTransfer resources,
-        ProductionCosts costs)
+        WarcraftPreferences preferences)
     {
         this.events = events;
         this.resources = resources;
-        this.costs = costs;
+        this.preferences = preferences;
     }
 
     @Override
@@ -49,7 +50,7 @@ public class ProduceUnitCancel extends BasicAction
         building.setProductionProgress(1);
 
         Player player = getPlayer(building);
-        resources.setResources(player, costs.costOf(getProduct()));
+        resources.setResources(player, getProductionCost(getProduct(), preferences));
 
         events.notifyProductionCancelled(building);
         return ActionComplete;

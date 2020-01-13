@@ -25,6 +25,10 @@ public class GameTimer
         this(0, 0);
     }
 
+    public GameTimer(Duration duration) {
+        this(duration.get(ChronoUnit.SECONDS), 0);
+    }
+
     public GameTimer(float duration) {
         this(duration, 0);
     }

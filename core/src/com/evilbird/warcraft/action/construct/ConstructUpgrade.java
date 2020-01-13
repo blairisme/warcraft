@@ -13,9 +13,8 @@ import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.selection.SelectEvents;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.data.resource.ResourceSet;
-import com.evilbird.warcraft.object.common.production.ProductionCosts;
-import com.evilbird.warcraft.object.common.production.ProductionTimes;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
 import com.evilbird.warcraft.object.unit.UnitType;
@@ -25,6 +24,8 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
+import static com.evilbird.warcraft.action.common.production.ProductionOperations.getProductionCost;
+import static com.evilbird.warcraft.action.common.production.ProductionOperations.getProductionTime;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer;
 
 /**
@@ -41,8 +42,7 @@ public class ConstructUpgrade extends BasicAction
     private transient ResourceTransfer resources;
     private transient SelectEvents selectEvents;
     private transient ConstructEvents constructEvents;
-    private transient ProductionCosts productionCosts;
-    private transient ProductionTimes productionTimes;
+    private transient WarcraftPreferences preferences;
 
     @Inject
     public ConstructUpgrade(
@@ -50,15 +50,13 @@ public class ConstructUpgrade extends BasicAction
         ConstructEvents constructEvents,
         SelectEvents selectEvents,
         ResourceTransfer resources,
-        ProductionCosts productionCosts,
-        ProductionTimes productionTimes)
+        WarcraftPreferences preferences)
     {
         this.factory = factory;
         this.resources = resources;
         this.selectEvents = selectEvents;
         this.constructEvents = constructEvents;
-        this.productionCosts = productionCosts;
-        this.productionTimes = productionTimes;
+        this.preferences = preferences;
     }
 
     @Override
@@ -93,14 +91,14 @@ public class ConstructUpgrade extends BasicAction
     }
 
     private boolean initialize() {
-        Building building = (Building) getSubject();
+        Building building = (Building)getSubject();
         building.setConstructionProgress(0);
         building.setAnimation(UnitAnimation.BuildingUpgrade);
 
         Player player = getPlayer(building);
         UnitType product = getProduct();
 
-        ResourceSet cost = new ResourceSet(productionCosts.costOf(product));
+        ResourceSet cost = getProductionCost(product, preferences);
         resources.setResources(player, cost.negate());
 
         constructEvents.notifyConstructUpgrade(building);
@@ -112,21 +110,21 @@ public class ConstructUpgrade extends BasicAction
     }
 
     protected boolean load() {
-        Building building = (Building) getSubject();
+        Building building = (Building)getSubject();
         UnitType product = getProduct();
-        timer = new GameTimer(productionTimes.buildTime(product));
+        timer = new GameTimer(getProductionTime(product, preferences));
         timer.advance(building.getConstructionProgress() * timer.duration());
         return ActionIncomplete;
     }
 
     private boolean update() {
-        Building building = (Building) getSubject();
+        Building building = (Building)getSubject();
         building.setConstructionProgress(timer.completion());
         return ActionIncomplete;
     }
 
     private boolean complete() {
-        Building building = (Building) getSubject();
+        Building building = (Building)getSubject();
         Building improvement = (Building)factory.get(getProduct());
 
         Player player = getPlayer(building);

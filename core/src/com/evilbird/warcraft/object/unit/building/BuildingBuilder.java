@@ -19,7 +19,6 @@ import com.evilbird.engine.common.graphics.renderable.FlashingRenderable;
 import com.evilbird.engine.common.graphics.renderable.TextureRenderable;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.common.WarcraftFaction;
-import com.evilbird.warcraft.object.common.production.ProductionTimes;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
 import com.evilbird.warcraft.object.unit.UnitArchetype;
 import com.evilbird.warcraft.object.unit.UnitAttack;
@@ -27,8 +26,8 @@ import com.evilbird.warcraft.object.unit.UnitStyle;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.animations.BuildingAnimations;
 import com.evilbird.warcraft.object.unit.building.animations.ExtractorAnimations;
-import com.evilbird.warcraft.object.unit.building.animations.TwinklingAnimations;
 import com.evilbird.warcraft.object.unit.building.animations.TowerAnimations;
+import com.evilbird.warcraft.object.unit.building.animations.TwinklingAnimations;
 import com.evilbird.warcraft.object.unit.building.sounds.BuildingSounds;
 import com.evilbird.warcraft.object.unit.building.sounds.TowerSounds;
 import org.apache.commons.lang3.Validate;
@@ -52,18 +51,15 @@ public class BuildingBuilder
     private UnitAttack attack;
     private WarcraftFaction faction;
     private BuildingAssets assets;
-    private ProductionTimes times;
     private SoundCatalog sounds;
     private AnimationCatalog animations;
     private Map<Texture, Texture> masks;
 
-    public BuildingBuilder(BuildingAssets assets, ProductionTimes times, UnitType type) {
+    public BuildingBuilder(BuildingAssets assets, UnitType type) {
         Validate.notNull(assets);
-        Validate.notNull(times);
         Validate.notNull(type);
 
         this.assets = assets;
-        this.times = times;
         this.type = type;
         this.archetype = type.getArchetype();
         this.attack = type.getAttack();
@@ -126,15 +122,15 @@ public class BuildingBuilder
 
     private AnimationCatalog newAnimations() {
         if (archetype == UnitArchetype.OilProducer) {
-            return new ExtractorAnimations(assets, times);
+            return new ExtractorAnimations(assets);
         }
         if (archetype == UnitArchetype.Tower && attack != UnitAttack.None) {
-            return new TowerAnimations(assets, times);
+            return new TowerAnimations(assets);
         }
         if (type == UnitType.GoblinAlchemist || type == UnitType.Church) {
-            return new TwinklingAnimations(assets, times);
+            return new TwinklingAnimations(assets);
         }
-        return new BuildingAnimations(assets, times);
+        return new BuildingAnimations(assets);
     }
 
     private SoundCatalog getSounds() {

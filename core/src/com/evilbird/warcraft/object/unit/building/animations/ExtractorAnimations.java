@@ -10,7 +10,6 @@ package com.evilbird.warcraft.object.unit.building.animations;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.warcraft.object.common.production.ProductionTimes;
 import com.evilbird.warcraft.object.unit.building.BuildingAssets;
 
 import static com.evilbird.warcraft.object.unit.UnitAnimation.ExtractOil;
@@ -24,8 +23,8 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.ExtractOil;
  */
 public class ExtractorAnimations extends BuildingAnimations
 {
-    public ExtractorAnimations(BuildingAssets assets, ProductionTimes production) {
-        super(assets, production);
+    public ExtractorAnimations(BuildingAssets assets) {
+        super(assets);
         gatherOil(assets.getBaseTexture(), assets.getSize());
     }
 

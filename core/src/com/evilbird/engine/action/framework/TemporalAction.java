@@ -9,6 +9,8 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.common.time.ChronoUnit;
+import com.evilbird.engine.common.time.Duration;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -52,6 +54,10 @@ public class TemporalAction extends BasicAction
 
     protected float getDuration() {
         return duration;
+    }
+
+    protected void setDuration(Duration duration) {
+        setDuration(duration.get(ChronoUnit.SECONDS));
     }
 
     protected void setDuration(float duration) {

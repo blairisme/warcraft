@@ -8,7 +8,6 @@
 
 package com.evilbird.warcraft.object.unit.building.animations;
 
-import com.evilbird.warcraft.object.common.production.ProductionTimes;
 import com.evilbird.warcraft.object.unit.building.BuildingAssets;
 
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Attack;
@@ -23,8 +22,8 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
  */
 public class TowerAnimations extends BuildingAnimations
 {
-    public TowerAnimations(BuildingAssets assets, ProductionTimes production) {
-        super(assets, production);
+    public TowerAnimations(BuildingAssets assets) {
+        super(assets);
         alias(Attack, Idle);
     }
 }

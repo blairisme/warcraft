@@ -14,9 +14,9 @@ import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
-import com.evilbird.warcraft.object.common.production.ProductionTimes;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
@@ -24,6 +24,7 @@ import javax.inject.Inject;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
+import static com.evilbird.warcraft.action.common.production.ProductionOperations.getProductionTime;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.moveAdjacent;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Construct;
@@ -45,7 +46,6 @@ public class ConstructAction extends TemporalAction
     private transient ConstructEvents events;
     private transient ItemExclusion exclusion;
     private transient ResourceTransfer resources;
-    private transient ProductionTimes production;
     private transient WarcraftPreferences preferences;
 
     @Inject
@@ -53,15 +53,13 @@ public class ConstructAction extends TemporalAction
         ConstructEvents events,
         WarcraftPreferences preferences,
         ItemExclusion exclusion,
-        ResourceTransfer resources,
-        ProductionTimes times)
+        ResourceTransfer resources)
     {
         super(UNINITIALIZED_DURATION);
         this.events = events;
         this.preferences = preferences;
         this.exclusion = exclusion;
         this.resources = resources;
-        this.production = times;
         this.timer = new GameTimer(BUILDING_SOUND_INTERVAL);
     }
 
@@ -86,13 +84,13 @@ public class ConstructAction extends TemporalAction
     }
 
     private boolean initialize() {
-        Unit builder = (Unit) getSubject();
+        Unit builder = (Unit)getSubject();
         exclusion.disable(builder);
 
         Building building = (Building)getTarget();
         building.setAnimation(Construct);
 
-        setDuration(production.buildTime(building));
+        setDuration(getProductionTime((UnitType)building.getType(), preferences));
         setProgress(building.getConstructionProgress() * getDuration());
 
         events.notifyConstructStarted(building);

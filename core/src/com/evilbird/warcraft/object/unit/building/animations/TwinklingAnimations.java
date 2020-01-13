@@ -10,7 +10,6 @@ package com.evilbird.warcraft.object.unit.building.animations;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.warcraft.object.common.production.ProductionTimes;
 import com.evilbird.warcraft.object.unit.building.BuildingAssets;
 
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
@@ -24,8 +23,8 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
  */
 public class TwinklingAnimations extends BuildingAnimations
 {
-    public TwinklingAnimations(BuildingAssets assets, ProductionTimes production) {
-        super(assets, production);
+    public TwinklingAnimations(BuildingAssets assets) {
+        super(assets);
         idle(assets.getBaseTexture(), assets.getSize());
     }
 

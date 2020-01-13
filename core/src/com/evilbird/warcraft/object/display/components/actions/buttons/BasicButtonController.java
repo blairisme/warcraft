@@ -8,16 +8,22 @@
 
 package com.evilbird.warcraft.object.display.components.actions.buttons;
 
+import com.evilbird.engine.game.GameService;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.data.resource.ResourceQuantity;
+import com.evilbird.warcraft.data.resource.ResourceSet;
 import com.evilbird.warcraft.data.spell.Spell;
 import com.evilbird.warcraft.data.upgrade.Upgrade;
-import com.evilbird.warcraft.object.common.production.ProductionCosts;
+import com.evilbird.warcraft.data.upgrade.UpgradeProduction;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.display.components.actions.ActionButtonType;
+import com.evilbird.warcraft.object.unit.UnitProduction;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 
 import java.util.List;
+
+import static com.evilbird.warcraft.data.resource.ResourceSet.EmptyResourceSet;
 
 /**
  * A basic {@link ButtonController} implementation containing common methods
@@ -27,10 +33,10 @@ import java.util.List;
  */
 public abstract class BasicButtonController implements ButtonController
 {
-    private ProductionCosts productionCosts;
+    private WarcraftPreferences preferences;
 
     public BasicButtonController() {
-        productionCosts = new ProductionCosts();
+        preferences = (WarcraftPreferences)GameService.getInstance().getPreferences();
     }
 
     protected void addUpgradeButton(
@@ -68,7 +74,7 @@ public abstract class BasicButtonController implements ButtonController
     }
 
     protected boolean hasResources(Player player, UnitType type) {
-        for (ResourceQuantity cost: productionCosts.costOf(type)) {
+        for (ResourceQuantity cost: getProductionCost(type)) {
             if (player.getResource(cost.getType()) < cost.getValue()){
                 return false;
             }
@@ -77,7 +83,7 @@ public abstract class BasicButtonController implements ButtonController
     }
 
     protected boolean hasResources(Player player, Upgrade upgrade) {
-        for (ResourceQuantity cost: productionCosts.costOf(upgrade)) {
+        for (ResourceQuantity cost: getProductionCost(upgrade)) {
             if (player.getResource(cost.getType()) < cost.getValue()){
                 return false;
             }
@@ -87,5 +93,21 @@ public abstract class BasicButtonController implements ButtonController
 
     protected boolean hasMana(SpellCaster caster, Spell spell) {
         return caster.getMana() >= spell.getCastCost();
+    }
+
+    private ResourceSet getProductionCost(UnitType product) {
+        if (!preferences.isBuildCostCheatEnabled()) {
+            UnitProduction production = UnitProduction.forProduct(product);
+            return production.getCost();
+        }
+        return EmptyResourceSet;
+    }
+
+    private ResourceSet getProductionCost(Upgrade product) {
+        if (!preferences.isBuildCostCheatEnabled()) {
+            UpgradeProduction production = UpgradeProduction.forProduct(product);
+            return production.getCost();
+        }
+        return EmptyResourceSet;
     }
 }

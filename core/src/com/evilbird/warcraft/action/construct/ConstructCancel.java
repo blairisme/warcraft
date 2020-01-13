@@ -12,16 +12,16 @@ import com.evilbird.engine.action.framework.DelegateAction;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.death.DeathAction;
-import com.evilbird.warcraft.data.resource.ResourceQuantity;
-import com.evilbird.warcraft.object.common.production.ProductionCosts;
+import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.data.resource.ResourceSet;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import javax.inject.Inject;
-import java.util.Collection;
 
+import static com.evilbird.warcraft.action.common.production.ProductionOperations.getProductionCost;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.moveAdjacent;
 
@@ -36,7 +36,7 @@ public class ConstructCancel extends DelegateAction
     private transient ConstructEvents events;
     private transient ItemExclusion exclusion;
     private transient ResourceTransfer resources;
-    private transient ProductionCosts costs;
+    private transient WarcraftPreferences preferences;
 
     @Inject
     public ConstructCancel(
@@ -44,14 +44,14 @@ public class ConstructCancel extends DelegateAction
         DeathAction death,
         ItemExclusion exclusion,
         ResourceTransfer resources,
-        ProductionCosts costs)
+        WarcraftPreferences preferences)
     {
         super(death);
-        this.costs = costs;
         this.events = events;
         this.cancelled = false;
         this.exclusion = exclusion;
         this.resources = resources;
+        this.preferences = preferences;
     }
 
     @Override
@@ -101,12 +101,14 @@ public class ConstructCancel extends DelegateAction
         resources.setResources(player, getBuildingCost());
     }
 
-    private Collection<ResourceQuantity> getBuildingCost() {
-        return costs.costOf(getBuildingType());
+    private ResourceSet getBuildingCost() {
+        return getProductionCost(getBuildingType(), preferences);
     }
 
     private UnitType getBuildingType() {
         ConstructActions constructAction = (ConstructActions)getIdentifier();
         return constructAction.getProduct();
     }
+
+
 }

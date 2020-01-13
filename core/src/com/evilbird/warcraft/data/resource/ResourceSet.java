@@ -20,7 +20,13 @@ import java.util.Iterator;
  */
 public class ResourceSet implements Iterable<ResourceQuantity>
 {
+    public static final transient ResourceSet EmptyResourceSet = new ResourceSet();
+
     private Collection<ResourceQuantity> resources;
+
+    private ResourceSet() {
+        this.resources = Collections.emptyList();
+    }
 
     public ResourceSet(Collection<ResourceQuantity> resources) {
         this.resources = Collections.unmodifiableCollection(resources);

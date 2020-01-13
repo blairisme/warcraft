@@ -13,9 +13,8 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftFaction;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.data.upgrade.Upgrade;
-import com.evilbird.warcraft.object.common.production.ProductionCosts;
-import com.evilbird.warcraft.object.common.production.ProductionTimes;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
@@ -51,11 +50,10 @@ public class ProduceUpgradeType extends ProduceUpgrade
     public ProduceUpgradeType(
         ProduceEvents events,
         ResourceTransfer resources,
-        ProductionCosts productionCosts,
-        ProductionTimes productionTimes,
-        GameObjectFactory objectFactory)
+        GameObjectFactory objectFactory,
+        WarcraftPreferences preferences)
     {
-        super(events, resources, productionCosts, productionTimes);
+        super(events, resources, preferences);
         this.objectFactory = objectFactory;
     }
 
@@ -69,7 +67,7 @@ public class ProduceUpgradeType extends ProduceUpgrade
         Identifier obsoleteType = getObsoleteType(upgradeType, faction);
         Identifier upgradedType = getUpgradedType(upgradeType, faction);
 
-        Combatant upgrade = (Combatant) objectFactory.get(upgradedType);
+        Combatant upgrade = (Combatant)objectFactory.get(upgradedType);
         Player player = getPlayer(building);
 
         for (GameObject obsolete: player.findAll(hasType(obsoleteType))) {

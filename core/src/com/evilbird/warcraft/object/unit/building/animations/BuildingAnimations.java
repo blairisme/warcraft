@@ -11,9 +11,12 @@ package com.evilbird.warcraft.object.unit.building.animations;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
-import com.evilbird.warcraft.object.common.production.ProductionTimes;
+import com.evilbird.engine.common.time.Duration;
+import com.evilbird.warcraft.object.unit.UnitProduction;
+import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.BuildingAssets;
 
+import static com.evilbird.engine.common.time.ChronoUnit.SECONDS;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.BuildingSite;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.BuildingUpgrade;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Construct;
@@ -32,14 +35,14 @@ import static java.util.Objects.requireNonNull;
  */
 public class BuildingAnimations extends AnimationCatalog
 {
-    public BuildingAnimations(BuildingAssets assets, ProductionTimes production) {
+    public BuildingAnimations(BuildingAssets assets) {
         this(assets.getBaseTexture(),
             assets.getConstructionTexture(),
             assets.getDestructionTexture(),
             assets.getLightDamageTexture(),
             assets.getHeavyDamageTexture(),
             assets.getSize(),
-            production.buildTime(assets.getType()));
+            assets.getType());
     }
 
     public BuildingAnimations(
@@ -49,7 +52,7 @@ public class BuildingAnimations extends AnimationCatalog
         Texture lightDamage,
         Texture heavyDamage,
         GridPoint2 size,
-        float time)
+        UnitType type)
     {
         super(7);
 
@@ -61,7 +64,7 @@ public class BuildingAnimations extends AnimationCatalog
         idle(base, size);
         buildingSite(construction, size);
         buildingUpgrade(base, size);
-        construction(base, construction, size, time);
+        construction(base, construction, size, type);
         destruction(destruction);
         damage(lightDamage, heavyDamage);
     }
@@ -96,20 +99,23 @@ public class BuildingAnimations extends AnimationCatalog
             .looping();
     }
 
-    private void construction(Texture base, Texture construction, GridPoint2 size, float time) {
-        float duration = time / 4f;
+    private void construction(Texture base, Texture construction, GridPoint2 size, UnitType type) {
+        UnitProduction production = UnitProduction.forProduct(type);
+        Duration duration = production.getDuration();
+        float interval = duration.get(SECONDS) / 4f;
+
         sequence(Construct)
             .element()
                 .withTexture(construction)
                 .withSequence(0, 2)
                 .withSize(size)
-                .withInterval(duration)
+                .withInterval(interval)
                 .singleDirection()
             .element()
                 .withTexture(base)
                 .withSequence(0, 2)
                 .withSize(size)
-                .withInterval(duration)
+                .withInterval(interval)
                 .singleDirection()
                 .reversed();
     }

@@ -14,7 +14,6 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
-import com.evilbird.warcraft.object.common.production.ProductionCosts;
 import com.evilbird.warcraft.object.unit.UnitType;
 import org.mockito.Mockito;
 
@@ -29,8 +28,7 @@ public class ProduceUnitCancelTest extends ActionTestCase
     protected Action newAction() {
         ProduceEvents events = Mockito.mock(ProduceEvents.class);
         ResourceTransfer resources = Mockito.mock(ResourceTransfer.class);
-        ProductionCosts costs = Mockito.mock(ProductionCosts.class);
-        ProduceUnitCancel action = new ProduceUnitCancel(events, resources, costs);
+        ProduceUnitCancel action = new ProduceUnitCancel(events, resources, preferences);
         action.setIdentifier(ProduceUnitActions.TrainFootmanCancel);
         return action;
     }

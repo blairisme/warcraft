@@ -17,8 +17,6 @@ import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
-import com.evilbird.warcraft.object.common.production.ProductionCosts;
-import com.evilbird.warcraft.object.common.production.ProductionTimes;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
@@ -61,10 +59,8 @@ public class ProduceUnitTest extends ActionTestCase
         CreateEvents createEvents = new CreateEvents(reporter);
         ProduceEvents produceEvents = new ProduceEvents(reporter);
         ResourceTransfer resources = Mockito.mock(ResourceTransfer.class);
-        ProductionTimes times = Mockito.mock(ProductionTimes.class);
-        ProductionCosts costs = Mockito.mock(ProductionCosts.class);
         ProduceUnit action = new ProduceUnit(
-            createEvents, produceEvents, objectFactory, preferences, resources, costs, times);
+            createEvents, produceEvents, objectFactory, preferences, resources);
         action.setIdentifier(TrainFootman);
         return action;
     }

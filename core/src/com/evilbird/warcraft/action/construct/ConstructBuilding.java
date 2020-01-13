@@ -20,7 +20,6 @@ import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.death.RemoveEvents;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.data.resource.ResourceSet;
-import com.evilbird.warcraft.object.common.production.ProductionCosts;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.selector.SelectorType;
 import com.evilbird.warcraft.object.unit.UnitType;
@@ -34,6 +33,7 @@ import java.util.function.Consumer;
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.common.function.Predicates.all;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.overlapping;
+import static com.evilbird.warcraft.action.common.production.ProductionOperations.getProductionCost;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isBuilding;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isDead;
@@ -53,7 +53,6 @@ public class ConstructBuilding extends BasicAction
     private RemoveEvents removeEvents;
     private CreateEvents createEvents;
     private Consumer<GameObject> recipient;
-    private ProductionCosts production;
     private WarcraftPreferences preferences;
 
     @Inject
@@ -62,14 +61,12 @@ public class ConstructBuilding extends BasicAction
         ResourceTransfer resources,
         RemoveEvents removeEvents,
         CreateEvents createEvents,
-        ProductionCosts production,
         WarcraftPreferences preferences)
     {
         this.factory = factory;
         this.resources = resources;
         this.removeEvents = removeEvents;
         this.createEvents = createEvents;
-        this.production = production;
         this.preferences = preferences;
     }
 
@@ -95,7 +92,7 @@ public class ConstructBuilding extends BasicAction
     }
 
     private void purchase(UnitType building, Player player) {
-        ResourceSet cost = new ResourceSet(production.costOf(building));
+        ResourceSet cost = getProductionCost(building, preferences);
         resources.setResources(player, cost.negate());
     }
 
