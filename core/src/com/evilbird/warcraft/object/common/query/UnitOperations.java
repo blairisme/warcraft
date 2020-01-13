@@ -66,6 +66,7 @@ import static com.evilbird.warcraft.data.resource.ResourceType.Wood;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.hasPathTo;
 import static com.evilbird.warcraft.object.unit.UnitArchetype.CommandCentre;
 import static com.evilbird.warcraft.object.unit.UnitArchetype.FoodProducer;
+import static com.evilbird.warcraft.object.unit.UnitArchetype.NavalProducer;
 import static com.evilbird.warcraft.object.unit.UnitArchetype.OilDepot;
 import static com.evilbird.warcraft.object.unit.UnitArchetype.WoodDepot;
 
@@ -386,8 +387,8 @@ public class UnitOperations
             UnitType type = (UnitType)gameObject.getType();
             UnitArchetype archetype = type.getArchetype();
             return (resource == Gold && archetype == CommandCentre)
-                || (resource == Oil && archetype == OilDepot)
-                || (resource == Wood && archetype == WoodDepot);
+                || (resource == Oil && (archetype == NavalProducer || archetype == OilDepot))
+                || (resource == Wood && (archetype == CommandCentre || archetype == WoodDepot));
         }
         return false;
     }

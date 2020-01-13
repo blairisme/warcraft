@@ -12,6 +12,8 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.StateTransitionAction;
 import com.evilbird.engine.object.GameObject;
+import com.evilbird.warcraft.action.gather.error.DepotMissingException;
+import com.evilbird.warcraft.action.gather.error.ResourceMissingException;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
@@ -32,21 +34,21 @@ import static com.evilbird.warcraft.object.unit.UnitType.GoldMine;
  */
 public class GatherGold extends StateTransitionAction
 {
-    private transient Action gather;
+    private transient Action obtain;
     private transient Action deposit;
 
     @Inject
     public GatherGold(
         GatherDeposit deposit,
-        GatherObtainGold gather,
+        GatherObtainGold obtain,
         MoveToItemAction moveToDepot,
         MoveToItemAction moveToResource)
     {
         setIdentifier(GatherActions.GatherGold);
-        gather.setResource(Gold);
+        obtain.setResource(Gold);
         deposit.setResource(Gold);
         this.deposit = add(new SequenceAction(moveToDepot, deposit));
-        this.gather = add(new SequenceAction(moveToResource, gather));
+        this.obtain = add(new SequenceAction(moveToResource, obtain));
     }
 
     @Override
@@ -56,19 +58,31 @@ public class GatherGold extends StateTransitionAction
 
     private Action nextAction(Gatherer gatherer, GameObject target) {
         if (hasResources(gatherer, Gold)) {
-            deposit.setTarget(getNearestDepot(gatherer));
-            return deposit;
+            return getDepositAction(gatherer);
         } else {
-            gather.setTarget(getNearestResource(gatherer, target));
-            return gather;
+            return getObtainAction(gatherer, target);
         }
     }
 
-    private GameObject getNearestDepot(Gatherer gatherer) {
-        return findClosest(gatherer, both(isCorporeal(), isDepotFor(Gold)));
+    private Action getObtainAction(Gatherer gatherer, GameObject target) {
+        GameObject resource = findClosest(gatherer, target, GoldMine);
+        if (resource != null) {
+            obtain.setTarget(resource);
+            return obtain;
+        } else {
+            setError(new ResourceMissingException(Gold));
+            return null;
+        }
     }
 
-    private GameObject getNearestResource(Gatherer gatherer, GameObject target) {
-        return findClosest(gatherer, target, GoldMine);
+    private Action getDepositAction(Gatherer gatherer) {
+        GameObject depot = findClosest(gatherer, both(isCorporeal(), isDepotFor(Gold)));
+        if (depot != null) {
+            deposit.setTarget(depot);
+            return deposit;
+        } else {
+            setError(new DepotMissingException(Gold));
+            return null;
+        }
     }
 }

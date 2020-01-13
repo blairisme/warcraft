@@ -12,6 +12,8 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.StateTransitionAction;
 import com.evilbird.engine.object.GameObject;
+import com.evilbird.warcraft.action.gather.error.DepotMissingException;
+import com.evilbird.warcraft.action.gather.error.ResourceMissingException;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.object.unit.UnitType;
@@ -36,21 +38,21 @@ import static com.evilbird.warcraft.object.unit.UnitType.OilRig;
  */
 public class GatherOil extends StateTransitionAction
 {
-    private transient Action gather;
+    private transient Action obtain;
     private transient Action deposit;
 
     @Inject
     public GatherOil(
         GatherDeposit deposit,
-        GatherObtainOil gather,
+        GatherObtainOil obtain,
         MoveToItemAction moveToDepot,
         MoveToItemAction moveToResource)
     {
         setIdentifier(GatherActions.GatherOil);
-        gather.setResource(Oil);
+        obtain.setResource(Oil);
         deposit.setResource(Oil);
         this.deposit = add(new SequenceAction(moveToDepot, deposit));
-        this.gather = add(new SequenceAction(moveToResource, gather));
+        this.obtain = add(new SequenceAction(moveToResource, obtain));
     }
 
     @Override
@@ -60,21 +62,37 @@ public class GatherOil extends StateTransitionAction
 
     private Action nextAction(Gatherer gatherer, GameObject target) {
         if (hasResources(gatherer, Oil)) {
-            deposit.setTarget(getNearestDepot(gatherer));
-            return deposit;
+            return getDepositAction(gatherer);
         } else {
-            gather.setTarget(getNearestResource(gatherer, target));
-            return gather;
+            return getObtainAction(gatherer, target);
         }
     }
 
-    private GameObject getNearestDepot(Gatherer gatherer) {
-        return findClosest(gatherer, both(isCorporeal(), isDepotFor(Oil)));
+    private Action getObtainAction(Gatherer gatherer, GameObject target) {
+        GameObject resource = getNearestResource(gatherer, target);
+        if (resource != null) {
+            obtain.setTarget(resource);
+            return obtain;
+        } else {
+            setError(new ResourceMissingException(Oil));
+            return null;
+        }
+    }
+
+    private Action getDepositAction(Gatherer gatherer) {
+        GameObject depot = findClosest(gatherer, both(isCorporeal(), isDepotFor(Oil)));
+        if (depot != null) {
+            deposit.setTarget(depot);
+            return deposit;
+        } else {
+            setError(new DepotMissingException(Oil));
+            return null;
+        }
     }
 
     private GameObject getNearestResource(Gatherer gatherer, GameObject target) {
         UnitType type = (UnitType)gatherer.getType();
-        WarcraftFaction faction =  type.getFaction();
+        WarcraftFaction faction = type.getFaction();
         UnitType extractor = faction == Human ? OilPlatform : OilRig;
         return findClosest(gatherer, target, extractor);
     }
