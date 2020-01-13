@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.construct;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.TemporalAction;
 import com.evilbird.engine.common.time.GameTimer;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
@@ -93,7 +94,7 @@ public class ConstructAction extends TemporalAction
         setDuration(getProductionTime((UnitType)building.getType(), preferences));
         setProgress(building.getConstructionProgress() * getDuration());
 
-        events.notifyConstructStarted(building);
+        events.notifyConstructStarted(building, builder);
         return ActionIncomplete;
     }
 
@@ -118,7 +119,7 @@ public class ConstructAction extends TemporalAction
         finalizeBuilder(builder, building);
         transferResources(building, player);
         transferUpgrades(building, player);
-        notifyBuildingComplete(building);
+        notifyBuildingComplete(building, builder);
 
         return ActionComplete;
     }
@@ -149,7 +150,7 @@ public class ConstructAction extends TemporalAction
         building.clearUpgrades();
     }
 
-    private void notifyBuildingComplete(Building building) {
-        events.notifyConstructComplete(building);
+    private void notifyBuildingComplete(Building building, GameObject builder) {
+        events.notifyConstructComplete(building, builder);
     }
 }

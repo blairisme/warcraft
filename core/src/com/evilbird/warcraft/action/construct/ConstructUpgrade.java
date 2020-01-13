@@ -101,7 +101,7 @@ public class ConstructUpgrade extends BasicAction
         ResourceSet cost = getProductionCost(product, preferences);
         resources.setResources(player, cost.negate());
 
-        constructEvents.notifyConstructUpgrade(building);
+        constructEvents.notifyUpgradeStarted(building);
         return ActionIncomplete;
     }
 
@@ -142,7 +142,7 @@ public class ConstructUpgrade extends BasicAction
             selectEvents.selectionUpdated(building, false);
             selectEvents.selectionUpdated(improvement, true);
         }
-        constructEvents.notifyConstructComplete(improvement);
+        constructEvents.notifyUpgradeComplete(building, improvement);
         return ActionComplete;
     }
 

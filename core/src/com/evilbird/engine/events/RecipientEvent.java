@@ -11,15 +11,15 @@ package com.evilbird.engine.events;
 import com.evilbird.engine.object.GameObject;
 
 /**
- * Implementors of this interface represent an instance of a note worthy
- * phenomenon: an event.
+ * Implementors of this {@link Event} specialization represent an {@code Event}
+ * with both a subject and a recipient.
  *
  * @author Blair Butterworth
  */
-public interface Event
+public interface RecipientEvent extends Event
 {
     /**
-     * The {@link GameObject} involved in the event.
+     * The {@link GameObject} receiving the result of a given operation.
      */
-    GameObject getSubject();
+    GameObject getRecipient();
 }

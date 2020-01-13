@@ -9,6 +9,7 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.events.Event;
+import com.evilbird.engine.events.RecipientEvent;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.unit.building.Building;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -21,21 +22,27 @@ import java.util.Objects;
  *
  * @author Blair Butterworth
  */
-public class ConstructEvent implements Event
+public class ConstructEvent implements RecipientEvent
 {
     private Building building;
+    private GameObject builder;
     private ConstructStatus status;
 
-    public ConstructEvent(Building building, ConstructStatus status) {
+    public ConstructEvent(Building building, GameObject builder, ConstructStatus status) {
         Objects.requireNonNull(building);
         Objects.requireNonNull(status);
 
         this.building = building;
+        this.builder = builder;
         this.status = status;
     }
 
     public Building getBuilding() {
         return building;
+    }
+
+    public GameObject getBuilder() {
+        return builder;
     }
 
     public ConstructStatus getStatus() {
@@ -45,6 +52,11 @@ public class ConstructEvent implements Event
     @Override
     public GameObject getSubject() {
         return building;
+    }
+
+    @Override
+    public GameObject getRecipient() {
+        return builder;
     }
 
     public boolean isConstructing() {
@@ -63,6 +75,7 @@ public class ConstructEvent implements Event
     public String toString() {
         return new ToStringBuilder(this)
             .append("building", building.getIdentifier())
+            .append("builder", builder.getIdentifier())
             .append("status", status)
             .toString();
     }

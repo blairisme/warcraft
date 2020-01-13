@@ -54,7 +54,7 @@ public class ConstructUpgradeCancel extends BasicAction
         Player player = getPlayer(building);
         resources.setResources(player, getProductionCost(getProduct(), preferences));
 
-        events.notifyConstructCancelled(building);
+        events.notifyUpgradeCancelled(building);
         return ActionComplete;
     }
 

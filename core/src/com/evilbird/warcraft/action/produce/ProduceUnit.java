@@ -130,14 +130,17 @@ public class ProduceUnit extends BasicAction
         Unit product = (Unit)factory.get(getProduct());
         Building building = (Building) getSubject();
 
-        finalizeProduct(building, product);
-        finalizeBuilding(building, product);
-        notifyObservers(building, product);
+        completeProduct(building, product);
+        completeBuilding(building, product);
+        notifyComplete(building, product);
 
         return ActionComplete;
     }
 
-    private void finalizeProduct(Building building, Unit product) {
+    private void completeProduct(Building building, Unit product) {
+        product.setVisible(true);
+        moveAdjacent((MovableObject)product, building);
+
         Player player = getPlayer(building);
         player.addObject(product);
 
@@ -146,12 +149,11 @@ public class ProduceUnit extends BasicAction
         }
     }
 
-    private void finalizeBuilding(Building building, Unit product) {
+    private void completeBuilding(Building building, Unit product) {
         building.setProductionProgress(1);
-        moveAdjacent((MovableObject)product, building);
     }
 
-    private void notifyObservers(Building building, Unit product) {
+    private void notifyComplete(Building building, Unit product) {
         createEvents.notifyCreate(product);
         produceEvents.notifyProductionCompleted(building);
     }

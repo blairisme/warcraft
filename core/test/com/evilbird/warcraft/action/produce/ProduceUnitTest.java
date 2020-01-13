@@ -17,6 +17,7 @@ import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
+import com.evilbird.warcraft.object.unit.UnitProduction;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
@@ -24,9 +25,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import static com.evilbird.engine.common.time.ChronoUnit.SECONDS;
 import static com.evilbird.warcraft.action.produce.ProduceUnitActions.TrainFootman;
 import static com.evilbird.warcraft.data.resource.ResourceType.Food;
 import static com.evilbird.warcraft.data.resource.ResourceType.Gold;
+import static com.evilbird.warcraft.object.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.object.unit.UnitType.Footman;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -87,7 +90,10 @@ public class ProduceUnitTest extends ActionTestCase
         assertFalse(action.act(1));
         assertEquals(0.1f, barracks.getProductionProgress(), 0.1f);
 
-        assertTrue(action.act(1f));
+        assertFalse(action.act(1f));
+        assertTrue(barracks.isProducing());
+
+        assertTrue(action.act(UnitProduction.forProduct(Barracks).getDuration().get(SECONDS)));
         assertFalse(barracks.isProducing());
         verify(reporter).add(new ProduceEvent(barracks, ProduceStatus.Complete));
     }

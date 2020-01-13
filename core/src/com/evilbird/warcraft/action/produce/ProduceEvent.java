@@ -16,7 +16,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 /**
- * Instances of this {@link Event} are generated when a unit is trained.
+ * Instances of this {@link Event} are generated when a product is created.
  *
  * @author Blair Butterworth
  */

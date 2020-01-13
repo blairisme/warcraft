@@ -13,10 +13,12 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
+import com.evilbird.engine.events.RecipientEvent;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
+import com.evilbird.warcraft.action.construct.ConstructEvent;
 import com.evilbird.warcraft.action.death.RemoveEvent;
 import com.evilbird.warcraft.action.gather.GatherEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
@@ -63,24 +65,11 @@ public class MapBehaviour implements Behaviour
 
     private void updateMap(State state) {
         initialize(state);
-        updateMap(MoveEvent.class);
-        updateMap(CreateEvent.class);
-        updateMap(RemoveEvent.class);
-        updateMapGatherEvents();
-    }
-
-    private void updateMap(Class<? extends Event> type) {
-        for (Event event: events.getEvents(type)) {
-            invalidate(event.getSubject());
-        }
-    }
-
-    private void updateMapGatherEvents() {
-        for (Event event: events.getEvents(GatherEvent.class)) {
-            GatherEvent gatherEvent = (GatherEvent)event;
-            invalidate(gatherEvent.getSubject());
-            invalidate(gatherEvent.getRecipient());
-        }
+        invalidateSubject(MoveEvent.class);
+        invalidateSubject(CreateEvent.class);
+        invalidateSubject(RemoveEvent.class);
+        invalidateRecipient(ConstructEvent.class);
+        invalidateRecipient(GatherEvent.class);
     }
 
     private void initialize(State state) {
@@ -92,9 +81,25 @@ public class MapBehaviour implements Behaviour
         }
     }
 
+    private void invalidateSubject(Class<? extends Event> type) {
+        for (Event event: events.getEvents(type)) {
+            invalidate(event.getSubject());
+        }
+    }
+
+    private void invalidateRecipient(Class<? extends RecipientEvent> type) {
+        for (Event event: events.getEvents(type)) {
+            RecipientEvent recipientEvent = (RecipientEvent)event;
+            invalidate(recipientEvent.getSubject());
+            invalidate(recipientEvent.getRecipient());
+        }
+    }
+
     private void invalidate(GameObject object) {
-        for (MapPane mapPane: mapPanes) {
-            mapPane.invalidate(object);
+        if (object != null) {
+            for (MapPane mapPane : mapPanes) {
+                mapPane.invalidate(object);
+            }
         }
     }
 }
