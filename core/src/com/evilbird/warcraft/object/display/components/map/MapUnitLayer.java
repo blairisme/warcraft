@@ -26,6 +26,7 @@ import com.evilbird.warcraft.common.TeamColour;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.layer.LayerType;
 import com.evilbird.warcraft.object.layer.fog.Fog;
+import com.evilbird.warcraft.object.layer.wall.WallSection;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
@@ -124,6 +125,9 @@ public class MapUnitLayer extends BaseRenderable implements Renderable, Disposab
         if (object instanceof Combatant || object instanceof Building) {
             return getUnitColour((Unit)object);
         }
+        if (object instanceof WallSection) {
+            return Color.DARK_GRAY;
+        }
         return Colours.TRANSPARENT;
     }
 
@@ -150,7 +154,7 @@ public class MapUnitLayer extends BaseRenderable implements Renderable, Disposab
 
     private GameObject getOccupant(GameObjectNode node) {
         for (GameObject occupant: node.getOccupants()) {
-            if (occupant instanceof Unit) {
+            if (occupant instanceof Unit || occupant instanceof WallSection) {
                 return occupant;
             }
         }
