@@ -15,6 +15,7 @@
   "sight": 0.0,
   "selected": false,
   "selectable": true,
+  "colour": "None",
   "direction": 70.55996,
   "id": {
     "class": "Named",

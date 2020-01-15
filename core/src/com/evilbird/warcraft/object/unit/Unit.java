@@ -20,6 +20,7 @@ import com.evilbird.engine.common.graphics.ColourMaskSprite;
 import com.evilbird.engine.common.graphics.animation.Animation;
 import com.evilbird.engine.common.graphics.animation.AnimationFrame;
 import com.evilbird.engine.common.graphics.renderable.Renderable;
+import com.evilbird.engine.common.serialization.SerializedInitializer;
 import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.engine.object.GameObject;
@@ -43,6 +44,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import static com.evilbird.warcraft.common.TeamColour.None;
 import static com.evilbird.warcraft.object.common.value.FixedValue.Zero;
 
 /**
@@ -60,6 +62,7 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     private Value sight;
     private boolean selected;
     private boolean selectable;
+    private TeamColour colour;
     private GameObjectReference<Selector> selector;
     private GameObjectReference<GameObject> associate;
     private GameObjectReference<GameObject> effect;
@@ -81,12 +84,13 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
      */
     public Unit(Skin skin) {
         super(skin);
-        sight = Zero;
         armour = Zero;
+        colour = None;
         health = 0;
         healthMaximum = 0;
         selected = false;
         selectable = true;
+        sight = Zero;
     }
 
     /**
@@ -279,7 +283,8 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
      * specific team. The colour is used to change the colour of certain
      */
     public void setTeamColour(TeamColour colour) {
-        if (colour != TeamColour.None) {
+        this.colour = colour;
+        if (colour != None) {
             setColour(colour.getGdxColour());
         }
     }
@@ -371,15 +376,19 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
         super.draw(batch, alpha);
     }
 
-    @Override
-    public void update(float time) {
-        updateRenderables(time);
-        super.update(time);
+    @SerializedInitializer
+    @SuppressWarnings("unused")
+    public void invalidate() {
+        if (colour != None) {
+            setColour(colour.getGdxColour());
+        }
     }
 
-    private void updateRenderables(float time) {
+    @Override
+    public void update(float time) {
         highlight.update(time);
         selection.update(time);
+        super.update(time);
     }
 
     @Override
@@ -401,6 +410,7 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
         Unit unit = (Unit)obj;
         return new EqualsBuilder()
             .appendSuper(super.equals(obj))
+            .append(colour, unit.colour)
             .append(sight, unit.sight)
             .append(armour, unit.armour)
             .append(health, unit.health)
@@ -418,6 +428,7 @@ public class Unit extends AnimatedObject implements PerishableObject, Selectable
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
             .appendSuper(super.hashCode())
+            .append(colour)
             .append(sight)
             .append(armour)
             .append(health)

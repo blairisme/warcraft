@@ -31,7 +31,7 @@ public enum TeamColour
 
     public Color getGdxColour() {
         switch (this) {
-            case None: return Color.BLACK;
+            case None: return Color.WHITE;
             case Black: return Colours.MIDNIGHT_BLACK;
             case Blue: return Colours.ROYAL_BLUE;
             case Green: return Colours.TURQUOISE;
