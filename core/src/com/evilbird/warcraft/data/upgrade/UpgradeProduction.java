@@ -10,7 +10,9 @@ package com.evilbird.warcraft.data.upgrade;
 
 import com.evilbird.engine.common.time.Duration;
 import com.evilbird.warcraft.data.resource.ResourceSet;
+import org.apache.commons.lang3.EnumUtils;
 
+import static com.evilbird.engine.common.time.Duration.ZERO;
 import static com.evilbird.engine.common.time.DurationUtils.Seconds;
 import static com.evilbird.warcraft.data.resource.ResourceOperations.Resources;
 
@@ -21,45 +23,45 @@ import static com.evilbird.warcraft.data.resource.ResourceOperations.Resources;
  */
 public enum UpgradeProduction
 {
-    MeleeDamage1        (Resources(800, 0, 0, 0),      Seconds(0)),
-    MeleeDamage2        (Resources(2400, 0, 0, 0),     Seconds(0)),
-    MeleeDefence1       (Resources(300, 300, 0, 0),    Seconds(0)),
-    MeleeDefence2       (Resources(900, 500, 0, 0),    Seconds(0)),
-    MeleeType1          (Resources(1000, 0, 0, 0),     Seconds(0)),
-    RangedDamage1       (Resources(300, 300, 0, 0),    Seconds(0)),
-    RangedDamage2       (Resources(600, 0, 0, 0),      Seconds(0)),
-    RangedAccuracy1     (Resources(2500, 0, 0, 0),     Seconds(0)),
-    RangedSight1        (Resources(1500, 0, 0, 0),     Seconds(0)),
-    RangedType1         (Resources(1500, 0, 0, 0),     Seconds(0)),
-    RangedWeapon1       (Resources(2000, 0, 0, 0),     Seconds(0)),
-    NavalDamage1        (Resources(700, 100, 1000, 0), Seconds(0)),
-    NavalDamage2        (Resources(2000, 250, 3000, 0),Seconds(0)),
-    NavalDefence1       (Resources(500, 500, 0, 0),    Seconds(0)),
-    NavalDefence2       (Resources(1500, 900, 0, 0),   Seconds(0)),
-    SiegeDamage1        (Resources(1500, 0, 0, 0),     Seconds(0)),
-    SiegeDamage2        (Resources(4000, 0, 0, 0),     Seconds(0)),
-    GoldProduction1     (Resources(0, 0, 0, 0),        Seconds(0)),
-    GoldProduction2     (Resources(0, 0, 0, 0),        Seconds(0)),
-    OilProduction1      (Resources(0, 0, 0, 0),        Seconds(0)),
-    OilProduction2      (Resources(0, 0, 0, 0),        Seconds(0)),
-    WoodProduction1     (Resources(0, 0, 0, 0),        Seconds(0)),
-    WoodProduction2     (Resources(0, 0, 0, 0),        Seconds(0)),
+    MeleeDamage1        (Resources(800, 0, 0, 0),      Seconds(50)),
+    MeleeDamage2        (Resources(2400, 0, 0, 0),     Seconds(60)),
+    MeleeDefence1       (Resources(300, 300, 0, 0),    Seconds(50)),
+    MeleeDefence2       (Resources(900, 500, 0, 0),    Seconds(60)),
+    MeleeType1          (Resources(1000, 0, 0, 0),     Seconds(70)),
+    RangedDamage1       (Resources(300, 300, 0, 0),    Seconds(50)),
+    RangedDamage2       (Resources(600, 0, 0, 0),      Seconds(60)),
+    RangedAccuracy1     (Resources(2500, 0, 0, 0),     Seconds(60)),
+    RangedSight1        (Resources(1500, 0, 0, 0),     Seconds(60)),
+    RangedType1         (Resources(1500, 0, 0, 0),     Seconds(60)),
+    RangedWeapon1       (Resources(2000, 0, 0, 0),     Seconds(60)),
+    NavalDamage1        (Resources(700, 100, 1000, 0), Seconds(50)),
+    NavalDamage2        (Resources(2000, 250, 3000, 0),Seconds(60)),
+    NavalDefence1       (Resources(500, 500, 0, 0),    Seconds(60)),
+    NavalDefence2       (Resources(1500, 900, 0, 0),   Seconds(80)),
+    SiegeDamage1        (Resources(1500, 0, 0, 0),     Seconds(60)),
+    SiegeDamage2        (Resources(4000, 0, 0, 0),     Seconds(60)),
+    GoldProduction1     (Resources(0, 0, 0, 0),        ZERO),
+    GoldProduction2     (Resources(0, 0, 0, 0),        ZERO),
+    OilProduction1      (Resources(0, 0, 0, 0),        ZERO),
+    OilProduction2      (Resources(0, 0, 0, 0),        ZERO),
+    WoodProduction1     (Resources(0, 0, 0, 0),        ZERO),
+    WoodProduction2     (Resources(0, 0, 0, 0),        ZERO),
 
-    BlizzardUpgrade     (Resources(2000, 0, 0, 0),      Seconds(0)),
-    BloodlustUpgrade    (Resources(1000, 0, 0, 0),      Seconds(0)),
-    DeathAndDecayUpgrade(Resources(2000, 0, 0, 0),      Seconds(0)),
-    ExorcismUpgrade     (Resources(2000, 0, 0, 0),      Seconds(0)),
-    FlameShieldUpgrade  (Resources(1000, 0, 0, 0),      Seconds(0)),
-    HasteUpgrade        (Resources(500, 0, 0, 0),       Seconds(0)),
-    HealingUpgrade      (Resources(1000, 0, 0, 0),      Seconds(0)),
-    InvisibilityUpgrade (Resources(2500, 0, 0, 0),      Seconds(0)),
-    PolymorphUpgrade    (Resources(2000, 0, 0, 0),      Seconds(0)),
-    RaiseTheDeadUpgrade (Resources(1500, 0, 0, 0),      Seconds(0)),
-    RunesUpgrade        (Resources(1000, 0, 0, 0),      Seconds(0)),
-    SlowUpgrade         (Resources(500, 0, 0, 0),       Seconds(0)),
-    UnholyArmourUpgrade (Resources(2500, 0, 0, 0),      Seconds(0)),
-    WhirlwindUpgrade    (Resources(1500, 0, 0, 0),      Seconds(0)),
-    None                (Resources(0, 0, 0, 0),         Seconds(0));
+    BlizzardUpgrade     (Resources(2000, 0, 0, 0),      Seconds(60)),
+    BloodlustUpgrade    (Resources(1000, 0, 0, 0),      Seconds(30)),
+    DeathAndDecayUpgrade(Resources(2000, 0, 0, 0),      Seconds(90)),
+    ExorcismUpgrade     (Resources(2000, 0, 0, 0),      Seconds(50)),
+    FlameShieldUpgrade  (Resources(1000, 0, 0, 0),      Seconds(30)),
+    HasteUpgrade        (Resources(500, 0, 0, 0),       Seconds(40)),
+    HealingUpgrade      (Resources(1000, 0, 0, 0),      Seconds(50)),
+    InvisibilityUpgrade (Resources(2500, 0, 0, 0),      Seconds(50)),
+    PolymorphUpgrade    (Resources(2000, 0, 0, 0),      Seconds(60)),
+    RaiseTheDeadUpgrade (Resources(1500, 0, 0, 0),      Seconds(40)),
+    RunesUpgrade        (Resources(1000, 0, 0, 0),      Seconds(50)),
+    SlowUpgrade         (Resources(500, 0, 0, 0),       Seconds(30)),
+    UnholyArmourUpgrade (Resources(2500, 0, 0, 0),      Seconds(60)),
+    WhirlwindUpgrade    (Resources(1500, 0, 0, 0),      Seconds(60)),
+    None                (Resources(0, 0, 0, 0),         ZERO);
 
     private ResourceSet cost;
     private Duration duration;
@@ -88,7 +90,7 @@ public enum UpgradeProduction
      * required to produce the given upgrade.
      */
     public static UpgradeProduction forProduct(Upgrade upgrade) {
-        if (org.apache.commons.lang3.EnumUtils.isValidEnum(UpgradeProduction.class, upgrade.name())) {
+        if (EnumUtils.isValidEnum(UpgradeProduction.class, upgrade.name())) {
             return UpgradeProduction.valueOf(upgrade.name());
         }
         return None;
