@@ -17,6 +17,5 @@ public enum ConstructStatus
 {
     Cancelled,
     Complete,
-    Started,
-    Upgrading
+    Started
 }

@@ -127,12 +127,16 @@ public class ConstructUpgrade extends BasicAction
         Building building = (Building)getSubject();
         Building improvement = (Building)factory.get(getProduct());
 
-        Player player = getPlayer(building);
-        player.removeObject(building);
-        player.addObject(improvement);
-        player.setUpgrades(building.getUpgrades(), true);
+        setCompleteState(building, improvement);
+        setCompleteOwnership(building, improvement);
 
+        constructEvents.notifyUpgradeComplete(building, improvement);
+        return ActionComplete;
+    }
+
+    private void setCompleteState(Building building, Building improvement) {
         improvement.setPosition(building.getPosition());
+        improvement.setVisible(true);
         improvement.clearUpgrades();
 
         if (building.getSelected()) {
@@ -142,8 +146,13 @@ public class ConstructUpgrade extends BasicAction
             selectEvents.selectionUpdated(building, false);
             selectEvents.selectionUpdated(improvement, true);
         }
-        constructEvents.notifyUpgradeComplete(building, improvement);
-        return ActionComplete;
+    }
+
+    private void setCompleteOwnership(Building building, Building improvement) {
+        Player player = getPlayer(building);
+        player.removeObject(building);
+        player.addObject(improvement);
+        player.setUpgrades(building.getUpgrades(), true);
     }
 
     private UnitType getProduct() {

@@ -8,15 +8,12 @@
 
 package com.evilbird.warcraft.behaviour.ainew;
 
-import com.badlogic.gdx.ai.btree.BehaviorTree;
 import com.badlogic.gdx.ai.btree.BranchTask;
 import com.badlogic.gdx.ai.btree.Task;
-import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.object.data.player.Player;
 
 import javax.inject.Inject;
-import java.util.Collection;
 
 /**
  * @author Blair Butterworth

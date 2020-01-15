@@ -26,15 +26,17 @@ public class ConstructEvent implements RecipientEvent
 {
     private Building building;
     private GameObject builder;
+    private boolean upgrade;
     private ConstructStatus status;
 
-    public ConstructEvent(Building building, GameObject builder, ConstructStatus status) {
+    public ConstructEvent(Building building, GameObject builder, boolean upgrade, ConstructStatus status) {
         Objects.requireNonNull(building);
         Objects.requireNonNull(status);
 
         this.building = building;
         this.builder = builder;
         this.status = status;
+        this.upgrade = upgrade;
     }
 
     public Building getBuilding() {
@@ -59,8 +61,12 @@ public class ConstructEvent implements RecipientEvent
         return builder;
     }
 
+    public boolean isUpgrade() {
+        return upgrade;
+    }
+
     public boolean isConstructing() {
-        return status == ConstructStatus.Started || status == ConstructStatus.Upgrading;
+        return status == ConstructStatus.Started;
     }
 
     public boolean isComplete() {

@@ -29,30 +29,30 @@ public class ConstructEvents
     }
 
     public void notifyConstructStarted(Building building, GameObject builder) {
-        addEvent(building, builder, ConstructStatus.Started);
+        addEvent(building, builder, false, ConstructStatus.Started);
     }
 
     public void notifyConstructComplete(Building building, GameObject builder) {
-        addEvent(building, builder, ConstructStatus.Complete);
+        addEvent(building, builder, false, ConstructStatus.Complete);
     }
 
     public void notifyConstructCancelled(Building building, GameObject builder) {
-        addEvent(building, builder, ConstructStatus.Cancelled);
+        addEvent(building, builder, false, ConstructStatus.Cancelled);
     }
 
     public void notifyUpgradeStarted(Building building) {
-        addEvent(building, building, ConstructStatus.Upgrading);
+        addEvent(building, building, true, ConstructStatus.Started);
     }
 
     public void notifyUpgradeComplete(Building building, Building upgrade) {
-        addEvent(upgrade, building, ConstructStatus.Upgrading);
+        addEvent(upgrade, building, true, ConstructStatus.Complete);
     }
 
     public void notifyUpgradeCancelled(Building building) {
-        addEvent(building, building, ConstructStatus.Upgrading);
+        addEvent(building, building, true, ConstructStatus.Cancelled);
     }
 
-    private void addEvent(Building building, GameObject builder, ConstructStatus status) {
-        events.add(new ConstructEvent(building, builder, status));
+    private void addEvent(Building building, GameObject builder, boolean upgrade, ConstructStatus status) {
+        events.add(new ConstructEvent(building, builder, upgrade, status));
     }
 }
