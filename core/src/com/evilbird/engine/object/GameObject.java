@@ -23,6 +23,7 @@ import com.evilbird.engine.common.lang.Visible;
 import com.google.gson.annotations.JsonAdapter;
 
 import java.util.Collection;
+import java.util.function.Supplier;
 
 /**
  * Implementors of this interface represent a basic game entity.
@@ -292,6 +293,16 @@ public interface GameObject extends Identifiable<Identifier>, Positionable, Disa
      * @param index the new z-index. Must be a positive value.
      */
     void setZIndex(int index);
+
+    /**
+     * Sets the z-index of the game object. The z-index is the index into the
+     * parent's children, where a lower index is below a higher index. Setting a
+     * z-index higher than the number of children will move the child to the
+     * front. Setting a z-index less than zero is invalid.
+     *
+     * @param supplier a {@link Supplier} for the new z-index.
+     */
+    void setZIndex(Supplier<Integer> supplier);
 
     /**
      * Renders the game object.

@@ -16,6 +16,8 @@ import com.evilbird.engine.object.AnimatedObjectStyle;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
 import com.evilbird.warcraft.object.unit.UnitStyle;
 
+import static com.evilbird.warcraft.object.unit.UnitZIndex.ConjuredIndex;
+
 /**
  * Creates a new {@link ConjuredObject} instance whose visual and audible
  * presentation is defined by the given {@link ConjuredAssets}.
@@ -41,7 +43,7 @@ public abstract class ConjuredBuilder
         result.setSelectable(false);
         result.setSight(0);
         result.setTouchable(Touchable.disabled);
-        result.setZIndex(0);
+        result.setZIndex(ConjuredIndex);
         return result;
     }
 

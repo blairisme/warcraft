@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.audio.sound.SoundCatalog;
 import com.evilbird.engine.common.graphics.animation.AnimationCatalog;
 import com.evilbird.engine.common.graphics.renderable.TextureRenderable;
-import com.evilbird.warcraft.object.unit.UnitAnimation;
 import com.evilbird.warcraft.object.unit.UnitArchetype;
 import com.evilbird.warcraft.object.unit.UnitAttack;
 import com.evilbird.warcraft.object.unit.UnitStyle;
@@ -30,8 +29,10 @@ import com.evilbird.warcraft.object.unit.combatant.flying.orc.GoblinZeppelinAnim
 
 import java.util.Random;
 
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.object.unit.UnitArchetype.ConjuredUnit;
 import static com.evilbird.warcraft.object.unit.UnitAttack.None;
+import static com.evilbird.warcraft.object.unit.UnitZIndex.FlyingIndex;
 
 /**
  * Creates a new {@link FlyingUnit FlyingUnits} whose visual and audible
@@ -55,7 +56,8 @@ public class FlyingUnitBuilder extends CombatantBuilder<FlyingUnit>
     @Override
     public FlyingUnit build() {
         FlyingUnit result = super.build();
-        result.setAnimation(UnitAnimation.Idle, random.nextFloat());
+        result.setAnimation(Idle, random.nextFloat());
+        result.setZIndex(FlyingIndex);
         return result;
     }
 

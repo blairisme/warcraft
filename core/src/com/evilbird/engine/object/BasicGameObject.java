@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Supplier;
 
 import static com.badlogic.gdx.scenes.scene2d.Touchable.enabled;
 import static com.evilbird.engine.common.lang.GenericIdentifier.Unknown;
@@ -266,6 +267,11 @@ public class BasicGameObject implements GameObject
     public void setZIndex(int index) {
         this.index = index;
         this.delegate.setZIndex(index);
+    }
+
+    @Override
+    public void setZIndex(Supplier<Integer> supplier) {
+        setZIndex(supplier.get());
     }
 
     @Override

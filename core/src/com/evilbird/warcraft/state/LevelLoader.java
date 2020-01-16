@@ -79,7 +79,6 @@ public class LevelLoader
     private static final String WOOD_PROPERTY = "Wood";
     private static final String FOOD_PROPERTY = "Food";
     private static final String LEVEL_PROPERTY = "Level";
-    private static final String ZINDEX_PROPERTY = "ZIndex";
     private static final String TYPE_PROPERTY = "type";
     private static final String NATION_PROPERTY = "Nation";
     private static final String FACTION_PROPERTY = "Faction";
@@ -297,7 +296,6 @@ public class LevelLoader
     private void setInteractionProperties(GameObject gameObject, MapProperties properties) {
         gameObject.setTouchable(getTouchable(properties, TOUCHABLE_PROPERTY));
         gameObject.setPosition(getVector(properties, X_PROPERTY, Y_PROPERTY));
-        gameObject.setZIndex(getInt(properties, ZINDEX_PROPERTY));
     }
 
     private void setResourceProperties(GameObject gameObject, MapProperties properties) {

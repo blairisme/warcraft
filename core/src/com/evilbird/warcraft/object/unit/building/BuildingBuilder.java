@@ -37,6 +37,7 @@ import java.util.Map;
 
 import static com.evilbird.warcraft.object.unit.UnitAnimation.HeavyDamage;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.LightDamage;
+import static com.evilbird.warcraft.object.unit.UnitZIndex.BuildingIndex;
 
 /**
  * Creates a new {@link Building} instance whose visual and audible
@@ -84,7 +85,7 @@ public class BuildingBuilder
         building.setSelectable(true);
         building.setTouchable(Touchable.enabled);
         building.setSize(assets.getSize());
-        building.setZIndex(0);
+        building.setZIndex(BuildingIndex);
         return building;
     }
 

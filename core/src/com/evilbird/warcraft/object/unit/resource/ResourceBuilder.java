@@ -8,13 +8,15 @@
 
 package com.evilbird.warcraft.object.unit.resource;
 
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.graphics.renderable.FlashingRenderable;
 import com.evilbird.engine.common.graphics.renderable.TextureRenderable;
 import com.evilbird.engine.object.AnimatedObjectStyle;
-import com.evilbird.warcraft.object.unit.UnitAnimation;
 import com.evilbird.warcraft.object.unit.UnitStyle;
+
+import static com.badlogic.gdx.scenes.scene2d.Touchable.enabled;
+import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
+import static com.evilbird.warcraft.object.unit.UnitZIndex.ResourceIndex;
 
 /**
  * Creates a new {@link Resource} instance whose visual and audible
@@ -34,11 +36,12 @@ public class ResourceBuilder
 
     public Resource build() {
         Resource result = new Resource(getSkin());
-        result.setAnimation(UnitAnimation.Idle);
+        result.setAnimation(Idle);
         result.setSelected(false);
         result.setSelectable(true);
-        result.setTouchable(Touchable.enabled);
+        result.setTouchable(enabled);
         result.setSize(96, 96);
+        result.setZIndex(ResourceIndex);
         return result;
     }
 

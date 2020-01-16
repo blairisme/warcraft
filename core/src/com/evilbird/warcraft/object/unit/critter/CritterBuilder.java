@@ -18,6 +18,8 @@ import com.evilbird.warcraft.object.unit.UnitStyle;
 import com.evilbird.warcraft.object.unit.critter.animations.CritterAnimations;
 import com.evilbird.warcraft.object.unit.critter.sounds.CritterSounds;
 
+import static com.evilbird.warcraft.object.unit.UnitZIndex.UnitIndex;
+
 /**
  * Creates a new {@link Critter} whose visual and audible presentation is
  * defined by the given {@link CritterAssets}.
@@ -41,6 +43,7 @@ public class CritterBuilder
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
         result.setSize(32, 32);
+        result.setZIndex(UnitIndex);
         return result;
     }
 

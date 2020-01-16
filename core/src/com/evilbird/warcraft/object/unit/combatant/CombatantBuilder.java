@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.Map;
 
 import static com.evilbird.warcraft.common.WarcraftFaction.Neutral;
+import static com.evilbird.warcraft.object.unit.UnitZIndex.UnitIndex;
 
 /**
  * Creates a new {@link Combatant} whose visual and audible presentation is
@@ -54,6 +55,7 @@ public abstract class CombatantBuilder<T extends Combatant>
         result.setSelectable(true);
         result.setTouchable(Touchable.enabled);
         result.setSize(assets.getSize());
+        result.setZIndex(UnitIndex);
         return result;
     }
 
