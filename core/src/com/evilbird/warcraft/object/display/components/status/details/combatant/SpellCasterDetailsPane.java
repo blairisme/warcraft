@@ -8,6 +8,7 @@
 
 package com.evilbird.warcraft.object.display.components.status.details.combatant;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -70,8 +71,8 @@ public class SpellCasterDetailsPane extends CombatantDetailsPane
         Label label = new Label(style.strings.getMagic(), skin);
         label.setAlignment(Align.right);
 
-        Cell labelCell = container.add(label);
-        labelCell.growX();
+        Cell<Actor> cell = container.add(label);
+        cell.width(76);
 
         return label;
     }
@@ -80,7 +81,7 @@ public class SpellCasterDetailsPane extends CombatantDetailsPane
         TextProgressBar bar = new TextProgressBar(0, 200, 1, "", skin, "mana-bar");
         bar.setSize(76, 17);
 
-        Cell cell = container.add(bar);
+        Cell<Actor> cell = container.add(bar);
         cell.width(76);
         cell.height(17);
 

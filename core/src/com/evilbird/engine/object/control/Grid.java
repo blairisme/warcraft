@@ -66,6 +66,14 @@ public class Grid extends Table
         this.cellPaddingHorizontal = cellPadding;
     }
 
+    public void setHorizontalCellPadding(int cellPadding) {
+        this.cellPaddingHorizontal = cellPadding;
+    }
+
+    public void setVerticalCellPadding(int cellPadding) {
+        this.cellPaddingVertical = cellPadding;
+    }
+
     public void setCellSpacing(int cellSpacing) {
         this.cellSpacing = cellSpacing;
     }

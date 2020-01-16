@@ -60,7 +60,9 @@ public class DetailsPane extends Grid
 
         setSkin(skin);
         setSize(176, 176);
-        setCellPadding(8);
+        setCellSpacing(6);
+        setHorizontalCellPadding(10);
+        setVerticalCellPadding(0);
         setTouchable(Touchable.disabled);
     }
 
@@ -120,6 +122,7 @@ public class DetailsPane extends Grid
         Cell<Actor> cell = add(view);
         cell.expandX();
         cell.fillX();
+        cell.padTop(10);
     }
 
     private void setDetails(GameObject gameObject) {

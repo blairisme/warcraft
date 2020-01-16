@@ -31,7 +31,7 @@ public class CombatantTitlePane extends Grid implements DetailsPaneElement
     private Label level;
     private Grid labels;
     private UnitPane icon;
-    private com.evilbird.warcraft.object.display.components.status.details.DetailsPaneStyle style;
+    private DetailsPaneStyle style;
 
     public CombatantTitlePane(Skin skin) {
         super(2, 1);
