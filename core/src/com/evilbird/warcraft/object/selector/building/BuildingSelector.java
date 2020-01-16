@@ -28,13 +28,14 @@ import com.evilbird.warcraft.object.selector.SelectorType;
 import com.evilbird.warcraft.object.unit.Unit;
 
 import java.util.Collection;
-import java.util.function.Predicate;
 
 import static com.evilbird.engine.common.collection.CollectionUtils.containsAll;
 import static com.evilbird.engine.common.collection.CollectionUtils.containsAny;
 import static com.evilbird.engine.common.collection.CollectionUtils.containsEqual;
 import static com.evilbird.engine.common.collection.CollectionUtils.flatten;
-import static com.evilbird.engine.object.utility.GameObjectPredicates.hasType;
+import static com.evilbird.engine.object.utility.GameObjectOperations.hasType;
+import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
+import static com.evilbird.warcraft.object.common.query.UnitOperations.isFlying;
 import static com.evilbird.warcraft.object.layer.LayerType.Map;
 import static com.evilbird.warcraft.object.layer.LayerType.Sea;
 import static com.evilbird.warcraft.object.layer.LayerType.Shore;
@@ -146,14 +147,14 @@ public class BuildingSelector extends Selector
 
     private boolean isUnoccupied(Collection<GameObject> gameObjects) {
         if (isOilPatchBased(type)) {
-            return containsAll(gameObjects, hasType(OilPatch, Sea).or(hasSelector(this)))
-                && containsEqual(gameObjects, hasType(OilPatch), hasType(Sea));
+            return containsAll(gameObjects, this::unoccupiedSea)
+                && containsEqual(gameObjects, withType(OilPatch), withType(Sea));
         }
         if (isShoreBased(type)) {
-            return containsAll(gameObjects, hasType(Shore, Sea).or(hasSelector(this)))
-                && containsAny(gameObjects, hasType(Shore));
+            return containsAll(gameObjects, this::unoccupiedShore)
+                && containsAny(gameObjects, withType(Shore));
         }
-        return containsAll(gameObjects, hasType(Map).or(hasSelector(this)));
+        return containsAll(gameObjects, this::unoccupiedLand);
     }
 
     private boolean isShoreBased(SelectorType type) {
@@ -165,13 +166,23 @@ public class BuildingSelector extends Selector
         return type == OilPlatformSelector || type == OilRigSelector;
     }
 
-    private Predicate<GameObject> hasSelector(Selector selector) {
-        return object -> {
-            if (object instanceof Unit) {
-                Unit unit = (Unit)object;
-                return unit.getSelector() == selector;
-            }
-            return false;
-        };
+    private boolean unoccupiedLand(GameObject object) {
+        return hasType(object, Map) || isFlying(object) || hasSelector(object);
+    }
+
+    private boolean unoccupiedSea(GameObject object) {
+        return hasType(object, OilPatch, Sea) || isFlying(object) || hasSelector(object);
+    }
+
+    private boolean unoccupiedShore(GameObject object) {
+        return hasType(object, Shore, Sea) || isFlying(object) || hasSelector(object);
+    }
+
+    private boolean hasSelector(GameObject object) {
+        if (object instanceof Unit) {
+            Unit unit = (Unit)object;
+            return unit.getSelector() == this;
+        }
+        return false;
     }
 }

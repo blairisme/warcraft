@@ -18,6 +18,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectComposite;
 import com.evilbird.engine.object.GameObjectContainer;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.Validate;
 
 import java.util.Arrays;
@@ -133,6 +134,13 @@ public class GameObjectOperations
         Identifier identifier = gameObject.getIdentifier();
         if (identifier != null) {
             return identifier.toString().startsWith(id);
+        }
+        return false;
+    }
+
+    public static boolean hasType(GameObject gameObject, Identifier ... types) {
+        if (gameObject != null) {
+            return ArrayUtils.contains(types, gameObject.getType());
         }
         return false;
     }
