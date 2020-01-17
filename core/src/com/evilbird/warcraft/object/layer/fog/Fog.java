@@ -144,7 +144,9 @@ public class Fog extends LayerGroup
     }
 
     public void revealPlayer(Player player) {
-        revealItems(player.getObjects());
+        if (player != null) {
+            revealItems(player.getObjects());
+        }
     }
 
     public void revealItems(Collection<GameObject> gameObjects) {
@@ -155,7 +157,7 @@ public class Fog extends LayerGroup
 
     public void revealItem(GameObject gameObject) {
         if (gameObject instanceof Unit) {
-            Unit unit = (Unit) gameObject;
+            Unit unit = (Unit)gameObject;
             revealItem(unit, unit.getSight());
         }
     }
@@ -194,11 +196,20 @@ public class Fog extends LayerGroup
 
     private Collection<GridPoint2> getRevealedLocations(int startX, int startY, int endX, int endY) {
         Collection<GridPoint2> result = new ArrayList<>();
-        for (int x = startX; x <= endX; x++){
-            for (int y = startY; y <= endY; y++){
-                result.add(new GridPoint2(x, y));
+        for (int x = startX; x <= endX; x++) {
+            for (int y = startY; y <= endY; y++) {
+                if (! isCorner(x, y, startX, startY, endX, endY)) {
+                    result.add(new GridPoint2(x, y));
+                }
             }
         }
         return result;
+    }
+
+    private boolean isCorner(int x, int y, int startX, int startY, int endX, int endY) {
+        return x == startX && y == startY
+            || x == endX && y == startY
+            || x == startX && y == endY
+            || x == endX && y == endY;
     }
 }
