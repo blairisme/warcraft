@@ -35,6 +35,10 @@ public class FogCell extends LayerCell
         setType(LayerType.OpaqueFogSection);
     }
 
+    public void conceal() {
+        setValue(FULL_VALUE);
+    }
+
     public boolean isRevealed() {
         return value == EMPTY_VALUE;
     }
@@ -44,11 +48,20 @@ public class FogCell extends LayerCell
     }
 
     @Override
-    public void setEmpty() {
+    public void setEmptyTexture() {
         LayerGroup group = (LayerGroup)getParent();
         if (group != null) {
             group.setEmptyTexture(location);
             setTouchable(Touchable.disabled);
+        }
+    }
+
+    @Override
+    protected void setFullTexture() {
+        LayerGroup group = (LayerGroup)getParent();
+        if (group != null) {
+            group.setFullTexture(location);
+            setTouchable(Touchable.enabled);
         }
     }
 }

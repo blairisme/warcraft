@@ -91,6 +91,7 @@ public class MusicSequence implements Music
     public void next() {
         if (current != null) {
             current.stop();
+            //current.dispose();
         }
         if (iterator.hasNext()) {
             current = iterator.next();

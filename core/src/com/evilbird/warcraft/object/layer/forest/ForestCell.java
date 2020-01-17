@@ -9,11 +9,13 @@
 package com.evilbird.warcraft.object.layer.forest;
 
 import com.badlogic.gdx.math.GridPoint2;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.spatial.SpatialObject;
 import com.evilbird.warcraft.data.resource.ResourceContainer;
 import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.layer.LayerCell;
+import com.evilbird.warcraft.object.layer.LayerGroup;
 import com.evilbird.warcraft.object.layer.LayerType;
 import org.apache.commons.lang3.Validate;
 
@@ -43,8 +45,18 @@ public class ForestCell extends LayerCell implements ResourceContainer, SpatialO
     }
 
     @Override
-    public void setEmpty() {
-        super.setEmpty();
+    protected void setEmptyTexture() {
         setType(LayerType.Map);
+        LayerGroup group = (LayerGroup)getParent();
+        if (group != null) {
+            group.setEmptyTexture(location);
+            group.setAdjacentTextures(location);
+            setTouchable(Touchable.disabled);
+        }
+    }
+
+    @Override
+    protected void setFullTexture() {
+        setType(LayerType.Tree);
     }
 }

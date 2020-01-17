@@ -61,6 +61,12 @@ public class CollectionUtils
         return result;
     }
 
+    public static <T> List<T> delta(Collection<T> collectionA, Collection<T> collectionB) {
+        List<T> result = new ArrayList<>(collectionA);
+        result.removeAll(collectionB);
+        return result;
+    }
+
     public static <T> T findFirst(Collection<? extends T> collection, Predicate<T> condition) {
         for (T element: collection) {
             if (condition.test(element)) {

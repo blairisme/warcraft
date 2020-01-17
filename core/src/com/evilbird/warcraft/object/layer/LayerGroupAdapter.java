@@ -35,11 +35,11 @@ import java.util.Collection;
  */
 public abstract class LayerGroupAdapter <T extends LayerGroup> implements JsonSerializer<T>, JsonDeserializer<T>
 {
-    private static final String CLAZZ = "class";
-    private static final String TYPE = "type";
-    private static final String LOCATION = "location";
+    protected static final String CLAZZ = "class";
+    protected static final String TYPE = "type";
+    protected static final String LOCATION = "location";
 
-    private GameObjectFactory objectFactory;
+    protected GameObjectFactory objectFactory;
     protected TypeRegistry typeRegistry;
 
     public LayerGroupAdapter() {

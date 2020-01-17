@@ -53,28 +53,38 @@ public class LayerCell extends BasicGameObject
     }
 
     public void setValue(float value) {
-        this.value = Math.max(value, 0);
-        reevaluateEmpty();
+        float previous = this.value;
+        this.value = Math.max(value, 0f);
+
+        if (value == 0f && previous != 0f) {
+            setEmptyTexture();
+        }
+        if (value != 0f && previous == 0f) {
+            setFullTexture();
+        }
     }
 
     @Override
     public void setParent(GameObjectGroup parent) {
         super.setParent(parent);
-        reevaluateEmpty();
-    }
-
-    protected void reevaluateEmpty() {
-        if (value == 0) {
-            setEmpty();
+        if (value == 0f) {
+            setEmptyTexture();
+        } else {
+            setFullTexture();
         }
     }
 
-    protected void setEmpty() {
+    protected void setEmptyTexture() {
         LayerGroup group = (LayerGroup)getParent();
         if (group != null) {
             group.setEmptyTexture(location);
-            group.setAdjacentTextures(location);
-            setTouchable(Touchable.disabled);
+        }
+    }
+
+    protected void setFullTexture() {
+        LayerGroup group = (LayerGroup)getParent();
+        if (group != null) {
+            group.setFullTexture(location);
         }
     }
 }

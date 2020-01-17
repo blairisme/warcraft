@@ -42,7 +42,7 @@ import static com.evilbird.warcraft.object.layer.LayerUtils.toCellDimensions;
 @JsonAdapter(FogAdapter.class)
 public class Fog extends LayerGroup
 {
-    private transient EventQueue events;
+    protected transient EventQueue events;
 
     public Fog(Skin skin, EventQueue events) {
         super(skin);
@@ -64,7 +64,7 @@ public class Fog extends LayerGroup
         for (GameObject gameObject : gameObjects) {
             super.addObject(gameObject);
 
-            FogCell cell = (FogCell) gameObject;
+            FogCell cell = (FogCell)gameObject;
             if (cell.isRevealed()) {
                 revealed.add(cell.getLocation());
             }
@@ -75,7 +75,7 @@ public class Fog extends LayerGroup
     @Override
     protected void addCells() {
         super.addCells();
-        revealPlayers();
+        evaluatePlayers();
     }
 
     @Override
@@ -108,9 +108,11 @@ public class Fog extends LayerGroup
         evaluateEvents();
     }
 
-    private void evaluateEvents() {
+    protected void evaluateEvents() {
         for (MoveEvent moveEvent: events.getEvents(MoveEvent.class)) {
-            evaluateEvent(moveEvent.getSubject());
+            if (moveEvent.isUpdate() || moveEvent.isFinished()) {
+                evaluateEvent(moveEvent.getSubject());
+            }
         }
         for (ConstructEvent constructEvent: events.getEvents(ConstructEvent.class)) {
             if (constructEvent.isConstructing()) {
@@ -124,66 +126,64 @@ public class Fog extends LayerGroup
         }
     }
 
-    private void evaluateEvent(GameObject gameObject) {
+    protected void evaluateEvent(GameObject gameObject) {
         Player player = UnitOperations.getPlayer(gameObject);
         if (player.isCorporeal() || player.isViewable()) {
-            revealItem(gameObject);
+            evaluateItem(gameObject);
         }
     }
 
-    private void revealPlayers() {
+    protected void evaluatePlayers() {
         GameObjectContainer root = getRoot();
-        revealPlayer(getCorporealPlayer(root));
-        revealPlayers(getViewablePlayers(root));
+        evaluatePlayer(getCorporealPlayer(root));
+        evaluatePlayers(getViewablePlayers(root));
     }
 
-    public void revealPlayers(Collection<Player> players) {
+    protected void evaluatePlayers(Collection<Player> players) {
         for (Player player: players) {
-            revealPlayer(player);
+            evaluatePlayer(player);
         }
     }
 
-    public void revealPlayer(Player player) {
+    protected void evaluatePlayer(Player player) {
         if (player != null) {
-            revealItems(player.getObjects());
+            evaluateItems(player.getObjects());
         }
     }
 
-    public void revealItems(Collection<GameObject> gameObjects) {
+    protected void evaluateItems(Collection<GameObject> gameObjects) {
         for (GameObject gameObject : gameObjects) {
-            revealItem(gameObject);
+            evaluateItem(gameObject);
         }
     }
 
-    public void revealItem(GameObject gameObject) {
+    protected void evaluateItem(GameObject gameObject) {
         if (gameObject instanceof Unit) {
             Unit unit = (Unit)gameObject;
-            revealItem(unit, unit.getSight());
+            evaluateItem(unit, unit.getSight());
         }
     }
 
-    public void revealItem(GameObject gameObject, int radius) {
-        revealLocations(gameObject.getPosition(), gameObject.getSize(), radius);
-    }
-
-    public void revealLocations(Vector2 location, Vector2 size, int radius) {
+    protected void evaluateItem(GameObject gameObject, int radius) {
+        Vector2 location = gameObject.getPosition();
+        Vector2 size = gameObject.getSize();
         Collection<GridPoint2> locations = getRevealedLocations(location, size, radius);
         revealLocations(locations);
         setAdjacentTextures(locations);
     }
 
-    private void revealLocations(Collection<GridPoint2> locations) {
+    protected void revealLocations(Collection<GridPoint2> locations) {
         for (GridPoint2 location: locations) {
             revealLocation(location);
         }
     }
 
-    private void revealLocation(GridPoint2 location) {
+    protected void revealLocation(GridPoint2 location) {
         FogCell cell = (FogCell)cells.get(location);
         cell.reveal();
     }
 
-    private Collection<GridPoint2> getRevealedLocations(Vector2 worldPosition, Vector2 worldSize, int worldRadius) {
+    protected Collection<GridPoint2> getRevealedLocations(Vector2 worldPosition, Vector2 worldSize, int worldRadius) {
         GridPoint2 position = toCellDimensions(layer, worldPosition);
         GridPoint2 size = toCellDimensions(layer, worldSize);
         int radius = toCellDimensions(layer, worldRadius);
@@ -194,7 +194,7 @@ public class Fog extends LayerGroup
         return getRevealedLocations(startX, startY, endX, endY);
     }
 
-    private Collection<GridPoint2> getRevealedLocations(int startX, int startY, int endX, int endY) {
+    protected Collection<GridPoint2> getRevealedLocations(int startX, int startY, int endX, int endY) {
         Collection<GridPoint2> result = new ArrayList<>();
         for (int x = startX; x <= endX; x++) {
             for (int y = startY; y <= endY; y++) {

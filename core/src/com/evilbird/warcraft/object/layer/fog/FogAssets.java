@@ -13,15 +13,11 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.assets.AssetBundle;
-import com.evilbird.engine.assets.SyntheticTexture;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.warcraft.state.WarcraftContext;
 
 import java.util.Map;
 
-import static com.evilbird.engine.assets.SyntheticTextureParameters.with;
-import static com.evilbird.engine.assets.SyntheticTextureType.Filled;
-import static com.evilbird.engine.common.graphics.Colours.OPAQUE;
 import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 
 /**
@@ -36,7 +32,6 @@ public class FogAssets extends AssetBundle
     public FogAssets(AssetManager manager, WarcraftContext context) {
         super(manager, assetPathVariables(context));
         register("terrain", "data/textures/common/terrain/${season}.png");
-        register("opaque", "opaque_fog", SyntheticTexture.class, with(OPAQUE, TILE_SIZE, Filled));
     }
 
     private static Map<String, String> assetPathVariables(WarcraftContext context) {
@@ -51,10 +46,11 @@ public class FogAssets extends AssetBundle
 
     public TextureRegion getTransparentTexture() {
         Texture texture = getTexture("terrain");
-        return new TextureRegion(texture, 0, 0, 32, 32);
+        return new TextureRegion(texture, 0, 864, 32, 32);
     }
 
-    public Texture getOpaqueTexture() {
-        return getSyntheticTexture("opaque");
+    public TextureRegion getOpaqueTexture() {
+        Texture texture = getTexture("terrain");
+        return new TextureRegion(texture, 0, 0, 32, 32);
     }
 }

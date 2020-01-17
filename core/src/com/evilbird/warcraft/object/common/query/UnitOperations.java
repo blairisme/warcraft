@@ -166,6 +166,10 @@ public class UnitOperations
         if (isPlayer(gameObject)) {
             return (Player)gameObject;
         }
+//        if (gameObject instanceof Unit) {
+//            Unit unit = (Unit)gameObject;
+//            return unit.getTeam();
+//        }
         return (Player)findAncestor(gameObject, UnitOperations::isPlayer);
     }
 

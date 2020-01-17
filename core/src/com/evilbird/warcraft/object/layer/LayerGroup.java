@@ -58,7 +58,7 @@ public class LayerGroup extends Layer
         Validate.isAssignableFrom(LayerCell.class, object.getClass());
         super.addObject(object);
 
-        LayerCell cell = (LayerCell) object;
+        LayerCell cell = (LayerCell)object;
         cells.put(cell.getLocation(), cell);
     }
 
@@ -94,16 +94,43 @@ public class LayerGroup extends Layer
         layer.setCell(tile.x, tile.y, style.empty);
     }
 
+    public void setFullTexture(GridPoint2 tile) {
+        layer.setCell(tile.x, tile.y, style.full);
+    }
+
     public void setAdjacentTextures(Collection<GridPoint2> tiles) {
         for (GridPoint2 tile: tiles) {
             setAdjacentTextures(tile);
         }
     }
 
+    public void setAdjacentTextures(Collection<GridPoint2> tiles, int radius) {
+        for (GridPoint2 tile: tiles) {
+            setAdjacentTextures(tile, radius);
+        }
+    }
+
+    public void setAdjacentTextures(GridPoint2 tile, int radius) {
+        int startX = Math.max(tile.x - radius, 0);
+        int startY = Math.max(tile.y - radius, 0);
+        int endX = Math.min(tile.x + radius, layer.getWidth() - 1);
+        int endY = Math.min(tile.y + radius, layer.getHeight() - 1);
+
+        for (int x = startX; x <= endX; x++) {
+            for (int y = startY; y <= endY; y++) {
+                setAdjacentTextures(x, y);
+            }
+        }
+    }
+
     public void setAdjacentTextures(GridPoint2 tile) {
-        BitMatrix cellEdges = getCellEdges(tile.x, tile.y);
+        setAdjacentTextures(tile.x, tile.y);
+    }
+
+    public void setAdjacentTextures(int x, int y) {
+        BitMatrix cellEdges = getCellEdges(x, y);
         if (! cellEdges.isEmpty()) {
-            updateCellEdges(tile.x, tile.y, cellEdges);
+            updateCellEdges(x, y, cellEdges);
         }
     }
 
