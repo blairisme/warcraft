@@ -8,8 +8,6 @@
 
 package com.evilbird.warcraft.object.common.capability;
 
-import com.evilbird.engine.common.lang.Animated;
-import com.evilbird.engine.common.lang.Audible;
 import com.evilbird.engine.common.lang.Directionable;
 import com.evilbird.engine.object.GameObject;
 

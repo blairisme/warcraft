@@ -8,9 +8,6 @@
 
 package com.evilbird.warcraft.object.common.capability;
 
-import com.evilbird.engine.common.lang.Animated;
-import com.evilbird.engine.common.lang.Audible;
-
 /**
  * Implementors of this interface represent a game object that can attack a
  * perishable game object.

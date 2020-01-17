@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Alignment;
-import com.evilbird.engine.common.lang.Audible;
 import com.evilbird.engine.common.lang.RandomIdentifier;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObject;
@@ -20,6 +19,7 @@ import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.engine.object.GameObjectType;
 import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.object.unit.Unit;
 
 import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
@@ -72,9 +72,10 @@ abstract class ConfirmAction extends BasicAction
     }
 
     protected void playAcknowledgement() {
-        if (preferences.isAcknowledgementEnabled()) {
-            Audible audible = (Audible) getSubject();
-            audible.setSound(Acknowledge);
+        GameObject subject = getSubject();
+        if (subject instanceof Unit && preferences.isAcknowledgementEnabled()) {
+            Unit unit = (Unit)subject;
+            unit.setSound(Acknowledge);
         }
     }
 

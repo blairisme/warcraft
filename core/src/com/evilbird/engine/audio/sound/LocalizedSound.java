@@ -47,7 +47,7 @@ public class LocalizedSound implements Sound
 
         this.sound = sound;
         this.owner = owner;
-        this.volume = 1;
+        this.volume = 1f;
     }
 
     @Override
@@ -62,6 +62,7 @@ public class LocalizedSound implements Sound
 
     @Override
     public void play() {
+        update();
         sound.play();
     }
 

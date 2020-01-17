@@ -28,6 +28,7 @@ import java.util.List;
 public class MusicFile implements Music
 {
     private String path;
+    private float volume;
     private transient Audio service;
     private transient FileHandleResolver resolver;
     private transient List<MusicObserver> observers;
@@ -39,6 +40,7 @@ public class MusicFile implements Music
 
     public MusicFile(Audio service, FileHandleResolver resolver, String path) {
         this.path = path;
+        this.volume = 1f;
         this.service = service;
         this.resolver = resolver;
         this.observers = new ArrayList<>(1);
@@ -70,6 +72,7 @@ public class MusicFile implements Music
         if (delegate == null) {
             FileHandle file = resolver.resolve(path);
             delegate = service.newMusic(file);
+            delegate.setVolume(volume);
             delegate.setLooping(false);
             delegate.setOnCompletionListener(new CompletionObserver());
         }
@@ -99,6 +102,7 @@ public class MusicFile implements Music
     @Override
     public void setVolume(float volume) {
         Validate.inclusiveBetween(0, 1, volume);
+        this.volume = volume;
         if (delegate != null) {
             delegate.setVolume(volume);
         }

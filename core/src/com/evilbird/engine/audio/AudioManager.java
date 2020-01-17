@@ -61,8 +61,8 @@ public class AudioManager
         Objects.requireNonNull(sound);
         retainIf(sounds, Audio::isPlaying);
         sounds.add(sound);
-        sound.play();
         updateVolume(sound);
+        sound.play();
     }
 
     /**

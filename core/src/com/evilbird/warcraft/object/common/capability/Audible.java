@@ -6,7 +6,9 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.engine.common.lang;
+package com.evilbird.warcraft.object.common.capability;
+
+import com.evilbird.engine.common.lang.Identifier;
 
 /**
  * Implementors of this interface represent a object which produces sound.

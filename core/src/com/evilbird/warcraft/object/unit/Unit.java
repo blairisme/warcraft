@@ -28,6 +28,8 @@ import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.engine.object.GameObjectReference;
 import com.evilbird.warcraft.common.TeamColour;
+import com.evilbird.warcraft.object.common.capability.Animated;
+import com.evilbird.warcraft.object.common.capability.Audible;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
 import com.evilbird.warcraft.object.common.capability.TerrainType;
@@ -53,7 +55,7 @@ import static com.evilbird.warcraft.object.common.value.FixedValue.Zero;
  *
  * @author Blair Butterworth
  */
-public class Unit extends AnimatedObject implements PerishableObject, SelectableObject
+public class Unit extends AnimatedObject implements Animated, Audible, PerishableObject, SelectableObject
 {
     private Value armour;
     private float health;

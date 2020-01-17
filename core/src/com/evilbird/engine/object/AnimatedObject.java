@@ -20,8 +20,6 @@ import com.evilbird.engine.common.graphics.animation.DirectionalAnimation;
 import com.evilbird.engine.common.graphics.renderable.AnimationRenderable;
 import com.evilbird.engine.common.graphics.renderable.Renderable;
 import com.evilbird.engine.common.lang.Alignment;
-import com.evilbird.engine.common.lang.Animated;
-import com.evilbird.engine.common.lang.Audible;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.lang.Styleable;
 import com.evilbird.engine.game.GameService;
@@ -38,7 +36,7 @@ import static com.evilbird.engine.common.graphics.renderable.EmptyRenderable.Bla
  *
  * @author Blair Butterworth
  */
-public class AnimatedObject extends BasicGameObject implements Animated, Audible, Styleable
+public class AnimatedObject extends BasicGameObject implements Styleable
 {
     protected float direction;
     protected Identifier animationId;
@@ -72,12 +70,10 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
         this.audioManager = GameService.getInstance().getAudioService();
     }
 
-    @Override
     public Identifier getAnimation() {
         return animationId;
     }
 
-    @Override
     public Identifier getSound() {
         return soundId;
     }
@@ -99,12 +95,10 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
         return style.sounds.containsKey(id);
     }
 
-    @Override
     public void setAnimation(Identifier id) {
         setAnimation(id, 0);
     }
 
-    @Override
     public void setAnimation(Identifier id, float startTime) {
         Validate.notNull(id);
         Validate.isTrue(style.animations.containsKey(id) ,"%s is missing animation %s", getIdentifier(), id);
@@ -116,7 +110,6 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
         setDirection(animation, direction);
     }
 
-    @Override
     public void setAnimationAlias(Identifier id, Identifier alias) {
         Validate.notNull(id);
         Validate.notNull(alias);
@@ -124,7 +117,6 @@ public class AnimatedObject extends BasicGameObject implements Animated, Audible
         style.animations.put(alias, style.animations.get(id));
     }
 
-    @Override
     public void setSound(Identifier id) {
         Validate.notNull(id);
         Validate.isTrue(style.sounds.containsKey(id), "%s is missing sound %s", getIdentifier(), id);

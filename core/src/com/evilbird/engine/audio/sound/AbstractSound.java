@@ -24,6 +24,7 @@ public abstract class AbstractSound implements Sound
     protected static final int UNINITIALIZED = -1;
 
     protected long identifier;
+    protected float volume;
     protected com.badlogic.gdx.audio.Sound delegate;
 
     /**
@@ -37,6 +38,7 @@ public abstract class AbstractSound implements Sound
     public AbstractSound(com.badlogic.gdx.audio.Sound sound) {
         Objects.requireNonNull(sound);
         this.delegate = sound;
+        this.volume = 1f;
         this.identifier = UNINITIALIZED;
     }
 
@@ -54,6 +56,7 @@ public abstract class AbstractSound implements Sound
     @Override
     public void play() {
         identifier = delegate.play();
+        updateVolume();
     }
 
     @Override
@@ -66,6 +69,11 @@ public abstract class AbstractSound implements Sound
 
     @Override
     public void setVolume(float volume) {
+        this.volume = volume;
+        updateVolume();
+    }
+
+    private void updateVolume() {
         if (identifier != UNINITIALIZED){
             delegate.setVolume(identifier, volume);
         }

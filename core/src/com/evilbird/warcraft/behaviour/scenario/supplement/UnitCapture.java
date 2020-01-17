@@ -123,7 +123,7 @@ public class UnitCapture implements SupplementaryBehaviour
 
     private void setSoundEffect(GameObject gameObject) {
         if (gameObject instanceof Unit) {
-            Unit unit = (Unit) gameObject;
+            Unit unit = (Unit)gameObject;
             unit.setSound(Captured);
         }
     }

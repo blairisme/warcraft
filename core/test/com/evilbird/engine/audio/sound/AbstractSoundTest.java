@@ -69,7 +69,6 @@ public class AbstractSoundTest
         verify(sound, never()).setVolume(anyLong(), anyFloat());
 
         effect.play();
-        effect.setVolume(1f);
         verify(sound, times(1)).setVolume(anyLong(), anyFloat());
 
         effect.stop();
