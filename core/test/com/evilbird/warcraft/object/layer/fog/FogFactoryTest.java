@@ -44,7 +44,7 @@ public class FogFactoryTest extends GameFactoryTestCase<FogFactory>
     @Override
     protected FogFactory newFactory(DeviceDisplay display, AssetManager assets) {
         EventQueue queue = Mockito.mock(EventQueue.class);
-        return new FogFactory(assets, queue);
+        return new FogFactory(assets, queue, preferences);
     }
 
     @Override

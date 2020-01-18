@@ -80,6 +80,7 @@ public class DesktopLauncher
         WarcraftPreferences warcraftPreferences = (WarcraftPreferences)preferences;
         warcraftPreferences.setBuildCostCheatEnabled(commands.isFreeBuildEnabled());
         warcraftPreferences.setBuildTimeCheatEnabled(commands.isQuickBuildEnabled());
+        warcraftPreferences.setRevealMapCheatEnabled(commands.isRevealMapCheatEnabled());
         warcraftPreferences.setUpgradeCheatEnabled(commands.isUpgradeCheatEnabled());
         warcraftPreferences.setDebugControlEnabled(commands.isDebugControlEnabled());
     }

@@ -28,6 +28,7 @@ public class WarcraftPreferences extends GamePreferences
     private static final String IDENTIFIER = "warcraft";
     private static final String BUILD_COST_CHEAT = "buildCostCheat";
     private static final String BUILD_TIME_CHEAT = "buildTimeCheat";
+    private static final String REVEAL_CHEAT = "revealMapCheat";
     private static final String UPGRADE_CHEAT = "upgradeCheat";
     private static final String DEBUG_CONTROL = "debugControl";
     private static final String SPEECH_ENABLED = "speechEnabled";
@@ -36,6 +37,7 @@ public class WarcraftPreferences extends GamePreferences
 
     private static final boolean BUILD_COST_CHEAT_DEFAULT = false;
     private static final boolean BUILD_TIME_CHEAT_DEFAULT = false;
+    private static final boolean REVEAL_CHEAT_DEFAULT = false;
     private static final boolean UPGRADE_CHEAT_DEFAULT = false;
     private static final boolean DEBUG_CONTROL_DEFAULT = false;
     private static final boolean SPEECH_ENABLED_DEFAULT = true;
@@ -62,6 +64,11 @@ public class WarcraftPreferences extends GamePreferences
     public boolean isBuildTimeCheatEnabled() {
         Preferences preferences = getTransientPreferences();
         return preferences.getBoolean(BUILD_TIME_CHEAT, BUILD_TIME_CHEAT_DEFAULT);
+    }
+
+    public boolean isRevealMapCheatEnabled() {
+        Preferences preferences = getTransientPreferences();
+        return preferences.getBoolean(REVEAL_CHEAT, REVEAL_CHEAT_DEFAULT);
     }
 
     public boolean isUpgradeCheatEnabled() {
@@ -97,6 +104,11 @@ public class WarcraftPreferences extends GamePreferences
     public void setBuildTimeCheatEnabled(boolean enabled) {
         Preferences preferences = getTransientPreferences();
         preferences.putBoolean(BUILD_TIME_CHEAT, enabled);
+    }
+
+    public void setRevealMapCheatEnabled(boolean enabled) {
+        Preferences preferences = getTransientPreferences();
+        preferences.putBoolean(REVEAL_CHEAT, enabled);
     }
 
     public void setUpgradeCheatEnabled(boolean enabled) {

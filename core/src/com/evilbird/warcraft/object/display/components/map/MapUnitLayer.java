@@ -106,7 +106,7 @@ public class MapUnitLayer extends BaseRenderable implements Renderable, Disposab
     }
 
     private boolean getRevealed(int x, int y) {
-        return fog == null || fog.isRevealed(x, y);
+        return fog == null || fog.isRevealed(x, y) || !fog.getVisible();
     }
 
     private Color getColour(int x, int y) {

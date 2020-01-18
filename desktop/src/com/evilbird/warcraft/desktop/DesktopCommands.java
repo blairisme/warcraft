@@ -50,6 +50,10 @@ public class DesktopCommands
         description="units are produced for free")
     private boolean freeBuild;
 
+    @Option(names={"-r", "--reveal-map" }, paramLabel="Reveal Map",
+            description="disables fog of war")
+    private boolean revealMap;
+
     @Option(names={"-u", "--all-upgrades" }, paramLabel="ALL UPGRADES",
             description="units are produced for free")
     private boolean upgradeCheat;
@@ -118,6 +122,15 @@ public class DesktopCommands
      */
     public boolean isFreeBuildEnabled() {
         return freeBuild;
+    }
+
+    /**
+     * Instructs the game engine to hide the fog of war, revealing the map.
+     *
+     * @return {@code true} if enabled.
+     */
+    public boolean isRevealMapCheatEnabled() {
+        return revealMap;
     }
 
     /**

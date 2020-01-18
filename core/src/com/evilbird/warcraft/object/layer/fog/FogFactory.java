@@ -20,6 +20,7 @@ import com.evilbird.engine.device.Device;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.engine.game.GameFactory;
+import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.layer.LayerGroupStyle;
 import com.evilbird.warcraft.object.layer.LayerIdentifier;
 import com.evilbird.warcraft.object.layer.LayerType;
@@ -45,15 +46,17 @@ public class FogFactory implements GameFactory<Fog>
     private EventQueue events;
     private AssetManager manager;
     private FogAssets assets;
+    private WarcraftPreferences preferences;
 
     @Inject
-    public FogFactory(Device device, EventQueue events) {
-        this(device.getAssetStorage(), events);
+    public FogFactory(Device device, EventQueue events, WarcraftPreferences preferences) {
+        this(device.getAssetStorage(), events, preferences);
     }
 
-    public FogFactory(AssetManager manager, EventQueue events) {
+    public FogFactory(AssetManager manager, EventQueue events, WarcraftPreferences preferences) {
         this.manager = manager;
         this.events = events;
+        this.preferences = preferences;
     }
 
     @Override
@@ -92,7 +95,7 @@ public class FogFactory implements GameFactory<Fog>
         fog.setLayer(LayerUtils.getLayer(identifier));
         fog.setTouchable(Touchable.childrenOnly);
         fog.setType(LayerType.OpaqueFog);
-        fog.setVisible(true);
+        fog.setVisible(! preferences.isRevealMapCheatEnabled());
         return fog;
     }
 
@@ -102,7 +105,7 @@ public class FogFactory implements GameFactory<Fog>
         fog.setLayer(LayerUtils.getLayer(identifier));
         fog.setTouchable(Touchable.childrenOnly);
         fog.setType(LayerType.TransparentFog);
-        fog.setVisible(true);
+        fog.setVisible(! preferences.isRevealMapCheatEnabled());
         return fog;
     }
 
