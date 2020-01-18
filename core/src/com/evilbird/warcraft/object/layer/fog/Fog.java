@@ -11,10 +11,14 @@ package com.evilbird.warcraft.object.layer.fog;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.evilbird.engine.common.collection.CollectionUtils;
+import com.evilbird.engine.common.collection.Maps;
+import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.action.construct.ConstructEvent;
+import com.evilbird.warcraft.action.death.RemoveEvent;
 import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.action.produce.ProduceEvent;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
@@ -26,6 +30,9 @@ import com.google.gson.annotations.JsonAdapter;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.evilbird.warcraft.object.common.query.UnitOperations.getCorporealPlayer;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.getViewablePlayers;
@@ -41,10 +48,12 @@ import static com.evilbird.warcraft.object.layer.LayerUtils.toCellDimensions;
 public class Fog extends LayerGroup
 {
     protected transient EventQueue events;
+    protected transient Map<Identifier, Collection<GridPoint2>> revealed;
 
     public Fog(Skin skin, EventQueue events) {
         super(skin);
         this.events = events;
+        this.revealed = new HashMap<>();
     }
 
     @Override
@@ -102,28 +111,46 @@ public class Fog extends LayerGroup
     @Override
     public void update(float delta) {
         super.update(delta);
-        evaluateEvents();
+        evaluateMoveEvents();
+        evaluateConstructEvents();
+        evaluateProduceEvents();
+        evaluateRemoveEvents();
     }
 
-    protected void evaluateEvents() {
+    protected void evaluateMoveEvents() {
         for (MoveEvent moveEvent: events.getEvents(MoveEvent.class)) {
             if (moveEvent.isUpdate() || moveEvent.isFinished()) {
-                evaluateEvent(moveEvent.getSubject());
-            }
-        }
-        for (ConstructEvent constructEvent: events.getEvents(ConstructEvent.class)) {
-            if (constructEvent.isConstructing()) {
-                evaluateEvent(constructEvent.getSubject());
-            }
-        }
-        for (ProduceEvent produceEvent : events.getEvents(ProduceEvent.class)) {
-            if (produceEvent.isComplete()) {
-                evaluateEvent(produceEvent.getSubject());
+                evaluateObject(moveEvent.getSubject());
             }
         }
     }
 
-    protected void evaluateEvent(GameObject gameObject) {
+    protected void evaluateConstructEvents() {
+        for (ConstructEvent constructEvent: events.getEvents(ConstructEvent.class)) {
+            if (constructEvent.isConstructing()) {
+                evaluateObject(constructEvent.getSubject());
+            }
+        }
+    }
+
+    protected void evaluateProduceEvents() {
+        for (ProduceEvent produceEvent : events.getEvents(ProduceEvent.class)) {
+            if (produceEvent.isComplete()) {
+                evaluateObject(produceEvent.getSubject());
+            }
+        }
+    }
+
+    protected void evaluateRemoveEvents() {
+        for (RemoveEvent removeEvent : events.getEvents(RemoveEvent.class)) {
+            GameObject subject = removeEvent.getSubject();
+            Identifier identifier = subject.getIdentifier();
+            evaluateObject(subject);
+            revealed.remove(identifier);
+        }
+    }
+
+    protected void evaluateObject(GameObject gameObject) {
         Player player = UnitOperations.getPlayer(gameObject);
         if (player.isCorporeal() || player.isViewable()) {
             evaluateItem(gameObject);
@@ -162,11 +189,18 @@ public class Fog extends LayerGroup
     }
 
     protected void evaluateItem(GameObject gameObject, int radius) {
+        Identifier identifier = gameObject.getIdentifier();
         Vector2 location = gameObject.getPosition();
         Vector2 size = gameObject.getSize();
-        Collection<GridPoint2> locations = getRevealedLocations(location, size, radius);
+
+        Collection<GridPoint2> oldLocations = Maps.getOrDefault(revealed, identifier, Collections.emptyList());
+        Collection<GridPoint2> newLocations = getRevealedLocations(location, size, radius);
+
+        Collection<GridPoint2> locations = CollectionUtils.delta(newLocations, oldLocations);
         revealLocations(locations);
         setAdjacentTextures(locations);
+
+        revealed.put(identifier, newLocations);
     }
 
     protected void revealLocations(Collection<GridPoint2> locations) {

@@ -22,7 +22,6 @@ import com.evilbird.engine.common.graphics.Colours;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.warcraft.action.death.RemoveEvent;
 import com.evilbird.warcraft.object.layer.LayerCell;
 import com.evilbird.warcraft.object.layer.LayerGroupStyle;
 import com.evilbird.warcraft.object.layer.LayerUtils;
@@ -31,8 +30,6 @@ import com.google.gson.annotations.JsonAdapter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A {@link Fog} specialization that re-conceals itself when units move out of
@@ -43,11 +40,8 @@ import java.util.Map;
 @JsonAdapter(ConcealingFogAdapter.class)
 public class ConcealingFog extends Fog
 {
-    protected transient Map<Identifier, Collection<GridPoint2>> revealed;
-
     public ConcealingFog(Skin skin, EventQueue events) {
         super(skin, events);
-        this.revealed = new HashMap<>();
     }
 
     @Override
@@ -75,18 +69,6 @@ public class ConcealingFog extends Fog
         batch.setColor(Colours.GRAY);
         super.draw(batch, alpha);
         batch.setColor(Color.WHITE);
-    }
-
-    @Override
-    protected void evaluateEvents() {
-        super.evaluateEvents();
-        for (RemoveEvent removeEvent : events.getEvents(RemoveEvent.class)) {
-            GameObject subject = removeEvent.getSubject();
-            Identifier identifier = subject.getIdentifier();
-
-            evaluateEvent(subject);
-            revealed.remove(identifier);
-        }
     }
 
     @Override
