@@ -14,22 +14,24 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.GridPoint2;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.common.graphics.Colours;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.EventQueue;
-import com.evilbird.engine.object.GameObject;
+import com.evilbird.warcraft.action.attack.AttackEvent;
+import com.evilbird.warcraft.action.attack.AttackStatus;
 import com.evilbird.warcraft.object.layer.LayerCell;
 import com.evilbird.warcraft.object.layer.LayerGroupStyle;
 import com.evilbird.warcraft.object.layer.LayerUtils;
+import com.evilbird.warcraft.object.unit.Unit;
 import com.google.gson.annotations.JsonAdapter;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
+
+import static java.util.Collections.emptyList;
 
 /**
  * A {@link Fog} specialization that re-conceals itself when units move out of
@@ -72,13 +74,25 @@ public class ConcealingFog extends Fog
     }
 
     @Override
-    protected void evaluateItem(GameObject gameObject, int radius) {
-        Identifier identifier = gameObject.getIdentifier();
-        Vector2 location = gameObject.getPosition();
-        Vector2 size = gameObject.getSize();
+    public void update(float delta) {
+        super.update(delta);
+        evaluateAttackEvents();
+    }
 
-        Collection<GridPoint2> oldLocations = Maps.getOrDefault(revealed, identifier, Collections.emptyList());
-        Collection<GridPoint2> newLocations = getRevealedLocations(location, size, radius);
+    protected void evaluateAttackEvents() {
+        for (AttackEvent attackEvent: events.getEvents(AttackEvent.class)) {
+            if (attackEvent.getStatus() == AttackStatus.Complete) {
+                evaluateObject(attackEvent.getTarget());
+            }
+        }
+    }
+
+    @Override
+    protected void evaluateUnit(Unit unit) {
+        Identifier identifier = unit.getIdentifier();
+
+        Collection<GridPoint2> oldLocations = Maps.getOrDefault(revealed, identifier, emptyList());
+        Collection<GridPoint2> newLocations = getRevealedLocations(unit);
 
         Collection<GridPoint2> concealedLocations = CollectionUtils.delta(oldLocations, newLocations);
         Collection<GridPoint2> concealedUpdated = concealLocations(identifier, concealedLocations);
@@ -90,6 +104,11 @@ public class ConcealingFog extends Fog
         setAdjacentTextures(updated);
 
         revealed.put(identifier, newLocations);
+    }
+
+    @Override
+    protected Collection<GridPoint2> getRevealedLocations(Unit unit) {
+        return unit.isAlive() ? super.getRevealedLocations(unit) : emptyList();
     }
 
     protected Collection<GridPoint2> concealLocations(Identifier identifier, Collection<GridPoint2> locations) {

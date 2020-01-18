@@ -30,13 +30,13 @@ import com.google.gson.annotations.JsonAdapter;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.evilbird.warcraft.object.common.query.UnitOperations.getCorporealPlayer;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.getViewablePlayers;
 import static com.evilbird.warcraft.object.layer.LayerUtils.toCellDimensions;
+import static java.util.Collections.emptyList;
 
 /**
  * Instances of this class represent fog of war: a layer of darkness that
@@ -145,7 +145,6 @@ public class Fog extends LayerGroup
         for (RemoveEvent removeEvent : events.getEvents(RemoveEvent.class)) {
             GameObject subject = removeEvent.getSubject();
             Identifier identifier = subject.getIdentifier();
-            evaluateObject(subject);
             revealed.remove(identifier);
         }
     }
@@ -183,37 +182,22 @@ public class Fog extends LayerGroup
 
     protected void evaluateItem(GameObject gameObject) {
         if (gameObject instanceof Unit) {
-            Unit unit = (Unit)gameObject;
-            evaluateItem(unit, unit.getSight());
+            evaluateUnit((Unit)gameObject);
         }
     }
 
-    protected void evaluateItem(GameObject gameObject, int radius) {
-        Identifier identifier = gameObject.getIdentifier();
-        Vector2 location = gameObject.getPosition();
-        Vector2 size = gameObject.getSize();
-
-        Collection<GridPoint2> oldLocations = Maps.getOrDefault(revealed, identifier, Collections.emptyList());
-        Collection<GridPoint2> newLocations = getRevealedLocations(location, size, radius);
-
+    protected void evaluateUnit(Unit unit) {
+        Identifier identifier = unit.getIdentifier();
+        Collection<GridPoint2> oldLocations = Maps.getOrDefault(revealed, identifier, emptyList());
+        Collection<GridPoint2> newLocations = getRevealedLocations(unit);
         Collection<GridPoint2> locations = CollectionUtils.delta(newLocations, oldLocations);
         revealLocations(locations);
         setAdjacentTextures(locations);
-
         revealed.put(identifier, newLocations);
     }
 
-    protected void revealLocations(Collection<GridPoint2> locations) {
-        for (GridPoint2 location: locations) {
-            revealLocation(location);
-        }
-    }
-
-    protected void revealLocation(GridPoint2 location) {
-        FogCell cell = (FogCell)cells.get(location);
-        if (cell != null) {
-            cell.reveal();
-        }
+    protected Collection<GridPoint2> getRevealedLocations(Unit unit) {
+        return getRevealedLocations(unit.getPosition(), unit.getSize(), unit.getSight());
     }
 
     protected Collection<GridPoint2> getRevealedLocations(Vector2 worldPosition, Vector2 worldSize, int worldRadius) {
@@ -244,5 +228,18 @@ public class Fog extends LayerGroup
             || x == endX && y == startY
             || x == startX && y == endY
             || x == endX && y == endY;
+    }
+
+    protected void revealLocations(Collection<GridPoint2> locations) {
+        for (GridPoint2 location: locations) {
+            revealLocation(location);
+        }
+    }
+
+    protected void revealLocation(GridPoint2 location) {
+        FogCell cell = (FogCell)cells.get(location);
+        if (cell != null) {
+            cell.reveal();
+        }
     }
 }

@@ -11,7 +11,6 @@ package com.evilbird.warcraft.object.layer.fog;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.assets.AssetBundle;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.warcraft.state.WarcraftContext;
@@ -27,8 +26,6 @@ import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
  */
 public class FogAssets extends AssetBundle
 {
-    private static GridPoint2 TILE_SIZE = new GridPoint2(32, 32);
-
     public FogAssets(AssetManager manager, WarcraftContext context) {
         super(manager, assetPathVariables(context));
         register("terrain", "data/textures/common/terrain/${season}.png");
