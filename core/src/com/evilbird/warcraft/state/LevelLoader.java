@@ -197,6 +197,12 @@ public class LevelLoader
 
     private GameObject getLayerItem(TiledMapFile map, MapLayer layer) {
         TiledMapTileLayer mapLayer = (TiledMapTileLayer)layer;
+
+//        //TODO
+//        if (layer.getName().equals("TransparentFog")) {
+//            mapLayer = (TiledMapTileLayer)map.getLayers().get("Map");
+//        }
+
         LayerIdentifier identifier = new LayerIdentifier(map.getFile(), layer.getName(), mapLayer);
         return objectFactory.get(identifier);
     }

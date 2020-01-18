@@ -8,12 +8,13 @@
 
 package com.evilbird.warcraft.object.layer;
 
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.evilbird.engine.common.collection.BitMatrix;
 import com.evilbird.engine.object.BasicGameObject;
 import com.evilbird.engine.object.GameObjectGroup;
-
-import javax.inject.Inject;
 
 /**
  * Represents a single element in a {@link LayerGroup}. Each LayerGroupCell has
@@ -24,17 +25,24 @@ import javax.inject.Inject;
  */
 public class LayerCell extends BasicGameObject
 {
-    private static final int TILE_WIDTH = 32;
-    private static final int TILE_HEIGHT = 32;
+    private static final transient int TILE_WIDTH = 32;
+    private static final transient int TILE_HEIGHT = 32;
+    private static final transient float DEFAULT_VALUE = 100;
 
     protected float value;
     protected GridPoint2 location;
+    protected transient LayerGroupStyle style;
 
-    @Inject
-    public LayerCell(GridPoint2 location, float value) {
+    public LayerCell(LayerGroupStyle style, GridPoint2 location) {
+        this(style, location, DEFAULT_VALUE);
+    }
+
+    public LayerCell(LayerGroupStyle style, GridPoint2 location, float value) {
         setTouchable(Touchable.enabled);
         setVisible(true);
+        setSize(TILE_WIDTH, TILE_HEIGHT);
         setLocation(location);
+        setStyle(style);
         setValue(value);
     }
 
@@ -48,8 +56,11 @@ public class LayerCell extends BasicGameObject
 
     public void setLocation(GridPoint2 location) {
         this.location = location;
-        setSize(TILE_WIDTH, TILE_HEIGHT);
         setPosition(location.x * TILE_WIDTH, location.y * TILE_HEIGHT);
+    }
+
+    public void setStyle(LayerGroupStyle style) {
+        this.style = style;
     }
 
     public void setValue(float value) {
@@ -57,10 +68,10 @@ public class LayerCell extends BasicGameObject
         this.value = Math.max(value, 0f);
 
         if (value == 0f && previous != 0f) {
-            setEmptyTexture();
+            showEmpty();
         }
         if (value != 0f && previous == 0f) {
-            setFullTexture();
+            showFull();
         }
     }
 
@@ -68,23 +79,36 @@ public class LayerCell extends BasicGameObject
     public void setParent(GameObjectGroup parent) {
         super.setParent(parent);
         if (value == 0f) {
-            setEmptyTexture();
+            showEmpty();
         } else {
-            setFullTexture();
+            showFull();
         }
     }
 
-    protected void setEmptyTexture() {
-        LayerGroup group = (LayerGroup)getParent();
-        if (group != null) {
-            group.setEmptyTexture(location);
+    public void showEmpty() {
+        LayerGroup parent = (LayerGroup)getParent();
+        if (parent != null) {
+            TiledMapTileLayer layer = parent.getLayer();
+            layer.setCell(location.x, location.y, style.empty);
         }
     }
 
-    protected void setFullTexture() {
-        LayerGroup group = (LayerGroup)getParent();
-        if (group != null) {
-            group.setFullTexture(location);
+    public void showFull() {
+        LayerGroup parent = (LayerGroup)getParent();
+        if (parent != null) {
+            TiledMapTileLayer layer = parent.getLayer();
+            layer.setCell(location.x, location.y, style.full);
         }
+    }
+
+    public boolean showEdge(BitMatrix edgePattern) {
+        Cell edgeStyle = style.patterns.get(edgePattern);
+        LayerGroup parent = (LayerGroup)getParent();
+        if (parent != null && edgeStyle != null) {
+            TiledMapTileLayer layer = parent.getLayer();
+            layer.setCell(location.x, location.y, edgeStyle);
+            return true;
+        }
+        return false;
     }
 }

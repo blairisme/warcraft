@@ -8,7 +8,6 @@
 
 package com.evilbird.warcraft.object.layer.fog;
 
-import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.warcraft.object.layer.LayerCell;
 import com.google.gson.JsonArray;
@@ -46,8 +45,8 @@ public class ConcealingFogAdapter extends FogAdapter
     }
 
     @Override
-    protected LayerCell deserializeCell(JsonObject json, JsonDeserializationContext context) {
-        ConcealingFogCell result = (ConcealingFogCell)super.deserializeCell(json, context);
+    protected LayerCell deserializeCell(Fog group, JsonObject json, JsonDeserializationContext context) {
+        ConcealingFogCell result = (ConcealingFogCell)super.deserializeCell(group, json, context);
         result.addOccupants(deserializeOccupants(json, context));
         return result;
     }
@@ -58,10 +57,5 @@ public class ConcealingFogAdapter extends FogAdapter
             occupants.add(context.deserialize(occupant, Identifier.class));
         }
         return occupants;
-    }
-
-    @Override
-    protected LayerCell createCell(GridPoint2 location, float value) {
-        return new ConcealingFogCell(location, value);
     }
 }

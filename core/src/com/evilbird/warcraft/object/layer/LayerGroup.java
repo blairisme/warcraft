@@ -17,9 +17,12 @@ import com.evilbird.engine.common.maps.MapLayerIterable;
 import com.evilbird.engine.object.GameObject;
 import org.apache.commons.lang3.Validate;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.evilbird.engine.common.collection.BitMatrix.matrix3;
 
 /**
  * Represents a {@link Layer} made up of a number of {@link LayerCell
@@ -37,7 +40,7 @@ public class LayerGroup extends Layer
     private static final transient int EDGE_MATRIX_CENTER = 2;
     private static final transient int PATTERN_MATRIX_SIZE = 3;
     private static final transient int PATTERN_MATRIX_CENTER = 1;
-    private static final transient float DEFAULT_VALUE = 100;
+    private static final transient BitMatrix FULL_PATTERN = matrix3("1,1,1,1,1,1,1,1,1");
 
     protected transient Skin skin;
     protected transient LayerGroupStyle style;
@@ -75,92 +78,88 @@ public class LayerGroup extends Layer
     public void update(float delta) {
         super.update(delta);
         if (!hasObjects()) {
-            addCells();
+            createCells();
         }
     }
 
-    protected void addCells() {
+    protected void createCells() {
         for (MapLayerEntry entry: new MapLayerIterable(layer)) {
-            LayerCell groupCell = createCell(entry);
-            addObject(groupCell);
+            addObject(createCell(entry.getPosition()));
         }
     }
 
-    protected LayerCell createCell(MapLayerEntry entry) {
-        return new LayerCell(entry.getPosition(), DEFAULT_VALUE);
+    protected LayerCell createCell(GridPoint2 location) {
+        return new LayerCell(style, location);
     }
 
-    public void setEmptyTexture(GridPoint2 tile) {
-        layer.setCell(tile.x, tile.y, style.empty);
+    protected LayerCell createCell(GridPoint2 location, float value) {
+        return new LayerCell(style, location, value);
     }
 
-    public void setFullTexture(GridPoint2 tile) {
-        layer.setCell(tile.x, tile.y, style.full);
+    public Collection<GridPoint2> setAdjacentTextures(GridPoint2 tile) {
+        Collection<GridPoint2> updated = new ArrayList<>();
+        setAdjacentTextures(tile, updated);
+        return updated;
     }
 
-    public void setAdjacentTextures(Collection<GridPoint2> tiles) {
+    public Collection<GridPoint2> setAdjacentTextures(Collection<GridPoint2> tiles) {
+        Collection<GridPoint2> updated = new ArrayList<>();
         for (GridPoint2 tile: tiles) {
-            setAdjacentTextures(tile);
+            setAdjacentTextures(tile, updated);
         }
+        return updated;
     }
 
-    public void setAdjacentTextures(Collection<GridPoint2> tiles, int radius) {
-        for (GridPoint2 tile: tiles) {
-            setAdjacentTextures(tile, radius);
-        }
-    }
-
-    public void setAdjacentTextures(GridPoint2 tile, int radius) {
-        int startX = Math.max(tile.x - radius, 0);
-        int startY = Math.max(tile.y - radius, 0);
-        int endX = Math.min(tile.x + radius, layer.getWidth() - 1);
-        int endY = Math.min(tile.y + radius, layer.getHeight() - 1);
-
-        for (int x = startX; x <= endX; x++) {
-            for (int y = startY; y <= endY; y++) {
-                setAdjacentTextures(x, y);
-            }
-        }
-    }
-
-    public void setAdjacentTextures(GridPoint2 tile) {
-        setAdjacentTextures(tile.x, tile.y);
-    }
-
-    public void setAdjacentTextures(int x, int y) {
-        BitMatrix cellEdges = getCellEdges(x, y);
+    protected void setAdjacentTextures(GridPoint2 tile, Collection<GridPoint2> updated) {
+        BitMatrix cellEdges = getCellEdges(tile);
         if (! cellEdges.isEmpty()) {
-            updateCellEdges(x, y, cellEdges);
+            updateCellEdges(tile, cellEdges, updated);
         }
     }
 
-    protected BitMatrix getCellEdges(int x, int y) {
+    protected BitMatrix getCellEdges(GridPoint2 tile) {
         BitMatrix occupation = new BitMatrix(EDGE_MATRIX_SIZE);
         for (int i = 0; i < EDGE_MATRIX_SIZE; i++) {
             for (int j = 0; j < EDGE_MATRIX_SIZE; j++) {
-                int xIndex = x + (i - EDGE_MATRIX_CENTER);
-                int yIndex = y + (j - EDGE_MATRIX_CENTER);
+                int xIndex = tile.x + (i - EDGE_MATRIX_CENTER);
+                int yIndex = tile.y + (j - EDGE_MATRIX_CENTER);
                 occupation.set(i, j, isCellOccupied(xIndex, yIndex));
             }
         }
         return occupation;
     }
 
-    protected void updateCellEdges(int x, int y, BitMatrix cellEdges) {
+    protected void updateCellEdges(GridPoint2 tile, BitMatrix cellEdges, Collection<GridPoint2> updated) {
         for (int i = 0; i < PATTERN_MATRIX_SIZE; i++) {
             for (int j = 0; j < PATTERN_MATRIX_SIZE; j++) {
-                BitMatrix edgePattern = cellEdges.subMatrix(i, j, PATTERN_MATRIX_SIZE);
-                Cell edgeStyle = style.patterns.get(edgePattern);
-
-                if (edgeStyle != null) {
-                    int xIndex = x + (i - PATTERN_MATRIX_CENTER);
-                    int yIndex = y + (j - PATTERN_MATRIX_CENTER);
-                    layer.setCell(xIndex, yIndex, edgeStyle);
+                int xIndex = tile.x + (i - PATTERN_MATRIX_CENTER);
+                int yIndex = tile.y + (j - PATTERN_MATRIX_CENTER);
+                GridPoint2 index = new GridPoint2(xIndex, yIndex);
+                if (! updated.contains(index)) {
+                    LayerCell cell = cells.get(index);
+                    if (cell != null) {
+                        BitMatrix edgePattern = cellEdges.subMatrix(i, j, PATTERN_MATRIX_SIZE);
+                        if (updateCellEdges(cell, edgePattern)) {
+                            updated.add(index);
+                        }
+                    }
                 }
             }
         }
     }
 
+    protected boolean updateCellEdges(LayerCell cell, BitMatrix edgePattern) {
+        if (edgePattern.equals(FULL_PATTERN)) {
+            cell.showFull();
+            return true;
+        }
+        if (cell.showEdge(edgePattern)) {
+            return true;
+        }
+        return false;
+    }
+
+    //TODO: Use LayerCell to determine empty
     protected boolean isCellOccupied(int x, int y) {
         if (x < 0 || x >= layer.getWidth()) { return true; }
         if (y < 0 || y >= layer.getHeight()) { return true; }

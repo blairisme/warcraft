@@ -11,6 +11,7 @@ package com.evilbird.warcraft.object.layer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.evilbird.engine.common.collection.BitMatrix;
 
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -23,4 +24,16 @@ public class LayerGroupStyle
     public Cell empty;
     public Cell full;
     public Map<BitMatrix, Cell> patterns;
+
+    public LayerGroupStyle() {
+        this.empty = null;
+        this.full = null;
+        this.patterns = Collections.emptyMap();
+    }
+
+    public LayerGroupStyle(LayerGroupStyle style) {
+        this.empty = style.empty;
+        this.full = style.full;
+        this.patterns = style.patterns;
+    }
 }

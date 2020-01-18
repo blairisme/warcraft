@@ -10,6 +10,7 @@ package com.evilbird.warcraft.object.layer.fog;
 
 import com.badlogic.gdx.math.GridPoint2;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.warcraft.object.layer.LayerGroupStyle;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,13 +25,12 @@ public class ConcealingFogCell extends FogCell
 {
     private Collection<Identifier> occupants;
 
-    public ConcealingFogCell(GridPoint2 location, boolean revealed) {
-        super(location, revealed);
-        this.occupants = new ArrayList<>(2);
+    public ConcealingFogCell(LayerGroupStyle style, GridPoint2 location) {
+        this(style, location, DEFAULT_VALUE);
     }
 
-    public ConcealingFogCell(GridPoint2 location, float value) {
-        super(location, value);
+    public ConcealingFogCell(LayerGroupStyle style, GridPoint2 location, float value) {
+        super(style, location, value);
         this.occupants = new ArrayList<>(2);
     }
 

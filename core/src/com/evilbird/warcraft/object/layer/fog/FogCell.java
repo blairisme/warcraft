@@ -12,7 +12,7 @@ import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.layer.LayerCell;
-import com.evilbird.warcraft.object.layer.LayerGroup;
+import com.evilbird.warcraft.object.layer.LayerGroupStyle;
 import com.evilbird.warcraft.object.layer.LayerType;
 
 /**
@@ -23,15 +23,16 @@ import com.evilbird.warcraft.object.layer.LayerType;
  */
 public class FogCell extends LayerCell
 {
-    private static final float FULL_VALUE = 1;
-    private static final float EMPTY_VALUE = 0;
+    protected static final transient float FULL_VALUE = 1;
+    protected static final transient float EMPTY_VALUE = 0;
+    protected static final transient float DEFAULT_VALUE = FULL_VALUE;
 
-    public FogCell(GridPoint2 location, boolean revealed) {
-        this(location, revealed ? EMPTY_VALUE : FULL_VALUE);
+    public FogCell(LayerGroupStyle style, GridPoint2 location) {
+        this(style, location, DEFAULT_VALUE);
     }
 
-    public FogCell(GridPoint2 location, float value) {
-        super(location, value);
+    public FogCell(LayerGroupStyle style, GridPoint2 location, float value) {
+        super(style, location, value);
         setType(LayerType.OpaqueFogSection);
     }
 
@@ -48,20 +49,14 @@ public class FogCell extends LayerCell
     }
 
     @Override
-    public void setEmptyTexture() {
-        LayerGroup group = (LayerGroup)getParent();
-        if (group != null) {
-            group.setEmptyTexture(location);
-            setTouchable(Touchable.disabled);
-        }
+    public void showEmpty() {
+        super.showEmpty();
+        setTouchable(Touchable.disabled);
     }
 
     @Override
-    protected void setFullTexture() {
-        LayerGroup group = (LayerGroup)getParent();
-        if (group != null) {
-            group.setFullTexture(location);
-            setTouchable(Touchable.enabled);
-        }
+    public void showFull() {
+        super.showFull();
+        setTouchable(Touchable.enabled);
     }
 }

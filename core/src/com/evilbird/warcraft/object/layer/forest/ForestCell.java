@@ -15,7 +15,7 @@ import com.evilbird.engine.object.spatial.SpatialObject;
 import com.evilbird.warcraft.data.resource.ResourceContainer;
 import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.layer.LayerCell;
-import com.evilbird.warcraft.object.layer.LayerGroup;
+import com.evilbird.warcraft.object.layer.LayerGroupStyle;
 import com.evilbird.warcraft.object.layer.LayerType;
 import org.apache.commons.lang3.Validate;
 
@@ -27,8 +27,14 @@ import org.apache.commons.lang3.Validate;
  */
 public class ForestCell extends LayerCell implements ResourceContainer, SpatialObject
 {
-    public ForestCell(GridPoint2 location, float value) {
-        super(location, value);
+    private static final transient float DEFAULT_WOOD = 100;
+
+    public ForestCell(LayerGroupStyle style, GridPoint2 location) {
+        this(style, location, DEFAULT_WOOD);
+    }
+
+    public ForestCell(LayerGroupStyle style, GridPoint2 location, float value) {
+        super(style, location, value);
         setType(LayerType.Tree);
     }
 
@@ -45,18 +51,15 @@ public class ForestCell extends LayerCell implements ResourceContainer, SpatialO
     }
 
     @Override
-    protected void setEmptyTexture() {
+    public void showEmpty() {
+        super.showEmpty();
         setType(LayerType.Map);
-        LayerGroup group = (LayerGroup)getParent();
-        if (group != null) {
-            group.setEmptyTexture(location);
-            group.setAdjacentTextures(location);
-            setTouchable(Touchable.disabled);
-        }
+        setTouchable(Touchable.disabled);
     }
 
     @Override
-    protected void setFullTexture() {
+    public void showFull() {
         setType(LayerType.Tree);
+        setTouchable(Touchable.enabled);
     }
 }

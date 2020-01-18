@@ -21,6 +21,7 @@ public class Colours
     public static final Color FOREST_GREEN = new Color(0x46c83cff);
     public static final Color FUCHSIA = new Color(0x9848b0ff);
     public static final Color GRAPE = new Color(0x1b2560ff);
+    public static final Color GRAY = new Color(0x969696ff);
     public static final Color LAVENDER = new Color(0x9c48b0ff);
     public static final Color LIGHT_BLUE = new Color(0x4c80fcff);
     public static final Color MIDNIGHT_BLACK = new Color(0x28283cff);

@@ -8,11 +8,9 @@
 
 package com.evilbird.warcraft.object.layer.fog;
 
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.maps.MapLayerEntry;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
@@ -73,14 +71,23 @@ public class Fog extends LayerGroup
     }
 
     @Override
-    protected void addCells() {
-        super.addCells();
+    protected void createCells() {
+        for (int x = 0; x < layer.getWidth(); ++x) {
+            for (int y = 0; y < layer.getHeight(); ++y) {
+                addObject(createCell(new GridPoint2(x, y)));
+            }
+        }
         evaluatePlayers();
     }
 
     @Override
-    protected LayerCell createCell(MapLayerEntry entry) {
-        return new FogCell(entry.getPosition(), false);
+    protected LayerCell createCell(GridPoint2 location) {
+        return new FogCell(style, location);
+    }
+
+    @Override
+    protected LayerCell createCell(GridPoint2 location, float value) {
+        return new FogCell(style, location, value);
     }
 
     public boolean isRevealed(int x, int y) {
@@ -90,16 +97,6 @@ public class Fog extends LayerGroup
     public boolean isRevealed(GridPoint2 location) {
         FogCell cell = (FogCell)cells.get(location);
         return cell != null && cell.isRevealed();
-    }
-
-    @Override
-    public void setLayer(TiledMapTileLayer layer) {
-        super.setLayer(layer);
-        for (int x = 0; x < layer.getWidth(); ++x) {
-            for (int y = 0; y < layer.getHeight(); ++y) {
-                layer.setCell(x, y, style.full);
-            }
-        }
     }
 
     @Override
@@ -180,7 +177,9 @@ public class Fog extends LayerGroup
 
     protected void revealLocation(GridPoint2 location) {
         FogCell cell = (FogCell)cells.get(location);
-        cell.reveal();
+        if (cell != null) {
+            cell.reveal();
+        }
     }
 
     protected Collection<GridPoint2> getRevealedLocations(Vector2 worldPosition, Vector2 worldSize, int worldRadius) {

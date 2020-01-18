@@ -42,6 +42,14 @@ public class LayerUtils
         return layer;
     }
 
+    public static TiledMapTileLayer getEmptyLayer(TiledMapTileLayer layer) {
+        return new TiledMapTileLayer(
+            layer.getWidth(),
+            layer.getHeight(),
+            (int)layer.getTileWidth(),
+            (int)layer.getTileHeight());
+    }
+
     public static Cell cell(Texture texture) {
         return cell(new TextureRegion(texture));
     }

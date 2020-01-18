@@ -8,8 +8,6 @@
 
 package com.evilbird.warcraft.object.layer.wall;
 
-import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.warcraft.object.layer.LayerCell;
 import com.evilbird.warcraft.object.layer.LayerGroupAdapter;
 
 /**
@@ -30,10 +28,5 @@ public class WallAdapter extends LayerGroupAdapter<Wall>
     @Override
     protected String getValueProperty() {
         return HEALTH;
-    }
-
-    @Override
-    protected LayerCell createCell(GridPoint2 location, float value) {
-        return new WallSection(location, value);
     }
 }

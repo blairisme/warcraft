@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureData;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * Provides common utility functions that operate on {@link Texture Textures}.
@@ -54,9 +55,7 @@ public class TextureUtils
      * @return a new {@code Texture}. This method will not return {@code null}.
      */
     public static Texture resizeTexture(Texture texture, int width, int height) {
-        TextureData textureData = texture.getTextureData();
-
-        Pixmap source = textureData.consumePixmap();
+        Pixmap source = getPixmap(texture);
         Pixmap destination = new Pixmap(width, height, source.getFormat());
 
         destination.drawPixmap(source,
@@ -69,5 +68,42 @@ public class TextureUtils
         destination.dispose();
 
         return resized;
+    }
+
+    /**
+     * Combines the given {@link TextureRegion TextureRegions} into a single
+     * {@code TextureRegion}.
+     */
+    public static TextureRegion combineTextureRegions(TextureRegion regionA, TextureRegion regionB) {
+        Pixmap pixmapA = getPixmap(regionA);
+        Pixmap pixmapB = getPixmap(regionB);
+
+        pixmapA.drawPixmap(pixmapB,
+            regionA.getRegionX(), regionA.getRegionY(),
+            regionB.getRegionX(), regionB.getRegionY(),
+            regionB.getRegionWidth(), regionB.getRegionHeight());
+
+        Texture texture = new Texture(pixmapA);
+        TextureRegion region = new TextureRegion(texture,
+            regionA.getRegionX(), regionA.getRegionY(),
+            regionA.getRegionWidth(), regionA.getRegionHeight());
+
+        pixmapA.dispose();
+        pixmapB.dispose();
+
+        return region;
+    }
+
+    private static Pixmap getPixmap(TextureRegion region) {
+        return getPixmap(region.getTexture());
+    }
+
+    private static Pixmap getPixmap(Texture texture) {
+        TextureData data = texture.getTextureData();
+
+        if (!data.isPrepared()) {
+            data.prepare();
+        }
+        return data.consumePixmap();
     }
 }

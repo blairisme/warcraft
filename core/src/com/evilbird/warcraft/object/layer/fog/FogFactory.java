@@ -226,8 +226,8 @@ public class FogFactory implements GameFactory<Fog>
 
     private void addPeninsulas(Map<BitMatrix, Cell> styles, Texture texture, int y) {
         styles.put(matrix3("0,1,0,0,1,0,0,1,0"), unpaddedCell(texture, 160, y, 32, 32)); //vertical peninsula
-        //styles.put(matrix3("1,0,0,0,0,0,0,0,1"), unpaddedCell(texture, 448, y, 32, 32)); //forward-slash peninsula
-        //styles.put(matrix3("0,0,1,0,0,0,1,0,0"), unpaddedCell(texture, 480, y, 32, 32)); //back-slash peninsula
+        styles.put(matrix3("1,0,0,0,0,0,0,0,1"), unpaddedCell(texture, 448, y, 32, 32)); //forward-slash peninsula
+        styles.put(matrix3("0,0,1,0,0,0,1,0,0"), unpaddedCell(texture, 480, y, 32, 32)); //back-slash peninsula
     }
 }
 

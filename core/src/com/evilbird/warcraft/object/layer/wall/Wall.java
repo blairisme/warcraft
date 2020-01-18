@@ -8,8 +8,8 @@
 
 package com.evilbird.warcraft.object.layer.wall;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.maps.MapLayerEntry;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.layer.LayerCell;
 import com.evilbird.warcraft.object.layer.LayerGroup;
@@ -30,7 +30,11 @@ public class Wall extends LayerGroup
     }
 
     @Override
-    protected LayerCell createCell(MapLayerEntry entry) {
-        return new WallSection(entry.getPosition());
+    protected LayerCell createCell(GridPoint2 location) {
+        return new WallSection(style, location);
+    }
+
+    protected LayerCell createCell(GridPoint2 location, float value) {
+        return new WallSection(style, location);
     }
 }

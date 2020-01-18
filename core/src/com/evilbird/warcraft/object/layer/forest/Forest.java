@@ -8,8 +8,8 @@
 
 package com.evilbird.warcraft.object.layer.forest;
 
+import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.evilbird.engine.common.maps.MapLayerEntry;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.layer.LayerCell;
 import com.evilbird.warcraft.object.layer.LayerGroup;
@@ -25,14 +25,16 @@ import com.google.gson.annotations.JsonAdapter;
 @JsonAdapter(ForestAdapter.class)
 public class Forest extends LayerGroup
 {
-    private static final transient float DEFAULT_WOOD = 100;
-
     public Forest(Skin skin) {
         super(skin);
     }
 
     @Override
-    protected LayerCell createCell(MapLayerEntry entry) {
-        return new ForestCell(entry.getPosition(), DEFAULT_WOOD);
+    protected LayerCell createCell(GridPoint2 location) {
+        return new ForestCell(style, location);
+    }
+
+    protected LayerCell createCell(GridPoint2 location, float value) {
+        return new ForestCell(style, location, value);
     }
 }

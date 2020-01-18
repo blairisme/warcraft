@@ -8,17 +8,24 @@
 
 package com.evilbird.warcraft.object.layer.fog;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.collection.Maps;
+import com.evilbird.engine.common.graphics.Colours;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.maps.MapLayerEntry;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.death.RemoveEvent;
 import com.evilbird.warcraft.object.layer.LayerCell;
+import com.evilbird.warcraft.object.layer.LayerGroupStyle;
+import com.evilbird.warcraft.object.layer.LayerUtils;
 import com.google.gson.annotations.JsonAdapter;
 
 import java.util.ArrayList;
@@ -36,7 +43,7 @@ import java.util.Map;
 @JsonAdapter(ConcealingFogAdapter.class)
 public class ConcealingFog extends Fog
 {
-    private transient Map<Identifier, Collection<GridPoint2>> revealed;
+    protected transient Map<Identifier, Collection<GridPoint2>> revealed;
 
     public ConcealingFog(Skin skin, EventQueue events) {
         super(skin, events);
@@ -44,12 +51,35 @@ public class ConcealingFog extends Fog
     }
 
     @Override
-    protected LayerCell createCell(MapLayerEntry entry) {
-        return new ConcealingFogCell(entry.getPosition(), false);
+    protected LayerCell createCell(GridPoint2 location) {
+        return new ConcealingFogCell(getStyle(location), location);
+    }
+
+    @Override
+    protected LayerCell createCell(GridPoint2 location, float value) {
+        return new ConcealingFogCell(getStyle(location), location, value);
+    }
+
+    protected LayerGroupStyle getStyle(GridPoint2 position) {
+        Cell cell = layer.getCell(position.x, position.y);
+        TiledMapTile tile = cell.getTile();
+        TextureRegion texture = tile.getTextureRegion();
+
+        LayerGroupStyle layerGroupStyle = new LayerGroupStyle(style);
+        layerGroupStyle.full = LayerUtils.cell(texture);
+        return layerGroupStyle;
+    }
+
+    @Override
+    public void draw(Batch batch, float alpha) {
+        batch.setColor(Colours.GRAY);
+        super.draw(batch, alpha);
+        batch.setColor(Color.WHITE);
     }
 
     @Override
     protected void evaluateEvents() {
+        super.evaluateEvents();
         for (RemoveEvent removeEvent : events.getEvents(RemoveEvent.class)) {
             GameObject subject = removeEvent.getSubject();
             Identifier identifier = subject.getIdentifier();
@@ -69,10 +99,13 @@ public class ConcealingFog extends Fog
         Collection<GridPoint2> newLocations = getRevealedLocations(location, size, radius);
 
         Collection<GridPoint2> concealedLocations = CollectionUtils.delta(oldLocations, newLocations);
-        Collection<GridPoint2> updatedLocations1 = concealLocations(identifier, concealedLocations);
+        Collection<GridPoint2> concealedUpdated = concealLocations(identifier, concealedLocations);
 
         Collection<GridPoint2> revealedLocations = CollectionUtils.delta(newLocations, oldLocations);
-        Collection<GridPoint2> updatedLocations2 = revealLocations(identifier, revealedLocations);
+        Collection<GridPoint2> revealedUpdated = revealLocations(identifier, revealedLocations);
+
+        Collection<GridPoint2> updated = CollectionUtils.combine(concealedUpdated, revealedUpdated);
+        setAdjacentTextures(updated);
 
         revealed.put(identifier, newLocations);
     }

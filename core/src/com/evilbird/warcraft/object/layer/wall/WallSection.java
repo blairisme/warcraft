@@ -15,7 +15,7 @@ import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.layer.LayerCell;
-import com.evilbird.warcraft.object.layer.LayerGroup;
+import com.evilbird.warcraft.object.layer.LayerGroupStyle;
 import com.evilbird.warcraft.object.layer.LayerType;
 
 /**
@@ -27,12 +27,12 @@ public class WallSection extends LayerCell implements PerishableObject, SpatialO
 {
     private static final transient float DEFAULT_HEALTH = 100;
 
-    public WallSection(GridPoint2 location) {
-        this(location, DEFAULT_HEALTH);
+    public WallSection(LayerGroupStyle style, GridPoint2 location) {
+        this(style, location, DEFAULT_HEALTH);
     }
 
-    public WallSection(GridPoint2 location, float value) {
-        super(location, value);
+    public WallSection(LayerGroupStyle style, GridPoint2 location, float value) {
+        super(style, location, value);
         setType(LayerType.WallSection);
     }
 
@@ -86,18 +86,15 @@ public class WallSection extends LayerCell implements PerishableObject, SpatialO
     }
 
     @Override
-    protected void setEmptyTexture() {
+    public void showEmpty() {
+        super.showEmpty();
         setType(LayerType.Map);
-        LayerGroup group = (LayerGroup)getParent();
-        if (group != null) {
-            group.setEmptyTexture(location);
-            group.setAdjacentTextures(location);
-            setTouchable(Touchable.disabled);
-        }
+        setTouchable(Touchable.disabled);
     }
 
     @Override
-    protected void setFullTexture() {
+    public void showFull() {
         setType(LayerType.WallSection);
+        setTouchable(Touchable.enabled);
     }
 }

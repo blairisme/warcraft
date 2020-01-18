@@ -83,7 +83,7 @@ public abstract class LayerGroupAdapter <T extends LayerGroup> implements JsonSe
     public T deserialize(JsonElement json, Type type, JsonDeserializationContext context) {
         JsonObject object = json.getAsJsonObject();
         T group = deserializeInstance(object, context);
-        group.addObjects(deserializeCells(object, context));
+        deserializeCells(group, object, context);
         return group;
     }
 
@@ -94,21 +94,19 @@ public abstract class LayerGroupAdapter <T extends LayerGroup> implements JsonSe
         return (T) objectFactory.get(type);
     }
 
-    protected Collection<GameObject> deserializeCells(JsonObject json, JsonDeserializationContext context){
+    protected void deserializeCells(T group, JsonObject json, JsonDeserializationContext context){
         Collection<GameObject> cells = new ArrayList<>();
         for (JsonElement cell: json.getAsJsonArray(getCellArrayProperty())) {
-            cells.add(deserializeCell(cell.getAsJsonObject(), context));
+            cells.add(deserializeCell(group, cell.getAsJsonObject(), context));
         }
-        return cells;
+        group.addObjects(cells);
     }
 
-    protected LayerCell deserializeCell(JsonObject json, JsonDeserializationContext context) {
+    protected LayerCell deserializeCell(T group, JsonObject json, JsonDeserializationContext context) {
         GridPoint2 location = context.deserialize(json.get(LOCATION), GridPoint2.class);
         float value = json.get(getValueProperty()).getAsFloat();
-        return createCell(location, value);
+        return group.createCell(location, value);
     }
-
-    protected abstract LayerCell createCell(GridPoint2 location, float value);
 
     protected abstract String getCellArrayProperty();
 

@@ -8,8 +8,6 @@
 
 package com.evilbird.warcraft.object.layer.fog;
 
-import com.badlogic.gdx.math.GridPoint2;
-import com.evilbird.warcraft.object.layer.LayerCell;
 import com.evilbird.warcraft.object.layer.LayerGroupAdapter;
 
 /**
@@ -30,10 +28,5 @@ public class FogAdapter extends LayerGroupAdapter<Fog>
     @Override
     protected String getValueProperty() {
         return CLOUD;
-    }
-
-    @Override
-    protected LayerCell createCell(GridPoint2 location, float value) {
-        return new FogCell(location, value);
     }
 }
