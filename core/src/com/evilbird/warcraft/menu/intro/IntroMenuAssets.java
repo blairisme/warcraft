@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import static com.evilbird.engine.assets.AssetUtilities.fontSize;
-import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
+import static com.evilbird.engine.common.text.StringUtils.toSnakeCase;
 
 /**
  * Defines the assets that are required to display an {@link IntroMenu}, as

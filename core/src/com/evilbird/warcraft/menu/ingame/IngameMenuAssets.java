@@ -20,7 +20,7 @@ import com.evilbird.warcraft.state.WarcraftContext;
 import java.util.Map;
 
 import static com.evilbird.engine.assets.AssetUtilities.fontSize;
-import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
+import static com.evilbird.engine.common.text.StringUtils.toSnakeCase;
 
 /**
  * Defines the assets that are required to display an {@link IngameMenu}, as

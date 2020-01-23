@@ -21,7 +21,7 @@ import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.state.WarcraftContext;
 
 import static com.evilbird.engine.common.math.GridPoints.Zero;
-import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
+import static com.evilbird.engine.common.text.StringUtils.toSnakeCase;
 import static com.evilbird.warcraft.common.WarcraftFaction.Neutral;
 
 /**

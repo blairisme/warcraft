@@ -23,7 +23,7 @@ import static com.evilbird.engine.audio.sound.SilentSound.SilentSoundEffect;
 import static com.evilbird.engine.common.collection.Maps.of;
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
 import static com.evilbird.engine.common.graphics.Colours.LIGHT_BLUE;
-import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
+import static com.evilbird.engine.common.text.StringUtils.toSnakeCase;
 
 /**
  * Defines the assets that are required to display a {@link Combatant}, as well

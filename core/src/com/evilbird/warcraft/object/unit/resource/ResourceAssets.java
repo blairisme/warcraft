@@ -22,7 +22,7 @@ import static com.evilbird.engine.assets.SyntheticTextureParameters.withColour;
 import static com.evilbird.engine.common.collection.Maps.of;
 import static com.evilbird.engine.common.graphics.Colours.FOREST_GREEN;
 import static com.evilbird.engine.common.graphics.Colours.LIGHT_BLUE;
-import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
+import static com.evilbird.engine.common.text.StringUtils.toSnakeCase;
 import static com.evilbird.warcraft.object.unit.UnitSize.Large;
 
 /**

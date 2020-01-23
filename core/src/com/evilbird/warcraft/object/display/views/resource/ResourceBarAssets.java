@@ -18,7 +18,7 @@ import com.evilbird.warcraft.state.WarcraftContext;
 import java.util.Map;
 
 import static com.evilbird.engine.assets.AssetUtilities.fontSize;
-import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
+import static com.evilbird.engine.common.text.StringUtils.toSnakeCase;
 
 /**
  * Provides access to the assets that are required to display a

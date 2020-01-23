@@ -12,37 +12,37 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Instances of this unit test validate the {@link CaseUtils} class.
+ * Instances of this unit test validate the {@link StringUtils} class.
  *
  * @author Blair Butterworth
  */
-public class CaseUtilsTest
+public class StringUtilsTest
 {
     @Test
     public void toSnakeCaseTest() {
         String expected = "elven_archer";
-        String actual = CaseUtils.toSnakeCase("ElvenArcher");
+        String actual = StringUtils.toSnakeCase("ElvenArcher");
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void oneWordUpperTest() {
         String expected = "elven";
-        String actual = CaseUtils.toSnakeCase("Elven");
+        String actual = StringUtils.toSnakeCase("Elven");
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void oneWordLowerTest() {
         String expected = "elven";
-        String actual = CaseUtils.toSnakeCase("elven");
+        String actual = StringUtils.toSnakeCase("elven");
         Assert.assertEquals(expected, actual);
     }
 
     @Test
     public void emptyTest() {
         String expected = "";
-        String actual = CaseUtils.toSnakeCase("");
+        String actual = StringUtils.toSnakeCase("");
         Assert.assertEquals(expected, actual);
     }
 }

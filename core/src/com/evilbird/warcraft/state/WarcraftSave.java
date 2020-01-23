@@ -14,7 +14,7 @@ import com.evilbird.engine.game.GameState;
 import com.evilbird.engine.state.StateIdentifier;
 
 import static com.evilbird.engine.common.file.FileType.JSON;
-import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
+import static com.evilbird.engine.common.text.StringUtils.toSnakeCase;
 
 /**
  * Uniquely identifiers a state in the warcraft game using a user provided

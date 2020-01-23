@@ -17,7 +17,7 @@ import com.evilbird.warcraft.object.unit.UnitType;
 import java.util.Map;
 
 import static com.evilbird.engine.common.collection.Maps.of;
-import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
+import static com.evilbird.engine.common.text.StringUtils.toSnakeCase;
 
 /**
  * Provides access to the assets that are required to display a effect game
