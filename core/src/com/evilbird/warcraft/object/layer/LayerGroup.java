@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.object.layer;
 
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.collection.BitMatrix;
@@ -19,10 +19,6 @@ import org.apache.commons.lang3.Validate;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-
-import static com.evilbird.engine.common.collection.BitMatrix.matrix3;
 
 /**
  * Represents a {@link Layer} made up of a number of {@link LayerCell
@@ -40,16 +36,15 @@ public class LayerGroup extends Layer
     private static final transient int EDGE_MATRIX_CENTER = 2;
     private static final transient int PATTERN_MATRIX_SIZE = 3;
     private static final transient int PATTERN_MATRIX_CENTER = 1;
-    private static final transient BitMatrix FULL_PATTERN = matrix3("1,1,1,1,1,1,1,1,1");
 
     protected transient Skin skin;
     protected transient LayerGroupStyle style;
-    protected transient Map<GridPoint2, LayerCell> cells;
+    protected transient LayerCell[][] cells;
 
     public LayerGroup(Skin skin) {
         this.skin = skin;
         this.style = skin.get(LayerGroupStyle.class);
-        this.cells = new HashMap<>();
+        this.cells = new LayerCell[0][0];
     }
 
     public Skin getSkin() {
@@ -62,7 +57,8 @@ public class LayerGroup extends Layer
         super.addObject(object);
 
         LayerCell cell = (LayerCell)object;
-        cells.put(cell.getLocation(), cell);
+        GridPoint2 location = cell.getLocation();
+        cells[location.x][location.y] = cell;
     }
 
     @Override
@@ -71,7 +67,14 @@ public class LayerGroup extends Layer
         super.removeObject(object);
 
         LayerCell cell = (LayerCell) object;
-        cells.remove(cell.getLocation());
+        GridPoint2 location = cell.getLocation();
+        cells[location.x][location.y] = null;
+    }
+
+    @Override
+    public void setLayer(TiledMapTileLayer layer) {
+        this.cells = new LayerCell[layer.getWidth()][layer.getHeight()];
+        super.setLayer(layer);
     }
 
     @Override
@@ -136,10 +139,10 @@ public class LayerGroup extends Layer
                 int yIndex = tile.y + (j - PATTERN_MATRIX_CENTER);
                 GridPoint2 index = new GridPoint2(xIndex, yIndex);
                 if (! updated.contains(index)) {
-                    LayerCell cell = cells.get(index);
+                    LayerCell cell = getCell(index.x, index.y);
                     if (cell != null) {
                         BitMatrix edgePattern = cellEdges.subMatrix(i, j, PATTERN_MATRIX_SIZE);
-                        if (updateCellEdges(cell, edgePattern)) {
+                        if (cell.showEdge(edgePattern)) {
                             updated.add(index);
                         }
                     }
@@ -148,23 +151,16 @@ public class LayerGroup extends Layer
         }
     }
 
-    protected boolean updateCellEdges(LayerCell cell, BitMatrix edgePattern) {
-        if (edgePattern.equals(FULL_PATTERN)) {
-            cell.showFull();
-            return true;
-        }
-        if (cell.showEdge(edgePattern)) {
-            return true;
-        }
-        return false;
+    protected LayerCell getCell(int x, int y) {
+        if (x < 0 || x >= layer.getWidth()) { return null; }
+        if (y < 0 || y >= layer.getHeight()) { return null; }
+        return cells[x][y];
     }
 
-    //TODO: Use LayerCell to determine empty
     protected boolean isCellOccupied(int x, int y) {
         if (x < 0 || x >= layer.getWidth()) { return true; }
         if (y < 0 || y >= layer.getHeight()) { return true; }
-
-        Cell cell = layer.getCell(x, y);
-        return cell != null && cell != style.empty;
+        LayerCell cell = cells[x][y];
+        return cell != null && cell.getValue() != 0;
     }
 }

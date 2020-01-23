@@ -12,12 +12,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.evilbird.engine.assets.AssetBundle;
-import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.warcraft.state.WarcraftContext;
-
-import java.util.Map;
-
-import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
 
 /**
  * Provides access to the assets that are required to display {@link Fog}.
@@ -26,28 +20,24 @@ import static com.evilbird.engine.common.text.CaseUtils.toSnakeCase;
  */
 public class FogAssets extends AssetBundle
 {
-    public FogAssets(AssetManager manager, WarcraftContext context) {
-        super(manager, assetPathVariables(context));
-        register("terrain", "data/textures/common/terrain/${season}.png");
+    public FogAssets(AssetManager manager) {
+        super(manager);
+        register("fog", "data/textures/common/terrain/fog.png");
     }
 
-    private static Map<String, String> assetPathVariables(WarcraftContext context) {
-        return Maps.of("season", toSnakeCase(context.getAssetSet().name()));
-    }
-
-    public Texture getTerrainTexture() {
-        Texture texture = getTexture("terrain");
+    public Texture getFogTexture() {
+        Texture texture = getTexture("fog");
         texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Nearest);
         return texture;
     }
 
     public TextureRegion getTransparentTexture() {
-        Texture texture = getTexture("terrain");
-        return new TextureRegion(texture, 0, 864, 32, 32);
+        Texture texture = getTexture("fog");
+        return new TextureRegion(texture, 0, 36, 32, 32);
     }
 
     public TextureRegion getOpaqueTexture() {
-        Texture texture = getTexture("terrain");
+        Texture texture = getTexture("fog");
         return new TextureRegion(texture, 0, 0, 32, 32);
     }
 }

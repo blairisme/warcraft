@@ -23,6 +23,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  */
 public class BitMatrix
 {
+    private Object id;
     private int size;
     private boolean[][] bits;
 
@@ -37,6 +38,7 @@ public class BitMatrix
         Validate.isTrue(size >= 0, "Size must be positive: %d", size);
         this.size = size;
         this.bits = new boolean[size][size];
+        this.id = this;
     }
 
     /**
@@ -54,6 +56,23 @@ public class BitMatrix
     }
 
     /**
+     * Creates a new 3x3 {@code BitMatrix} populated with the given bits as
+     * described in {@link BitMatrix#set(String)}.
+     *
+     * @param bits  a non-empty string describing the bits in the resulting
+     *              {@code BitMatrix}.
+     * @param id    an identifier.
+     *
+     * @return      a new {@code BitMatrix}.
+     */
+    public static BitMatrix matrix3(String bits, Object id) {
+        BitMatrix result = new BitMatrix(3);
+        result.setId(id);
+        result.set(bits);
+        return result;
+    }
+
+    /**
      * Returns the bit at the given location.
      *
      * @param x the column of the desired bit. Must be a valid index
@@ -66,6 +85,13 @@ public class BitMatrix
         Validate.validIndex(bits, x, "Invalid array index (X): %d", x);
         Validate.validIndex(bits, y, "Invalid array index (Y): %d", y);
         return bits[x][y];
+    }
+
+    /**
+     * Returns bit matrix's identifier.
+     */
+    public Object getId() {
+       return id;
     }
 
     /**
@@ -123,6 +149,13 @@ public class BitMatrix
             boolean value = "1".equals(components[i]);
             set(x, y, value);
         }
+    }
+
+    /**
+     * Sets the identifier of the bit matrix.
+     */
+    public void setId(Object id) {
+        this.id = id;
     }
 
     /**

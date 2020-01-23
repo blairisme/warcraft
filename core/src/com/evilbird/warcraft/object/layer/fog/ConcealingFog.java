@@ -122,7 +122,7 @@ public class ConcealingFog extends Fog
     }
 
     protected boolean concealLocation(Identifier identifier, GridPoint2 location) {
-        ConcealingFogCell cell = (ConcealingFogCell)cells.get(location);
+        ConcealingFogCell cell = (ConcealingFogCell)getCell(location.x, location.y);
         cell.removeOccupant(identifier);
 
         if (cell.isUnoccupied()) {
@@ -143,7 +143,7 @@ public class ConcealingFog extends Fog
     }
 
     protected boolean revealLocation(Identifier identifier, GridPoint2 location) {
-        ConcealingFogCell cell = (ConcealingFogCell)cells.get(location);
+        ConcealingFogCell cell = (ConcealingFogCell)getCell(location.x, location.y);
         boolean result = cell.isUnoccupied();
 
         cell.addOccupant(identifier);

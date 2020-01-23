@@ -100,11 +100,7 @@ public class Fog extends LayerGroup
     }
 
     public boolean isRevealed(int x, int y) {
-        return isRevealed(new GridPoint2(x, y));
-    }
-
-    public boolean isRevealed(GridPoint2 location) {
-        FogCell cell = (FogCell)cells.get(location);
+        FogCell cell = (FogCell)getCell(x, y);
         return cell != null && cell.isRevealed();
     }
 
@@ -237,7 +233,7 @@ public class Fog extends LayerGroup
     }
 
     protected void revealLocation(GridPoint2 location) {
-        FogCell cell = (FogCell)cells.get(location);
+        FogCell cell = (FogCell)getCell(location.x, location.y);
         if (cell != null) {
             cell.reveal();
         }
