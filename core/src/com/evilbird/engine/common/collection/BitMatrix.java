@@ -8,9 +8,10 @@
 
 package com.evilbird.engine.common.collection;
 
+import com.evilbird.engine.common.text.StringUtils;
 import org.apache.commons.lang3.Validate;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import java.util.Objects;
 
 /**
  * This class represents a matrix of bits, a NxN grid of bits. Each component
@@ -23,8 +24,13 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  */
 public class BitMatrix
 {
+    private static final transient char TRUE_BIT = '1';
+    private static final transient char FALSE_BIT = '0';
+
     private Object id;
     private int size;
+    private int value;
+    private String label;
     private boolean[][] bits;
 
     /**
@@ -36,9 +42,11 @@ public class BitMatrix
      */
     public BitMatrix(int size) {
         Validate.isTrue(size >= 0, "Size must be positive: %d", size);
-        this.size = size;
-        this.bits = new boolean[size][size];
         this.id = this;
+        this.size = size;
+        this.value = 0;
+        this.label = StringUtils.newString(size * size, FALSE_BIT);
+        this.bits = new boolean[size][size];
     }
 
     /**
@@ -88,7 +96,8 @@ public class BitMatrix
     }
 
     /**
-     * Returns bit matrix's identifier.
+     * Returns bit matrix's identifier if set, otherwise the object itself will
+     * be returned.
      */
     public Object getId() {
        return id;
@@ -123,17 +132,20 @@ public class BitMatrix
     public void set(int x, int y, boolean value) {
         Validate.validIndex(bits, x, "Invalid array index (X): %d", x);
         Validate.validIndex(bits, y, "Invalid array index (Y): %d", y);
-        bits[x][y] = value;
+        this.bits[x][y] = value;
+        this.label = StringUtils.setCharAt(label, (x * size) + y, value ? TRUE_BIT : FALSE_BIT);
+        this.value = Integer.parseInt(label, 2);
     }
 
     /**
      * Sets the bits of the {@code BitMatrix} using the given string. The
-     * string must contain only the '0' and '1' characters separated by the ','
-     * character. Spaces are not allowed. Bits will be assigned on a row by row
-     * basis. The given string does not need to be complete.
+     * string must contain only the '0' and '1' characters optionally separated
+     * by the ',' character. Spaces are not allowed. Bits will be assigned on a
+     * row by row basis. The given string does not need to be complete.
      *
      * <p>
-     *     For example: '0,0,1,0,1,1,0,0,1'
+     *     Example 1: '0,0,1,0,1,1,0,0,1'
+     *     Example 2: '001011001'
      * </p>
      *
      * @param bits a non-empty string confirming to aforementioned pattern.
@@ -142,19 +154,24 @@ public class BitMatrix
         Validate.notBlank(bits, "Bit string must not be blank");
         Validate.matchesPattern(bits, "[01,]*", "Only '0', '1' and ',' allowed in bit string");
 
-        String[] components = bits.split(",");
+        label = bits.replace(",", "");
+        value = Integer.parseInt(label, 2);
+
+        char[] components = label.toCharArray();
         for (int i = 0; i < components.length; i++) {
             int x = i % size;
             int y = i == 0 ? 0 : i / size;
-            boolean value = "1".equals(components[i]);
-            set(x, y, value);
+            boolean value = TRUE_BIT == components[i];
+            this.bits[x][y] = value;
         }
     }
 
     /**
-     * Sets the identifier of the bit matrix.
+     * Sets the identifier of the bit matrix. Identifiers are optional and do
+     * not contribute towards the equality of the matrix.
      */
     public void setId(Object id) {
+        Objects.requireNonNull(id);
         this.id = id;
     }
 
@@ -178,40 +195,30 @@ public class BitMatrix
 
         BitMatrix result = new BitMatrix(size);
         for (int i = 0; i < size; i++) {
-            System.arraycopy(this.bits[x+i], y, result.bits[i], 0, size);
+            for (int j = 0; j < size; j++) {
+                result.set(j, i, get(i + x, j + y));
+            }
         }
         return result;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj == null) { return false; }
-        if (obj == this) { return true; }
-        if (obj.getClass() != getClass()) { return false; }
+    public boolean equals(Object object) {
+        if (object == null) { return false; }
+        if (object == this) { return true; }
+        if (object.getClass() != getClass()) { return false; }
 
-        BitMatrix matrix = (BitMatrix)obj;
-        return new EqualsBuilder()
-            .append(bits, matrix.bits)
-            .isEquals();
+        BitMatrix matrix = (BitMatrix)object;
+        return this.value == matrix.value;
     }
 
     @Override
     public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-            .append(bits)
-            .toHashCode();
+        return value;
     }
 
     @Override
     public String toString() {
-        int toStringSize = (size*size)*2;
-        StringBuilder builder = new StringBuilder(toStringSize);
-        for (int y = 0; y < size; y++) {
-            for (int x = 0; x < size; x++) {
-                builder.append(bits[x][y] ? "1," : "0,");
-            }
-        }
-        builder.deleteCharAt(toStringSize-1);
-        return builder.toString();
+        return label;
     }
 }

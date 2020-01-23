@@ -126,15 +126,7 @@ public class LayerCell extends BasicGameObject
         if (cell != null) {
             layer.setCell(location.x, location.y, cell);
         } else {
-            logPattern(pattern);
             showEmpty();
-        }
-    }
-
-    private void logPattern(BitMatrix pattern) {
-        String foo = pattern.toString();
-        if (foo.charAt(8) == '1') {
-            System.out.println(foo);
         }
     }
 }

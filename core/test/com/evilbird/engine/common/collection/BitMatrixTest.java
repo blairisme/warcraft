@@ -12,6 +12,8 @@ import com.evilbird.test.verifier.EqualityVerifier;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static com.evilbird.engine.common.collection.BitMatrix.matrix3;
+
 /**
  * Instances of this unit test validate the {@link BitMatrix} class.
  *
@@ -19,6 +21,19 @@ import org.junit.Test;
  */
 public class BitMatrixTest
 {
+    @Test
+    public void getTest() {
+        BitMatrix matrix = matrix3(
+                "1,0,1," +
+                "0,1,1," +
+                "0,0,1");
+
+        Assert.assertTrue(matrix.get(0, 0));
+        Assert.assertTrue(matrix.get(2, 2));
+        Assert.assertFalse(matrix.get(0, 1));
+        Assert.assertFalse(matrix.get(1, 2));
+    }
+
     @Test
     public void isEmptyTest() {
         BitMatrix matrix = new BitMatrix(2);
@@ -187,6 +202,9 @@ public class BitMatrixTest
     public void equalityTest() {
         EqualityVerifier.forClass(BitMatrix.class)
             .excludeFields("size")
+            .excludeFields("label")
+            .excludeFields("bits")
+            .excludeFields("id")
             .verify();
     }
 
@@ -196,7 +214,7 @@ public class BitMatrixTest
         matrix.set("0,0,1,0");
         matrix.set(1, 1, true);
 
-        String expected = "0,0,1,1";
+        String expected = "0011";
         String actual = matrix.toString();
 
         Assert.assertEquals(expected, actual);
