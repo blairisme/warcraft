@@ -49,9 +49,9 @@ public class TestSkins
 
     private static LayerGroupStyle newLayerGroupStyle() {
         LayerGroupStyle style = new LayerGroupStyle();
-        style.empty =  Mockito.mock(TiledMapTileLayer.Cell.class);
-        style.full =  Mockito.mock(TiledMapTileLayer.Cell.class);
-        style.patterns = Collections.emptyMap();
+        style.setEmpty(Mockito.mock(TiledMapTileLayer.Cell.class));
+        style.setFull(Mockito.mock(TiledMapTileLayer.Cell.class));
+        style.setPatterns(Collections.emptyMap());
         return style;
     }
 

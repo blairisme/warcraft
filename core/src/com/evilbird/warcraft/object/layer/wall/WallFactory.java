@@ -90,8 +90,8 @@ public class WallFactory implements GameFactory<Wall>
     private LayerGroupStyle getStyle() {
         Texture terrain = assets.getTerrainTexture();
         LayerGroupStyle forestStyle = new LayerGroupStyle();
-        forestStyle.empty = LayerUtils.unpaddedCell(terrain, 256, 128, 32, 32);
-        forestStyle.patterns = getCellStyles(terrain);
+        forestStyle.setEmpty(LayerUtils.unpaddedCell(terrain, 256, 128, 32, 32));
+        forestStyle.setPatterns(getCellStyles(terrain));
         return forestStyle;
     }
 

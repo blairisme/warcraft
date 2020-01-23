@@ -95,8 +95,8 @@ public class ForestFactory implements GameFactory<Forest>
     private LayerGroupStyle getStyle() {
         Texture terrain = assets.getTerrainTexture();
         LayerGroupStyle forestStyle = new LayerGroupStyle();
-        forestStyle.empty = unpaddedCell(terrain, 448, 224, 32, 32);
-        forestStyle.patterns = getCellStyles(terrain);
+        forestStyle.setEmpty(unpaddedCell(terrain, 448, 224, 32, 32));
+        forestStyle.setPatterns(getCellStyles(terrain));
         return forestStyle;
     }
 

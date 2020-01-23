@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.evilbird.engine.common.collection.BitMatrix;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -21,9 +22,9 @@ import java.util.Map;
  */
 public class LayerGroupStyle
 {
-    public Cell empty;
-    public Cell full;
-    public Map<BitMatrix, Cell> patterns;
+    private Cell empty;
+    private Cell full;
+    private Map<BitMatrix, Cell> patterns;
 
     public LayerGroupStyle() {
         this.empty = null;
@@ -34,6 +35,30 @@ public class LayerGroupStyle
     public LayerGroupStyle(LayerGroupStyle style) {
         this.empty = style.empty;
         this.full = style.full;
-        this.patterns = style.patterns;
+        this.patterns = new HashMap<>(style.patterns);
+    }
+
+    public Cell getEmpty() {
+        return empty;
+    }
+
+    public Cell getFull() {
+        return full;
+    }
+
+    public Map<BitMatrix, Cell> getPatterns() {
+        return patterns;
+    }
+
+    public void setFull(Cell full) {
+        this.full = full;
+    }
+
+    public void setEmpty(Cell empty) {
+        this.empty = empty;
+    }
+
+    public void setPatterns(Map<BitMatrix, Cell> patterns) {
+        this.patterns = patterns;
     }
 }

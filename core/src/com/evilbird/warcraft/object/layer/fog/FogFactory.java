@@ -133,17 +133,17 @@ public class FogFactory implements GameFactory<Fog>
 
     private LayerGroupStyle getOpaqueStyle() {
         LayerGroupStyle result = new LayerGroupStyle();
-        result.empty = null;
-        result.full = cell(assets.getOpaqueTexture());
-        result.patterns = getEdgeStyles(assets.getFogTexture(), 0);
+        result.setEmpty(null);
+        result.setFull(cell(assets.getOpaqueTexture()));
+        result.setPatterns(getEdgeStyles(assets.getFogTexture(), 0));
         return result;
     }
 
     private LayerGroupStyle getTransparentStyle() {
         LayerGroupStyle result = new LayerGroupStyle();
-        result.empty = null;
-        result.full = cell(assets.getTransparentTexture());
-        result.patterns = getEdgeStyles(assets.getFogTexture(), 36);
+        result.setEmpty(null);
+        result.setFull(cell(assets.getTransparentTexture()));
+        result.setPatterns(getEdgeStyles(assets.getFogTexture(), 36));
         return result;
     }
 

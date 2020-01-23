@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.common.collection.BitMatrix;
 import com.evilbird.engine.object.BasicGameObject;
 import com.evilbird.engine.object.GameObjectGroup;
-import com.evilbird.warcraft.object.layer.fog.FogPattern;
 
 /**
  * Represents a single element in a {@link LayerGroup}. Each LayerGroupCell has
@@ -90,7 +89,7 @@ public class LayerCell extends BasicGameObject
         LayerGroup parent = (LayerGroup)getParent();
         if (parent != null) {
             TiledMapTileLayer layer = parent.getLayer();
-            layer.setCell(location.x, location.y, style.empty);
+            layer.setCell(location.x, location.y, style.getEmpty());
         }
     }
 
@@ -98,7 +97,7 @@ public class LayerCell extends BasicGameObject
         LayerGroup parent = (LayerGroup)getParent();
         if (parent != null) {
             TiledMapTileLayer layer = parent.getLayer();
-            layer.setCell(location.x, location.y, style.full);
+            layer.setCell(location.x, location.y, style.getFull());
         }
     }
 
@@ -112,17 +111,7 @@ public class LayerCell extends BasicGameObject
     }
 
     private void showPattern(TiledMapTileLayer layer, BitMatrix pattern) {
-        if (pattern.getId() == FogPattern.Full) {
-            showFull();
-        } else if (pattern.getId() == FogPattern.Empty) {
-            showEmpty();
-        } else {
-            showCell(layer, pattern);
-        }
-    }
-
-    private void showCell(TiledMapTileLayer layer, BitMatrix pattern) {
-        Cell cell = style.patterns.get(pattern);
+        Cell cell = style.getPatterns().get(pattern);
         if (cell != null) {
             layer.setCell(location.x, location.y, cell);
         } else {

@@ -23,7 +23,6 @@ import com.evilbird.engine.events.EventQueue;
 import com.evilbird.warcraft.action.attack.AttackEvent;
 import com.evilbird.warcraft.action.attack.AttackStatus;
 import com.evilbird.warcraft.object.layer.LayerCell;
-import com.evilbird.warcraft.object.layer.LayerGroupStyle;
 import com.evilbird.warcraft.object.layer.LayerUtils;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.google.gson.annotations.JsonAdapter;
@@ -56,14 +55,14 @@ public class ConcealingFog extends Fog
         return new ConcealingFogCell(getStyle(location), location, value);
     }
 
-    protected LayerGroupStyle getStyle(GridPoint2 position) {
+    protected ConcealingFogStyle getStyle(GridPoint2 position) {
         Cell cell = layer.getCell(position.x, position.y);
         TiledMapTile tile = cell.getTile();
         TextureRegion texture = tile.getTextureRegion();
 
-        LayerGroupStyle layerGroupStyle = new LayerGroupStyle(style);
-        layerGroupStyle.full = LayerUtils.cell(texture);
-        return layerGroupStyle;
+        ConcealingFogStyle result = new ConcealingFogStyle(style);
+        result.setFull(LayerUtils.cell(texture));
+        return result;
     }
 
     @Override
