@@ -15,7 +15,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Represents a sequence of steamed audio, where each audio steam is played one
@@ -41,11 +40,14 @@ public class MusicSequence implements Music
      *                 be {@code null}.
      */
     public MusicSequence(List<Music> sequence) {
-        Objects.requireNonNull(sequence);
+        Validate.notNull(sequence);
+        Validate.notEmpty(sequence);
+
         this.sequence = sequence;
         this.playing = false;
         this.looping = false;
         this.observers = new ArrayList<>(1);
+
         MusicObserver observer = new CompletionObserver();
         for (Music music: sequence) {
             music.addObserver(observer);
@@ -58,10 +60,19 @@ public class MusicSequence implements Music
     }
 
     @Override
+    public void removeObserver(MusicObserver observer) {
+        observers.remove(observer);
+    }
+
+    @Override
     public void dispose() {
         for (Music music: sequence) {
             music.dispose();
         }
+    }
+
+    public boolean isLooping() {
+        return looping;
     }
 
     @Override
@@ -71,71 +82,42 @@ public class MusicSequence implements Music
 
     @Override
     public void play() {
-        playing = true;
-
-        if (iterator == null) {
-            iterator = sequence.iterator();
-        }
-        if (current == null) {
+        if (!isPlaying()) {
+            playing = true;
+            loadSequence();
             next();
-        }
-        if (current != null && !current.isPlaying()) {
-            current.play();
-
-            for (MusicObserver observer: observers) {
-                observer.onStart(this);
-            }
+            notifyStarted();
         }
     }
 
     public void next() {
-        if (current != null) {
-            current.stop();
-            //current.dispose();
-        }
-        if (iterator.hasNext()) {
-            current = iterator.next();
-            current.play();
-        }
-        else {
-            complete();
-        }
-    }
-
-    protected void complete() {
-        if (looping) {
-            iterator = sequence.iterator();
-        } else {
-            playing = false;
-            for (MusicObserver observer: observers) {
-                observer.onComplete(this);
+        if (isPlaying()) {
+            unloadCurrent();
+            if (! loadNext()) {
+                if (isLooping()) {
+                    resetSequence();
+                    loadNext();
+                } else {
+                    unloadSequence();
+                    notifyComplete();
+                }
             }
         }
-    }
-
-    @Override
-    public void removeObserver(MusicObserver observer) {
-        observers.remove(observer);
     }
 
     @Override
     public void stop() {
-        if (current != null) {
-            current.stop();
-            current = null;
-            iterator = null;
-            playing = false;
-
-            for (MusicObserver observer: observers) {
-                observer.onStop(this);
-            }
+        if (isPlaying()) {
+            unloadCurrent();
+            unloadSequence();
+            notifyStopped();
         }
     }
 
     @Override
     public void setVolume(float volume) {
-        Validate.inclusiveBetween(0, 1, volume);
-        for (Music music: sequence){
+        Validate.inclusiveBetween(0f, 1f, volume);
+        for (Music music: sequence) {
             music.setVolume(volume);
         }
     }
@@ -158,6 +140,57 @@ public class MusicSequence implements Music
             .append(current)
             .append(sequence)
             .toHashCode();
+    }
+
+    private void loadSequence() {
+        if (iterator == null) {
+            iterator = sequence.iterator();
+        }
+    }
+
+    private boolean loadNext() {
+        if (iterator.hasNext()) {
+            current = iterator.next();
+            current.play();
+            return true;
+        }
+        return false;
+    }
+
+    private void unloadCurrent() {
+        if (current != null) {
+            current.stop();
+            current.dispose();
+            current = null;
+        }
+    }
+
+    private void unloadSequence() {
+        playing = false;
+        iterator = null;
+    }
+
+    private void resetSequence() {
+        playing = true;
+        iterator = sequence.iterator();
+    }
+
+    private void notifyStarted() {
+        for (MusicObserver observer: observers) {
+            observer.onStart(this);
+        }
+    }
+
+    private void notifyStopped() {
+        for (MusicObserver observer: observers) {
+            observer.onStop(this);
+        }
+    }
+
+    private void notifyComplete() {
+        for (MusicObserver observer: observers) {
+            observer.onComplete(this);
+        }
     }
 
     private class CompletionObserver extends MusicObserverAdapter {

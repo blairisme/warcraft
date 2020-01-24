@@ -12,6 +12,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.evilbird.engine.audio.AudioManager;
+import com.evilbird.engine.audio.music.Music;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceInput;
@@ -88,8 +89,12 @@ public class StateScreen extends ScreenAdapter
     @Override
     public void show() {
         input.startMonitoring();
-        audioManager.stop();
-        audioManager.play(state.getMusic());
+
+        Music music = state.getMusic();
+        if (!audioManager.isPlaying(music)) {
+            audioManager.stop();
+            audioManager.play(music);
+        }
     }
 
     public void resize(int width, int height) {

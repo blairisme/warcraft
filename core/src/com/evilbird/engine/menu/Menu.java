@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.evilbird.engine.audio.AudioManager;
 import com.evilbird.engine.audio.music.Music;
 import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameController;
@@ -55,18 +56,12 @@ public class Menu implements Disposable
     public void back() {
     }
 
-    public void show() {
-        Gdx.input.setInputProcessor(stage);
-        Gdx.input.setCatchBackKey(true);
-        stage.addListener(new MenuInput(this));
+    public void draw() {
+        stage.draw();
     }
 
     public void update(float delta) {
         stage.act(delta);
-    }
-
-    public void draw() {
-        stage.draw();
     }
 
     public Stage getStage() {
@@ -81,6 +76,16 @@ public class Menu implements Disposable
         return controller;
     }
 
+    public void play(AudioManager audioManager) {
+        if (music == null) {
+            audioManager.stop();
+        }
+        else if (!audioManager.isPlaying(music)) {
+            audioManager.stop();
+            audioManager.play(music);
+        }
+    }
+
     public void setContent(Actor actor) {
         stage.addActor(actor);
     }
@@ -93,7 +98,13 @@ public class Menu implements Disposable
         this.music = music;
     }
 
-    public void showMenu() {
+    public void show() {
+        Gdx.input.setInputProcessor(stage);
+        Gdx.input.setCatchBackKey(true);
+        stage.addListener(new MenuInput(this));
+    }
+
+    public void showHomeMenu() {
         controller.showMenu();
     }
 

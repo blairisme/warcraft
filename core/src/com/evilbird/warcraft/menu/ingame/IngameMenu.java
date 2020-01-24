@@ -18,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
+import com.evilbird.engine.audio.AudioManager;
 import com.evilbird.engine.common.control.LabelButton;
 import com.evilbird.engine.common.control.ListPane;
 import com.evilbird.engine.common.control.ScrollBarPane;
@@ -57,6 +58,10 @@ public class IngameMenu extends Menu
     @Override
     public void back() {
         controller.showState();
+    }
+
+    @Override
+    public void play(AudioManager manager) {
     }
 
     protected void setLayout(IngameMenuDimensions dimensions) {
@@ -101,7 +106,7 @@ public class IngameMenu extends Menu
         LabelButton button = new LabelButton(text, skin);
         button.addSelectListener(action);
 
-        Cell cell = row.add(button);
+        Cell<LabelButton> cell = row.add(button);
         setPadding(cell);
         cell.width(100);
 
@@ -113,7 +118,7 @@ public class IngameMenu extends Menu
         title.setWrap(true);
         title.setAlignment(Align.center);
 
-        Cell cell = addControl(title);
+        Cell<Label> cell = addControl(title);
         cell.padTop(12);
         cell.padBottom(12);
         return title;
@@ -131,7 +136,7 @@ public class IngameMenu extends Menu
         label.setAlignment(Align.left);
         label.setWrap(true);
 
-        Cell cell = addControl(label);
+        Cell<Label> cell = addControl(label);
         cell.height(0);
         cell.padBottom(0);
         return cell;
@@ -145,7 +150,7 @@ public class IngameMenu extends Menu
         scrollBarPane.setScrollbarsVisible(true);
         scrollBarPane.setFadeScrollBars(false);
 
-        Cell cell = container.add(scrollBarPane);
+        Cell<ScrollBarPane> cell = container.add(scrollBarPane);
         container.row();
 
         setPadding(cell);
@@ -162,7 +167,7 @@ public class IngameMenu extends Menu
     }
 
     protected void addSpacer() {
-        Cell cell = container.add();
+        Cell<?> cell = container.add();
         cell.expand();
         container.row();
     }
@@ -175,7 +180,7 @@ public class IngameMenu extends Menu
     protected Slider addSlider(float value) {
         Slider slider = new Slider(0f, 1f, 0.01f, false, skin);
         slider.setValue(value);
-        Cell cell = addControl(slider);
+        Cell<Slider> cell = addControl(slider);
         cell.align(Align.left);
         return slider;
     }
@@ -220,7 +225,7 @@ public class IngameMenu extends Menu
         return cell;
     }
 
-    private void setPadding(Cell cell) {
+    private void setPadding(Cell<?> cell) {
         cell.padLeft(12);
         cell.padRight(12);
         cell.padBottom(6);

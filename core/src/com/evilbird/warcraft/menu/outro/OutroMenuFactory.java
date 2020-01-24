@@ -77,7 +77,7 @@ public class OutroMenuFactory implements GameFactory<OutroMenu>
         if (type == OutroMenuType.Victory) {
             menu.setButtonAction(showNextIntro(menu));
         } else {
-            menu.setButtonAction(() -> menu.showMenu());
+            menu.setButtonAction(() -> menu.showHomeMenu());
         }
         return menu;
     }

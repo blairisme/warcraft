@@ -12,7 +12,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.evilbird.engine.audio.AudioManager;
-import com.evilbird.engine.audio.music.Music;
 import com.evilbird.engine.game.GameController;
 
 import javax.inject.Inject;
@@ -47,13 +46,16 @@ public class MenuScreen extends ScreenAdapter
     public void setMenu(Menu menu, MenuIdentifier identifier) {
         this.menu = menu;
         this.identifier = identifier;
-        updateController();
-        updateMusic();
+        if (controller != null) {
+            menu.setController(controller);
+        }
     }
 
     public void setController(GameController controller) {
         this.controller = controller;
-        updateController();
+        if (menu != null) {
+            menu.setController(controller);
+        }
     }
 
     @Override
@@ -74,7 +76,7 @@ public class MenuScreen extends ScreenAdapter
     public void show() {
         if (menu != null) {
             menu.show();
-            updateMusic();
+            menu.play(audioManager);
         }
     }
 
@@ -86,27 +88,11 @@ public class MenuScreen extends ScreenAdapter
         draw();
     }
 
-    public void update(float delta) {
-        menu.update(delta);
-    }
-
     public void draw() {
         menu.draw();
     }
 
-    protected void updateMusic() {
-        Music music = menu.getMusic();
-        if (music == null) {
-            audioManager.stop();
-        }
-        else if (!audioManager.isPlaying(music)) {
-            audioManager.play(music);
-        }
-    }
-
-    protected void updateController() {
-        if (menu != null && controller != null) {
-            menu.setController(controller);
-        }
+    public void update(float delta) {
+        menu.update(delta);
     }
 }

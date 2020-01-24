@@ -16,6 +16,7 @@ import com.badlogic.gdx.files.FileHandle;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,11 @@ public class MusicFile implements Music
     }
 
     @Override
+    public void removeObserver(MusicObserver observer) {
+        observers.remove(observer);
+    }
+
+    @Override
     public void dispose() {
         if (delegate != null) {
             delegate.dispose();
@@ -70,38 +76,33 @@ public class MusicFile implements Music
     @Override
     public void play() {
         if (delegate == null) {
-            FileHandle file = resolver.resolve(path);
-            delegate = service.newMusic(file);
-            delegate.setVolume(volume);
-            delegate.setLooping(false);
-            delegate.setOnCompletionListener(new CompletionObserver());
+            load();
         }
         if (! delegate.isPlaying()) {
             delegate.play();
-            for (MusicObserver observer: observers) {
-                observer.onStart(this);
-            }
+            notifyOnStart();
         }
+    }
+
+    protected void load() {
+        FileHandle file = resolver.resolve(path);
+        delegate = service.newMusic(file);
+        delegate.setVolume(volume);
+        delegate.setLooping(false);
+        delegate.setOnCompletionListener(new CompletionObserver());
     }
 
     @Override
     public void stop() {
-        if (delegate != null && delegate.isPlaying()) {
+        if (delegate != null) {
             delegate.stop();
-            for (MusicObserver observer: observers) {
-                observer.onStop(this);
-            }
+            notifyOnStop();
         }
     }
 
     @Override
-    public void removeObserver(MusicObserver observer) {
-        observers.remove(observer);
-    }
-
-    @Override
     public void setVolume(float volume) {
-        Validate.inclusiveBetween(0, 1, volume);
+        Validate.inclusiveBetween(0f, 1f, volume);
         this.volume = volume;
         if (delegate != null) {
             delegate.setVolume(volume);
@@ -126,7 +127,26 @@ public class MusicFile implements Music
             .toHashCode();
     }
 
-    private void evaluateCompletion() {
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+            .append("path", path)
+            .toString();
+    }
+
+    private void notifyOnStart() {
+        for (MusicObserver observer: observers) {
+            observer.onStart(this);
+        }
+    }
+
+    private void notifyOnStop() {
+        for (MusicObserver observer: observers) {
+            observer.onStop(this);
+        }
+    }
+
+    private void notifyOnComplete() {
         for (MusicObserver observer: observers) {
             observer.onComplete(this);
         }
@@ -135,7 +155,7 @@ public class MusicFile implements Music
     private class CompletionObserver implements OnCompletionListener {
         @Override
         public void onCompletion(com.badlogic.gdx.audio.Music music) {
-            evaluateCompletion();
+            notifyOnComplete();
         }
     }
 }

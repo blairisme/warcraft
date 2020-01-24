@@ -71,12 +71,15 @@ public class MusicFileTest
         verify(music, times(1)).stop();
     }
 
-//    @Test
-//    public void isPlayingTest() {
-//        lazyMusic.play();
-//        lazyMusic.isPlaying();
-//        verify(music, times(1)).isPlaying();
-//    }
+    @Test
+    public void isPlayingTest() {
+        verify(music, times(0)).isPlaying();
+        lazyMusic.play();
+        reset(music);
+
+        lazyMusic.isPlaying();
+        verify(music, times(1)).isPlaying();
+    }
 
     @Test
     public void disposeTest() {
