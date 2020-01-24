@@ -206,7 +206,7 @@ public class ButtonIconLayout
             human(NavalDamage1Button),  human(NavalDamage2Button),  orc(naval(AttackButton)),   orc(NavalDamage1Button),    orc(NavalDamage2Button),
             orc(naval(StopButton)),     orc(NavalDefence1Button),   orc(NavalDefence2Button),   human(naval(StopButton)),   human(NavalDefence1Button),
             human(NavalDefence2Button), orc(naval(MoveButton)),     human(naval(MoveButton)),   orc(naval(DepositButton)),  human(naval(DepositButton)),
-            orc(naval(GatherButton)),   human(naval(GatherButton)), human(DisembarkButton),     orc(DisembarkButton),       human(StopButton),
+            orc(none(GatherButton)),    human(none(GatherButton)),  human(DisembarkButton),     orc(DisembarkButton),       human(StopButton),
             human(MeleeDefence1Button), human(MeleeDefence2Button), orc(StopButton),            orc(MeleeDefence1Button),   orc(MeleeDefence2Button),
             Unknown,                    Unknown,                    Unknown,                    Unknown,                    Unknown,
             Unknown,                    Unknown,                    Unknown,                    human(PatrolButton),        orc(PatrolButton),
@@ -311,6 +311,10 @@ public class ButtonIconLayout
 
     private Identifier naval(Identifier id) {
         return combination(UnitAttack.Naval, id);
+    }
+
+    private Identifier none(Identifier id) {
+        return combination(UnitAttack.None, id);
     }
 
     private Identifier combination(UnitAttack attack, Identifier id) {
