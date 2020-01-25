@@ -48,6 +48,15 @@ public interface GameObject extends Identifiable<Identifier>, Positionable, Disa
     void addAction(Action action, float delay);
 
     /**
+     * Determines if the game object has currently been assigned the given
+     * {@link Action}.
+     *
+     * @return {@code true} if the game object has been assigned the given
+     *          {@code Action}.
+     */
+    boolean hasAction(Action action);
+
+    /**
      * Determines if the game object has currently been assigned an
      * {@link Action}.
      *

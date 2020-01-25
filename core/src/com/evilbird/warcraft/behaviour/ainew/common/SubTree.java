@@ -6,7 +6,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.behaviour.ainew;
+package com.evilbird.warcraft.behaviour.ainew.common;
 
-public class NeutralBehaviour {
+import com.badlogic.gdx.ai.btree.BehaviorTree;
+
+public class SubTree<E> extends BehaviorTree<E>
+{
+    @Override
+    public void run() {
+        step();
+    }
 }

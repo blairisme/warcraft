@@ -34,16 +34,19 @@ import static com.evilbird.warcraft.behaviour.ai.AiBehaviours.OrcEasy;
 public class WarcraftBehaviourFactory implements BehaviourFactory
 {
     private AiBehaviourFactory aiBehaviours;
+//    private  AiBehaviourTree aiBehaviourTree;
     private UiBehaviourFactory uiBehaviours;
     private ScenarioBehaviourFactory scenarioBehaviours;
 
     @Inject
     public WarcraftBehaviourFactory(
         AiBehaviourFactory aiBehaviours,
+//        AiBehaviourTree aiBehaviourTree,
         UiBehaviourFactory uiBehaviours,
         ScenarioBehaviourFactory scenarioBehaviours)
     {
         this.aiBehaviours = aiBehaviours;
+//        this.aiBehaviourTree = aiBehaviourTree;
         this.uiBehaviours = uiBehaviours;
         this.scenarioBehaviours = scenarioBehaviours;
     }
@@ -71,5 +74,6 @@ public class WarcraftBehaviourFactory implements BehaviourFactory
         Behaviour uiBehaviour = uiBehaviours.get();
         Behaviour scenarioBehaviour = scenarioBehaviours.get(scenario);
         return new CompositeBehaviour(id, aiBehaviour, uiBehaviour, scenarioBehaviour);
+//        return new CompositeBehaviour(id, aiBehaviour, aiBehaviourTree, uiBehaviour, scenarioBehaviour);
     }
 }

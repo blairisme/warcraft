@@ -291,7 +291,7 @@ public class UnitOperations
      */
     public static boolean isAttacker(GameObject gameObject) {
         if (gameObject instanceof OffensiveObject) {
-            OffensiveObject combatant = (OffensiveObject) gameObject;
+            OffensiveObject combatant = (OffensiveObject)gameObject;
             return combatant.getAttackCapability() != OffensiveCapability.None;
         }
         return false;
@@ -312,8 +312,21 @@ public class UnitOperations
      */
     public static boolean isCastingSpell(GameObject gameObject, Spell spell) {
         if (gameObject instanceof SpellCaster) {
-            SpellCaster spellCaster = (SpellCaster) gameObject;
+            SpellCaster spellCaster = (SpellCaster)gameObject;
             return spellCaster.getCastingSpell() == spell;
+        }
+        return false;
+    }
+
+    /**
+     * Determines if the given {@link GameObject} is a command centre.
+     */
+    public static boolean isCommandCentre(GameObject gameObject) {
+        if (gameObject instanceof Unit) {
+            Unit unit = (Unit) gameObject;
+            UnitType type = (UnitType)unit.getType();
+            UnitArchetype archetype = type.getArchetype();
+            return archetype == CommandCentre;
         }
         return false;
     }

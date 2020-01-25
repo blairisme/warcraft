@@ -89,6 +89,11 @@ public class BasicGameObject implements GameObject
     }
 
     @Override
+    public boolean hasAction(Action action) {
+        return actions.contains(action);
+    }
+
+    @Override
     public boolean hasActions() {
         return !actions.isEmpty();
     }

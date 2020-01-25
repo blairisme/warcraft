@@ -8,5 +8,30 @@
 
 package com.evilbird.warcraft.behaviour.ainew;
 
-public class PlayerBehaviour {
+import com.badlogic.gdx.ai.btree.BehaviorTree;
+import com.badlogic.gdx.ai.btree.decorator.Repeat;
+import com.evilbird.warcraft.behaviour.ainew.build.BuildBehaviour;
+import com.evilbird.warcraft.behaviour.ainew.build.BuildSequence;
+import com.evilbird.warcraft.object.data.player.Player;
+
+import javax.inject.Inject;
+
+public class PlayerBehaviour extends BuildBehaviour// BehaviorTree
+{
+    @Inject
+    public PlayerBehaviour(BuildSequence root) {
+        super(root);
+    }
+
+//    private BuildBehaviour buildBehaviour;
+//
+//    @Inject
+//    public PlayerBehaviour(BuildBehaviour buildBehaviour) {
+//        super(new Repeat(buildBehaviour));
+//        this.buildBehaviour = buildBehaviour;
+//    }
+//
+//    public void setPlayer(Player player) {
+//        buildBehaviour.setPlayer(player);
+//    }
 }
