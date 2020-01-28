@@ -1,5 +1,3 @@
-sourceSets.main.java.srcDirs = [ "src/" ]
-
 /*
  * Copyright (c) 2020, Blair Butterworth
  *
@@ -8,7 +6,11 @@ sourceSets.main.java.srcDirs = [ "src/" ]
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-//sourceCompatibility = '1.7'
+import org.robovm.compiler.target.ios.DeviceType
+import org.robovm.compiler.target.ios.SDK
+
+sourceSets.main.java.srcDirs = [ "src/" ]
+
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 ext {
@@ -20,9 +22,25 @@ launchIPadSimulator.dependsOn build
 launchIOSDevice.dependsOn build
 createIPA.dependsOn build
 
-/*
-eclipse.project {
-    name = appName + "-ios"
-    natures 'org.robovm.eclipse.RoboVMNature'
+robovm {
+	//iosSkipSigning = true
+	//arch = "arm64"
 }
-*/
+
+task listSdks() {
+	doLast {
+		project.logger.lifecycle("--- Availble SDKS ---")
+		for (SDK sdk : SDK.listSimulatorSDKs()) {
+			project.logger.lifecycle(sdk.getDisplayName())
+		}
+	}
+}
+
+task listDevices() {
+	doLast {
+		project.logger.lifecycle("--- Availble Devices ---")
+		for (DeviceType device : DeviceType.listDeviceTypes()) {
+			project.logger.lifecycle(device.getDeviceName())
+		}
+	}
+}
