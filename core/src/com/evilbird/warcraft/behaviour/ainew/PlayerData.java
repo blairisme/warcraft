@@ -8,21 +8,20 @@
 
 package com.evilbird.warcraft.behaviour.ainew;
 
-import com.badlogic.gdx.ai.btree.BehaviorTree;
-import com.badlogic.gdx.ai.btree.decorator.Repeat;
 import com.evilbird.warcraft.object.data.player.Player;
 
-import javax.inject.Inject;
-
-public class PlayerBehaviour extends BehaviorTree<PlayerData>
+/**
+ * @author Blair Butterworth
+ */
+public class PlayerData
 {
-    @Inject
-    public PlayerBehaviour(PlayerTree sequence) {
-        super(new Repeat<>(sequence), new PlayerData());
+    private Player player;
+
+    public Player getPlayer() {
+        return player;
     }
 
     public void setPlayer(Player player) {
-        PlayerData data = getObject();
-        data.setPlayer(player);
+        this.player = player;
     }
 }

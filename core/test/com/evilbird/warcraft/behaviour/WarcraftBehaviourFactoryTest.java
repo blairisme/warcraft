@@ -14,6 +14,7 @@ import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.test.testcase.GameFactoryTestCase;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourFactory;
+import com.evilbird.warcraft.behaviour.ainew.AiBehaviourTree;
 import com.evilbird.warcraft.behaviour.scenario.ScenarioBehaviourFactory;
 import com.evilbird.warcraft.behaviour.ui.UiBehaviourFactory;
 import com.evilbird.warcraft.state.WarcraftContext;
@@ -39,9 +40,10 @@ public class WarcraftBehaviourFactoryTest extends GameFactoryTestCase<WarcraftBe
     @Override
     protected WarcraftBehaviourFactory newFactory(DeviceDisplay display, AssetManager assets) {
         AiBehaviourFactory aiBehaviours = Mockito.mock(AiBehaviourFactory.class);
+        AiBehaviourTree aiBehaviourTree = Mockito.mock(AiBehaviourTree.class);
         UiBehaviourFactory uiBehaviours = Mockito.mock(UiBehaviourFactory.class);
         ScenarioBehaviourFactory scenarioBehaviours = Mockito.mock(ScenarioBehaviourFactory.class);
-        return new WarcraftBehaviourFactory(aiBehaviours, uiBehaviours, scenarioBehaviours);
+        return new WarcraftBehaviourFactory(aiBehaviours, aiBehaviourTree, uiBehaviours, scenarioBehaviours);
     }
 
     @Override

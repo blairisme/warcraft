@@ -9,11 +9,29 @@
 package com.evilbird.warcraft.behaviour.ainew.common;
 
 import com.badlogic.gdx.ai.btree.BehaviorTree;
+import com.badlogic.gdx.ai.btree.Decorator;
+import com.badlogic.gdx.ai.btree.Task;
 
-public class SubTree<E> extends BehaviorTree<E>
+public abstract class SubTree<A, B> extends Decorator<A>
 {
-    @Override
-    public void run() {
-        step();
+    private BehaviorTree<B> subtree;
+
+    public SubTree(Task<B> rootTask) {
+        this.subtree = new BehaviorTree<>(rootTask);
     }
+
+    @Override
+    public void run () {
+        if (subtree.getStatus() == Status.FRESH) {
+            A blackboard = getObject();
+            B converted = convertObject(blackboard);
+            subtree.setObject(converted);
+        }
+        if (subtree.getStatus() != Status.RUNNING) {
+            subtree.start();
+        }
+        subtree.step();
+    }
+
+    protected abstract B convertObject(A object);
 }
