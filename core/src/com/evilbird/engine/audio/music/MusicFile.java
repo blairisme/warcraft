@@ -111,8 +111,9 @@ public class MusicFile implements Music
 
     @Override
     public boolean equals(Object other) {
-        if (this == other) return true;
-        if (other == null || getClass() != other.getClass()) return false;
+        if (other == null) { return false; }
+        if (other == this) { return true; }
+        if (other.getClass() != getClass()) { return false; }
 
         MusicFile musicFile = (MusicFile) other;
         return new EqualsBuilder()

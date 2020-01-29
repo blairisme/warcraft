@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.GridPoint2;
  *
  * @author Blair Butterworth
  */
+@SuppressWarnings("checkstyle:MethodParamPad")
 public enum UnitSize
 {
     ExtraSmall  (32, 32, "extra_small"),

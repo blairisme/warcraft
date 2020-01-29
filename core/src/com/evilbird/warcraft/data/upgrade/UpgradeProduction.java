@@ -21,6 +21,7 @@ import static com.evilbird.warcraft.data.resource.ResourceOperations.Resources;
  *
  * @author Blair Butterworth
  */
+@SuppressWarnings("checkstyle:MethodParamPad")
 public enum UpgradeProduction
 {
     MeleeDamage1        (Resources(800, 0, 0, 0),      Seconds(50)),

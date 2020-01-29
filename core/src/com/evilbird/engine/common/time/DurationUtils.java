@@ -15,6 +15,9 @@ package com.evilbird.engine.common.time;
  */
 public class DurationUtils
 {
+    /**
+     * Disable construction of static utility class.
+     */
     private DurationUtils() {
     }
 

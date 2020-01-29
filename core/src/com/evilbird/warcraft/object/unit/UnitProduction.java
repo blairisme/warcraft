@@ -21,6 +21,7 @@ import static com.evilbird.warcraft.data.resource.ResourceOperations.Resources;
  *
  * @author Blair Butterworth
  */
+@SuppressWarnings("checkstyle:MethodParamPad")
 public enum UnitProduction
 {
     /*                     | Production Cost                   | Production Time  */

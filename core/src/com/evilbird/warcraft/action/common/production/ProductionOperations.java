@@ -28,6 +28,12 @@ import static com.evilbird.warcraft.data.resource.ResourceSet.EmptyResourceSet;
 public class ProductionOperations
 {
     /**
+     * Disable construction of static utility class.
+     */
+    private ProductionOperations() {
+    }
+
+    /**
      * Returns the resource cost of producing the given unit. If the user has
      * activated the free build cheat then an empty resource set will be
      * returned.

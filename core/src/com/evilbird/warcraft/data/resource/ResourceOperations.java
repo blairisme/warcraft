@@ -18,33 +18,30 @@ import static com.evilbird.warcraft.data.resource.ResourceType.Oil;
 import static com.evilbird.warcraft.data.resource.ResourceType.Wood;
 
 /**
+ * Provides common methods for working with {@link ResourceSet ResourceSets}.
+ *
  * @author Blair Butterworth
  */
 public class ResourceOperations
 {
+    /**
+     * Disable construction of static utility class.
+     */
     private ResourceOperations() {
     }
 
-    public static ResourceQuantity G(int gold) {
-        return new ResourceQuantity(Gold, gold);
-    }
-
-    public static ResourceQuantity O(int oil) {
-        return new ResourceQuantity(Oil, oil);
-    }
-
-    public static ResourceQuantity W(int wood) {
-        return new ResourceQuantity(Wood, wood);
-    }
-
-    public static ResourceQuantity F(int food) {
-        return new ResourceQuantity(Food, food);
-    }
-
+    /**
+     * Creates a new {@link ResourceSet} containing the given
+     * {@link ResourceQuantity ResourceQuantities}.
+     */
     public static ResourceSet Resources(ResourceQuantity ... quantities) {
         return new ResourceSet(Arrays.asList(quantities));
     }
 
+    /**
+     * Creates a new {@link ResourceSet} containing the given gold, wood oil
+     * and food resources.
+     */
     public static ResourceSet Resources(int gold, int wood, int oil, int food) {
         Set<ResourceQuantity> quantities = new HashSet<>();
         if (gold > 0) {

@@ -34,11 +34,9 @@ public class Duration
 
     /**
      * Obtains a {@code Duration} representing a number of seconds.
-     * <p>
-     * The nanosecond in second field is set to zero.
      *
-     * @param seconds  the number of seconds, positive or negative
-     * @return a {@code Duration}, not null
+     * @param seconds   the number of seconds, positive or negative
+     * @return          a {@code Duration}, not null
      */
     public static Duration ofSeconds(long seconds) {
         return create(seconds, 0);
@@ -47,8 +45,10 @@ public class Duration
     /**
      * Obtains an instance of {@code Duration} using seconds and nanoseconds.
      *
-     * @param seconds  the length of the duration in seconds, positive or negative
-     * @param nanoAdjustment  the nanosecond adjustment within the second, from 0 to 999,999,999
+     * @param seconds           the length of the duration in seconds, positive
+     *                          or negative
+     * @param nanoAdjustment    the nanosecond adjustment within the second,
+     *                          from 0 to 999,999,999
      */
     private static Duration create(long seconds, int nanoAdjustment) {
         if ((seconds | nanoAdjustment) == 0) {
@@ -58,10 +58,13 @@ public class Duration
     }
 
     /**
-     * Constructs an instance of {@code Duration} using seconds and nanoseconds.
+     * Constructs an instance of {@code Duration} using seconds and
+     * nanoseconds.
      *
-     * @param seconds  the length of the duration in seconds, positive or negative
-     * @param nanos  the nanoseconds within the second, from 0 to 999,999,999
+     * @param seconds  the length of the duration in seconds, positive or
+     *                 negative
+     * @param nanos     the nanoseconds within the second, from 0 to
+     *                  999,999,999.
      */
     private Duration(long seconds, int nanos) {
         super();
@@ -70,14 +73,12 @@ public class Duration
     }
 
     /**
-     * Gets the value of the requested unit.
-     * <p>
-     * This returns a value for each of the two supported units,
-     * {@link ChronoUnit#SECONDS SECONDS} and {@link ChronoUnit#NANOS NANOS}.
+     * Gets the value of the requested unit, either in
+     * {@link ChronoUnit#SECONDS seconds} or {@link ChronoUnit#NANOS nanos}.
      * All other units throw an exception.
      *
-     * @param unit the {@code TemporalUnit} for which to return the value
-     * @return the long value of the unit
+     * @param unit  the {@code TemporalUnit} for which to return the value
+     * @return      the long value of the unit
      */
     public long get(TemporalUnit unit) {
         if (unit == SECONDS) {

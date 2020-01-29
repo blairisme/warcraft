@@ -36,6 +36,7 @@ import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.WoodProduction;
  *
  * @author Blair Butterworth
  */
+@SuppressWarnings("checkstyle:MethodParamPad")
 public enum Upgrade implements Identifier
 {
     MeleeDamage1        (MeleeDamage,       Improved),

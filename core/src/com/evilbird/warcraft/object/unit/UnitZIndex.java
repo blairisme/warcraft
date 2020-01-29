@@ -17,6 +17,7 @@ import static java.lang.Integer.MAX_VALUE;
  *
  * @author Blair Butterworth
  */
+@SuppressWarnings("checkstyle:MethodParamPad")
 public enum UnitZIndex implements Supplier<Integer>
 {
     ResourceIndex    (0),
