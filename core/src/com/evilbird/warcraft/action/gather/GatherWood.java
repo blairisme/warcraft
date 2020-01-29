@@ -19,12 +19,10 @@ import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.common.function.Predicates.both;
+import static com.evilbird.warcraft.action.gather.GatherLocations.closestDepot;
+import static com.evilbird.warcraft.action.gather.GatherLocations.closestResource;
 import static com.evilbird.warcraft.data.resource.ResourceType.Wood;
-import static com.evilbird.warcraft.object.common.query.UnitOperations.findClosest;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.hasResources;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isCorporeal;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isDepotFor;
 import static com.evilbird.warcraft.object.layer.LayerType.Tree;
 
 /**
@@ -65,7 +63,7 @@ public class GatherWood extends StateTransitionAction
     }
 
     private Action getObtainAction(Gatherer gatherer, GameObject target) {
-        GameObject resource = findClosest(gatherer, target, Tree);
+        GameObject resource = closestResource(gatherer, target, Tree);
         if (resource != null) {
             obtain.setTarget(resource);
             return obtain;
@@ -76,7 +74,7 @@ public class GatherWood extends StateTransitionAction
     }
 
     private Action getDepositAction(Gatherer gatherer) {
-        GameObject depot = findClosest(gatherer, both(isCorporeal(), isDepotFor(Wood)));
+        GameObject depot = closestDepot(gatherer, Wood);
         if (depot != null) {
             deposit.setTarget(depot);
             return deposit;

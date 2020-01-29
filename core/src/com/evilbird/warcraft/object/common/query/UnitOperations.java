@@ -84,46 +84,6 @@ public class UnitOperations
     }
 
     /**
-     * Returns the {@link GameObject} closest to the given target that is both
-     * touchable and of the given type, if any.
-     */
-    public static GameObject findClosest(MovableObject target, Identifier type) {
-        return findClosest(target, target, touchableWithType(type));
-    }
-
-    /**
-     * Returns the {@link GameObject} closest to the given locus that is both
-     * touchable and of the given type, if any.
-     */
-    public static GameObject findClosest(MovableObject movable, GameObject locus, Identifier type) {
-        return findClosest(movable, locus, touchableWithType(type));
-    }
-
-    /**
-     * Returns the {@link GameObject} closest to the given locus that conforms
-     * to the condition.
-     */
-    public static GameObject findClosest(MovableObject movable, Predicate<GameObject> applicability) {
-        return findClosest(movable, movable, applicability);
-    }
-
-    /**
-     * Returns the {@link GameObject} closest to the given locus that conforms
-     * to the given condition.
-     */
-    public static GameObject findClosest(MovableObject source, GameObject locus, Predicate<GameObject> applicability) {
-        GameObjectComposite group = source.getRoot();
-        Collection<GameObject> gameObjects = group.findAll(applicability);
-
-        if (! gameObjects.isEmpty()) {
-            List<GameObject> closest = new ArrayList<>(gameObjects);
-            Lists.sort(closest, closestItem(locus));
-            return findFirst(closest, hasPathTo(source));
-        }
-        return null;
-    }
-
-    /**
      * Returns a {@link Collection} containing all of the
      * {@link Player#isArtificial() artifical players} owned by the given
      * {@link GameObjectContainer container}, if any.

@@ -14,6 +14,11 @@ import com.evilbird.warcraft.object.data.player.Player;
 
 import javax.inject.Inject;
 
+/**
+ * Modifies the game state on behalf of a given artificial player.
+ *
+ * @author Blair Butterworth
+ */
 public class PlayerBehaviour extends BehaviorTree<PlayerData>
 {
     @Inject

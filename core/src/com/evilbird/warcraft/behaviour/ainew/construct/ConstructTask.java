@@ -8,13 +8,12 @@
 
 package com.evilbird.warcraft.behaviour.ainew.construct;
 
-import com.badlogic.gdx.ai.btree.LeafTask;
-import com.badlogic.gdx.ai.btree.Task;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.construct.ConstructActions;
+import com.evilbird.warcraft.behaviour.ainew.common.ActionTask;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.selector.SelectorType;
 import com.evilbird.warcraft.object.unit.Unit;
@@ -23,31 +22,24 @@ import com.evilbird.warcraft.object.unit.UnitType;
 import javax.inject.Inject;
 
 /**
+ * A task that assigns a construction action to the
+ *
  * @author Blair Butterworth
  */
-public class ConstructTask extends LeafTask<ConstructData>
+public class ConstructTask extends ActionTask<ConstructData>
 {
-    private Action action;
-    private ActionFactory actionFactory;
     private GameObjectFactory objectFactory;
 
     @Inject
     public ConstructTask(ActionFactory actionFactory, GameObjectFactory objectFactory) {
-        this.actionFactory = actionFactory;
+        super(actionFactory);
         this.objectFactory = objectFactory;
     }
 
     @Override
-    public Status execute() {
+    protected Action getAction(ActionFactory actionFactory) {
         ConstructData data = getObject();
 
-        if (action == null) {
-            action = getAction(data);
-        }
-        return getStatus(action, data);
-    }
-
-    private Action getAction(ConstructData data) {
         Unit builder = data.getBuilder();
         UnitType building = data.getBuilding();
 
@@ -65,22 +57,5 @@ public class ConstructTask extends LeafTask<ConstructData>
         builder.addAction(construct);
 
         return construct;
-    }
-
-    private Status getStatus(Action action, ConstructData data) {
-        Unit builder = data.getBuilder();
-
-        if (builder != null && builder.hasAction(action)) {
-            return Status.RUNNING;
-        }
-        if (action != null && action.hasError()) {
-            return Status.FAILED;
-        }
-        return Status.SUCCEEDED;
-    }
-
-    @Override
-    protected Task<ConstructData> copyTo(Task<ConstructData> task) {
-        throw new UnsupportedOperationException();
     }
 }

@@ -21,13 +21,11 @@ import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.common.function.Predicates.both;
+import static com.evilbird.warcraft.action.gather.GatherLocations.closestDepot;
+import static com.evilbird.warcraft.action.gather.GatherLocations.closestResource;
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.data.resource.ResourceType.Oil;
-import static com.evilbird.warcraft.object.common.query.UnitOperations.findClosest;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.hasResources;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isCorporeal;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isDepotFor;
 import static com.evilbird.warcraft.object.unit.UnitType.OilPlatform;
 import static com.evilbird.warcraft.object.unit.UnitType.OilRig;
 
@@ -69,7 +67,7 @@ public class GatherOil extends StateTransitionAction
     }
 
     private Action getObtainAction(Gatherer gatherer, GameObject target) {
-        GameObject resource = getNearestResource(gatherer, target);
+        GameObject resource = closestResource(gatherer, target, extractorType(gatherer));
         if (resource != null) {
             obtain.setTarget(resource);
             return obtain;
@@ -80,7 +78,7 @@ public class GatherOil extends StateTransitionAction
     }
 
     private Action getDepositAction(Gatherer gatherer) {
-        GameObject depot = findClosest(gatherer, both(isCorporeal(), isDepotFor(Oil)));
+        GameObject depot = closestDepot(gatherer, Oil);
         if (depot != null) {
             deposit.setTarget(depot);
             return deposit;
@@ -90,10 +88,9 @@ public class GatherOil extends StateTransitionAction
         }
     }
 
-    private GameObject getNearestResource(Gatherer gatherer, GameObject target) {
+    private UnitType extractorType(Gatherer gatherer) {
         UnitType type = (UnitType)gatherer.getType();
         WarcraftFaction faction = type.getFaction();
-        UnitType extractor = faction == Human ? OilPlatform : OilRig;
-        return findClosest(gatherer, target, extractor);
+        return faction == Human ? OilPlatform : OilRig;
     }
 }

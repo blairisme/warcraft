@@ -43,7 +43,7 @@ public class AiBehaviour implements Behaviour
         components.add(attackBehaviour);
         components.add(idleBehaviour);
         components.add(submarineBehaviour);
-        components.add(wanderBehaviour);
+        //components.add(wanderBehaviour);
     }
 
     @Override

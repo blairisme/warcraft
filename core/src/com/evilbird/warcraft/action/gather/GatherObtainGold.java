@@ -48,7 +48,7 @@ public class GatherObtainGold extends GatherObtain
 
     @Override
     protected boolean initialize() {
-        Gatherer gatherer = (Gatherer) getSubject();
+        Gatherer gatherer = (Gatherer)getSubject();
         exclusion.disable(gatherer);
 
         Resource resource = (Resource)getTarget();
@@ -60,7 +60,7 @@ public class GatherObtainGold extends GatherObtain
 
     @Override
     protected boolean complete() {
-        Gatherer gatherer = (Gatherer) getSubject();
+        Gatherer gatherer = (Gatherer)getSubject();
         gatherer.setAnimationAlias(IdleGold, Idle);
         gatherer.setAnimationAlias(MoveGold, Move);
         exclusion.restore(gatherer);

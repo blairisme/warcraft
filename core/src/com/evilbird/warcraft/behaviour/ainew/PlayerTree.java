@@ -10,16 +10,19 @@ package com.evilbird.warcraft.behaviour.ainew;
 
 import com.badlogic.gdx.ai.btree.branch.Parallel;
 import com.evilbird.warcraft.behaviour.ainew.construct.ConstructTree;
+import com.evilbird.warcraft.behaviour.ainew.gather.GatherTree;
 
 import javax.inject.Inject;
 
 /**
+ * Modifies the game state on behalf of a given artificial player.
+ *
  * @author Blair Butterworth
  */
 public class PlayerTree extends Parallel<PlayerData>
 {
     @Inject
-    public PlayerTree(ConstructTree constructTree) {
-        super(constructTree);
+    public PlayerTree(ConstructTree constructTree, GatherTree gatherTree) {
+        super(constructTree, gatherTree);
     }
 }

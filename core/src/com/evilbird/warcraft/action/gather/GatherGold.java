@@ -19,12 +19,10 @@ import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.common.function.Predicates.both;
+import static com.evilbird.warcraft.action.gather.GatherLocations.closestDepot;
+import static com.evilbird.warcraft.action.gather.GatherLocations.closestResource;
 import static com.evilbird.warcraft.data.resource.ResourceType.Gold;
-import static com.evilbird.warcraft.object.common.query.UnitOperations.findClosest;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.hasResources;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isCorporeal;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.isDepotFor;
 import static com.evilbird.warcraft.object.unit.UnitType.GoldMine;
 
 /**
@@ -53,7 +51,7 @@ public class GatherGold extends StateTransitionAction
 
     @Override
     protected Action nextAction(Action previous) {
-        return nextAction((Gatherer) getSubject(), getTarget());
+        return nextAction((Gatherer)getSubject(), getTarget());
     }
 
     private Action nextAction(Gatherer gatherer, GameObject target) {
@@ -65,7 +63,7 @@ public class GatherGold extends StateTransitionAction
     }
 
     private Action getObtainAction(Gatherer gatherer, GameObject target) {
-        GameObject resource = findClosest(gatherer, target, GoldMine);
+        GameObject resource = closestResource(gatherer, target, GoldMine);
         if (resource != null) {
             obtain.setTarget(resource);
             return obtain;
@@ -76,7 +74,7 @@ public class GatherGold extends StateTransitionAction
     }
 
     private Action getDepositAction(Gatherer gatherer) {
-        GameObject depot = findClosest(gatherer, both(isCorporeal(), isDepotFor(Gold)));
+        GameObject depot = closestDepot(gatherer, Gold);
         if (depot != null) {
             deposit.setTarget(depot);
             return deposit;

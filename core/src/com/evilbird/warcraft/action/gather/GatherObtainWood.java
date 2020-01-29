@@ -43,7 +43,7 @@ public class GatherObtainWood extends GatherObtain
 
     @Override
     protected boolean initialize() {
-        Gatherer gatherer = (Gatherer) getSubject();
+        Gatherer gatherer = (Gatherer)getSubject();
         gatherer.setAnimation(UnitAnimation.GatherWood);
 
         GameObject tree = getTarget();
@@ -61,7 +61,7 @@ public class GatherObtainWood extends GatherObtain
 
     @Override
     protected boolean complete() {
-        Gatherer gatherer = (Gatherer) getSubject();
+        Gatherer gatherer = (Gatherer)getSubject();
         gatherer.setAnimationAlias(IdleWood, Idle);
         gatherer.setAnimationAlias(MoveWood, Move);
         gatherer.setAnimation(Idle);

@@ -20,6 +20,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * Modifies the game state on behalf of the non-human players.
+ *
+ * @author Blair Butterworth
+ */
 public class AiBehaviourTree implements Behaviour
 {
     private Provider<PlayerBehaviour> behaviourFactory;
