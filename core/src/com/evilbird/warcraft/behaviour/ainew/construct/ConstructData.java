@@ -14,6 +14,9 @@ import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitType;
 
 /**
+ * A bundle of attributes encapsulating the data required by construct
+ * behaviour.
+ *
  * @author Blair Butterworth
  */
 public class ConstructData

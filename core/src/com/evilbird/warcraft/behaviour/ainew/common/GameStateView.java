@@ -19,6 +19,9 @@ import java.util.Collection;
 import java.util.function.Predicate;
 
 /**
+ * Represents a game state "view", a game state query whose result is kept up
+ * to date by monitoring the event queue.
+ *
  * @author Blair Butterworth
  */
 public class GameStateView
@@ -33,15 +36,15 @@ public class GameStateView
         this.events = events;
     }
 
-    public Collection<GameObject> getResult() {
+    public Collection<GameObject> getData() {
         return cache;
     }
 
-    public void setTarget(GameObjectComposite container) {
+    public void setObject(GameObjectComposite container) {
         this.container = container;
     }
 
-    public void setCondition(Predicate<GameObject> condition) {
+    public void setQuery(Predicate<GameObject> condition) {
         this.condition = condition;
     }
 

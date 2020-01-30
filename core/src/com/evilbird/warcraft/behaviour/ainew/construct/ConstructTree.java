@@ -14,6 +14,8 @@ import com.evilbird.warcraft.behaviour.ainew.common.SubTree;
 import javax.inject.Inject;
 
 /**
+ * A behaviour tree that constructs buildings for an enemy player.
+ *
  * @author Blair Butterworth
  */
 public class ConstructTree extends SubTree<PlayerData, ConstructData>

@@ -13,6 +13,7 @@ package com.evilbird.engine.common.time;
  *
  * @author Blair Butterworth
  */
+@SuppressWarnings("checkstyle:MethodName")
 public class DurationUtils
 {
     /**

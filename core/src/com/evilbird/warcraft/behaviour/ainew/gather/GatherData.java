@@ -13,7 +13,8 @@ import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 /**
- * A bundle of attributes
+ * A bundle of attributes encapsulating the data required by gathering
+ * behaviour.
  *
  * @author Blair Butterworth
  */

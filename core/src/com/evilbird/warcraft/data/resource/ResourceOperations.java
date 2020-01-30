@@ -22,6 +22,7 @@ import static com.evilbird.warcraft.data.resource.ResourceType.Wood;
  *
  * @author Blair Butterworth
  */
+@SuppressWarnings("checkstyle:MethodName")
 public class ResourceOperations
 {
     /**

@@ -14,6 +14,8 @@ import com.evilbird.warcraft.behaviour.ainew.common.SubTree;
 import javax.inject.Inject;
 
 /**
+ * A behaviour tree that gatherers resources for an enemy player.
+ *
  * @author Blair Butterworth
  */
 public class GatherTree extends SubTree<PlayerData, GatherData>

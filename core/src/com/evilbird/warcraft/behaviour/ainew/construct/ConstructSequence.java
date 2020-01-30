@@ -9,10 +9,16 @@
 package com.evilbird.warcraft.behaviour.ainew.construct;
 
 import com.badlogic.gdx.ai.btree.branch.Sequence;
+import com.evilbird.warcraft.behaviour.ainew.wander.WanderSequence;
 
 import javax.inject.Inject;
 
 /**
+ * A {@link Sequence} implementation representing the steps required by the
+ * construct behaviour. Namely to select a building for construction, a nearby
+ * builder, an unoccupied building location and then to execute the construct
+ * action.
+ *
  * @author Blair Butterworth
  */
 public class ConstructSequence extends Sequence<ConstructData>

@@ -22,7 +22,8 @@ import com.evilbird.warcraft.object.unit.UnitType;
 import javax.inject.Inject;
 
 /**
- * A task that assigns a construction action to the
+ * A task that assigns a construction action to the subject contained in the
+ * tasks blackboard.
  *
  * @author Blair Butterworth
  */
