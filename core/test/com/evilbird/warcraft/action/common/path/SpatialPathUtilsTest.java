@@ -9,6 +9,7 @@
 package com.evilbird.warcraft.action.common.path;
 
 import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.warcraft.action.common.spatial.SpatialPathUtils;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 import com.evilbird.warcraft.object.unit.resource.Resource;
 import com.evilbird.warcraft.state.StateTestCase;
@@ -18,11 +19,11 @@ import static com.evilbird.engine.object.utility.GameObjectPredicates.withClazz;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Instances of this unit test validate the {@link ItemPathFinder} class.
+ * Instances of this unit test validate the {@link SpatialPathUtils} class.
  *
  * @author Blair Butterworth
  */
-public class ItemPathFinderTest extends StateTestCase
+public class SpatialPathUtilsTest extends StateTestCase
 {
     @Test
     public void hasPathTest() {
@@ -32,6 +33,6 @@ public class ItemPathFinderTest extends StateTestCase
         Gatherer gatherer = (Gatherer)world.find(withClazz(Gatherer.class));
         Resource goldmine = (Resource)world.find(withClazz(Resource.class));
 
-        assertTrue(ItemPathFinder.hasPath(gatherer, goldmine));
+        assertTrue(SpatialPathUtils.hasPath(gatherer, goldmine));
     }
 }

@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.action.common.path;
+package com.evilbird.warcraft.action.common.spatial;
 
 import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.badlogic.gdx.ai.pfa.Heuristic;
@@ -25,20 +25,20 @@ import com.evilbird.warcraft.object.common.capability.MovableObject;
  *
  * @author Blair Butterworth
  */
-public class ItemPathFinder
+public class SpatialPathUtils
 {
     /**
      * Disable construction of this static helper class.
      */
-    private ItemPathFinder() {
+    private SpatialPathUtils() {
     }
 
     /**
      * Returns a path that connects the given objects and conforms to given
      * objects traversal capability.
      */
-    public static ItemNodePath findPath(GameObjectGraph graph, GameObjectNode start, GameObjectNode end) {
-        ItemNodePath result = new ItemNodePath();
+    public static GameObjectPath findPath(GameObjectGraph graph, GameObjectNode start, GameObjectNode end) {
+        GameObjectPath result = new GameObjectPath();
         PathFinder<GameObjectNode> pathFinder = new IndexedAStarPathFinder<>(graph);
         Heuristic<GameObjectNode> heuristic = new ManhattanHeuristic<>();
         pathFinder.searchNodePath(start, end, heuristic, result);

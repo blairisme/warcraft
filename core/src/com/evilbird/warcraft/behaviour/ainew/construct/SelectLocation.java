@@ -15,7 +15,7 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.spatial.GameObjectNode;
-import com.evilbird.warcraft.action.common.path.ItemPathFilter;
+import com.evilbird.warcraft.action.common.spatial.ItemPathFilter;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.layer.terrain.Terrain;

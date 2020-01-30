@@ -9,21 +9,19 @@
 package com.evilbird.warcraft.behaviour.ainew;
 
 import com.badlogic.gdx.ai.btree.BehaviorTree;
-import com.badlogic.gdx.ai.btree.decorator.Repeat;
+import com.badlogic.gdx.ai.btree.Task;
 import com.evilbird.warcraft.object.data.player.Player;
 
-import javax.inject.Inject;
-
 /**
- * Modifies the game state on behalf of a given artificial player.
+ * A common {@link BehaviorTree} implementation that modifies the game state
+ * for a given artificial player.
  *
  * @author Blair Butterworth
  */
-public class PlayerBehaviour extends BehaviorTree<PlayerData>
+public abstract class PlayerBehaviour extends BehaviorTree<PlayerData>
 {
-    @Inject
-    public PlayerBehaviour(PlayerTree sequence) {
-        super(new Repeat<>(sequence), new PlayerData());
+    public PlayerBehaviour(Task<PlayerData> rootTask) {
+        super(rootTask, new PlayerData());
     }
 
     public void setPlayer(Player player) {

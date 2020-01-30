@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.action.common.path;
+package com.evilbird.warcraft.action.common.spatial;
 
 import com.badlogic.gdx.ai.pfa.GraphPath;
 import com.evilbird.engine.object.spatial.GameObjectNode;
@@ -17,11 +17,17 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class ItemNodePath implements GraphPath<GameObjectNode>
+/**
+ * A {@link GraphPath} implementation representing a traversable path of
+ * {@link GameObjectNode GameObjectNodes}.
+ *
+ * @author Blair Butterworth
+ */
+public class GameObjectPath implements GraphPath<GameObjectNode>
 {
     public final List<GameObjectNode> nodes;
 
-    public ItemNodePath() {
+    public GameObjectPath() {
         nodes = new ArrayList<>();
     }
 

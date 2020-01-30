@@ -17,6 +17,8 @@ import com.evilbird.engine.object.GameObject;
 /**
  * A {@link LeafTask} that wraps an {@link Action}.
  *
+ * @param <T> type of the blackboard object used by the task.
+ *
  * @author Blair Butterworth
  */
 public abstract class ActionTask<T> extends LeafTask<T>
@@ -29,11 +31,18 @@ public abstract class ActionTask<T> extends LeafTask<T>
     }
 
     @Override
+    public void start() {
+        action = getAction(factory);
+    }
+
+    @Override
     public Status execute() {
-        if (action == null) {
-            action = getAction(factory);
-        }
         return getStatus(action);
+    }
+
+    @Override
+    public void end() {
+        action = null;
     }
 
     protected abstract Action getAction(ActionFactory factory);
@@ -43,9 +52,10 @@ public abstract class ActionTask<T> extends LeafTask<T>
     }
 
     protected Status getStatus(Action action) {
-        GameObject recipient = getRecipient(action);
-
-        if (recipient.hasAction(action)) {
+        if (action == null) {
+            return Status.FAILED;
+        }
+        if (getRecipient(action).hasAction(action)) {
             return Status.RUNNING;
         }
         if (action.hasError()) {

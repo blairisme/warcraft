@@ -15,14 +15,15 @@ import com.evilbird.warcraft.behaviour.ainew.gather.GatherTree;
 import javax.inject.Inject;
 
 /**
- * Modifies the game state on behalf of a given artificial player.
+ * A {@link PlayerBehaviour} specialization specifying the behaviour of enemy
+ * players.
  *
  * @author Blair Butterworth
  */
-public class PlayerTree extends Parallel<PlayerData>
+public class EnemyBehaviour extends PlayerBehaviour
 {
     @Inject
-    public PlayerTree(ConstructTree constructTree, GatherTree gatherTree) {
-        super(constructTree, gatherTree);
+    public EnemyBehaviour(ConstructTree construct, GatherTree gather) {
+        super(new Parallel<>(construct, gather));
     }
 }

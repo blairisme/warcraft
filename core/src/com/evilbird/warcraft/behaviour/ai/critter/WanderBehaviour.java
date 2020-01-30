@@ -15,7 +15,7 @@ import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.engine.object.utility.GameObjectOperations;
-import com.evilbird.warcraft.action.common.path.ItemPathFilter;
+import com.evilbird.warcraft.action.common.spatial.ItemPathFilter;
 import com.evilbird.warcraft.action.move.MoveEvents;
 import com.evilbird.warcraft.action.move.MoveToVectorAction;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourElement;

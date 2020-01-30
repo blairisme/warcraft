@@ -10,16 +10,13 @@ package com.evilbird.warcraft.object.common.query;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.collection.CollectionUtils;
-import com.evilbird.engine.common.collection.Lists;
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.GameObjectComposite;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.engine.object.utility.GameObjectOperations;
-import com.evilbird.warcraft.action.common.path.ItemPathFilter;
+import com.evilbird.warcraft.action.common.spatial.ItemPathFilter;
 import com.evilbird.warcraft.data.resource.ResourceContainer;
 import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.data.spell.Spell;
@@ -50,20 +47,14 @@ import com.evilbird.warcraft.object.unit.resource.Resource;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Objects;
-import java.util.function.Predicate;
 
-import static com.evilbird.engine.common.collection.CollectionUtils.findFirst;
-import static com.evilbird.engine.object.utility.GameObjectComparators.closestItem;
 import static com.evilbird.engine.object.utility.GameObjectOperations.findAncestor;
 import static com.evilbird.engine.object.utility.GameObjectOperations.isNear;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.hasType;
-import static com.evilbird.engine.object.utility.GameObjectPredicates.touchableWithType;
 import static com.evilbird.warcraft.data.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.data.resource.ResourceType.Oil;
 import static com.evilbird.warcraft.data.resource.ResourceType.Wood;
-import static com.evilbird.warcraft.object.common.query.UnitPredicates.hasPathTo;
 import static com.evilbird.warcraft.object.unit.UnitArchetype.CommandCentre;
 import static com.evilbird.warcraft.object.unit.UnitArchetype.FoodProducer;
 import static com.evilbird.warcraft.object.unit.UnitArchetype.NavalProducer;
@@ -90,27 +81,39 @@ public class UnitOperations
      */
     public static Collection<Player> getArtificialPlayers(GameObjectContainer container) {
         Objects.requireNonNull(container);
-        Collection<Player> players = new ArrayList<>();
-        for (Player player: getPlayers(container)) {
-            if (player.isArtificial()) {
-                players.add(player);
-            }
-        }
-        return players;
+        Collection<Player> players = getPlayers(container);
+        return CollectionUtils.filter(players, Player::isArtificial);
     }
 
     /**
-     * Returns the {@link Player#isCorporeal() corporeal player} contained int the
+     * Returns the {@link Player#isCorporeal() corporeal player} contained in the
      * given {@link GameObjectContainer container}, if any.
      */
     public static Player getCorporealPlayer(GameObjectContainer container) {
         Objects.requireNonNull(container);
-        for (Player player: getPlayers(container)) {
-            if (player.isCorporeal()) {
-                return player;
-            }
-        }
-        return null;
+        Collection<Player> players = getPlayers(container);
+        return CollectionUtils.findFirst(players, Player::isCorporeal);
+    }
+
+    /**
+     * Returns the {@link Player#isNeutral()} () neutral player} contained in the
+     * given {@link GameObjectContainer container}, if any.
+     */
+    public static Player getNeutralPlayer(GameObjectContainer container) {
+        Objects.requireNonNull(container);
+        Collection<Player> players = getPlayers(container);
+        return CollectionUtils.findFirst(players, Player::isNeutral);
+    }
+
+    /**
+     * Returns a {@link Collection} of {@link Player Players} contained in the
+     * given {@link GameObjectContainer} that are {@link Player#isViewable()
+     * viewable}.
+     */
+    public static Collection<Player> getViewablePlayers(GameObjectContainer container) {
+        Objects.requireNonNull(container);
+        Collection<Player> players = getPlayers(container);
+        return CollectionUtils.filter(players, Player::isViewable);
     }
 
     /**
@@ -148,20 +151,7 @@ public class UnitOperations
         return players;
     }
 
-    /**
-     * Returns a {@link Collection} of {@link Player Players} contained in the
-     * given {@link GameObjectContainer} that are {@link Player#isViewable()
-     * viewable}.
-     */
-    public static Collection<Player> getViewablePlayers(GameObjectContainer state) {
-        Collection<Player> players = new ArrayList<>();
-        for (Player player: getPlayers(state)) {
-            if (player.isViewable()) {
-                players.add(player);
-            }
-        }
-        return players;
-    }
+
 
     /**
      * Determines if the given {@link GameObject} is a {@link ResourceContainer}

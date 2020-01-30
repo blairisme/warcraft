@@ -8,8 +8,11 @@
 
 package com.evilbird.warcraft.behaviour.ainew;
 
+import com.badlogic.gdx.ai.GdxAI;
+import com.badlogic.gdx.ai.Timepiece;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.device.UserInput;
+import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.data.player.Player;
@@ -27,28 +30,67 @@ import java.util.List;
  */
 public class AiBehaviourTree implements Behaviour
 {
-    private Provider<PlayerBehaviour> behaviourFactory;
+    private Provider<EnemyBehaviour> enemyBehaviourFactory;
+    private Provider<NeutralBehaviour> neutralBehaviourFactory;
     private Collection<PlayerBehaviour> behaviours;
+    private Timepiece timeService;
 
     @Inject
-    public AiBehaviourTree(Provider<PlayerBehaviour> behaviourFactory) {
-        this.behaviourFactory = behaviourFactory;
+    public AiBehaviourTree(
+        Provider<EnemyBehaviour> enemyBehaviourFactory,
+        Provider<NeutralBehaviour> neutralBehaviourFactory)
+    {
+        this.enemyBehaviourFactory = enemyBehaviourFactory;
+        this.neutralBehaviourFactory = neutralBehaviourFactory;
     }
 
     @Override
     public void update(State state, List<UserInput> input, float time) {
-        if (behaviours == null) {
-            Collection<Player> players = UnitOperations.getArtificialPlayers(state.getWorld());
-            behaviours = new ArrayList<>(players.size());
+        initializeBehaviour(state);
+        initializeTimeService();
+        updateTimeService(time);
+        updateBehaviours();
+    }
 
-            for (Player player: players) {
-                PlayerBehaviour playerBehaviour = behaviourFactory.get();
-                playerBehaviour.setPlayer(player);
-                behaviours.add(playerBehaviour);
-            }
-        }
+    private void updateTimeService(float time) {
+        timeService.update(time);
+    }
+
+    private void updateBehaviours() {
         for (PlayerBehaviour behaviour: behaviours) {
             behaviour.step();
+        }
+    }
+
+    private void initializeTimeService() {
+        if (timeService == null) {
+            timeService = GdxAI.getTimepiece();
+        }
+    }
+
+    private void initializeBehaviour(State state) {
+        if (behaviours == null) {
+            behaviours = new ArrayList<>(6);
+            GameObjectContainer world = state.getWorld();
+            initializeEnemyBehaviour(world);
+            initializeNeutralBehaviour(world);
+        }
+    }
+
+    private void initializeEnemyBehaviour(GameObjectContainer world) {
+        for (Player player: UnitOperations.getArtificialPlayers(world)) {
+            PlayerBehaviour playerBehaviour = enemyBehaviourFactory.get();
+            playerBehaviour.setPlayer(player);
+            behaviours.add(playerBehaviour);
+        }
+    }
+
+    private void initializeNeutralBehaviour(GameObjectContainer world) {
+        Player player = UnitOperations.getNeutralPlayer(world);
+        if (player != null) {
+            PlayerBehaviour playerBehaviour = neutralBehaviourFactory.get();
+            playerBehaviour.setPlayer(player);
+            behaviours.add(playerBehaviour);
         }
     }
 }

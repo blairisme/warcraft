@@ -11,6 +11,8 @@ package com.evilbird.warcraft.behaviour.ainew;
 import com.evilbird.warcraft.object.data.player.Player;
 
 /**
+ * A bundle of attributes required by player behaviours.
+ *
  * @author Blair Butterworth
  */
 public class PlayerData

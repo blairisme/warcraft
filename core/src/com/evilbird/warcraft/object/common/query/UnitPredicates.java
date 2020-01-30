@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.object.common.query;
 
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.warcraft.action.common.path.ItemPathFinder;
+import com.evilbird.warcraft.action.common.spatial.SpatialPathUtils;
 import com.evilbird.warcraft.data.resource.ResourceContainer;
 import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
@@ -46,7 +46,7 @@ public class UnitPredicates
      * objects that conforms to given objects traversal capability.
      */
     public static Predicate<GameObject> hasPathTo(MovableObject source) {
-        return gameObject -> ItemPathFinder.hasPath(source, gameObject);
+        return gameObject -> SpatialPathUtils.hasPath(source, gameObject);
     }
 
     /**

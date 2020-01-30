@@ -12,7 +12,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.gather.GatherActions;
-import com.evilbird.warcraft.behaviour.ainew.common.ActionTask;
+import com.evilbird.warcraft.behaviour.ainew.common.AsyncActionTask;
 import com.evilbird.warcraft.data.resource.ResourceContainer;
 import com.evilbird.warcraft.object.layer.LayerCell;
 import com.evilbird.warcraft.object.layer.forest.ForestCell;
@@ -24,7 +24,7 @@ import javax.inject.Inject;
 /**
  * @author Blair Butterworth
  */
-public class GatherTask extends ActionTask<GatherData>
+public class GatherTask extends AsyncActionTask<GatherData>
 {
     @Inject
     public GatherTask(ActionFactory actionFactory) {
@@ -46,11 +46,6 @@ public class GatherTask extends ActionTask<GatherData>
         gatherer.addAction(action);
 
         return action;
-    }
-
-    @Override
-    protected Status getStatus(Action action) {
-        return Status.SUCCEEDED;
     }
 
     private GatherActions getIdentifier(ResourceContainer container) {

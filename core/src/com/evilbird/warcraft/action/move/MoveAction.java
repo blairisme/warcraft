@@ -17,9 +17,9 @@ import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.engine.object.spatial.SpatialObject;
-import com.evilbird.warcraft.action.common.path.ItemNodePath;
-import com.evilbird.warcraft.action.common.path.ItemPathFilter;
-import com.evilbird.warcraft.action.common.path.ItemPathFinder;
+import com.evilbird.warcraft.action.common.spatial.GameObjectPath;
+import com.evilbird.warcraft.action.common.spatial.ItemPathFilter;
+import com.evilbird.warcraft.action.common.spatial.SpatialPathUtils;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
 
@@ -44,7 +44,7 @@ public abstract class MoveAction extends BasicAction
     protected transient GameObjectGraph graph;
     protected transient GameObjectNode waypoint;
     protected transient GameObjectNode endpoint;
-    protected transient ItemNodePath path;
+    protected transient GameObjectPath path;
     protected transient ListIterator<GameObjectNode> pathIterator;
 
     public MoveAction(MoveEvents events) {
@@ -206,7 +206,7 @@ public abstract class MoveAction extends BasicAction
     protected boolean initializePath(GameObject gameObject) {
         if (path == null) {
             endpoint = getEndNode(waypoint);
-            path = ItemPathFinder.findPath(graph, waypoint, endpoint);
+            path = SpatialPathUtils.findPath(graph, waypoint, endpoint);
             pathIterator = path.listIterator();
 
             if (!path.isEmpty()) {

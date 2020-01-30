@@ -13,7 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.engine.object.spatial.SpatialObject;
-import com.evilbird.warcraft.action.common.path.ItemPathFilter;
+import com.evilbird.warcraft.action.common.spatial.ItemPathFilter;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
 
 import javax.inject.Inject;

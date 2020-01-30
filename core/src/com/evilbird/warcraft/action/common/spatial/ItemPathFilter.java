@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.action.common.path;
+package com.evilbird.warcraft.action.common.spatial;
 
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.object.GameObject;

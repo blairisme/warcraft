@@ -14,7 +14,7 @@ import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.pathing.SpatialUtils;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.spatial.GameObjectNode;
-import com.evilbird.warcraft.action.common.path.ItemPathFilter;
+import com.evilbird.warcraft.action.common.spatial.ItemPathFilter;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
 
