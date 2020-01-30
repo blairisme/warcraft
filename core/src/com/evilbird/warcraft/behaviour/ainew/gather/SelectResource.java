@@ -19,6 +19,9 @@ import javax.inject.Inject;
 import static com.evilbird.warcraft.object.unit.UnitType.GoldMine;
 
 /**
+ * A {@link LeafTask} implementation that selects a resource from which to
+ * obtain resources.
+ *
  * @author Blair Butterworth
  */
 public class SelectResource extends LeafTask<GatherData>
@@ -30,10 +33,8 @@ public class SelectResource extends LeafTask<GatherData>
     @Override
     public Status execute() {
         GatherData data = getObject();
-
         ResourceContainer resource = getResource(data);
         data.setResource(resource);
-
         return resource != null ? Status.SUCCEEDED : Status.FAILED;
     }
 

@@ -30,16 +30,19 @@ import java.util.List;
  */
 public class AiBehaviourTree implements Behaviour
 {
+    private Timepiece timeService;
+    private Collection<PlayerBehaviour> behaviours;
     private Provider<EnemyBehaviour> enemyBehaviourFactory;
     private Provider<NeutralBehaviour> neutralBehaviourFactory;
-    private Collection<PlayerBehaviour> behaviours;
-    private Timepiece timeService;
+    private Provider<CorporealBehaviour> corporealBehaviourFactory;
 
     @Inject
     public AiBehaviourTree(
+        Provider<CorporealBehaviour> corporealBehaviourFactory,
         Provider<EnemyBehaviour> enemyBehaviourFactory,
         Provider<NeutralBehaviour> neutralBehaviourFactory)
     {
+        this.corporealBehaviourFactory = corporealBehaviourFactory;
         this.enemyBehaviourFactory = enemyBehaviourFactory;
         this.neutralBehaviourFactory = neutralBehaviourFactory;
     }
@@ -74,23 +77,32 @@ public class AiBehaviourTree implements Behaviour
             GameObjectContainer world = state.getWorld();
             initializeEnemyBehaviour(world);
             initializeNeutralBehaviour(world);
+            initializeCorporealBehaviour(world);
+        }
+    }
+
+    private void initializeCorporealBehaviour(GameObjectContainer world) {
+        Player player = UnitOperations.getCorporealPlayer(world);
+        if (player != null) {
+            addBehaviour(player, corporealBehaviourFactory.get());
         }
     }
 
     private void initializeEnemyBehaviour(GameObjectContainer world) {
         for (Player player: UnitOperations.getArtificialPlayers(world)) {
-            PlayerBehaviour playerBehaviour = enemyBehaviourFactory.get();
-            playerBehaviour.setPlayer(player);
-            behaviours.add(playerBehaviour);
+            addBehaviour(player, enemyBehaviourFactory.get());
         }
     }
 
     private void initializeNeutralBehaviour(GameObjectContainer world) {
         Player player = UnitOperations.getNeutralPlayer(world);
         if (player != null) {
-            PlayerBehaviour playerBehaviour = neutralBehaviourFactory.get();
-            playerBehaviour.setPlayer(player);
-            behaviours.add(playerBehaviour);
+            addBehaviour(player, neutralBehaviourFactory.get());
         }
+    }
+
+    private void addBehaviour(Player player, PlayerBehaviour behaviour) {
+        behaviour.setPlayer(player);
+        behaviours.add(behaviour);
     }
 }

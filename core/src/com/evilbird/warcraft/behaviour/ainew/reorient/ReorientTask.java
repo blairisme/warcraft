@@ -26,23 +26,22 @@ import java.util.List;
 import static com.badlogic.gdx.math.MathUtils.random;
 
 /**
+ * A {@link LeafTask} implementation that randomly re-orients idle units.
+ *
  * @author Blair Butterworth
  */
-public class SelectSubject extends LeafTask<PlayerData>
+public class ReorientTask extends LeafTask<PlayerData>
 {
     private static final int REORIENT_MIN = 2;
     private static final int REORIENT_MAX = 4;
 
     @Inject
-    public SelectSubject() {
+    public ReorientTask() {
     }
 
     @Override
     public Status execute() {
-        PlayerData data = getObject();
-        Player player = data.getPlayer();
-        List<GameObject> movables = new ArrayList<>(player.findAll(UnitOperations::isMovable));
-
+        List<GameObject> movables = getMovableObjects();
         for (int i = 0; i < RandomUtils.nextInt(REORIENT_MIN, REORIENT_MAX); i++) {
             MovableObject target = (MovableObject)movables.get(random.nextInt(movables.size()));
             if (UnitOperations.isAlive(target) && GameObjectOperations.isIdle(target)) {
@@ -50,6 +49,12 @@ public class SelectSubject extends LeafTask<PlayerData>
             }
         }
         return Status.SUCCEEDED;
+    }
+
+    private List<GameObject> getMovableObjects() {
+        PlayerData data = getObject();
+        Player player = data.getPlayer();
+        return new ArrayList<>(player.findAll(UnitOperations::isMovable));
     }
 
     private Vector2 getRandomDirection() {
@@ -60,6 +65,6 @@ public class SelectSubject extends LeafTask<PlayerData>
 
     @Override
     protected Task<PlayerData> copyTo(Task<PlayerData> task) {
-        return null;
+        return task;
     }
 }

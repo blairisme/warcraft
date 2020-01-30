@@ -11,6 +11,7 @@ package com.evilbird.warcraft.behaviour.ainew;
 import com.badlogic.gdx.ai.btree.branch.Parallel;
 import com.evilbird.warcraft.behaviour.ainew.construct.ConstructTree;
 import com.evilbird.warcraft.behaviour.ainew.gather.GatherTree;
+import com.evilbird.warcraft.behaviour.ainew.reorient.ReorientTree;
 
 import javax.inject.Inject;
 
@@ -23,7 +24,7 @@ import javax.inject.Inject;
 public class EnemyBehaviour extends PlayerBehaviour
 {
     @Inject
-    public EnemyBehaviour(ConstructTree construct, GatherTree gather) {
-        super(new Parallel<>(construct, gather));
+    public EnemyBehaviour(ConstructTree construct, GatherTree gather, ReorientTree reorient) {
+        super(new Parallel<>(construct, gather, reorient));
     }
 }

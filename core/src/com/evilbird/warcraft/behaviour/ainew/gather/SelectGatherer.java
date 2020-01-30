@@ -21,6 +21,9 @@ import javax.inject.Inject;
 import java.util.function.Predicate;
 
 /**
+ * A {@link LeafTask} implementation that selects a gatherer who will obtain
+ * resources for the player.
+ *
  * @author Blair Butterworth
  */
 public class SelectGatherer extends LeafTask<GatherData>

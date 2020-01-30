@@ -22,6 +22,9 @@ import com.evilbird.warcraft.object.unit.resource.Resource;
 import javax.inject.Inject;
 
 /**
+ * An action task that assigns a gathering action to the subject contained in
+ * the tasks blackboard.
+ *
  * @author Blair Butterworth
  */
 public class GatherTask extends AsyncActionTask<GatherData>

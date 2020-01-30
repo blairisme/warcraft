@@ -9,7 +9,6 @@
 package com.evilbird.warcraft.behaviour.ainew.construct;
 
 import com.badlogic.gdx.ai.btree.branch.Sequence;
-import com.evilbird.warcraft.behaviour.ainew.wander.WanderSequence;
 
 import javax.inject.Inject;
 
