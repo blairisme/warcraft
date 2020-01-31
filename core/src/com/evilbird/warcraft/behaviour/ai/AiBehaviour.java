@@ -41,7 +41,7 @@ public class AiBehaviour implements Behaviour
     {
         components = new ArrayList<>();
         components.add(attackBehaviour);
-        components.add(idleBehaviour);
+//        components.add(idleBehaviour);
         components.add(submarineBehaviour);
         //components.add(wanderBehaviour);
     }
