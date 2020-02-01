@@ -13,6 +13,7 @@ import com.badlogic.gdx.ai.btree.Task;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectComposite;
 
+import javax.inject.Inject;
 import java.util.Collection;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -28,6 +29,8 @@ import static com.evilbird.engine.common.function.Predicates.accept;
  * A {@link LeafTask} implementation that selects a collection of
  * {@link GameObject GameObjects} based on a given {@link Predicate condition}.
  *
+ * @param <T> type of the blackboard object used by the task.
+ *           
  * @author Blair Butterworth
  */
 public class SelectSubjects<T> extends LeafTask<T>
@@ -36,6 +39,7 @@ public class SelectSubjects<T> extends LeafTask<T>
     protected transient Function<T, GameObjectComposite> targetSupplier;
     protected transient BiConsumer<T, Collection<GameObject>> resultConsumer;
 
+    @Inject
     public SelectSubjects() {
         this.conditionSupplier = supply(accept());
         this.resultConsumer = discard();
@@ -49,22 +53,27 @@ public class SelectSubjects<T> extends LeafTask<T>
         return subjects.isEmpty() ? FAILED : SUCCEEDED;
     }
 
-    public SelectSubjects<T> setCondition(Predicate<GameObject> condition) {
+    public SelectSubjects<T> when(Predicate<GameObject> condition) {
         this.conditionSupplier = data -> condition;
         return this;
     }
 
-    public SelectSubjects<T> setCondition(Function<T, Predicate<GameObject>> conditionSupplier) {
+    public SelectSubjects<T> when(Function<T, Predicate<GameObject>> conditionSupplier) {
         this.conditionSupplier = conditionSupplier;
         return this;
     }
 
-    public SelectSubjects<T> setReceiver(BiConsumer<T, Collection<GameObject>> receiver) {
+    public SelectSubjects<T> guard(Task<T> guard) {
+        super.setGuard(guard);
+        return this;
+    }
+
+    public SelectSubjects<T> into(BiConsumer<T, Collection<GameObject>> receiver) {
         this.resultConsumer = receiver;
         return this;
     }
 
-    public SelectSubjects<T> setTarget(Function<T, GameObjectComposite> targetSupplier) {
+    public SelectSubjects<T> from(Function<T, GameObjectComposite> targetSupplier) {
         this.targetSupplier = targetSupplier;
         return this;
     }
@@ -80,6 +89,7 @@ public class SelectSubjects<T> extends LeafTask<T>
         SelectSubjects<T> selectSubjects = (SelectSubjects<T>)task;
         selectSubjects.conditionSupplier = this.conditionSupplier;
         selectSubjects.resultConsumer = this.resultConsumer;
+        selectSubjects.targetSupplier = this.targetSupplier;
         return selectSubjects;
     }
 }

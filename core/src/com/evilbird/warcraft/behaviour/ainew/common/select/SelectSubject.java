@@ -13,6 +13,7 @@ import com.badlogic.gdx.ai.btree.Task;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectComposite;
 
+import javax.inject.Inject;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -30,6 +31,8 @@ import static com.evilbird.engine.common.function.Predicates.accept;
  * A {@link LeafTask} implementation that selects a {@link GameObject} based on
  * a given {@link Predicate condition}.
  *
+ * @param <T> type of the blackboard object used by the task.
+ *
  * @author Blair Butterworth
  */
 public class SelectSubject<T> extends LeafTask<T>
@@ -38,6 +41,7 @@ public class SelectSubject<T> extends LeafTask<T>
     protected transient Function<T, GameObjectComposite> targetSupplier;
     protected transient BiConsumer<T, GameObject> resultConsumer;
 
+    @Inject
     public SelectSubject() {
         this.conditionSupplier = supply(accept());
         this.resultConsumer = discard();
@@ -51,22 +55,22 @@ public class SelectSubject<T> extends LeafTask<T>
         return subject == null ? FAILED : SUCCEEDED;
     }
 
-    public SelectSubject<T> setCondition(Predicate<GameObject> condition) {
+    public SelectSubject<T> when(Predicate<GameObject> condition) {
         this.conditionSupplier = data -> condition;
         return this;
     }
 
-    public SelectSubject<T> setCondition(Function<T, Predicate<GameObject>> conditionSupplier) {
+    public SelectSubject<T> when(Function<T, Predicate<GameObject>> conditionSupplier) {
         this.conditionSupplier = conditionSupplier;
         return this;
     }
 
-    public SelectSubject<T> setReceiver(BiConsumer<T, GameObject> receiver) {
+    public SelectSubject<T> into(BiConsumer<T, GameObject> receiver) {
         this.resultConsumer = receiver;
         return this;
     }
 
-    public SelectSubject<T> setTarget(Function<T, GameObjectComposite> targetSupplier) {
+    public SelectSubject<T> from(Function<T, GameObjectComposite> targetSupplier) {
         this.targetSupplier = targetSupplier;
         return this;
     }

@@ -8,11 +8,14 @@
 
 package com.evilbird.warcraft.behaviour.ainew.invade;
 
-import com.badlogic.gdx.ai.btree.LeafTask;
-import com.badlogic.gdx.ai.btree.Task;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.object.GameObject;
+import com.evilbird.warcraft.behaviour.ainew.common.framework.ActionTaskSet;
+
+import javax.inject.Inject;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import static com.evilbird.warcraft.action.attack.AttackActions.Attack;
 
@@ -22,34 +25,36 @@ import static com.evilbird.warcraft.action.attack.AttackActions.Attack;
  *
  * @author Blair Butterworth
  */
-public class InvadeTask extends LeafTask<InvadeData>
+public class InvadeTask extends ActionTaskSet<InvadeData>
 {
-    private ActionFactory factory;
-
+    @Inject
     public InvadeTask(ActionFactory factory) {
-        this.factory = factory;
+       super(factory);
     }
 
     @Override
-    public Status execute() {
+    protected Collection<Action> getActions(ActionFactory factory) {
         InvadeData data = getObject();
         GameObject enemy = data.getEnemyCommand();
 
-        for (GameObject attacker: data.getAttackers()) {
-            Action action = factory.get(Attack);
-            action.setSubject(attacker);
-            action.setTarget(enemy);
+        Collection<GameObject> attackers = data.getAttackers();
+        Collection<Action> actions = new ArrayList<>(attackers.size());
 
-            attacker.removeActions();
-            attacker.addAction(action);
+        for (GameObject attacker: attackers) {
+            Action action = getAction(factory, attacker, enemy);
+            actions.add(action);
         }
-        return Status.SUCCEEDED;
+        return actions;
     }
 
-    @Override
-    protected Task<InvadeData> copyTo(Task<InvadeData> task) {
-        InvadeTask invadeTask = (InvadeTask)task;
-        invadeTask.factory = this.factory;
-        return invadeTask;
+    protected Action getAction(ActionFactory factory, GameObject attacker, GameObject enemy) {
+        Action action = factory.get(Attack);
+        action.setSubject(attacker);
+        action.setTarget(enemy);
+
+        attacker.removeActions();
+        attacker.addAction(action);
+
+        return action;
     }
 }

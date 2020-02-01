@@ -40,12 +40,12 @@ public class RandomWait<T> extends LeafTask<T>
         this.waitMaximum = waitMaximum;
     }
 
-    public RandomWait<T> setWaitMinimum(float waitMinimum) {
+    public RandomWait<T> waitMinimum(float waitMinimum) {
         this.waitMinimum = waitMinimum;
         return this;
     }
 
-    public RandomWait<T> setWaitMaximum(float waitMaximum) {
+    public RandomWait<T> waitMaximum(float waitMaximum) {
         this.waitMaximum = waitMaximum;
         return this;
     }

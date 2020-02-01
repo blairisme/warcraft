@@ -14,12 +14,14 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.utility.GameObjectComparators;
 import com.evilbird.warcraft.behaviour.ainew.common.framework.RandomWait;
 import com.evilbird.warcraft.behaviour.ainew.common.select.SelectFirstSubject;
+import com.evilbird.warcraft.behaviour.ainew.common.select.SelectRandomSubjects;
 import com.evilbird.warcraft.behaviour.ainew.common.select.SelectSubject;
-import com.evilbird.warcraft.behaviour.ainew.common.select.SelectSubjects;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
 
 import javax.inject.Inject;
 import java.util.Comparator;
+
+import static com.evilbird.engine.common.function.Predicates.both;
 
 /**
  * A behaviour sequence that instructs groups of idle attackers to attack an
@@ -30,6 +32,7 @@ import java.util.Comparator;
 public class InvadeSequence extends Sequence<InvadeData>
 {
     @Inject
+    @SuppressWarnings("unchecked")
     public InvadeSequence(InvadeTask invade) {
         super(delayEvaluation(),
             selectAttackers(),
@@ -41,37 +44,43 @@ public class InvadeSequence extends Sequence<InvadeData>
 
     private static Task<InvadeData> delayEvaluation() {
         return new RandomWait<InvadeData>()
-            .setWaitMinimum(1f)
-            .setWaitMaximum(2f);
+            .waitMinimum(1f)
+            .waitMaximum(2f);
     }
 
     private static Task<InvadeData> selectEnemy() {
         return new SelectSubject<InvadeData>()
-            .setCondition(UnitOperations::isArtificial)
-            .setTarget(InvadeData::getWorld)
-            .setReceiver(InvadeData::setEnemy);
+            .when(UnitOperations::isCorporeal) //needs to be other player
+            .from(InvadeData::getWorld)
+            .into(InvadeData::setEnemy);
     }
 
     private static Task<InvadeData> selectAttackers() {
-        return new SelectSubjects<InvadeData>()
-            .setCondition(UnitOperations::isAvailableAttacker)
-            .setTarget(InvadeData::getPlayer)
-            .setReceiver(InvadeData::setAttackers);
+//        Task<InvadeData> minimumAttackers = new SizeGuard<InvadeData>()
+//            .from(InvadeData::getAttackers)
+//            .minimum(4);
+
+        return new SelectRandomSubjects<InvadeData>()
+            .size(4)
+            .when(both(UnitOperations::isAvailableAttacker, UnitOperations::isMovable))
+            .from(InvadeData::getPlayer)
+            .into(InvadeData::setAttackers);
+//            .guard(minimumAttackers);
     }
 
     private static Task<InvadeData> selectCommandCenter() {
         return new SelectSubject<InvadeData>()
-            .setCondition(UnitOperations::isCommandCentre)
-            .setTarget(InvadeData::getPlayer)
-            .setReceiver(InvadeData::setPlayerCommand);
+            .when(UnitOperations::isCommandCentre)
+            .from(InvadeData::getPlayer)
+            .into(InvadeData::setPlayerCommand);
     }
 
     private static Task<InvadeData> selectTarget() {
         return new SelectFirstSubject<InvadeData>()
-            .setCondition(UnitOperations::isCommandCentre)
-            .setComparator(InvadeSequence::closestToPlayer)
-            .setTarget(InvadeData::getEnemy)
-            .setReceiver(InvadeData::setEnemyCommand);
+            .when(UnitOperations::isCommandCentre)
+            .sort(InvadeSequence::closestToPlayer)
+            .from(InvadeData::getEnemy)
+            .into(InvadeData::setEnemyCommand);
     }
 
     private static Comparator<GameObject> closestToPlayer(InvadeData data) {

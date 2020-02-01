@@ -13,6 +13,7 @@ import com.badlogic.gdx.ai.btree.Task;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectComposite;
 
+import javax.inject.Inject;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -27,41 +28,44 @@ import static com.evilbird.engine.common.function.Functions.supply;
  * A {@link LeafTask} implementation that selects a {@link GameObject} based on
  * a given {@link Predicate condition} and sorted using a {@link Comparator}.
  *
+ * @param <T> type of the blackboard object used by the task.
+ *
  * @author Blair Butterworth
  */
 public class SelectFirstSubject<T> extends SelectSubject<T>
 {
     protected transient Function<T, Comparator<GameObject>> comparatorSupplier;
 
+    @Inject
     public SelectFirstSubject() {
         this.comparatorSupplier = supply(equality());
     }
 
-    public SelectFirstSubject<T> setComparator(Comparator<GameObject> comparator) {
+    public SelectFirstSubject<T> sort(Comparator<GameObject> comparator) {
         this.comparatorSupplier = data -> comparator;
         return this;
     }
 
-    public SelectFirstSubject<T> setComparator(Function<T, Comparator<GameObject>> comparatorSupplier) {
+    public SelectFirstSubject<T> sort(Function<T, Comparator<GameObject>> comparatorSupplier) {
         this.comparatorSupplier = comparatorSupplier;
         return this;
     }
 
     @Override
-    public SelectFirstSubject<T> setCondition(Predicate<GameObject> condition) {
-        super.setCondition(condition);
+    public SelectFirstSubject<T> when(Predicate<GameObject> condition) {
+        super.when(condition);
         return this;
     }
 
     @Override
-    public SelectFirstSubject<T> setCondition(Function<T, Predicate<GameObject>> conditionSupplier) {
-        super.setCondition(conditionSupplier);
+    public SelectFirstSubject<T> when(Function<T, Predicate<GameObject>> conditionSupplier) {
+        super.when(conditionSupplier);
         return this;
     }
 
     @Override
-    public SelectFirstSubject<T> setReceiver(BiConsumer<T, GameObject> receiver) {
-        super.setReceiver(receiver);
+    public SelectFirstSubject<T> into(BiConsumer<T, GameObject> receiver) {
+        super.into(receiver);
         return this;
     }
 
