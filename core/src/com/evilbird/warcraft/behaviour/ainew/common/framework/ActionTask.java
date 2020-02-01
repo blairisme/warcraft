@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.behaviour.ainew.common;
+package com.evilbird.warcraft.behaviour.ainew.common.framework;
 
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
@@ -66,6 +66,9 @@ public abstract class ActionTask<T> extends LeafTask<T>
 
     @Override
     protected Task<T> copyTo(Task<T> task) {
-        throw new UnsupportedOperationException();
+        ActionTask<T> actionTask = (ActionTask<T>)task;
+        actionTask.action = this.action;
+        actionTask.factory = this.factory;
+        return actionTask;
     }
 }

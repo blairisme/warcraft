@@ -151,8 +151,6 @@ public class UnitOperations
         return players;
     }
 
-
-
     /**
      * Determines if the given {@link GameObject} is a {@link ResourceContainer}
      * that contains resources of the given {@link ResourceType resource type}.
@@ -243,6 +241,18 @@ public class UnitOperations
         if (gameObject instanceof OffensiveObject) {
             OffensiveObject combatant = (OffensiveObject)gameObject;
             return combatant.getAttackCapability() != OffensiveCapability.None;
+        }
+        return false;
+    }
+
+    /**
+     * Determines if the given {@link GameObject} can do damage to other
+     * {@code GameObjects} as well as being alive and currently idle.
+     */
+    public static boolean isAvailableAttacker(GameObject object) {
+        if (object instanceof OffensiveObject) {
+            OffensiveObject attacker = (OffensiveObject)object;
+            return attacker.isAlive() && !attacker.hasActions();
         }
         return false;
     }

@@ -44,6 +44,21 @@ public class Lists
     }
 
     /**
+     * Returns a list containing the given collection.
+     *
+     * @param collection    the contents of the resulting list.
+     * @param <T>           the type of the elements in the resulting list.
+     *
+     * @return a new {@link ArrayList}.
+     */
+    public static <T> List<T> toList(Collection<T> collection) {
+        if (collection instanceof List) {
+            return (List<T>)collection;
+        }
+        return new ArrayList<>(collection);
+    }
+
+    /**
      * Returns a new {@link List} containing the contents of the given lists.
      *
      * @param listA the first list to add.

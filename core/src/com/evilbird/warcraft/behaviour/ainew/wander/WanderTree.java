@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.behaviour.ainew.wander;
 
 import com.evilbird.warcraft.behaviour.ainew.PlayerData;
-import com.evilbird.warcraft.behaviour.ainew.common.SubTree;
+import com.evilbird.warcraft.behaviour.ainew.common.framework.SubTree;
 
 import javax.inject.Inject;
 

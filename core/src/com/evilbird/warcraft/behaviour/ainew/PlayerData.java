@@ -19,6 +19,13 @@ public class PlayerData
 {
     private Player player;
 
+    public PlayerData() {
+    }
+
+    public PlayerData(Player player) {
+        this.player = player;
+    }
+
     public Player getPlayer() {
         return player;
     }

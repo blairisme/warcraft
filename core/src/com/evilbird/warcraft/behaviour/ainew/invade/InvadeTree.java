@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.behaviour.ainew.construct;
+package com.evilbird.warcraft.behaviour.ainew.invade;
 
 import com.evilbird.warcraft.behaviour.ainew.PlayerData;
 import com.evilbird.warcraft.behaviour.ainew.common.framework.SubTree;
@@ -14,19 +14,20 @@ import com.evilbird.warcraft.behaviour.ainew.common.framework.SubTree;
 import javax.inject.Inject;
 
 /**
- * A behaviour tree that constructs buildings for an enemy player.
+ * A behaviour tree that instructs groups of idle attackers to attack an
+ * enemy.
  *
  * @author Blair Butterworth
  */
-public class ConstructTree extends SubTree<PlayerData, ConstructData>
+public class InvadeTree extends SubTree<PlayerData, InvadeData>
 {
     @Inject
-    public ConstructTree(ConstructSequence sequence) {
-        super(sequence);
+    public InvadeTree(InvadeSequence invadeSequence) {
+        super(invadeSequence);
     }
 
     @Override
-    protected ConstructData convertObject(PlayerData object) {
-        return new ConstructData(object.getPlayer());
+    protected InvadeData convertObject(PlayerData playerData) {
+        return new InvadeData(playerData.getPlayer());
     }
 }

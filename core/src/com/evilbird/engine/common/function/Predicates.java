@@ -12,19 +12,24 @@ import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 /**
- * Instances of this class contain common {@link Predicate Predicates}.
+ * Contains common {@link Predicate Predicates}.
  *
  * @author Blair Butterworth
  */
 public class Predicates
 {
+    /**
+     * Disable construction of static helper class.
+     */
     private Predicates() {
     }
 
+    @SuppressWarnings("Convert2MethodRef") // Replacement not in RoboVM JDK
     public static <T> Predicate<T> isNull() {
         return (value) -> value == null;
     }
 
+    @SuppressWarnings("Convert2MethodRef") // Replacement not in RoboVM JDK
     public static <T> Predicate<T> nonNull() {
         return (value) -> value != null;
     }
@@ -33,7 +38,7 @@ public class Predicates
         return (value) -> true;
     }
 
-    public static <T> Predicate<T> never() {
+    public static <T> Predicate<T> reject() {
         return (value) -> false;
     }
 

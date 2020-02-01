@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.behaviour.ainew.common;
+package com.evilbird.warcraft.behaviour.ainew.common.framework;
 
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
@@ -31,6 +31,8 @@ public class RandomWait<T> extends LeafTask<T>
 
     @Inject
     public RandomWait() {
+        this.waitMinimum = 0f;
+        this.waitMaximum = 1f;
     }
 
     public RandomWait(float waitMinimum, float waitMaximum) {
@@ -38,12 +40,14 @@ public class RandomWait<T> extends LeafTask<T>
         this.waitMaximum = waitMaximum;
     }
 
-    public void setWaitMinimum(float waitMinimum) {
+    public RandomWait<T> setWaitMinimum(float waitMinimum) {
         this.waitMinimum = waitMinimum;
+        return this;
     }
 
-    public void setWaitMaximum(float waitMaximum) {
+    public RandomWait<T> setWaitMaximum(float waitMaximum) {
         this.waitMaximum = waitMaximum;
+        return this;
     }
 
     @Override
@@ -54,16 +58,14 @@ public class RandomWait<T> extends LeafTask<T>
 
     @Override
     public Status execute() {
-        Status status = waitTask.execute();
-
-        if (status == Status.SUCCEEDED) {
-            return status;
-        }
-        return status;
+        return waitTask.execute();
     }
 
     @Override
     protected Task<T> copyTo(Task<T> task) {
-        return null;
+        RandomWait<T> randomWait = (RandomWait<T>)task;
+        randomWait.waitMaximum = this.waitMaximum;
+        randomWait.waitMinimum = this.waitMinimum;
+        return randomWait;
     }
 }
