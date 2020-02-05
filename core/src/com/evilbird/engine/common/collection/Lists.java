@@ -11,6 +11,7 @@ package com.evilbird.engine.common.collection;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
@@ -32,8 +33,8 @@ public class Lists
     /**
      * Creates a new mutable list containing the given element.
      *
-     * @param element   the initial contents of the resulting list.
-     * @param <T>       the type of the elements in the resulting list.
+     * @param element   the initial content of the resulting list.
+     * @param <T>       the type of the element in the resulting list.
      *
      * @return a new {@link ArrayList}.
      */
@@ -41,6 +42,19 @@ public class Lists
         List<T> result = new ArrayList<>();
         result.add(element);
         return result;
+    }
+
+    /**
+     * Creates a new immutable list containing the given element.
+     *
+     * @param element   the initial content of the resulting list.
+     * @param <T>       the type of the element in the resulting list.
+     *
+     * @return  a {@link Collections#singletonList(Object) singleton list} or
+     *          an {@link Collections#emptyList() empty list}.
+     */
+    public static <T> List<T> asImmutableList(T element) {
+        return element != null ? Collections.singletonList(element) : Collections.emptyList();
     }
 
     /**

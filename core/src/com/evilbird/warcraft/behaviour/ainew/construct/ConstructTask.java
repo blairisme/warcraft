@@ -13,7 +13,7 @@ import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.construct.ConstructActions;
-import com.evilbird.warcraft.behaviour.ainew.common.framework.ActionTask;
+import com.evilbird.warcraft.behaviour.ainew.common.task.ActionTask;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.selector.SelectorType;
 import com.evilbird.warcraft.object.unit.Unit;

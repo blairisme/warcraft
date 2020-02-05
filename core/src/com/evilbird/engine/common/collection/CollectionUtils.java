@@ -67,7 +67,7 @@ public class CollectionUtils
         return result;
     }
 
-    public static <T> T findFirst(Collection<? extends T> collection, Predicate<T> condition) {
+    public static <T> T findFirst(Iterable<? extends T> collection, Predicate<T> condition) {
         for (T element: collection) {
             if (condition.test(element)) {
                 return element;
@@ -98,7 +98,7 @@ public class CollectionUtils
      * Returns a list consisting of the elements of the given collection that
      * match the given predicate.
      */
-    public static <T> List<T> filter(Collection<T> collection, Predicate<T> condition) {
+    public static <T> List<T> filter(Iterable<T> collection, Predicate<T> condition) {
         List<T> result = new ArrayList<>();
         for (T element: collection) {
             if (condition.test(element)) {
@@ -108,7 +108,7 @@ public class CollectionUtils
         return result;
     }
 
-    public static <A, B> List<B> convert(Collection<A> collection, Function<A, B> converter) {
+    public static <A, B> List<B> convert(Iterable<A> collection, Function<A, B> converter) {
         List<B> result = new ArrayList<>();
         for (A element: collection) {
             result.add(converter.apply(element));

@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.behaviour.ainew.gather;
 
 import com.evilbird.warcraft.behaviour.ainew.PlayerData;
-import com.evilbird.warcraft.behaviour.ainew.common.framework.SubTree;
+import com.evilbird.warcraft.behaviour.ainew.common.tree.SubTree;
 
 import javax.inject.Inject;
 

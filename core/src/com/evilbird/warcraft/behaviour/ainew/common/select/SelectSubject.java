@@ -55,13 +55,8 @@ public class SelectSubject<T> extends LeafTask<T>
         return subject == null ? FAILED : SUCCEEDED;
     }
 
-    public SelectSubject<T> when(Predicate<GameObject> condition) {
-        this.conditionSupplier = data -> condition;
-        return this;
-    }
-
-    public SelectSubject<T> when(Function<T, Predicate<GameObject>> conditionSupplier) {
-        this.conditionSupplier = conditionSupplier;
+    public SelectSubject<T> from(Function<T, GameObjectComposite> targetSupplier) {
+        this.targetSupplier = targetSupplier;
         return this;
     }
 
@@ -70,8 +65,13 @@ public class SelectSubject<T> extends LeafTask<T>
         return this;
     }
 
-    public SelectSubject<T> from(Function<T, GameObjectComposite> targetSupplier) {
-        this.targetSupplier = targetSupplier;
+    public SelectSubject<T> when(Predicate<GameObject> condition) {
+        this.conditionSupplier = data -> condition;
+        return this;
+    }
+
+    public SelectSubject<T> when(Function<T, Predicate<GameObject>> conditionSupplier) {
+        this.conditionSupplier = conditionSupplier;
         return this;
     }
 

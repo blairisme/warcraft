@@ -133,6 +133,10 @@ public class GameObjectGraph implements SpatialGraph<GameObjectNode>
         return getNodes(gameObject.getPosition(), gameObject.getSize());
     }
 
+    public Collection<GameObjectNode> getNodes(GameObject gameObject, int worldRadius) {
+        return getNodes(gameObject.getPosition(), gameObject.getSize(), worldRadius);
+    }
+
     public Collection<GameObjectNode> getNodes(Vector2 worldPosition, Vector2 worldSize) {
         return getNodes(worldPosition, worldSize, 0);
     }

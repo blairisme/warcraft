@@ -34,11 +34,11 @@ import java.util.Map;
  */
 public class GameObjectNode implements SpatialNode
 {
-    private int index;
-    private transient Vector2 worldReference;
-    private transient GridPoint2 gridReference;
-    private transient Map<Identifier, GameObject> occupants;
-    private transient Array<Connection<GameObjectNode>> connections;
+    protected int index;
+    protected transient Vector2 worldReference;
+    protected transient GridPoint2 gridReference;
+    protected transient Map<Identifier, GameObject> occupants;
+    protected transient Array<Connection<GameObjectNode>> connections;
 
     public GameObjectNode(int index, GridPoint2 gridReference) {
         this.index = index;

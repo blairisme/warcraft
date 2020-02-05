@@ -9,8 +9,8 @@
 package com.evilbird.warcraft.behaviour.ainew.wander;
 
 import com.badlogic.gdx.ai.btree.branch.Sequence;
-import com.evilbird.warcraft.behaviour.ainew.common.framework.RandomExecutor;
-import com.evilbird.warcraft.behaviour.ainew.common.framework.RandomWait;
+import com.evilbird.warcraft.behaviour.ainew.common.guard.RandomExecutor;
+import com.evilbird.warcraft.behaviour.ainew.common.guard.RandomWait;
 
 import javax.inject.Inject;
 

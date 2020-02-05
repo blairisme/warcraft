@@ -21,7 +21,7 @@ import static com.evilbird.engine.common.function.Functions.supply;
 import static java.util.Collections.emptyList;
 
 /**
- * A guard task that ensures that blackbaord data on which it operates contains
+ * A guard task that ensures that blackboard data on which it operates contains
  * a given number of elements.
  *
  * @param <T> type of the blackboard object used by the task.
