@@ -23,6 +23,7 @@ import static com.badlogic.gdx.ai.btree.Task.Status.SUCCEEDED;
  * satisfies a given {@link Predicate condition}.
  *
  * @param <T> type of the blackboard object used by the task.
+ * @param <D> type of object used by the guards condition.
  *
  * @author Blair Butterworth
  */

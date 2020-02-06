@@ -44,6 +44,8 @@ public class ConstructTask extends ActionTask<ConstructData>
         Unit builder = data.getBuilder();
         UnitType building = data.getBuilding();
 
+        //TODO: Remove selector
+
         GameObject selector = objectFactory.get(SelectorType.forBuilding(building));
         selector.setPosition(data.getLocation());
 

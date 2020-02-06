@@ -17,12 +17,15 @@ import com.evilbird.warcraft.object.unit.UnitType;
 import javax.inject.Inject;
 
 /**
+ * A leaf task that selects the next building to construct, based on the order
+ * and manifest contained in the tasks blackboard.
+ *
  * @author Blair Butterworth
  */
-public class SelectBuilding extends LeafTask<ConstructData>
+public class ConstructNext extends LeafTask<ConstructData>
 {
     @Inject
-    public SelectBuilding() {
+    public ConstructNext() {
     }
 
     @Override
@@ -30,18 +33,23 @@ public class SelectBuilding extends LeafTask<ConstructData>
         ConstructData data = getObject();
         Player player = data.getPlayer();
 
-        UnitType building = UnitType.Encampment; //TODO
-        UnitProduction production = UnitProduction.forProduct(building);
+        ConstructOrder order = data.getOrder();
+        ConstructManifest manifest = data.getManifest();
+        UnitType building = order.getNextBuilding(manifest);
 
-        if (player.hasResources(production.getCost())) {
-            data.setBuilding(building);
-            return Status.SUCCEEDED;
+        if (building != null) {
+            UnitProduction production = UnitProduction.forProduct(building);
+
+            if (player.hasResources(production.getCost())) {
+                data.setBuilding(building);
+                return Status.SUCCEEDED;
+            }
         }
         return Status.FAILED;
     }
 
     @Override
     protected Task<ConstructData> copyTo(Task<ConstructData> task) {
-        throw new UnsupportedOperationException();
+        return task;
     }
 }

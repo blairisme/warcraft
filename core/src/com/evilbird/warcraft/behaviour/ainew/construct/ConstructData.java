@@ -9,9 +9,12 @@
 package com.evilbird.warcraft.behaviour.ainew.construct;
 
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.UnitType;
+
+import java.util.Collection;
 
 /**
  * A bundle of attributes encapsulating the data required by construct
@@ -25,9 +28,12 @@ public class ConstructData
     private Unit builder;
     private UnitType building;
     private Vector2 location;
+    private ConstructOrder order;
+    private ConstructManifest manifest;
 
     public ConstructData(Player player) {
         this.player = player;
+        this.order = ConstructOrder.forPlayer(player);
     }
 
     public Unit getBuilder() {
@@ -42,12 +48,20 @@ public class ConstructData
         return location;
     }
 
+    public ConstructManifest getManifest() {
+        return manifest;
+    }
+
+    public ConstructOrder getOrder() {
+        return order;
+    }
+
     public Player getPlayer() {
         return player;
     }
 
-    public void setBuilder(Unit builder) {
-        this.builder = builder;
+    public void setBuilder(GameObject builder) {
+        this.builder = (Unit)builder;
     }
 
     public void setBuilding(UnitType building) {
@@ -56,5 +70,9 @@ public class ConstructData
 
     public void setLocation(Vector2 location) {
         this.location = location;
+    }
+
+    public void updateManifest(Collection<GameObject> buildings) {
+        manifest = new ConstructManifest(buildings);
     }
 }

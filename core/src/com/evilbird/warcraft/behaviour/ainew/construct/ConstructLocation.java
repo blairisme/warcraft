@@ -25,12 +25,15 @@ import javax.inject.Inject;
 import java.util.Collection;
 
 /**
+ * A leaf task that selects an unoccupied location in which to build the
+ * building contained in the tasks blackboard.
+ *
  * @author Blair Butterworth
  */
-public class SelectLocation extends LeafTask<ConstructData>
+public class ConstructLocation extends LeafTask<ConstructData>
 {
     @Inject
-    public SelectLocation() {
+    public ConstructLocation() {
     }
 
     @Override
