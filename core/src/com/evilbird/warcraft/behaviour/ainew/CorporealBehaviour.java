@@ -8,6 +8,8 @@
 
 package com.evilbird.warcraft.behaviour.ainew;
 
+import com.badlogic.gdx.ai.btree.branch.Parallel;
+import com.evilbird.warcraft.behaviour.ainew.attack.AttackTree;
 import com.evilbird.warcraft.behaviour.ainew.reorient.ReorientTree;
 
 import javax.inject.Inject;
@@ -21,7 +23,7 @@ import javax.inject.Inject;
 public class CorporealBehaviour extends PlayerBehaviour
 {
     @Inject
-    public CorporealBehaviour(ReorientTree reorient) {
-        super(reorient);
+    public CorporealBehaviour(AttackTree attack, ReorientTree reorient) {
+        super(new Parallel<>(attack, reorient));
     }
 }

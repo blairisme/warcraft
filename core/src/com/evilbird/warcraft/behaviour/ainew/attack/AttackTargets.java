@@ -12,12 +12,7 @@ import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
 import com.evilbird.engine.common.collection.Lists;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.GameObjectContainer;
-import com.evilbird.engine.object.spatial.GameObjectGraph;
-import com.evilbird.engine.object.spatial.GameObjectNode;
-import com.evilbird.engine.object.spatial.GameObjectNodeSet;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
-import com.evilbird.warcraft.object.data.player.Player;
 
 import javax.inject.Inject;
 import java.util.Collection;
@@ -57,40 +52,15 @@ public class AttackTargets extends LeafTask<AttackData>
     }
 
     private Collection<GameObject> getMultipleTargets(OffensiveObject attacker, AttackData data) {
-        Iterable<GameObject> potentials = getPotentialTargets(attacker, data);
+        Iterable<GameObject> potentials = data.getAttackablePositions();
         Collection<GameObject> result = filter(potentials, target -> isValidTarget(attacker, target));
         return new HashSet<>(result);
     }
 
     private Collection<GameObject> getSingleTarget(OffensiveObject attacker, AttackData data) {
-        Iterable<GameObject> potentials = getPotentialTargets(attacker, data);
+        Iterable<GameObject> potentials = data.getAttackablePositions();
         GameObject result = findFirst(potentials, target -> isValidTarget(attacker, target));
         return Lists.asImmutableList(result);
-    }
-
-    private Iterable<GameObject> getPotentialTargets(OffensiveObject attacker, AttackData data) {
-        GameObjectGraph graph = getGraph(attacker);
-        GameObjectNode oldPosition = data.getAttackerPosition();
-        GameObjectNode newPosition = graph.getNode(attacker.getPosition());
-        GameObjectNodeSet attackablePositions = data.getAttackablePositions();
-
-        if (!newPosition.equals(oldPosition) || attackablePositions == null) {
-            attackablePositions = getAttackablePositions(attacker, graph);
-            data.setAttackerPosition(newPosition);
-            data.setAttackablePositions(attackablePositions);
-        }
-        return attackablePositions;
-    }
-
-    private GameObjectNodeSet getAttackablePositions(OffensiveObject attacker, GameObjectGraph graph) {
-        Collection<GameObjectNode> nodes = graph.getNodes(attacker, attacker.getSight());
-        return new GameObjectNodeSet(nodes);
-    }
-
-    private GameObjectGraph getGraph(OffensiveObject attacker) {
-        Player player = attacker.getTeam();
-        GameObjectContainer container = player.getRoot();
-        return container.getSpatialGraph();
     }
 
     @Override

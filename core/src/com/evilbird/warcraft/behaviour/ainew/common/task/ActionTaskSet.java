@@ -12,10 +12,13 @@ import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
-import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.object.GameObject;
 
 import java.util.Collection;
+import java.util.Iterator;
+
+import static com.badlogic.gdx.ai.btree.Task.Status.FAILED;
+import static com.badlogic.gdx.ai.btree.Task.Status.RUNNING;
 
 /**
  * A {@link LeafTask} that wraps an {@link Action}.
@@ -28,6 +31,7 @@ public abstract class ActionTaskSet<T> extends LeafTask<T>
 {
     private ActionFactory factory;
     private Collection<Action> actions;
+    private Status result;
 
     public ActionTaskSet(ActionFactory factory) {
         this.factory = factory;
@@ -36,12 +40,24 @@ public abstract class ActionTaskSet<T> extends LeafTask<T>
     @Override
     public void start() {
         actions = getActions(factory);
+        result = Status.SUCCEEDED;
     }
 
     @Override
     public Status execute() {
-        CollectionUtils.removeIf(actions, action -> getStatus(action) != Status.RUNNING);
-        return actions.isEmpty() ? Status.SUCCEEDED : Status.RUNNING;
+        Iterator<Action> iterator = actions.iterator();
+        while (iterator.hasNext()) {
+            Action action = iterator.next();
+            Status status = getStatus(action);
+
+            if (status != RUNNING) {
+                iterator.remove();
+            }
+            if (status == FAILED) {
+                result = FAILED;
+            }
+        }
+        return actions.isEmpty() ? result : RUNNING;
     }
 
     protected abstract Collection<Action> getActions(ActionFactory factory);
@@ -52,13 +68,13 @@ public abstract class ActionTaskSet<T> extends LeafTask<T>
 
     protected Status getStatus(Action action) {
         if (action == null) {
-            return Status.FAILED;
+            return FAILED;
         }
         if (getRecipient(action).hasAction(action)) {
-            return Status.RUNNING;
+            return RUNNING;
         }
         if (action.hasError()) {
-            return Status.FAILED;
+            return FAILED;
         }
         return Status.SUCCEEDED;
     }

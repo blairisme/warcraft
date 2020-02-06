@@ -13,7 +13,7 @@ import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.attack.AttackActions;
-import com.evilbird.warcraft.behaviour.ainew.common.task.AsyncActionTaskSet;
+import com.evilbird.warcraft.behaviour.ainew.common.task.ActionTaskSet;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 
 import javax.inject.Inject;
@@ -29,7 +29,7 @@ import static com.evilbird.engine.object.utility.GameObjectOperations.hasAction;
  *
  * @author Blair Butterworth
  */
-public class AttackTask extends AsyncActionTaskSet<AttackData>
+public class AttackTask extends ActionTaskSet<AttackData>
 {
     @Inject
     public AttackTask(ActionFactory factory) {
@@ -55,6 +55,8 @@ public class AttackTask extends AsyncActionTaskSet<AttackData>
         Action action = factory.get(AttackActions.Attack);
         action.setSubject(attacker);
         action.setTarget(target);
+
+        attacker.removeActions();
         attacker.addAction(action);
         return action;
     }

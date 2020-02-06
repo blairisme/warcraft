@@ -22,4 +22,11 @@ public interface Event
      * The {@link GameObject} involved in the event.
      */
     GameObject getSubject();
+
+    /**
+     * Determines if the event has been assigned the given subject.
+     */
+    default boolean hasSubject(GameObject subject) {
+        return subject == getSubject();
+    }
 }

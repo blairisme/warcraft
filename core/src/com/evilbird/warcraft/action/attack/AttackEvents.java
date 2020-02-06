@@ -34,7 +34,7 @@ public class AttackEvents
 
     public void attack(GameObject attacker, GameObject target) {
         addEvent(attacker, target, Started);
-        addEvent(attacker, target, Complete);
+        addDelayedEvent(attacker, target, Complete);
     }
 
     public void attackStarted(GameObject attacker, GameObject target) {
@@ -42,18 +42,22 @@ public class AttackEvents
     }
 
     public void attackComplete(GameObject attacker, GameObject target) {
-        addEvent(attacker, target, Complete);
+        addDelayedEvent(attacker, target, Complete);
     }
 
     public void attackFailed(GameObject attacker, GameObject target) {
-        addEvent(attacker, target, Failed);
+        addDelayedEvent(attacker, target, Failed);
     }
 
     public void attackCancelled(GameObject attacker, GameObject target) {
-        addEvent(attacker, target, Cancelled);
+        addDelayedEvent(attacker, target, Cancelled);
     }
 
     private void addEvent(GameObject attacker, GameObject target, AttackStatus status) {
         events.add(new AttackEvent(attacker, target, status));
+    }
+
+    private void addDelayedEvent(GameObject attacker, GameObject target, AttackStatus status) {
+        events.addDelayed(new AttackEvent(attacker, target, status));
     }
 }

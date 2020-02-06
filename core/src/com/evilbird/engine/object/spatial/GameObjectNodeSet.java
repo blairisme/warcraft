@@ -22,13 +22,19 @@ import java.util.Iterator;
  */
 public class GameObjectNodeSet implements Iterable<GameObject>
 {
+    private Collection<GameObjectNode> nodes;
     private Collection<Collection<GameObject>> occupants;
 
     public GameObjectNodeSet(Collection<GameObjectNode> nodes) {
-        occupants = new ArrayList<>();
+        this.nodes = nodes;
+        this.occupants = new ArrayList<>(nodes.size());
         for (GameObjectNode node: nodes) {
-            occupants.add(node.occupants.values());
+            this.occupants.add(node.occupants.values());
         }
+    }
+
+    public boolean contains(GameObjectNode node) {
+        return nodes.contains(node);
     }
 
     @Override

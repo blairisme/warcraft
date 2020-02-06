@@ -20,13 +20,22 @@ import java.util.Collection;
 public interface Events
 {
     /**
-     * Stores a new {@link Event} the in the event repository.
+     * Stores a new {@link Event} the in the event repository that will be
+     * accessible until the next update cycle.
      */
     void add(Event event);
+
+    /**
+     * Stores a new {@link Event} the in the event repository that will be
+     * accessible after the next update cycle.
+     */
+    void addDelayed(Event event);
 
     /**
      * Returns all {@link Event Events} stored in the repository that have the
      * given type.
      */
     <T extends Event> Collection<T> getEvents(Class<T> type);
+
+    boolean hasEvents(Class<? extends Event> type);
 }

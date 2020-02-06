@@ -141,7 +141,7 @@ public class MenuBehaviourTest extends GameTestCase
         assertEquals(expected1, actionPane.getSelected());
         assertEquals(expected1, statusPane.getSelected());
 
-        events.clear();
+        events.update();
         events.add(new SelectEvent(gameObject1, false));
         menuBehaviour.update(state, Collections.emptyList(), 1);
 

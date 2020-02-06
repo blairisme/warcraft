@@ -9,9 +9,12 @@
 package com.evilbird.warcraft.behaviour.ainew.attack;
 
 import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.engine.object.spatial.GameObjectNodeSet;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
+import com.evilbird.warcraft.object.data.player.Player;
 
 import java.util.Collection;
 
@@ -23,12 +26,14 @@ import java.util.Collection;
 public class AttackData
 {
     private OffensiveObject attacker;
+    private GameObjectGraph graph;
     private GameObjectNode attackerPosition;
     private GameObjectNodeSet attackablePositions;
     private Collection<GameObject> targets;
 
     public AttackData(OffensiveObject attacker) {
         this.attacker = attacker;
+        this.graph = getGraph(attacker);
     }
 
     public OffensiveObject getAttacker() {
@@ -41,6 +46,10 @@ public class AttackData
 
     public GameObjectNodeSet getAttackablePositions() {
         return attackablePositions;
+    }
+
+    public GameObjectGraph getGraph() {
+        return graph;
     }
 
     public Collection<GameObject> getTargets() {
@@ -61,5 +70,11 @@ public class AttackData
 
     public void setTargets(Collection<GameObject> targets) {
         this.targets = targets;
+    }
+
+    private GameObjectGraph getGraph(OffensiveObject attacker) {
+        Player player = attacker.getTeam();
+        GameObjectContainer container = player.getRoot();
+        return container.getSpatialGraph();
     }
 }

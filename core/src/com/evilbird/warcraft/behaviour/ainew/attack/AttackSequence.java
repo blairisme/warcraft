@@ -9,10 +9,9 @@
 package com.evilbird.warcraft.behaviour.ainew.attack;
 
 import com.badlogic.gdx.ai.btree.Task;
+import com.badlogic.gdx.ai.btree.branch.Selector;
 import com.badlogic.gdx.ai.btree.branch.Sequence;
-import com.evilbird.warcraft.behaviour.ainew.common.guard.ConditionGuard;
 import com.evilbird.warcraft.behaviour.ainew.common.guard.RandomWait;
-import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 
 import javax.inject.Inject;
 
@@ -25,19 +24,14 @@ import javax.inject.Inject;
 public class AttackSequence extends Sequence<AttackData>
 {
     @Inject
-    public AttackSequence(AttackTargets selectTargets, AttackTask attackTargets) {
-        super(afterCooldown(), whenReady(), selectTargets, attackTargets);
+    public AttackSequence(AttackPosition position, AttackTrigger trigger, AttackTargets target, AttackTask attack) {
+        super(position, trigger, target, withCooldown(attack));
     }
 
-    private static Task<AttackData> afterCooldown() {
-        return new RandomWait<AttackData>()
+    @SuppressWarnings("unchecked")
+    private static Task<AttackData> withCooldown(AttackTask attack) {
+        return new Selector<>(attack, new RandomWait<AttackData>()
             .waitMinimum(0.5f)
-            .waitMaximum(1.0f);
-    }
-
-    private static Task<AttackData> whenReady() {
-        return new ConditionGuard<AttackData, OffensiveObject>()
-            .from(AttackData::getAttacker)
-            .pass(AttackStatus::isValidAttacker);
+            .waitMaximum(1.0f));
     }
 }

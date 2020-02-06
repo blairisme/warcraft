@@ -84,7 +84,7 @@ public class PlayerOwnershipTest extends GameTestCase
         queue.add(new ConstructEvent(building, builder, true, ConstructStatus.Started));
         Assert.assertFalse(condition.applicable(queue));
 
-        queue.clear();
+        queue.update();
         queue.add(new ConstructEvent(building, builder, true, ConstructStatus.Complete));
         Assert.assertTrue(condition.applicable(queue));
     }
@@ -100,7 +100,7 @@ public class PlayerOwnershipTest extends GameTestCase
         queue.add(new ProduceEvent(building, ProduceStatus.Started));
         Assert.assertFalse(condition.applicable(queue));
 
-        queue.clear();
+        queue.update();
         queue.add(new ProduceEvent(building, ProduceStatus.Complete));
         Assert.assertTrue(condition.applicable(queue));
     }

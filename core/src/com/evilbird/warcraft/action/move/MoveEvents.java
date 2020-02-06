@@ -30,19 +30,19 @@ public class MoveEvents
 
     public void move(GameObject subject) {
         events.add(new MoveEvent(subject, MoveStatus.Updated));
-        events.add(new MoveEvent(subject, MoveStatus.Complete));
+        events.addDelayed(new MoveEvent(subject, MoveStatus.Complete));
     }
 
     public void moveCancelled(GameObject subject) {
-        events.add(new MoveEvent(subject, MoveStatus.Cancelled));
+        events.addDelayed(new MoveEvent(subject, MoveStatus.Cancelled));
     }
 
     public void moveComplete(GameObject subject) {
-        events.add(new MoveEvent(subject, MoveStatus.Complete));
+        events.addDelayed(new MoveEvent(subject, MoveStatus.Complete));
     }
 
     public void moveFailed(GameObject subject) {
-        events.add(new MoveEvent(subject, MoveStatus.Failed));
+        events.addDelayed(new MoveEvent(subject, MoveStatus.Failed));
     }
 
     public void moveUpdate(GameObject subject, GameObjectNode node) {
