@@ -151,7 +151,7 @@
    <property name="AI" type="bool" value="true"/>
    <property name="Colour" value="Red"/>
    <property name="Faction" value="Orc"/>
-   <property name="Gold" type="float" value="0"/>
+   <property name="Gold" type="float" value="1000"/>
    <property name="Nation" value="Blackrock"/>
    <property name="Oil" type="float" value="1500"/>
    <property name="Team" type="int" value="2"/>

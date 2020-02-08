@@ -57,8 +57,10 @@ import static com.evilbird.warcraft.data.resource.ResourceType.Oil;
 import static com.evilbird.warcraft.data.resource.ResourceType.Wood;
 import static com.evilbird.warcraft.object.unit.UnitArchetype.CommandCentre;
 import static com.evilbird.warcraft.object.unit.UnitArchetype.FoodProducer;
+import static com.evilbird.warcraft.object.unit.UnitArchetype.GoldResource;
 import static com.evilbird.warcraft.object.unit.UnitArchetype.NavalProducer;
 import static com.evilbird.warcraft.object.unit.UnitArchetype.OilDepot;
+import static com.evilbird.warcraft.object.unit.UnitArchetype.OilResource;
 import static com.evilbird.warcraft.object.unit.UnitArchetype.WoodDepot;
 
 /**
@@ -149,6 +151,18 @@ public class UnitOperations
             }
         }
         return players;
+    }
+
+    /**
+     * Determines if the given {@link GameObject} has the specified archetype.
+     */
+    public static boolean hasArchetype(GameObject gameObject, UnitArchetype archetype) {
+        if (gameObject instanceof Unit) {
+            Unit unit = (Unit) gameObject;
+            UnitType type = (UnitType)unit.getType();
+            return archetype == type.getArchetype();
+        }
+        return false;
     }
 
     /**
@@ -381,13 +395,7 @@ public class UnitOperations
      * Determines if the given {@link GameObject} produces food.
      */
     public static boolean isFoodProducer(GameObject gameObject) {
-        if (gameObject instanceof Unit) {
-            Unit unit = (Unit) gameObject;
-            UnitType type = (UnitType)unit.getType();
-            UnitArchetype archetype = type.getArchetype();
-            return archetype == FoodProducer;
-        }
-        return false;
+        return hasArchetype(gameObject, FoodProducer);
     }
 
     /**
@@ -456,6 +464,20 @@ public class UnitOperations
      */
     public static boolean isPlayer(GameObject gameObject) {
         return gameObject instanceof Player;
+    }
+
+    /**
+     * Determines if the given {@link GameObject} is an gold resource.
+     */
+    public static boolean isGoldResource(GameObject gameObject) {
+        return hasArchetype(gameObject, GoldResource);
+    }
+
+    /**
+     * Determines if the given {@link GameObject} is an oil resource.
+     */
+    public static boolean isOilResource(GameObject gameObject) {
+        return hasArchetype(gameObject, OilResource);
     }
 
     /**

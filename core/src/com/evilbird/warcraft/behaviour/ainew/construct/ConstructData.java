@@ -10,9 +10,13 @@ package com.evilbird.warcraft.behaviour.ainew.construct;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.spatial.GameObjectGraph;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.data.player.Player;
-import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.UnitArchetype;
 import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import java.util.Collection;
 
@@ -25,23 +29,46 @@ import java.util.Collection;
 public class ConstructData
 {
     private Player player;
-    private Unit builder;
+    private Player neutral;
+    private Gatherer builder;
     private UnitType building;
+    private UnitArchetype archetype;
     private Vector2 location;
     private ConstructOrder order;
     private ConstructManifest manifest;
+    private GameObjectGraph graph;
+    private GameObjectContainer container;
 
     public ConstructData(Player player) {
         this.player = player;
         this.order = ConstructOrder.forPlayer(player);
     }
 
-    public Unit getBuilder() {
+    public Gatherer getBuilder() {
         return builder;
     }
 
     public UnitType getBuilding() {
         return building;
+    }
+
+    public UnitArchetype getBuildingArchetype() {
+        return archetype;
+    }
+
+    public GameObjectContainer getContainer() {
+        if (container == null) {
+            container = player.getRoot();
+        }
+        return container;
+    }
+
+    public GameObjectGraph getGraph() {
+        if (graph == null) {
+            GameObjectContainer container = getContainer();
+            graph = container.getSpatialGraph();
+        }
+        return graph;
     }
 
     public Vector2 getLocation() {
@@ -60,12 +87,21 @@ public class ConstructData
         return player;
     }
 
+    public Player getNeutralPlayer() {
+        if (neutral == null) {
+            GameObjectContainer container = getContainer();
+            neutral = UnitOperations.getNeutralPlayer(container);
+        }
+        return neutral;
+    }
+
     public void setBuilder(GameObject builder) {
-        this.builder = (Unit)builder;
+        this.builder = (Gatherer)builder;
     }
 
     public void setBuilding(UnitType building) {
         this.building = building;
+        this.archetype = building.getArchetype();
     }
 
     public void setLocation(Vector2 location) {
