@@ -31,10 +31,10 @@ import java.util.List;
 public class AiBehaviour implements Behaviour
 {
     private Timepiece timeService;
-    private Collection<com.evilbird.warcraft.behaviour.ai.PlayerBehaviour> behaviours;
-    private Provider<com.evilbird.warcraft.behaviour.ai.EnemyBehaviour> enemyBehaviourFactory;
-    private Provider<com.evilbird.warcraft.behaviour.ai.NeutralBehaviour> neutralBehaviourFactory;
-    private Provider<com.evilbird.warcraft.behaviour.ai.CorporealBehaviour> corporealBehaviourFactory;
+    private Collection<PlayerBehaviour> behaviours;
+    private Provider<EnemyBehaviour> enemyBehaviourFactory;
+    private Provider<NeutralBehaviour> neutralBehaviourFactory;
+    private Provider<CorporealBehaviour> corporealBehaviourFactory;
 
     @Inject
     public AiBehaviour(
@@ -60,7 +60,7 @@ public class AiBehaviour implements Behaviour
     }
 
     private void updateBehaviours() {
-        for (com.evilbird.warcraft.behaviour.ai.PlayerBehaviour behaviour: behaviours) {
+        for (PlayerBehaviour behaviour: behaviours) {
             behaviour.step();
         }
     }

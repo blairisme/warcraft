@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.behaviour.ai.construct;
+package com.evilbird.warcraft.behaviour.ai.produce;
 
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.UnitType;
@@ -20,20 +20,22 @@ import static com.evilbird.warcraft.object.unit.UnitType.Encampment;
 import static com.evilbird.warcraft.object.unit.UnitType.Farm;
 import static com.evilbird.warcraft.object.unit.UnitType.Forge;
 import static com.evilbird.warcraft.object.unit.UnitType.GreatHall;
+import static com.evilbird.warcraft.object.unit.UnitType.Peon;
 import static com.evilbird.warcraft.object.unit.UnitType.PigFarm;
 import static com.evilbird.warcraft.object.unit.UnitType.TownHall;
+import static com.evilbird.warcraft.object.unit.UnitType.TrollLumberMill;
 
 /**
  * Specifies the order in which a players buildings should be constructed.
  *
  * @author Blair Butterworth
  */
-public class ConstructOrder
+public class ProductionOrder
 {
     /**
      * Specifies the construction order for human players.
      */
-    public static ConstructOrder HUMAN = new ConstructOrder(
+    public static ProductionOrder HUMAN = new ProductionOrder(
         Pair.of(TownHall, 1),
         Pair.of(Farm, 1),
         Pair.of(Barracks, 1));
@@ -41,16 +43,18 @@ public class ConstructOrder
     /**
      * Specifies the construction order for orc players.
      */
-    public static ConstructOrder ORC = new ConstructOrder(
+    public static ProductionOrder ORC = new ProductionOrder(
         Pair.of(GreatHall, 1),
         Pair.of(PigFarm, 1),
+        Pair.of(Forge, 1),
+        Pair.of(Peon, 2),
         Pair.of(Encampment, 1),
-        Pair.of(Forge, 1));
+        Pair.of(TrollLumberMill, 1));
 
     /**
      * Returns the construction order appropriate for the given player.
      */
-    public static ConstructOrder forPlayer(Player player) {
+    public static ProductionOrder forPlayer(Player player) {
         switch (player.getFaction()) {
             case Orc: return ORC;
             case Human: return HUMAN;
@@ -61,14 +65,14 @@ public class ConstructOrder
     private List<Pair<UnitType, Integer>> order;
 
     @SafeVarargs
-    private ConstructOrder(Pair<UnitType, Integer> ... entries) {
+    private ProductionOrder(Pair<UnitType, Integer> ... entries) {
         this.order = Arrays.asList(entries);
     }
 
     /**
-     * Returns the next building in the
+     * Returns the next product that should be produced.
      */
-    public UnitType getNextBuilding(ConstructManifest manifest) {
+    public UnitType getNextProduct(ProductionManifest manifest) {
         for (Pair<UnitType, Integer> entry: order) {
             if (! manifest.hasAtLeast(entry.getKey(), entry.getValue())) {
                 return entry.getKey();

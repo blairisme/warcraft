@@ -10,6 +10,7 @@ package com.evilbird.warcraft.object.unit.combatant.gatherer;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.common.collection.Maps;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.data.resource.ResourceContainer;
 import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.common.value.FixedValue;
@@ -199,6 +200,14 @@ public class Gatherer extends Combatant implements ResourceContainer
      */
     public boolean isGathering() {
         return progress != 1;
+    }
+
+    /**
+     * Returns whether or not the gatherer is currently constructing.
+     */
+    public boolean isConstructing() {
+        GameObject object = getAssociatedItem();
+        return object != null;
     }
 
     /**

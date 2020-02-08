@@ -6,10 +6,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.behaviour.ai.construct;
+package com.evilbird.warcraft.behaviour.ai.produce.construct;
 
-import com.evilbird.warcraft.behaviour.ai.PlayerData;
 import com.evilbird.warcraft.behaviour.ai.common.tree.SubTree;
+import com.evilbird.warcraft.behaviour.ai.produce.ProductionData;
 
 import javax.inject.Inject;
 
@@ -18,15 +18,15 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class ConstructTree extends SubTree<PlayerData, ConstructData>
+public class ConstructBehaviour extends SubTree<ProductionData, ConstructData>
 {
     @Inject
-    public ConstructTree(ConstructSequence sequence) {
+    public ConstructBehaviour(ConstructSequence sequence) {
         super(sequence);
     }
 
     @Override
-    protected ConstructData convertObject(PlayerData object) {
-        return new ConstructData(object.getPlayer());
+    protected ConstructData convertObject(ProductionData data) {
+        return new ConstructData(data.getPlayer(), data.getProduct());
     }
 }

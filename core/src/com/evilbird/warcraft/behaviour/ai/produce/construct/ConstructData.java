@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.behaviour.ai.construct;
+package com.evilbird.warcraft.behaviour.ai.produce.construct;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.object.GameObject;
@@ -17,8 +17,6 @@ import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.UnitArchetype;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
-
-import java.util.Collection;
 
 /**
  * A bundle of attributes encapsulating the data required by construct
@@ -34,14 +32,12 @@ public class ConstructData
     private UnitType building;
     private UnitArchetype archetype;
     private Vector2 location;
-    private ConstructOrder order;
-    private ConstructManifest manifest;
     private GameObjectGraph graph;
     private GameObjectContainer container;
 
-    public ConstructData(Player player) {
+    public ConstructData(Player player, UnitType building) {
         this.player = player;
-        this.order = ConstructOrder.forPlayer(player);
+        this.building = building;
     }
 
     public Gatherer getBuilder() {
@@ -75,14 +71,6 @@ public class ConstructData
         return location;
     }
 
-    public ConstructManifest getManifest() {
-        return manifest;
-    }
-
-    public ConstructOrder getOrder() {
-        return order;
-    }
-
     public Player getPlayer() {
         return player;
     }
@@ -106,9 +94,5 @@ public class ConstructData
 
     public void setLocation(Vector2 location) {
         this.location = location;
-    }
-
-    public void updateManifest(Collection<GameObject> buildings) {
-        manifest = new ConstructManifest(buildings);
     }
 }

@@ -154,7 +154,8 @@ public class UnitOperations
     }
 
     /**
-     * Determines if the given {@link GameObject} has the specified archetype.
+     * Determines if the given {@link GameObject} has the specified
+     * {@link UnitArchetype archetype}.
      */
     public static boolean hasArchetype(GameObject gameObject, UnitArchetype archetype) {
         if (gameObject instanceof Unit) {

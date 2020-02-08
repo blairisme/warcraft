@@ -6,14 +6,14 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.behaviour.ai.construct;
+package com.evilbird.warcraft.behaviour.ai.produce.construct;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.construct.ConstructActions;
-import com.evilbird.warcraft.behaviour.ai.common.task.ActionTask;
+import com.evilbird.warcraft.behaviour.ai.common.task.AsyncActionTask;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.selector.SelectorType;
 import com.evilbird.warcraft.object.unit.Unit;
@@ -28,7 +28,7 @@ import javax.inject.Inject;
  * @author Blair Butterworth
  */
 //TODO: Remove need for selector when creating a construction action
-public class ConstructTask extends ActionTask<ConstructData>
+public class ConstructTask extends AsyncActionTask<ConstructData>
 {
     private GameObjectFactory objectFactory;
 

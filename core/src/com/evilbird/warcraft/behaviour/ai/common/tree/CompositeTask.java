@@ -22,10 +22,5 @@ public class CompositeTask<T> extends Parallel<T>
 {
     public void removeChild(Task<T> child) {
         children.removeValue(child, true);
-
-//        int index = children.indexOf(child, true);
-//        if (index != -1) {
-//            children.removeIndex(index);
-//        }
     }
 }

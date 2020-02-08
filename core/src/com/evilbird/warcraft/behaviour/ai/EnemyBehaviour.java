@@ -10,9 +10,9 @@ package com.evilbird.warcraft.behaviour.ai;
 
 import com.badlogic.gdx.ai.btree.branch.Parallel;
 import com.evilbird.warcraft.behaviour.ai.attack.AttackTree;
-import com.evilbird.warcraft.behaviour.ai.construct.ConstructTree;
 import com.evilbird.warcraft.behaviour.ai.gather.GatherTree;
 import com.evilbird.warcraft.behaviour.ai.invade.InvadeTree;
+import com.evilbird.warcraft.behaviour.ai.produce.ProductionBehaviour;
 import com.evilbird.warcraft.behaviour.ai.reorient.ReorientTree;
 
 import javax.inject.Inject;
@@ -28,14 +28,14 @@ public class EnemyBehaviour extends PlayerBehaviour
     @Inject
     public EnemyBehaviour(
         AttackTree attack,
-        ConstructTree construct,
         GatherTree gather,
         InvadeTree invade,
+        ProductionBehaviour produce,
         ReorientTree reorient)
     {
         super(new Parallel<>(
             attack,
-            construct,
+            produce,
             gather,
             invade,
             reorient));

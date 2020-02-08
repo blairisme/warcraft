@@ -10,6 +10,8 @@ package com.evilbird.warcraft.behaviour.ai.common.guard;
 
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
+import com.evilbird.engine.common.function.Functions;
+import com.evilbird.engine.common.function.Predicates;
 
 import javax.inject.Inject;
 import java.util.function.Function;
@@ -29,11 +31,13 @@ import static com.badlogic.gdx.ai.btree.Task.Status.SUCCEEDED;
  */
 public class ConditionGuard<T, D> extends LeafTask<T>
 {
-    protected transient Function<T, D> target;
-    protected transient Predicate<D> condition;
+    protected Function<T, D> target;
+    protected Predicate<D> condition;
 
     @Inject
     public ConditionGuard() {
+        target = Functions.supply(null);
+        condition = Predicates.accept();
     }
 
     @Override

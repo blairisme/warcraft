@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="82">
- <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="400" columns="16">
-  <image source="../../textures/common/terrain/winter.png" width="576" height="900"/>
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="32" tileheight="32" infinite="0" nextlayerid="21" nextobjectid="82">
+ <tileset firstgid="1" name="Terrain" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="384" columns="16">
+  <image source="../../textures/common/terrain/winter.png" width="576" height="864"/>
  </tileset>
- <tileset firstgid="401" name="Footman" tilewidth="72" tileheight="72" tilecount="96" columns="8">
+ <tileset firstgid="385" name="Footman" tilewidth="72" tileheight="72" tilecount="96" columns="8">
   <tileoffset x="-16" y="16"/>
   <image source="../../textures/human/unit/footman.png" width="576" height="864"/>
  </tileset>
- <tileset firstgid="497" name="Peasant" tilewidth="72" tileheight="72" tilecount="104" columns="8">
+ <tileset firstgid="481" name="Peasant" tilewidth="72" tileheight="72" tilecount="104" columns="8">
   <tileoffset x="-16" y="16"/>
   <image source="../../textures/human/unit/peasant.png" width="576" height="936"/>
  </tileset>
- <tileset firstgid="601" name="Grunt" tilewidth="72" tileheight="72" tilecount="96" columns="8">
+ <tileset firstgid="585" name="Grunt" tilewidth="72" tileheight="72" tilecount="96" columns="8">
   <tileoffset x="-16" y="16"/>
   <grid orientation="orthogonal" width="32" height="32"/>
   <image source="../../textures/orc/unit/grunt.png" width="576" height="864"/>
  </tileset>
- <tileset firstgid="697" name="Townhall" tilewidth="128" tileheight="128" tilecount="2" columns="1">
+ <tileset firstgid="681" name="Townhall" tilewidth="128" tileheight="128" tilecount="2" columns="1">
   <image source="../../textures/human/building/winter/town_hall.png" width="128" height="256"/>
  </tileset>
- <tileset firstgid="699" name="Farm" tilewidth="64" tileheight="64" tilecount="2" columns="1">
+ <tileset firstgid="683" name="Farm" tilewidth="64" tileheight="64" tilecount="2" columns="1">
   <image source="../../textures/human/building/winter/farm.png" width="64" height="128"/>
  </tileset>
- <tileset firstgid="701" name="Barracks" tilewidth="96" tileheight="96" tilecount="2" columns="1">
+ <tileset firstgid="685" name="Barracks" tilewidth="96" tileheight="96" tilecount="2" columns="1">
   <image source="../../textures/human/building/winter/barracks.png" width="96" height="192"/>
  </tileset>
- <tileset firstgid="703" name="GoldMine" tilewidth="96" tileheight="96" tilecount="2" columns="1">
+ <tileset firstgid="687" name="GoldMine" tilewidth="96" tileheight="96" tilecount="2" columns="1">
   <image source="../../textures/neutral/resource/winter/gold_mine.png" width="96" height="192"/>
  </tileset>
  <layer id="1" name="Map" width="32" height="32">
@@ -53,13 +53,13 @@
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="2"/>
   </properties>
-  <object id="73" name="GoldMine2" type="GoldMine" gid="703" x="416" y="160" width="96" height="96">
+  <object id="73" name="GoldMine2" type="GoldMine" gid="687" x="416" y="160" width="96" height="96">
    <properties>
     <property name="Gold" type="float" value="2500"/>
     <property name="Owner" value="Neutral"/>
    </properties>
   </object>
-  <object id="75" name="GoldMine1" type="GoldMine" gid="703" x="928" y="1024" width="96" height="96">
+  <object id="75" name="GoldMine1" type="GoldMine" gid="687" x="928" y="1024" width="96" height="96">
    <properties>
     <property name="Gold" type="float" value="5000"/>
     <property name="Owner" value="Neutral"/>
@@ -76,17 +76,17 @@
    <property name="Type" value="Player"/>
    <property name="ZIndex" type="int" value="3"/>
   </properties>
-  <object id="76" name="Grunt1" type="Grunt" gid="601" x="96" y="864" width="72" height="72"/>
-  <object id="77" name="Grunt2" type="Grunt" gid="601" x="640" y="1024" width="72" height="72"/>
-  <object id="78" name="Grunt3" type="Grunt" gid="601" x="928" y="800" width="72" height="72"/>
-  <object id="79" name="Grunt4" type="Grunt" gid="601" x="928" y="480" width="72" height="72"/>
+  <object id="76" name="Grunt1" type="Grunt" gid="585" x="96" y="864" width="72" height="72"/>
+  <object id="77" name="Grunt2" type="Grunt" gid="585" x="640" y="1024" width="72" height="72"/>
+  <object id="78" name="Grunt3" type="Grunt" gid="585" x="928" y="800" width="72" height="72"/>
+  <object id="79" name="Grunt4" type="Grunt" gid="585" x="928" y="480" width="72" height="72"/>
  </objectgroup>
  <objectgroup id="11" name="Player1">
   <properties>
    <property name="AI" type="bool" value="false"/>
    <property name="Colour" value="Blue"/>
    <property name="Faction" value="Human"/>
-   <property name="Food" type="float" value="1"/>
+   <property name="Food" type="float" value="2"/>
    <property name="Gold" type="float" value="1000"/>
    <property name="Level" type="int" value="1"/>
    <property name="Nation" value="Azeroth"/>
@@ -96,24 +96,24 @@
    <property name="Wood" type="float" value="1000"/>
    <property name="ZIndex" type="int" value="4"/>
   </properties>
-  <object id="49" name="TownHall1" type="TownHall" gid="697" x="384" y="512" width="128" height="128">
+  <object id="49" name="TownHall1" type="TownHall" gid="681" x="384" y="512" width="128" height="128">
    <properties>
     <property name="Owner" value="Player1"/>
    </properties>
   </object>
-  <object id="50" name="Farm1" type="Farm" gid="699" x="608" y="384" width="64" height="64">
+  <object id="50" name="Farm1" type="Farm" gid="683" x="608" y="384" width="64" height="64">
    <properties>
     <property name="Owner" value="Player1"/>
    </properties>
   </object>
-  <object id="54" name="Peasant1" type="Peasant" gid="497" x="416" y="320.333" width="72" height="72">
+  <object id="54" name="Peasant1" type="Peasant" gid="481" x="416" y="320.333" width="72" height="72">
    <properties>
     <property name="Owner" value="Player1"/>
    </properties>
   </object>
-  <object id="66" name="Footman1" type="Footman" gid="401" x="320" y="448" width="72" height="72"/>
-  <object id="67" name="Footman2" type="Footman" gid="401" x="544" y="256" width="72" height="72"/>
-  <object id="68" name="Footman3" type="Footman" gid="401" x="672" y="192" width="72" height="72"/>
+  <object id="66" name="Footman1" type="Footman" gid="385" x="320" y="448" width="72" height="72"/>
+  <object id="67" name="Footman2" type="Footman" gid="385" x="544" y="256" width="72" height="72"/>
+  <object id="68" name="Footman3" type="Footman" gid="385" x="672" y="192" width="72" height="72"/>
   <object id="81" name="Camera" type="Camera" x="448" y="384">
    <point/>
   </object>

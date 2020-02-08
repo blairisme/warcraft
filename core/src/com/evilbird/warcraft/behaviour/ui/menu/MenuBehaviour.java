@@ -36,7 +36,6 @@ import com.evilbird.warcraft.object.display.components.status.StatusPane;
 import com.evilbird.warcraft.object.display.views.resource.ResourceBar;
 import com.evilbird.warcraft.object.layer.wall.WallSection;
 import com.evilbird.warcraft.object.unit.Unit;
-import com.evilbird.warcraft.object.unit.UnitArchetype;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.resource.Resource;
@@ -49,7 +48,6 @@ import static com.evilbird.engine.object.utility.GameObjectPredicates.itemWithId
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isSelected;
 import static com.evilbird.warcraft.object.data.player.PlayerScore.getScoreValue;
 import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Score;
-import static com.evilbird.warcraft.object.unit.UnitArchetype.FoodProducer;
 
 /**
  * Instances of this behaviour apply the user interface based on game state
@@ -90,7 +88,6 @@ public class MenuBehaviour implements Behaviour
         else {
             initializeResources();
             initializeSelection(world);
-            initializePopulation(world);
         }
     }
 
@@ -118,12 +115,6 @@ public class MenuBehaviour implements Behaviour
         Collection<GameObject> selection = world.findAll(isSelected());
         actionPane.setSelected(selection);
         statusPane.setSelected(selection);
-    }
-
-    private void initializePopulation(GameObjectContainer world) {
-        for (GameObject farm: world.findAll(UnitOperations::isFoodProducer)){
-            player.incrementStatistic(PlayerStatistic.Population, 5);
-        }
     }
 
     private void updateSelectionRecipients() {
@@ -157,14 +148,6 @@ public class MenuBehaviour implements Behaviour
             if (event.getStatus() == ConstructStatus.Complete) {
                 Player player = UnitOperations.getPlayer(event.getSubject());
                 player.incrementStatistic(PlayerStatistic.Buildings, 1);
-
-                Building building = event.getBuilding();
-                UnitType type = (UnitType)building.getType();
-                UnitArchetype archetype = type.getArchetype();
-
-                if (archetype == FoodProducer) {
-                    player.incrementStatistic(PlayerStatistic.Population, 5);
-                }
             }
         }
     }

@@ -18,6 +18,7 @@ import com.evilbird.warcraft.object.common.capability.SelectableObject;
 import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.UnitArchetype;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
@@ -39,6 +40,14 @@ public class UnitPredicates
      */
     private UnitPredicates() {
         throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Returns a condition that determines if the given {@link GameObject} has
+     * the specified {@link UnitArchetype archetype}.
+     */
+    public static Predicate<GameObject> hasArchetype(UnitArchetype archetype) {
+        return gameObject -> UnitOperations.hasArchetype(gameObject, archetype);
     }
 
     /**

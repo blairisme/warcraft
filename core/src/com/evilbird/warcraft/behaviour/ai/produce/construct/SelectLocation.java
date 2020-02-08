@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.behaviour.ai.construct;
+package com.evilbird.warcraft.behaviour.ai.produce.construct;
 
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
@@ -52,12 +52,13 @@ import static com.evilbird.warcraft.object.unit.UnitArchetype.OilProducer;
  */
 //TODO: Increase search radius if no free locations found
 //TODO: Ensure buildings are not placed next to each other
-public class ConstructLocation extends LeafTask<ConstructData>
+//TODO: Build lumber mill next to forest
+public class SelectLocation extends LeafTask<ConstructData>
 {
     private static final transient int SEARCH_RADIUS = 8 * 32;
 
     @Inject
-    public ConstructLocation() {
+    public SelectLocation() {
     }
 
     @Override
