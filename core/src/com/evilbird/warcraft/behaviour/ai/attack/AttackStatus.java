@@ -8,6 +8,7 @@
 
 package com.evilbird.warcraft.behaviour.ai.attack;
 
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.data.player.Player;
@@ -37,6 +38,17 @@ public class AttackStatus
             && isAttackerIdle(attacker)
             && !isNeutral(attacker)
             && !isPassive(attacker);
+    }
+
+    /**
+     * Determines if the given {@link GameObject target} can be attacked
+     * by the given {@link OffensiveObject attacker}.
+     */
+    public static boolean isValidTarget(OffensiveObject attacker, GameObject target) {
+        if (target instanceof PerishableObject) {
+            return isValidTarget(attacker, (PerishableObject)target);
+        }
+        return false;
     }
 
     /**
