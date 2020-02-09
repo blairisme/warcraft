@@ -18,7 +18,6 @@ import java.util.List;
 import static com.evilbird.warcraft.object.unit.UnitType.Barracks;
 import static com.evilbird.warcraft.object.unit.UnitType.Encampment;
 import static com.evilbird.warcraft.object.unit.UnitType.Farm;
-import static com.evilbird.warcraft.object.unit.UnitType.Forge;
 import static com.evilbird.warcraft.object.unit.UnitType.GreatHall;
 import static com.evilbird.warcraft.object.unit.UnitType.Peon;
 import static com.evilbird.warcraft.object.unit.UnitType.PigFarm;
@@ -46,7 +45,6 @@ public class ProductionOrder
     public static ProductionOrder ORC = new ProductionOrder(
         Pair.of(GreatHall, 1),
         Pair.of(PigFarm, 1),
-        Pair.of(Forge, 1),
         Pair.of(Peon, 2),
         Pair.of(Encampment, 1),
         Pair.of(TrollLumberMill, 1));

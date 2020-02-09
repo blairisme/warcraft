@@ -10,14 +10,14 @@ package com.evilbird.warcraft.object.display.components.actions.buttons;
 
 import com.evilbird.engine.game.GameService;
 import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.data.product.Product;
+import com.evilbird.warcraft.data.product.Production;
 import com.evilbird.warcraft.data.resource.ResourceQuantity;
 import com.evilbird.warcraft.data.resource.ResourceSet;
 import com.evilbird.warcraft.data.spell.Spell;
 import com.evilbird.warcraft.data.upgrade.Upgrade;
-import com.evilbird.warcraft.data.upgrade.UpgradeProduction;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.display.components.actions.ActionButtonType;
-import com.evilbird.warcraft.object.unit.UnitProduction;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 
@@ -95,17 +95,9 @@ public abstract class BasicButtonController implements ButtonController
         return caster.getMana() >= spell.getCastCost();
     }
 
-    private ResourceSet getProductionCost(UnitType product) {
+    private ResourceSet getProductionCost(Product product) {
         if (!preferences.isBuildCostCheatEnabled()) {
-            UnitProduction production = UnitProduction.forProduct(product);
-            return production.getCost();
-        }
-        return EmptyResourceSet;
-    }
-
-    private ResourceSet getProductionCost(Upgrade product) {
-        if (!preferences.isBuildCostCheatEnabled()) {
-            UpgradeProduction production = UpgradeProduction.forProduct(product);
+            Production production = product.getProduction();
             return production.getCost();
         }
         return EmptyResourceSet;

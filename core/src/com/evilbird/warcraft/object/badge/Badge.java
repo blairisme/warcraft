@@ -27,7 +27,7 @@ import java.util.Objects;
  */
 public class Badge extends BasicGameObject
 {
-    private GameObjectReference target;
+    private GameObjectReference<GameObject> target;
 
     private transient Drawable badge;
     private transient Vector2 size;

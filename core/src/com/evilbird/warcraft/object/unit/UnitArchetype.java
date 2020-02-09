@@ -8,6 +8,8 @@
 
 package com.evilbird.warcraft.object.unit;
 
+import com.evilbird.engine.common.lang.Identifier;
+
 import static com.evilbird.engine.common.collection.EnumUtils.isBetween;
 
 /**
@@ -16,7 +18,7 @@ import static com.evilbird.engine.common.collection.EnumUtils.isBetween;
  *
  * @author Blair Butterworth
  */
-public enum UnitArchetype
+public enum UnitArchetype implements Identifier
 {
     CommandCentre,
     CombatantProducer,

@@ -51,7 +51,7 @@ public class SelectFacility extends LeafTask<TrainData>
 
     private UnitArchetype getFacilityType(TrainData data) {
         UnitType product = data.getProduct();
-        UnitProduction production = UnitProduction.forProduct(product);
+        UnitProduction production = product.getProduction();
         return production.getProducer();
     }
 

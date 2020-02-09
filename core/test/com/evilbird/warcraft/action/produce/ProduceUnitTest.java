@@ -17,7 +17,6 @@ import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
-import com.evilbird.warcraft.object.unit.UnitProduction;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
@@ -93,7 +92,7 @@ public class ProduceUnitTest extends ActionTestCase
         assertFalse(action.act(1f));
         assertTrue(barracks.isProducing());
 
-        assertTrue(action.act(UnitProduction.forProduct(Barracks).getDuration().get(SECONDS)));
+        assertTrue(action.act(Barracks.getProduction().getDuration().get(SECONDS)));
         assertFalse(barracks.isProducing());
         verify(reporter).add(new ProduceEvent(barracks, ProduceStatus.Complete));
     }

@@ -8,8 +8,9 @@
 
 package com.evilbird.warcraft.data.upgrade;
 
-import com.evilbird.engine.common.collection.EnumUtils;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.warcraft.data.product.Product;
+import org.apache.commons.lang3.EnumUtils;
 
 import static com.evilbird.warcraft.data.upgrade.UpgradeRank.Advanced;
 import static com.evilbird.warcraft.data.upgrade.UpgradeRank.Improved;
@@ -37,7 +38,7 @@ import static com.evilbird.warcraft.data.upgrade.UpgradeSeries.WoodProduction;
  * @author Blair Butterworth
  */
 @SuppressWarnings("checkstyle:MethodParamPad")
-public enum Upgrade implements Identifier
+public enum Upgrade implements Identifier, Product
 {
     MeleeDamage1        (MeleeDamage,       Improved),
     MeleeDamage2        (MeleeDamage,       Advanced),
@@ -107,12 +108,17 @@ public enum Upgrade implements Identifier
         return rank;
     }
 
+    /**
+     * Returns a {@link UpgradeProduction} instance defining the resources and
+     * times required to produce the {@code Upgrade}.
+     */
+    @Override
+    public UpgradeProduction getProduction() {
+        String name = name();
 
-    public boolean isAttributeUpgrade() {
-        return EnumUtils.isBetween(this, MeleeDamage1, WoodProduction2);
-    }
-
-    public boolean isFeatureUpgrade() {
-        return EnumUtils.isBetween(this, BlizzardUpgrade, WhirlwindUpgrade);
+        if (EnumUtils.isValidEnum(UpgradeProduction.class, name)) {
+            return UpgradeProduction.valueOf(name);
+        }
+        return UpgradeProduction.None;
     }
 }

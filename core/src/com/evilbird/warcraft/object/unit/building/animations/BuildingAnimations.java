@@ -100,7 +100,7 @@ public class BuildingAnimations extends AnimationCatalog
     }
 
     private void construction(Texture base, Texture construction, GridPoint2 size, UnitType type) {
-        UnitProduction production = UnitProduction.forProduct(type);
+        UnitProduction production = type.getProduction();
         Duration duration = production.getDuration();
         float interval = duration.get(SECONDS) / 4f;
 

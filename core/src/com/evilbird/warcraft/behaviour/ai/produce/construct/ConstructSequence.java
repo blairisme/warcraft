@@ -11,7 +11,6 @@ package com.evilbird.warcraft.behaviour.ai.produce.construct;
 import com.badlogic.gdx.ai.btree.Task;
 import com.badlogic.gdx.ai.btree.branch.Sequence;
 import com.evilbird.warcraft.behaviour.ai.common.guard.ConditionWait;
-import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import javax.inject.Inject;

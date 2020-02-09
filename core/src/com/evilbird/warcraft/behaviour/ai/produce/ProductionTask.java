@@ -15,6 +15,13 @@ import com.evilbird.warcraft.object.unit.UnitArchetype;
 
 import javax.inject.Inject;
 
+/**
+ * A branch task that executes a behaviour branch appropriate for the product
+ * contained in the tasks blackboard. {@link ConstructBehaviour} is used for
+ * building products. {@link TrainBehaviour} is used for unit products.
+ *
+ * @author Blair Butterworth
+ */
 public class ProductionTask extends ConditionBranch<ProductionData, UnitArchetype>
 {
     @Inject

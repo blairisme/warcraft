@@ -10,9 +10,10 @@ package com.evilbird.warcraft.behaviour.ai.produce;
 
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
+import com.evilbird.warcraft.data.product.Product;
+import com.evilbird.warcraft.data.product.Production;
 import com.evilbird.warcraft.data.resource.ResourceSet;
 import com.evilbird.warcraft.object.data.player.Player;
-import com.evilbird.warcraft.object.unit.UnitProduction;
 import com.evilbird.warcraft.object.unit.UnitType;
 
 import javax.inject.Inject;
@@ -48,9 +49,9 @@ public class ProductionSelection extends LeafTask<ProductionData>
         return order.getNextProduct(manifest);
     }
 
-    private ResourceSet getProductCost(UnitType product) {
+    private ResourceSet getProductCost(Product product) {
         if (product != null) {
-            UnitProduction production = UnitProduction.forProduct(product);
+            Production production = product.getProduction();
             return production.getCost();
         }
         return null;

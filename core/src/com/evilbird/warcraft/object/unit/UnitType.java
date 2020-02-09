@@ -10,6 +10,8 @@ package com.evilbird.warcraft.object.unit;
 
 import com.evilbird.engine.object.GameObjectType;
 import com.evilbird.warcraft.common.WarcraftFaction;
+import com.evilbird.warcraft.data.product.Product;
+import org.apache.commons.lang3.EnumUtils;
 
 import static com.evilbird.warcraft.common.WarcraftFaction.Human;
 import static com.evilbird.warcraft.common.WarcraftFaction.Neutral;
@@ -64,12 +66,12 @@ import static com.evilbird.warcraft.object.unit.UnitSize.SubMedium;
 import static com.evilbird.warcraft.object.unit.UnitSize.SuperMedium;
 
 /**
- * Defines identifiers for items varieties.
+ * Defines unit varieties.
  *
  * @author Blair Butterworth
  */
 @SuppressWarnings("checkstyle:MethodParamPad")
-public enum UnitType implements GameObjectType
+public enum UnitType implements GameObjectType, Product
 {
     /* Human Buildings         | Faction   | Archetype         | Attack    | Size   */
     Barracks                    (Human,     CombatantProducer,  None,       Large),
@@ -115,7 +117,7 @@ public enum UnitType implements GameObjectType
     UtherLightbringer           (Human,     Cavalry,            Melee,      ExtraSmall),
 
     /* Orc Buildings           | Faction   | Archetype         | Attack    | Size   */
-    AltarOfStorms               (Orc,       CavalryRequisite,   None,       Large),
+    AltarOfStorms               (Orc,       CavalryUpgrader,    None,       Large),
     Forge                       (Orc,       CombatantUpgrader,  None,       Large),
     Encampment                  (Orc,       CombatantProducer,  None,       Large),
     BombardTower                (Orc,       Tower,              Siege,      Small),
@@ -194,19 +196,47 @@ public enum UnitType implements GameObjectType
         this.size = size;
     }
 
+    /**
+     * Returns the {@code UnitArchetype} that the {@code UnitType} belongs to.
+     */
     public UnitArchetype getArchetype() {
         return archetype;
     }
 
+    /**
+     * Returns the {@link UnitAttack attack capability} of units with this
+     * {@code UnitType}.
+     */
     public UnitAttack getAttack() {
         return attack;
     }
 
+    /**
+     * Returns the {@link WarcraftFaction faction} of units with this
+     * {@code UnitType}.
+     */
     public WarcraftFaction getFaction() {
         return faction;
     }
 
+    /**
+     * Returns the {@link UnitSize size} of units with this {@code UnitType}.
+     */
     public UnitSize getSize() {
         return size;
+    }
+
+    /**
+     * Returns a {@link UnitProduction} instance defining the resources and
+     * times required to produce units with this {@code UnitType}.
+     */
+    @Override
+    public UnitProduction getProduction() {
+        String name = name();
+
+        if (EnumUtils.isValidEnum(UnitProduction.class, name)) {
+            return UnitProduction.valueOf(name);
+        }
+        return UnitProduction.Unproducible;
     }
 }

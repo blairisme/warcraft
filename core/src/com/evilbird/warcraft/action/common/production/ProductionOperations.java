@@ -10,11 +10,9 @@ package com.evilbird.warcraft.action.common.production;
 
 import com.evilbird.engine.common.time.Duration;
 import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.data.product.Product;
+import com.evilbird.warcraft.data.product.Production;
 import com.evilbird.warcraft.data.resource.ResourceSet;
-import com.evilbird.warcraft.data.upgrade.Upgrade;
-import com.evilbird.warcraft.data.upgrade.UpgradeProduction;
-import com.evilbird.warcraft.object.unit.UnitProduction;
-import com.evilbird.warcraft.object.unit.UnitType;
 
 import static com.evilbird.engine.common.time.Duration.ZERO;
 import static com.evilbird.warcraft.data.resource.ResourceSet.EmptyResourceSet;
@@ -34,52 +32,26 @@ public class ProductionOperations
     }
 
     /**
-     * Returns the resource cost of producing the given unit. If the user has
+     * Returns the resource cost of producing the given product. If the user has
      * activated the free build cheat then an empty resource set will be
      * returned.
      */
-    public static ResourceSet getProductionCost(UnitType product, WarcraftPreferences preferences) {
+    public static ResourceSet getProductionCost(Product product, WarcraftPreferences preferences) {
         if (!preferences.isBuildCostCheatEnabled()) {
-            UnitProduction production = UnitProduction.forProduct(product);
+            Production production = product.getProduction();
             return production.getCost();
         }
         return EmptyResourceSet;
     }
 
     /**
-     * Returns the resource cost of producing the given upgrade. If the user
-     * has activated the free build cheat then an empty resource set will be
-     * returned.
-     */
-    public static ResourceSet getProductionCost(Upgrade product, WarcraftPreferences preferences) {
-        if (!preferences.isBuildCostCheatEnabled()) {
-            UpgradeProduction production = UpgradeProduction.forProduct(product);
-            return production.getCost();
-        }
-        return EmptyResourceSet;
-    }
-
-    /**
-     * Returns the time required to produce a the given unit. If the user
+     * Returns the time required to produce a the given product. If the user
      * has activated the quick build cheat then a time of zero will be
      * returned.
      */
-    public static Duration getProductionTime(UnitType product, WarcraftPreferences preferences) {
+    public static Duration getProductionTime(Product product, WarcraftPreferences preferences) {
         if (!preferences.isBuildTimeCheatEnabled()) {
-            UnitProduction production = UnitProduction.forProduct(product);
-            return production.getDuration();
-        }
-        return ZERO;
-    }
-
-    /**
-     * Returns the time required to produce a the given upgrade. If the user
-     * has activated the quick build cheat then a time of zero will be
-     * returned.
-     */
-    public static Duration getProductionTime(Upgrade product, WarcraftPreferences preferences) {
-        if (!preferences.isBuildTimeCheatEnabled()) {
-            UpgradeProduction production = UpgradeProduction.forProduct(product);
+            Production production = product.getProduction();
             return production.getDuration();
         }
         return ZERO;

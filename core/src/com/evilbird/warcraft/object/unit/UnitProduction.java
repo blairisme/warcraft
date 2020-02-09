@@ -9,8 +9,8 @@
 package com.evilbird.warcraft.object.unit;
 
 import com.evilbird.engine.common.time.Duration;
+import com.evilbird.warcraft.data.product.Production;
 import com.evilbird.warcraft.data.resource.ResourceSet;
-import org.apache.commons.lang3.EnumUtils;
 
 import static com.evilbird.engine.common.time.Duration.ZERO;
 import static com.evilbird.engine.common.time.DurationUtils.Seconds;
@@ -30,7 +30,7 @@ import static com.evilbird.warcraft.object.unit.UnitArchetype.Worker;
  * @author Blair Butterworth
  */
 @SuppressWarnings("checkstyle:MethodParamPad")
-public enum UnitProduction
+public enum UnitProduction implements Production
 {
     /*                      | Facility  | Cost                          | Time      */
     Unproducible            (null,      Resources(0, 0, 0, 0),          ZERO),
@@ -123,6 +123,7 @@ public enum UnitProduction
     /**
      * Returns the resource cost of producing the unit.
      */
+    @Override
     public ResourceSet getCost() {
         return cost;
     }
@@ -130,6 +131,7 @@ public enum UnitProduction
     /**
      * Returns the time required to produce a unit.
      */
+    @Override
     public Duration getDuration() {
         return duration;
     }
@@ -137,18 +139,8 @@ public enum UnitProduction
     /**
      * Returns the facility required to produce a unit.
      */
+    @Override
     public UnitArchetype getProducer() {
         return producer;
-    }
-
-    /**
-     * Returns a unit production instance defining the resources and times
-     * required to produce the given unit.
-     */
-    public static UnitProduction forProduct(UnitType type) {
-        if (EnumUtils.isValidEnum(UnitProduction.class, type.name())) {
-            return UnitProduction.valueOf(type.name());
-        }
-        return Unproducible;
     }
 }
