@@ -12,7 +12,7 @@ import com.badlogic.gdx.ai.btree.branch.Parallel;
 import com.evilbird.warcraft.behaviour.ai.attack.AttackTree;
 import com.evilbird.warcraft.behaviour.ai.gather.GatherTree;
 import com.evilbird.warcraft.behaviour.ai.invade.InvadeTree;
-import com.evilbird.warcraft.behaviour.ai.produce.ProductionBehaviour;
+import com.evilbird.warcraft.behaviour.ai.production.ProductionBehaviour;
 import com.evilbird.warcraft.behaviour.ai.reorient.ReorientTree;
 
 import javax.inject.Inject;

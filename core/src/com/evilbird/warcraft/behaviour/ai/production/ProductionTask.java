@@ -6,11 +6,11 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.behaviour.ai.produce;
+package com.evilbird.warcraft.behaviour.ai.production;
 
 import com.evilbird.warcraft.behaviour.ai.common.tree.ConditionBranch;
-import com.evilbird.warcraft.behaviour.ai.produce.construct.ConstructBehaviour;
-import com.evilbird.warcraft.behaviour.ai.produce.train.TrainBehaviour;
+import com.evilbird.warcraft.behaviour.ai.production.construct.ConstructBehaviour;
+import com.evilbird.warcraft.behaviour.ai.production.train.TrainBehaviour;
 import com.evilbird.warcraft.object.unit.UnitArchetype;
 
 import javax.inject.Inject;

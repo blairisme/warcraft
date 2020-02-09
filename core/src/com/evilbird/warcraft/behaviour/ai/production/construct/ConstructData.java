@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.behaviour.ai.produce.construct;
+package com.evilbird.warcraft.behaviour.ai.production.construct;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.object.GameObject;

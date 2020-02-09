@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.behaviour.ai.produce;
+package com.evilbird.warcraft.behaviour.ai.production;
 
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.object.GameObject;
