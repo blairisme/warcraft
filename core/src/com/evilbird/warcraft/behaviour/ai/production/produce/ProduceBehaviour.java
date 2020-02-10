@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.behaviour.ai.production.train;
+package com.evilbird.warcraft.behaviour.ai.production.produce;
 
 import com.evilbird.warcraft.behaviour.ai.common.tree.SubTree;
 import com.evilbird.warcraft.behaviour.ai.production.ProductionData;
@@ -14,19 +14,19 @@ import com.evilbird.warcraft.behaviour.ai.production.ProductionData;
 import javax.inject.Inject;
 
 /**
- * A behaviour tree that trains units for an AI player.
+ * A behaviour tree that trains or upgrades units for an AI player.
  *
  * @author Blair Butterworth
  */
-public class TrainBehaviour extends SubTree<ProductionData, TrainData>
+public class ProduceBehaviour extends SubTree<ProductionData, ProduceData>
 {
     @Inject
-    public TrainBehaviour(TrainSequence sequence) {
+    public ProduceBehaviour(ProduceSequence sequence) {
         super(sequence);
     }
 
     @Override
-    protected TrainData convertObject(ProductionData data) {
-        return new TrainData(data.getPlayer(), data.getProduct());
+    protected ProduceData convertObject(ProductionData data) {
+        return new ProduceData(data.getPlayer(), data.getProduct());
     }
 }

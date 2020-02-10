@@ -14,7 +14,6 @@ import com.evilbird.warcraft.data.product.Product;
 import com.evilbird.warcraft.data.product.Production;
 import com.evilbird.warcraft.data.resource.ResourceSet;
 import com.evilbird.warcraft.object.data.player.Player;
-import com.evilbird.warcraft.object.unit.UnitType;
 
 import javax.inject.Inject;
 
@@ -33,7 +32,7 @@ public class ProductionSelection extends LeafTask<ProductionData>
     @Override
     public Status execute() {
         ProductionData data = getObject();
-        UnitType product = getNextProduct(data);
+        Product product = getNextProduct(data);
         ResourceSet cost = getProductCost(product);
 
         if (playerHasResources(data, cost)) {
@@ -43,7 +42,7 @@ public class ProductionSelection extends LeafTask<ProductionData>
         return Status.FAILED;
     }
 
-    private UnitType getNextProduct(ProductionData data) {
+    private Product getNextProduct(ProductionData data) {
         ProductionOrder order = data.getOrder();
         ProductionManifest manifest = data.getManifest();
         return order.getNextProduct(manifest);

@@ -9,7 +9,6 @@
 package com.evilbird.warcraft.object.data.player;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectGroup;
@@ -25,7 +24,9 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -49,9 +50,9 @@ public class Player extends GameObjectGroup implements ResourceContainer
     private TeamColour colour;
     private WarcraftNation nation;
     private WarcraftFaction faction;
+    private Collection<Upgrade> upgrades;
     private Map<String, Double> statistics;
     private Map<String, Double> resources;
-    private Map<String, Boolean> upgrades;
 
     @Inject
     public Player() {
@@ -62,9 +63,9 @@ public class Player extends GameObjectGroup implements ResourceContainer
         this.capturable = false;
         this.passive = false;
         this.faction = WarcraftFaction.Neutral;
+        this.upgrades = new ArrayList<>();
         this.resources = new LinkedHashMap<>();
         this.statistics = new LinkedHashMap<>();
-        this.upgrades = new LinkedHashMap<>();
     }
 
     /**
@@ -137,10 +138,17 @@ public class Player extends GameObjectGroup implements ResourceContainer
     }
 
     /**
+     * Returns the {@link Upgrade Upgrades} owned by the player.
+     */
+    public Collection<Upgrade> getUpgrades() {
+        return Collections.unmodifiableCollection(upgrades);
+    }
+
+    /**
      * Returns whether or not the Player has the given {@link Upgrade}.
      */
     public boolean hasUpgrade(Upgrade upgrade) {
-        return Maps.getOrDefault(upgrades, upgrade.name(), Boolean.FALSE);
+        return this.upgrades.contains(upgrade);
     }
 
     /**
@@ -299,17 +307,17 @@ public class Player extends GameObjectGroup implements ResourceContainer
     }
 
     /**
-     * Sets whether or not the Player has the given {@link Upgrade}.
+     * Sets whether the Player has the given {@link Upgrade}.
      */
-    public void setUpgrade(Upgrade upgrade, boolean value) {
-        upgrades.put(upgrade.name(), value);
+    public void setUpgrade(Upgrade upgrade) {
+        this.upgrades.add(upgrade);
     }
 
     /**
-     * Sets whether or not the Player has the given {@link Upgrade}.
+     * Sets whether the Player has the given {@link Upgrade}.
      */
-    public void setUpgrades(Collection<Upgrade> upgrades, boolean value) {
-        CollectionUtils.forEach(upgrades, upgrade -> setUpgrade(upgrade, value));
+    public void setUpgrades(Collection<Upgrade> upgrades) {
+        this.upgrades.addAll(upgrades);
     }
 
     /**

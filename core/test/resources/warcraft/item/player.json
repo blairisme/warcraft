@@ -16,6 +16,16 @@
     "class": "Faction",
     "enum": "Neutral"
   },
+  "upgrades": [
+    {
+      "class": "Upgrade",
+      "enum": "MeleeDamage1"
+    },
+    {
+      "class": "Upgrade",
+      "enum": "BlizzardUpgrade"
+    }
+  ],
   "statistics": {
     "Kills": 4.0,
     "Buildings": 10.0
@@ -24,7 +34,6 @@
     "Gold": 123.0,
     "Wood": 456.0
   },
-  "upgrades": {},
   "fill": false,
   "objects": [
     {

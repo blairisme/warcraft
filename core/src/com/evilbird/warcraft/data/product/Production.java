@@ -11,6 +11,7 @@ package com.evilbird.warcraft.data.product;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.time.Duration;
 import com.evilbird.warcraft.data.resource.ResourceSet;
+import com.evilbird.warcraft.object.unit.UnitArchetype;
 
 /**
  * Implementors of this interface provide information related to the production
@@ -36,5 +37,5 @@ public interface Production
      * Returns the {@link Identifier} of the facility required to produce the
      * {@link Product}.
      */
-    Identifier getProducer();
+    UnitArchetype getProducer();
 }

@@ -23,6 +23,7 @@ import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.common.WarcraftSeason;
 import com.evilbird.warcraft.data.resource.ResourceType;
+import com.evilbird.warcraft.data.upgrade.Upgrade;
 import com.evilbird.warcraft.menu.intro.IntroMenuType;
 import com.evilbird.warcraft.object.data.camera.Camera;
 import com.evilbird.warcraft.object.data.camera.CameraType;
@@ -86,8 +87,6 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
         registerType("Behaviour", WarcraftBehaviour.class);
         registerType("Faction", WarcraftFaction.class);
         registerType("Assets", WarcraftSeason.class);
-
-//        registerType("Campaign", WarcraftCampaign.class);
         registerType("Level", WarcraftCampaignLevel.class);
         registerType("Scenario", WarcraftScenarioLevel.class);
         registerType("Introduction", IntroMenuType.class);
@@ -103,7 +102,6 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
         registerType("Terrain", Terrain.class);
         registerType("Wall", Wall.class);
         registerType("Building", Building.class);
-        registerType("Units", UnitType.class);
         registerType("Combatant", Combatant.class);
         registerType("RangedCombatant", RangedCombatant.class);
         registerType("Critter", Critter.class);
@@ -113,5 +111,7 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
         registerType("ResourceExtractor", OilPlatform.class);
         registerType("ProjectileType", ProjectileType.class);
         registerType("Container", GameObjectContainerType.class);
+        registerType("Units", UnitType.class);
+        registerType("Upgrade", Upgrade.class);
     }
 }

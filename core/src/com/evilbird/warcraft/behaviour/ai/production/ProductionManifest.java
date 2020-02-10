@@ -9,8 +9,7 @@
 package com.evilbird.warcraft.behaviour.ai.production;
 
 import com.evilbird.engine.common.collection.Maps;
-import com.evilbird.engine.object.GameObject;
-import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.data.product.Product;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -24,36 +23,54 @@ import java.util.Map;
  */
 public class ProductionManifest
 {
-    private Map<UnitType, Integer> records;
+    private Map<Product, Integer> records;
 
     /**
-     * Constructs a new instance of this class given a list of units owned
-     * by a player.
+     * Constructs a new empty manifest.
      */
-    public ProductionManifest(Collection<GameObject> objects) {
+    public ProductionManifest() {
         records = new HashMap<>();
-        updateRecords(objects);
+    }
+
+    /**
+     * Adds the given {@link Product} to the manifest, incrementing the number o
+     */
+    public void add(Product product) {
+        int oldValue = Maps.getOrDefault(records, product, 0);
+        int newValue = oldValue + 1;
+        records.put(product, newValue);
+    }
+
+    public void addAll(Collection<? extends Product> products) {
+        for (Product product: products) {
+            add(product);
+        }
     }
 
     /**
      * Determines if the manifest contains the given unit type and has at
      * least the given quantity of units of that type.
      */
-    public boolean hasAtLeast(UnitType type, int quantity) {
+    public boolean hasAtLeast(Product type, int quantity) {
         if (records.containsKey(type)) {
             return records.get(type) >= quantity;
         }
         return false;
     }
 
-    private void updateRecords(Collection<GameObject> objects) {
-        for (GameObject object: objects) {
-            updateRecord(object);
-        }
+    public boolean isEmpty() {
+        return records.isEmpty();
     }
 
-    private void updateRecord(GameObject object) {
-        UnitType type = (UnitType)object.getType();
-        records.put(type, Maps.getOrDefault(records, type, 0) + 1);
+    public void remove(Product product) {
+        int oldValue = Maps.getOrDefault(records, product, 0);
+        int newValue = Math.max(oldValue - 1, 0);
+        records.put(product, newValue);
+    }
+
+    public void removeAll(Collection<Product> products) {
+        for (Product product: products) {
+            remove(product);
+        }
     }
 }

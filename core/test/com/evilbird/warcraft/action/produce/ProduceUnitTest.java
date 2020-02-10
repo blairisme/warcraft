@@ -46,12 +46,14 @@ public class ProduceUnitTest extends ActionTestCase
     private EventQueue reporter;
     private Building barracks;
     private Combatant footman;
+    private UnitType product;
     
     @Before
     public void setup() {
         reporter = Mockito.mock(EventQueue.class);
         super.setup();
-        barracks = (Building) gameObject;
+        product = Footman;
+        barracks = (Building)gameObject;
         footman = TestCombatants.newTestCombatant("footman");
         when(objectFactory.get(Footman)).thenReturn(footman);
     }
@@ -84,7 +86,7 @@ public class ProduceUnitTest extends ActionTestCase
 
         assertFalse(action.act(1));
         assertTrue(barracks.isProducing());
-        verify(reporter).add(new ProduceEvent(barracks, ProduceStatus.Started));
+        verify(reporter).add(new ProduceEvent(barracks, product, ProduceStatus.Started));
 
         assertFalse(action.act(1));
         assertEquals(0.1f, barracks.getProductionProgress(), 0.1f);
@@ -94,6 +96,6 @@ public class ProduceUnitTest extends ActionTestCase
 
         assertTrue(action.act(Barracks.getProduction().getDuration().get(SECONDS)));
         assertFalse(barracks.isProducing());
-        verify(reporter).add(new ProduceEvent(barracks, ProduceStatus.Complete));
+        verify(reporter).add(new ProduceEvent(barracks, product, ProduceStatus.Complete));
     }
 }

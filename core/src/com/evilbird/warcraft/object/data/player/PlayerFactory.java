@@ -57,7 +57,7 @@ public class PlayerFactory implements GameFactory<Player>
         player.setVisible(true);
 
         if (preferences.isUpgradeCheatEnabled()) {
-            player.setUpgrades(EnumSet.allOf(Upgrade.class), true);
+            player.setUpgrades(EnumSet.allOf(Upgrade.class));
         }
         return player;
     }

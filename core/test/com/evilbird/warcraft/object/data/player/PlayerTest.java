@@ -13,6 +13,7 @@ import com.evilbird.test.data.item.TestPlayers;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
+import com.evilbird.warcraft.data.upgrade.Upgrade;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -31,6 +32,8 @@ public class PlayerTest extends GameTestCase
     public void setup() {
         super.setup();
         player = TestPlayers.newTestPlayer("Player2");
+        player.setUpgrade(Upgrade.MeleeDamage1);
+        player.setUpgrade(Upgrade.BlizzardUpgrade);
     }
 
     @Test

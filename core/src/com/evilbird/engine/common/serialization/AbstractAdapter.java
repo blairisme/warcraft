@@ -149,7 +149,6 @@ public abstract class AbstractAdapter<T> implements JsonSerializer<T>, JsonDeser
         }
     }
 
-    @SuppressWarnings("unchecked")
     private Object deserializeField(JsonElement json, JsonDeserializationContext context, Field field) {
         Class<?> fieldType = field.getType();
         if (List.class.isAssignableFrom(fieldType)) {

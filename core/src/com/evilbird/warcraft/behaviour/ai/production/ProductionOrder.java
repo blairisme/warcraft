@@ -8,8 +8,8 @@
 
 package com.evilbird.warcraft.behaviour.ai.production;
 
+import com.evilbird.warcraft.data.product.Product;
 import com.evilbird.warcraft.object.data.player.Player;
-import com.evilbird.warcraft.object.unit.UnitType;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Arrays;
@@ -60,18 +60,18 @@ public class ProductionOrder
         }
     }
 
-    private List<Pair<UnitType, Integer>> order;
+    private List<Pair<Product, Integer>> order;
 
     @SafeVarargs
-    private ProductionOrder(Pair<UnitType, Integer> ... entries) {
+    private ProductionOrder(Pair<Product, Integer> ... entries) {
         this.order = Arrays.asList(entries);
     }
 
     /**
      * Returns the next product that should be produced.
      */
-    public UnitType getNextProduct(ProductionManifest manifest) {
-        for (Pair<UnitType, Integer> entry: order) {
+    public Product getNextProduct(ProductionManifest manifest) {
+        for (Pair<Product, Integer> entry: order) {
             if (! manifest.hasAtLeast(entry.getKey(), entry.getValue())) {
                 return entry.getKey();
             }

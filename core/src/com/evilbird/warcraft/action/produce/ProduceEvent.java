@@ -10,6 +10,7 @@ package com.evilbird.warcraft.action.produce;
 
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.object.GameObject;
+import com.evilbird.warcraft.data.product.Product;
 import com.evilbird.warcraft.object.unit.building.Building;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -22,16 +23,22 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  */
 public class ProduceEvent implements Event
 {
-    private Building building;
+    private Product product;
+    private Building producer;
     private ProduceStatus status;
 
-    public ProduceEvent(Building building, ProduceStatus status) {
-        this.building = building;
+    public ProduceEvent(Building producer, Product product, ProduceStatus status) {
+        this.product = product;
+        this.producer = producer;
         this.status = status;
     }
 
     public Building getBuilding() {
-        return building;
+        return producer;
+    }
+
+    public Product getProduct() {
+        return product;
     }
 
     public ProduceStatus getStatus() {
@@ -40,7 +47,7 @@ public class ProduceEvent implements Event
 
     @Override
     public GameObject getSubject() {
-        return building;
+        return producer;
     }
 
     public boolean isTraining() {
@@ -54,7 +61,8 @@ public class ProduceEvent implements Event
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-            .append("building", building.getIdentifier())
+            .append("product", product)
+            .append("building", producer.getIdentifier())
             .append("status", status)
             .toString();
     }
@@ -67,7 +75,8 @@ public class ProduceEvent implements Event
 
         ProduceEvent that = (ProduceEvent)obj;
         return new EqualsBuilder()
-            .append(building, that.building)
+            .append(product, that.product)
+            .append(producer, that.producer)
             .append(status, that.status)
             .isEquals();
     }
@@ -75,7 +84,8 @@ public class ProduceEvent implements Event
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-            .append(building)
+            .append(product)
+            .append(producer)
             .append(status)
             .toHashCode();
     }

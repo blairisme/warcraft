@@ -90,7 +90,7 @@ public class ProduceUpgrade extends BasicAction
         ResourceSet cost = getProductionCost(product, preferences);
         resources.setResources(player, cost.negate());
 
-        events.notifyProductionStarted(building);
+        events.notifyProductionStarted(building, product);
         return ActionIncomplete;
     }
 
@@ -117,8 +117,8 @@ public class ProduceUpgrade extends BasicAction
         building.setProductionProgress(1);
         Player player = getPlayer(building);
 
-        player.setUpgrade(getProduct(), true);
-        events.notifyProductionCompleted(building);
+        player.setUpgrade(getProduct());
+        events.notifyProductionCompleted(building, getProduct());
 
         return ActionComplete;
     }

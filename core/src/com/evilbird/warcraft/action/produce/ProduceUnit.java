@@ -104,7 +104,7 @@ public class ProduceUnit extends BasicAction
         ResourceSet cost = getProductionCost(product, preferences);
         resources.setResources(player, cost.negate());
 
-        produceEvents.notifyProductionStarted(building);
+        produceEvents.notifyProductionStarted(building, product);
         return ActionIncomplete;
     }
 
@@ -113,7 +113,7 @@ public class ProduceUnit extends BasicAction
     }
 
     protected boolean load() {
-        Building building = (Building) getSubject();
+        Building building = (Building)getSubject();
         UnitType product = getProduct();
         timer = new GameTimer(getProductionTime(product, preferences));
         timer.advance(building.getProductionProgress() * timer.duration());
@@ -121,14 +121,14 @@ public class ProduceUnit extends BasicAction
     }
 
     private boolean update() {
-        Building building = (Building) getSubject();
+        Building building = (Building)getSubject();
         building.setProductionProgress(timer.completion());
         return ActionIncomplete;
     }
 
     private boolean complete() {
         Unit product = (Unit)factory.get(getProduct());
-        Building building = (Building) getSubject();
+        Building building = (Building)getSubject();
 
         completeProduct(building, product);
         completeBuilding(building, product);
@@ -155,7 +155,7 @@ public class ProduceUnit extends BasicAction
 
     private void notifyComplete(Building building, Unit product) {
         createEvents.notifyCreate(product);
-        produceEvents.notifyProductionCompleted(building);
+        produceEvents.notifyProductionCompleted(building, getProduct());
     }
 
     private UnitType getProduct() {

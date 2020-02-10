@@ -146,7 +146,7 @@ public class ConstructAction extends TemporalAction
     }
 
     private void transferUpgrades(Building building, Player player) {
-        player.setUpgrades(building.getUpgrades(), true);
+        player.setUpgrades(building.getUpgrades());
         building.clearUpgrades();
     }
 

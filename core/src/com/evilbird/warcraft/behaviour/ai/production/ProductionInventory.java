@@ -8,22 +8,25 @@
 
 package com.evilbird.warcraft.behaviour.ai.production;
 
+import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
-import com.badlogic.gdx.ai.btree.branch.Selector;
-import com.badlogic.gdx.ai.btree.branch.Sequence;
-import com.badlogic.gdx.ai.btree.decorator.AlwaysSucceed;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.warcraft.action.common.create.CreateEvent;
+import com.evilbird.warcraft.action.construct.ConstructEvent;
 import com.evilbird.warcraft.action.death.RemoveEvent;
-import com.evilbird.warcraft.behaviour.ai.common.guard.ConditionGuard;
-import com.evilbird.warcraft.behaviour.ai.common.guard.EventGuard;
-import com.evilbird.warcraft.behaviour.ai.common.select.SelectSubjects;
-import com.evilbird.warcraft.object.unit.building.Building;
-import com.evilbird.warcraft.object.unit.combatant.Combatant;
+import com.evilbird.warcraft.action.produce.ProduceEvent;
+import com.evilbird.warcraft.data.product.Product;
+import com.evilbird.warcraft.object.common.query.UnitOperations;
+import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.UnitType;
 
 import javax.inject.Inject;
-import java.util.Objects;
+import java.util.Collection;
+import java.util.function.Predicate;
+
+import static com.badlogic.gdx.ai.btree.Task.Status.SUCCEEDED;
 
 /**
  * A behaviour sequence that updates the production manifest when units are
@@ -32,34 +35,88 @@ import java.util.Objects;
  * @author Blair Butterworth
  */
 @SuppressWarnings("unchecked")
-public class ProductionInventory extends AlwaysSucceed<ProductionData>
+public class ProductionInventory extends LeafTask<ProductionData>
 {
+    private Events events;
+
     @Inject
     public ProductionInventory(Events events) {
-        Task<ProductionData> initializeTrigger = new ConditionGuard<ProductionData, ProductionManifest>()
-            .from(ProductionData::getManifest)
-            .pass(Objects::isNull);
-
-        Task<ProductionData> eventTrigger = new EventGuard<ProductionData>(events)
-            .trigger(CreateEvent.class)
-            .trigger(RemoveEvent.class)
-            .subject(ProductionInventory::validProduct);
-
-        Task<ProductionData> updateManifest = new SelectSubjects<ProductionData>()
-            .from(ProductionData::getPlayer)
-            .into(ProductionData::updateManifest)
-            .when(ProductionInventory::validProduct);
-
-        Task<ProductionData> triggerUpdate = new Selector<>(
-            initializeTrigger, eventTrigger);
-
-        Task<ProductionData> updateSequence = new Sequence<>(
-            triggerUpdate, updateManifest);
-
-        addChildToTask(updateSequence);
+        this.events = events;
     }
 
-    private static boolean validProduct(GameObject gameObject) {
-        return (gameObject instanceof Building || gameObject instanceof Combatant);
+    @Override
+    public Status execute() {
+        ProductionData data = getObject();
+        ProductionManifest manifest = data.getManifest();
+        Player player = data.getPlayer();
+
+        populateManifest(manifest, player);
+        updateManifest(manifest, player);
+
+        return SUCCEEDED;
+    }
+
+    private void populateManifest(ProductionManifest manifest, Player player) {
+        if (manifest.isEmpty()) {
+            manifest.addAll(getObjects(player, UnitOperations::isBuilding));
+            manifest.addAll(getObjects(player, UnitOperations::isCombatant));
+            manifest.addAll(player.getUpgrades());
+        }
+    }
+
+    private Collection<UnitType> getObjects(Player player, Predicate<GameObject> condition) {
+        Collection<GameObject> objects = player.findAll(condition);
+        return CollectionUtils.convert(objects, object -> (UnitType)object.getType());
+    }
+
+    private void updateManifest(ProductionManifest manifest, Player player) {
+        evaluateConstruction(manifest, player);
+        evaluateProduction(manifest, player);
+        evaluateDestruction(manifest, player);
+    }
+
+    private void evaluateConstruction(ProductionManifest manifest, Player player) {
+        for (ConstructEvent event: events.getEvents(ConstructEvent.class)) {
+            GameObject subject = event.getSubject();
+            if (event.isConstructing() && isOwnedByPlayer(subject, player)) {
+                Product product = (Product)subject.getType();
+                manifest.add(product);
+            }
+        }
+    }
+
+    private void evaluateProduction(ProductionManifest manifest, Player player) {
+        for (ProduceEvent event: events.getEvents(ProduceEvent.class)) {
+            GameObject subject = event.getSubject();
+            if (event.isTraining() && isOwnedByPlayer(subject, player)) {
+                Product product = event.getProduct();
+                manifest.add(product);
+            }
+        }
+    }
+
+    private void evaluateDestruction(ProductionManifest manifest, Player player) {
+        for (RemoveEvent event: events.getEvents(RemoveEvent.class)) {
+            GameObject subject = event.getSubject();
+            if (isOwnedByPlayer(subject, player)) {
+                Product product = (Product)subject.getType();
+                manifest.remove(product);
+            }
+        }
+    }
+
+    private boolean isOwnedByPlayer(GameObject object, Player player) {
+        if (object instanceof Unit) {
+            Unit unit = (Unit)object;
+            return unit.getTeam() == player;
+        }
+        return false;
+    }
+
+    @Override
+    protected Task<ProductionData> copyTo(Task<ProductionData> task) {
+        ProductionInventory productionInventory = (ProductionInventory)task;
+        productionInventory.events = this.events;
+        return productionInventory;
     }
 }

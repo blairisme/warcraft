@@ -6,37 +6,37 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.behaviour.ai.production.train;
+package com.evilbird.warcraft.behaviour.ai.production.produce;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.warcraft.action.produce.ProduceUnitActions;
+import com.evilbird.warcraft.action.produce.ProduceActions;
 import com.evilbird.warcraft.behaviour.ai.common.task.AsyncActionTask;
-import com.evilbird.warcraft.object.unit.UnitType;
+import com.evilbird.warcraft.data.product.Product;
 
 import javax.inject.Inject;
 
 /**
- * A task that assigns a unit production action to the subject contained in the
+ * A task that assigns a production action to the subject contained in the
  * tasks blackboard.
  *
  * @author Blair Butterworth
  */
-public class TrainTask extends AsyncActionTask<TrainData>
+public class ProduceTask extends AsyncActionTask<ProduceData>
 {
     @Inject
-    public TrainTask(ActionFactory factory) {
+    public ProduceTask(ActionFactory factory) {
         super(factory);
     }
 
     @Override
     protected Action getAction(ActionFactory factory) {
-        TrainData data = getObject();
-        UnitType product = data.getProduct();
+        ProduceData data = getObject();
+        Product product = data.getProduct();
         GameObject producer = data.getProducer();
 
-        Action produce = factory.get(ProduceUnitActions.forProduct(product));
+        Action produce = factory.get(ProduceActions.forProduct(product));
         produce.setSubject(producer);
 
         producer.removeActions();

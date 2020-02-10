@@ -6,25 +6,25 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.behaviour.ai.production.train;
+package com.evilbird.warcraft.behaviour.ai.production.produce;
 
+import com.evilbird.warcraft.data.product.Product;
 import com.evilbird.warcraft.object.data.player.Player;
-import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
 
 /**
- * A bundle of attributes encapsulating the data required by unit training
- * behaviour.
+ * A bundle of attributes encapsulating the data required by unit and upgrade
+ * production behaviour.
  *
  * @author Blair Butterworth
  */
-public class TrainData
+public class ProduceData
 {
     private Player player;
-    private UnitType product;
+    private Product product;
     private Building producer;
 
-    public TrainData(Player player, UnitType product) {
+    public ProduceData(Player player, Product product) {
         this.player = player;
         this.product = product;
     }
@@ -37,7 +37,7 @@ public class TrainData
         return producer;
     }
 
-    public UnitType getProduct() {
+    public Product getProduct() {
         return product;
     }
 

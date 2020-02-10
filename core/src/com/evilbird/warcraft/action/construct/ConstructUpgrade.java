@@ -152,7 +152,7 @@ public class ConstructUpgrade extends BasicAction
         Player player = getPlayer(building);
         player.removeObject(building);
         player.addObject(improvement);
-        player.setUpgrades(building.getUpgrades(), true);
+        player.setUpgrades(building.getUpgrades());
     }
 
     private UnitType getProduct() {

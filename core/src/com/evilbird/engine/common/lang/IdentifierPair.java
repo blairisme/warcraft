@@ -16,7 +16,8 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
  *
  * @author Blair Butterworth
  */
-public class IdentifierPair implements Identifier {
+public class IdentifierPair implements Identifier
+{
     private Identifier group;
     private Identifier value;
 

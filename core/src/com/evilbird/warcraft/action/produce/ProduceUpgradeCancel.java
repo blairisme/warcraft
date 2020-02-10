@@ -11,6 +11,7 @@ package com.evilbird.warcraft.action.produce;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
+import com.evilbird.warcraft.data.resource.ResourceSet;
 import com.evilbird.warcraft.data.upgrade.Upgrade;
 import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.building.Building;
@@ -49,10 +50,13 @@ public class ProduceUpgradeCancel extends BasicAction
         Building building = (Building) getSubject();
         building.setProductionProgress(1);
 
-        Player player = getPlayer(building);
-        resources.setResources(player, getProductionCost(getProduct(), preferences));
+        Upgrade upgrade = getProduct();
+        ResourceSet cost = getProductionCost(upgrade, preferences);
 
-        events.notifyProductionCancelled(building);
+        Player player = getPlayer(building);
+        resources.setResources(player, cost);
+
+        events.notifyProductionCancelled(building, upgrade);
         return ActionComplete;
     }
 

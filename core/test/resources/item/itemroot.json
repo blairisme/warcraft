@@ -23,6 +23,7 @@
         "class": "Faction",
         "enum": "Neutral"
       },
+      "upgrades": [],
       "statistics": {
         "Kills": 4.0,
         "Buildings": 10.0
@@ -31,7 +32,6 @@
         "Gold": 123.0,
         "Wood": 456.0
       },
-      "upgrades": {},
       "fill": false,
       "objects": [
         {
@@ -144,6 +144,7 @@
         "class": "Faction",
         "enum": "Neutral"
       },
+      "upgrades": [],
       "statistics": {
         "Kills": 4.0,
         "Buildings": 10.0
@@ -152,7 +153,6 @@
         "Gold": 123.0,
         "Wood": 456.0
       },
-      "upgrades": {},
       "fill": false,
       "objects": [
         {

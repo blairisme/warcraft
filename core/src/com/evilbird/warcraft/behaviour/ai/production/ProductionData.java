@@ -8,12 +8,8 @@
 
 package com.evilbird.warcraft.behaviour.ai.production;
 
-import com.evilbird.engine.object.GameObject;
+import com.evilbird.warcraft.data.product.Product;
 import com.evilbird.warcraft.object.data.player.Player;
-import com.evilbird.warcraft.object.unit.UnitArchetype;
-import com.evilbird.warcraft.object.unit.UnitType;
-
-import java.util.Collection;
 
 /**
  * A bundle of attributes encapsulating the data required by production
@@ -24,22 +20,18 @@ import java.util.Collection;
 public class ProductionData
 {
     private Player player;
-    private UnitType product;
-    private UnitArchetype archetype;
+    private Product product;
     private ProductionOrder order;
     private ProductionManifest manifest;
 
     public ProductionData(Player player) {
         this.player = player;
         this.order = ProductionOrder.forPlayer(player);
+        this.manifest = new ProductionManifest();
     }
 
-    public UnitType getProduct() {
+    public Product getProduct() {
         return product;
-    }
-
-    public UnitArchetype getProductArchetype() {
-        return archetype;
     }
 
     public ProductionManifest getManifest() {
@@ -54,12 +46,7 @@ public class ProductionData
         return player;
     }
 
-    public void setProduct(UnitType product) {
+    public void setProduct(Product product) {
         this.product = product;
-        this.archetype = product.getArchetype();
-    }
-
-    public void updateManifest(Collection<GameObject> objects) {
-        manifest = new ProductionManifest(objects);
     }
 }
