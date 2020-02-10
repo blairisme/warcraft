@@ -17,6 +17,7 @@ import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
+import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
@@ -81,6 +82,7 @@ public class ProduceUnitTest extends ActionTestCase
 
     @Test
     public void actTest() {
+        Player player = (Player)parent;
         player.setResource(Food, 10);
         player.setResource(Gold, 1000);
 

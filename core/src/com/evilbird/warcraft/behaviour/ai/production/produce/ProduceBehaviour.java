@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.behaviour.ai.production.produce;
 
-import com.evilbird.warcraft.behaviour.ai.common.tree.SubTree;
+import com.evilbird.engine.behaviour.framework.tree.SubTree;
 import com.evilbird.warcraft.behaviour.ai.production.ProductionData;
 
 import javax.inject.Inject;

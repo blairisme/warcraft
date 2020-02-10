@@ -12,7 +12,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.produce.ProduceActions;
-import com.evilbird.warcraft.behaviour.ai.common.task.AsyncActionTask;
+import com.evilbird.engine.behaviour.framework.task.AsyncActionTask;
 import com.evilbird.warcraft.data.product.Product;
 
 import javax.inject.Inject;

@@ -11,7 +11,7 @@ package com.evilbird.warcraft.behaviour.ai.attack;
 import com.badlogic.gdx.ai.btree.Task;
 import com.badlogic.gdx.ai.btree.branch.Selector;
 import com.badlogic.gdx.ai.btree.branch.Sequence;
-import com.evilbird.warcraft.behaviour.ai.common.guard.RandomWait;
+import com.evilbird.engine.behaviour.framework.guard.RandomWait;
 
 import javax.inject.Inject;
 
@@ -21,6 +21,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
+@SuppressWarnings("unchecked")
 public class AttackSequence extends Sequence<AttackData>
 {
     @Inject
@@ -28,7 +29,6 @@ public class AttackSequence extends Sequence<AttackData>
         super(position, trigger, target, withCooldown(attack));
     }
 
-    @SuppressWarnings("unchecked")
     private static Task<AttackData> withCooldown(AttackTask attack) {
         return new Selector<>(attack, new RandomWait<AttackData>()
             .waitMinimum(0.5f)

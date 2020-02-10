@@ -13,7 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.move.MoveToVectorAction;
-import com.evilbird.warcraft.behaviour.ai.common.task.AsyncActionTask;
+import com.evilbird.engine.behaviour.framework.task.AsyncActionTask;
 
 import javax.inject.Inject;
 

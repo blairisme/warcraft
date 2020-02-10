@@ -10,10 +10,10 @@ package com.evilbird.warcraft.action.menu;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.testcase.ActionTestCase;
+import com.evilbird.warcraft.object.display.components.actions.ActionButton;
 import com.evilbird.warcraft.object.display.components.actions.ActionPane;
 import org.mockito.Mockito;
 
@@ -27,7 +27,6 @@ public class MenuNavigateActionTest extends ActionTestCase
     @Override
     protected Action newAction() {
         MenuNavigateAction action = new MenuNavigateAction();
-        action.setSource(ActionRecipient.Subject);
         action.setIdentifier(MenuActions.BuildSimpleMenu);
         return action;
     }
@@ -39,8 +38,13 @@ public class MenuNavigateActionTest extends ActionTestCase
 
     @Override
     protected GameObject newItem() {
-        ActionPane result = new ActionPane(Mockito.mock(Skin.class));
-        result.setIdentifier(new TextIdentifier("item"));
-        return result;
+        ActionPane parent = new ActionPane(Mockito.mock(Skin.class));
+        parent.setIdentifier(new TextIdentifier("parent"));
+
+        ActionButton button = new ActionButton(Mockito.mock(Skin.class));
+        button.setIdentifier(new TextIdentifier("item"));
+        button.setParent(parent);
+
+        return button;
     }
 }

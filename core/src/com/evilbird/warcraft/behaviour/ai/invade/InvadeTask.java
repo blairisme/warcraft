@@ -11,7 +11,7 @@ package com.evilbird.warcraft.behaviour.ai.invade;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.warcraft.behaviour.ai.common.task.ActionTaskSet;
+import com.evilbird.engine.behaviour.framework.task.ActionTaskSet;
 
 import javax.inject.Inject;
 import java.util.ArrayList;

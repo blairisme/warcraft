@@ -15,6 +15,7 @@ import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.utils.TestUtils;
 import com.evilbird.test.verifier.EqualityVerifier;
@@ -40,7 +41,7 @@ public abstract class ActionTestCase extends GameTestCase
     protected GameObject target;
     protected UserInput cause;
     protected Action action;
-    protected Player player;
+    protected GameObjectGroup parent;
     protected TypeRegistry types;
 
     @Before
@@ -51,7 +52,7 @@ public abstract class ActionTestCase extends GameTestCase
         gameObject = newItem();
         target = newTarget();
         cause = newCause();
-        player = (Player)gameObject.getParent();
+        parent = gameObject.getParent();
 
         action = newAction();
         action.setSubject(gameObject);

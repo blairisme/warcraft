@@ -10,7 +10,7 @@ package com.evilbird.warcraft.behaviour.ai.reorient;
 
 import com.badlogic.gdx.ai.btree.branch.Sequence;
 import com.evilbird.warcraft.behaviour.ai.PlayerData;
-import com.evilbird.warcraft.behaviour.ai.common.guard.RandomWait;
+import com.evilbird.engine.behaviour.framework.guard.RandomWait;
 
 import javax.inject.Inject;
 

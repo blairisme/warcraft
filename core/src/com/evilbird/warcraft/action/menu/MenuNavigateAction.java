@@ -8,11 +8,10 @@
 
 package com.evilbird.warcraft.action.menu;
 
-import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Identifier;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectGroup;
 
 import javax.inject.Inject;
 
@@ -23,55 +22,21 @@ import javax.inject.Inject;
  */
 public class MenuNavigateAction extends BasicAction
 {
-    private ActionRecipient source;
-
     @Inject
     public MenuNavigateAction() {
     }
 
-    public void setSource(ActionRecipient source) {
-        this.source = source;
-    }
-
     @Override
     public boolean act(float delta) {
-        MenuProvider menuProvider = getMenuProvider();
+        GameObject subject = getSubject();
+        GameObjectGroup parent = subject.getParent();
+        MenuProvider menuProvider = (MenuProvider)parent;
         menuProvider.showMenu(getMenuIdentifier());
         return true;
-    }
-
-    private MenuProvider getMenuProvider() {
-        switch (source) {
-            case Subject: return (MenuProvider) getSubject();
-            case Target: return (MenuProvider)getTarget();
-            case Parent: return (MenuProvider) getSubject().getParent();
-            default: throw new UnsupportedOperationException();
-        }
     }
 
     private Identifier getMenuIdentifier() {
         MenuActions menuAction = (MenuActions)getIdentifier();
         return menuAction.getMenuIdentifier();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) { return false; }
-        if (obj == this) { return true; }
-        if (obj.getClass() != getClass()) { return false; }
-
-        MenuNavigateAction that = (MenuNavigateAction)obj;
-        return new EqualsBuilder()
-            .appendSuper(super.equals(obj))
-            .append(source, that.source)
-            .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-            .appendSuper(super.hashCode())
-            .append(source)
-            .toHashCode();
     }
 }

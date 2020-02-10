@@ -6,17 +6,22 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.warcraft.behaviour.ai.common.task;
+package com.evilbird.engine.behaviour.framework.task;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
 
 /**
+ * An {@link ActionTask} specialization that assigns an action to a given
+ * subject but doesn't monitor its progress, succeeding immediately.
+ *
+ * @param <T> type of the blackboard object used by the task.
+ *
  * @author Blair Butterworth
  */
-public abstract class AsyncActionTaskSet<T> extends ActionTaskSet<T>
+public abstract class AsyncActionTask<T> extends ActionTask<T>
 {
-    public AsyncActionTaskSet(ActionFactory factory) {
+    public AsyncActionTask(ActionFactory factory) {
         super(factory);
     }
 

@@ -76,7 +76,10 @@ public class AudioManager
         sound.stop();
     }
 
-    public void stop() {
+    /**
+     * Stops playing all {@link Audio Sound} managed by the audio manager.
+     */
+    public void stopAll() {
         for (Audio sound: sounds) {
             sound.stop();
         }

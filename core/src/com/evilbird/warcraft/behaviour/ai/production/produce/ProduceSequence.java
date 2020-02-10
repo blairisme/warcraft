@@ -10,7 +10,7 @@ package com.evilbird.warcraft.behaviour.ai.production.produce;
 
 import com.badlogic.gdx.ai.btree.Task;
 import com.badlogic.gdx.ai.btree.branch.Sequence;
-import com.evilbird.warcraft.behaviour.ai.common.guard.ConditionWait;
+import com.evilbird.engine.behaviour.framework.guard.ConditionWait;
 import com.evilbird.warcraft.object.unit.building.Building;
 
 import javax.inject.Inject;

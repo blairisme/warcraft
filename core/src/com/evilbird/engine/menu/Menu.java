@@ -78,10 +78,10 @@ public class Menu implements Disposable
 
     public void play(AudioManager audioManager) {
         if (music == null) {
-            audioManager.stop();
+            audioManager.stopAll();
         }
         else if (!audioManager.isPlaying(music)) {
-            audioManager.stop();
+            audioManager.stopAll();
             audioManager.play(music);
         }
     }

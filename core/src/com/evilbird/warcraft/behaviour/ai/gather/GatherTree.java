@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.behaviour.ai.gather;
 
 import com.evilbird.warcraft.behaviour.ai.PlayerData;
-import com.evilbird.warcraft.behaviour.ai.common.tree.SubTree;
+import com.evilbird.engine.behaviour.framework.tree.SubTree;
 
 import javax.inject.Inject;
 

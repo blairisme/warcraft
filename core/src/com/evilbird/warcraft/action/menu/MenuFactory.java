@@ -10,7 +10,6 @@ package com.evilbird.warcraft.action.menu;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionIdentifier;
-import com.evilbird.engine.action.common.ActionRecipient;
 import com.evilbird.engine.common.inject.InjectedPool;
 import com.evilbird.warcraft.action.ActionProvider;
 import org.apache.commons.lang3.Validate;
@@ -64,7 +63,6 @@ public class MenuFactory implements ActionProvider
 
     private Action getNavigateAction(MenuActions action) {
         MenuNavigateAction result = navigatePool.obtain();
-        result.setSource(ActionRecipient.Parent);
         result.setIdentifier(action);
         return result;
     }

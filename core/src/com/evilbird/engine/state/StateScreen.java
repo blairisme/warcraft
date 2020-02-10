@@ -92,7 +92,7 @@ public class StateScreen extends ScreenAdapter
 
         Music music = state.getMusic();
         if (!audioManager.isPlaying(music)) {
-            audioManager.stop();
+            audioManager.stopAll();
             audioManager.play(music);
         }
     }

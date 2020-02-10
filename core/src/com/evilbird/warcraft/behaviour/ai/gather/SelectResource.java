@@ -24,7 +24,7 @@ import static com.evilbird.warcraft.object.unit.UnitType.GoldMine;
  *
  * @author Blair Butterworth
  */
-public class SelectResource extends LeafTask<com.evilbird.warcraft.behaviour.ai.gather.GatherData>
+public class SelectResource extends LeafTask<GatherData>
 {
     @Inject
     public SelectResource() {
@@ -32,19 +32,19 @@ public class SelectResource extends LeafTask<com.evilbird.warcraft.behaviour.ai.
 
     @Override
     public Status execute() {
-        com.evilbird.warcraft.behaviour.ai.gather.GatherData data = getObject();
+        GatherData data = getObject();
         ResourceContainer resource = getResource(data);
         data.setResource(resource);
         return resource != null ? Status.SUCCEEDED : Status.FAILED;
     }
 
-    protected ResourceContainer getResource(com.evilbird.warcraft.behaviour.ai.gather.GatherData data) {
+    protected ResourceContainer getResource(GatherData data) {
         Gatherer gatherer = data.getGatherer();
         return (ResourceContainer)GatherLocations.closestResource(gatherer, gatherer, GoldMine);
     }
 
     @Override
-    protected Task<com.evilbird.warcraft.behaviour.ai.gather.GatherData> copyTo(Task<GatherData> task) {
+    protected Task<GatherData> copyTo(Task<GatherData> task) {
         throw new UnsupportedOperationException();
     }
 }
