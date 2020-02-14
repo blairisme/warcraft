@@ -8,7 +8,9 @@
 
 package com.evilbird.warcraft.behaviour.ai.gather;
 
+import com.badlogic.gdx.ai.btree.Task;
 import com.badlogic.gdx.ai.btree.branch.Sequence;
+import com.evilbird.engine.behaviour.framework.guard.RandomWait;
 
 import javax.inject.Inject;
 
@@ -22,10 +24,21 @@ public class GatherSequence extends Sequence<GatherData>
 {
     @Inject
     public GatherSequence(
+        GatherTask gather,
         SelectGatherer selectGatherer,
-        SelectResource selectResource,
-        GatherTask gatherTask)
+        SelectLocation selectLocation,
+        SelectResource selectResource)
     {
-        super(selectGatherer, selectResource, gatherTask);
+        super(evaluationDelay(),
+              selectResource,
+              selectGatherer,
+              selectLocation,
+              gather);
+    }
+
+    private static Task<GatherData> evaluationDelay() {
+        return new RandomWait<GatherData>()
+            .waitMinimum(0.25f)
+            .waitMaximum(0.5f);
     }
 }

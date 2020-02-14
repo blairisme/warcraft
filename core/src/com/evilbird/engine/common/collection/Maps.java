@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -160,6 +161,15 @@ public class Maps
     }
 
     /**
+     * Removes and returns the value to which the specified key is mapped, or
+     * {@code defaultValue} if this map contains no mapping for the key.
+     */
+    public static <K, V> V removeOrDefault(Map<K, V> map, K key, V defaultValue) {
+        V result = map.remove(key);
+        return result != null ? result : defaultValue;
+    }
+
+    /**
      * Performs the given action for each entry in this map until all entries
      * have been processed or the action throws an exception. Unless otherwise
      * specified by the implementing class, actions are performed in the order
@@ -198,5 +208,27 @@ public class Maps
             }
         }
         return v;
+    }
+
+    /**
+     * Attempts to compute a mapping for the specified key and its current
+     * mapped value (or {@code null} if there is no current mapping). If the
+     * function returns {@code null}, the mapping is removed (or remains absent
+     * if initially absent).
+     */
+    public static <K, V> V compute(Map<K, V> map, K key, BiFunction<? super K, ? super V, ? extends V> mapping) {
+        Objects.requireNonNull(mapping);
+        V oldValue = map.get(key);
+
+        V newValue = mapping.apply(key, oldValue);
+        if (newValue == null) {
+            if (oldValue != null || map.containsKey(key)) {
+                map.remove(key);
+            }
+            return null;
+        } else {
+            map.put(key, newValue);
+            return newValue;
+        }
     }
 }

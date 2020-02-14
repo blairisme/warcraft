@@ -29,10 +29,11 @@ import static com.evilbird.warcraft.object.unit.UnitType.TrollLumberMill;
  *
  * @author Blair Butterworth
  */
+//TODO: Add support for simplified campaign production orders
 public class ProductionOrder
 {
     /**
-     * Specifies the construction order for human players.
+     * Specifies the production order for human players.
      */
     public static ProductionOrder HUMAN = new ProductionOrder(
         Pair.of(TownHall, 1),
@@ -40,7 +41,7 @@ public class ProductionOrder
         Pair.of(Barracks, 1));
 
     /**
-     * Specifies the construction order for orc players.
+     * Specifies the production order for orc players.
      */
     public static ProductionOrder ORC = new ProductionOrder(
         Pair.of(GreatHall, 1),
@@ -50,7 +51,7 @@ public class ProductionOrder
         Pair.of(TrollLumberMill, 1));
 
     /**
-     * Returns the construction order appropriate for the given player.
+     * Returns the production order appropriate for the given player.
      */
     public static ProductionOrder forPlayer(Player player) {
         switch (player.getFaction()) {

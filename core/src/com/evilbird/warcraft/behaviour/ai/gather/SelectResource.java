@@ -10,13 +10,18 @@ package com.evilbird.warcraft.behaviour.ai.gather;
 
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
-import com.evilbird.warcraft.action.gather.GatherLocations;
-import com.evilbird.warcraft.data.resource.ResourceContainer;
-import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.warcraft.data.resource.ResourceType;
+import com.evilbird.warcraft.object.data.player.Player;
 
 import javax.inject.Inject;
+import java.util.Collection;
 
-import static com.evilbird.warcraft.object.unit.UnitType.GoldMine;
+import static com.badlogic.gdx.ai.btree.Task.Status.FAILED;
+import static com.badlogic.gdx.ai.btree.Task.Status.SUCCEEDED;
+import static com.evilbird.engine.common.collection.CollectionUtils.filter;
+import static com.evilbird.warcraft.behaviour.ai.gather.GatherPredicates.Gatherers;
+import static com.evilbird.warcraft.behaviour.ai.gather.GatherPredicates.LivingGatherers;
 
 /**
  * A {@link LeafTask} implementation that selects a resource from which to
@@ -33,18 +38,20 @@ public class SelectResource extends LeafTask<GatherData>
     @Override
     public Status execute() {
         GatherData data = getObject();
-        ResourceContainer resource = getResource(data);
-        data.setResource(resource);
-        return resource != null ? Status.SUCCEEDED : Status.FAILED;
-    }
 
-    protected ResourceContainer getResource(GatherData data) {
-        Gatherer gatherer = data.getGatherer();
-        return (ResourceContainer)GatherLocations.closestResource(gatherer, gatherer, GoldMine);
+        Player player = data.getPlayer();
+        Collection<GameObject> gatherers = player.findAll(Gatherers);
+        Collection<GameObject> livingGatherers = filter(gatherers,  LivingGatherers);
+
+        GatherOrder order = data.getOrder();
+        ResourceType resource = order.getNextResource(livingGatherers);
+
+        data.setResource(resource);
+        return resource != null ? SUCCEEDED : FAILED;
     }
 
     @Override
     protected Task<GatherData> copyTo(Task<GatherData> task) {
-        throw new UnsupportedOperationException();
+        return task;
     }
 }

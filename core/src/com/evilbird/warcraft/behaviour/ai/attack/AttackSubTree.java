@@ -8,8 +8,8 @@
 
 package com.evilbird.warcraft.behaviour.ai.attack;
 
-import com.evilbird.warcraft.behaviour.ai.PlayerData;
 import com.evilbird.engine.behaviour.framework.tree.SubTree;
+import com.evilbird.warcraft.behaviour.ai.PlayerData;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 
 import javax.inject.Inject;

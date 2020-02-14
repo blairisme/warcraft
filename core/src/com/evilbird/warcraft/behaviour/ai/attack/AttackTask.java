@@ -10,10 +10,10 @@ package com.evilbird.warcraft.behaviour.ai.attack;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
+import com.evilbird.engine.behaviour.framework.task.ActionTaskSet;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.attack.AttackActions;
-import com.evilbird.engine.behaviour.framework.task.ActionTaskSet;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 
 import javax.inject.Inject;

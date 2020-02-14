@@ -8,8 +8,8 @@
 
 package com.evilbird.warcraft.behaviour.ai.production.construct;
 
-import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.behaviour.framework.select.SelectFirstSubject;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import javax.inject.Inject;

@@ -11,9 +11,9 @@ package com.evilbird.warcraft.behaviour.ai.wander;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
+import com.evilbird.engine.behaviour.framework.task.AsyncActionTask;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.move.MoveToVectorAction;
-import com.evilbird.engine.behaviour.framework.task.AsyncActionTask;
 
 import javax.inject.Inject;
 

@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.game.GameController;
+import com.evilbird.engine.object.cache.GameObjectGroupCache;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.spatial.GameObjectGraphUpdater;
 import com.google.gson.annotations.JsonAdapter;
@@ -45,7 +46,7 @@ public class GameObjectContainer implements GameObjectComposite, Disposable
     private transient GameObjectGraphUpdater graphUpdater;
 
     public GameObjectContainer() {
-        this.group = new GameObjectGroup();
+        this.group = new GameObjectGroupCache();
         this.group.setRoot(this);
         this.group.setTouchable(Touchable.childrenOnly);
         this.group.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -125,7 +126,7 @@ public class GameObjectContainer implements GameObjectComposite, Disposable
      *
      * @return all child items satisfying the given predicate.
      */
-    public <T extends GameObject> Collection<T> findAll(Predicate<T> predicate) {
+    public Collection<GameObject> findAll(Predicate<GameObject> predicate) {
         return group.findAll(predicate);
     }
 

@@ -86,7 +86,7 @@ public interface GameObjectComposite
      *                  between items.
      * @return          all game objects that satisfy the given predicate.
      */
-    <T extends GameObject> Collection<T> findAll(Predicate<T> predicate);
+    Collection<GameObject> findAll(Predicate<GameObject> predicate);
 
     /**
      * Returns the {@link GameObject} at the specified location in world

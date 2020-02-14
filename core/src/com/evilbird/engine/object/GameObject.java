@@ -65,6 +65,16 @@ public interface GameObject extends Identifiable<Identifier>, Positionable, Disa
     boolean hasActions();
 
     /**
+     * Determines if the game object is currently idle: that it hasn't
+     * currently been assigned an action.
+     *
+     * @return {@code true} if the game object has not been an assigned Action.
+     */
+    default boolean isIdle() {
+        return !hasActions();
+    }
+
+    /**
      * Returns the {@link Action Actions} assigned to the game object.
      *
      * @return  a {@link Collection} of <code>Actions</code>. Will not return

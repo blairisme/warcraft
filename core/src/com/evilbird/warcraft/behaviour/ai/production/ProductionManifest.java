@@ -33,7 +33,8 @@ public class ProductionManifest
     }
 
     /**
-     * Adds the given {@link Product} to the manifest, incrementing the number o
+     * Adds the given {@link Product} to the manifest, incrementing the number
+     * of products of its type recorded in the manifest.
      */
     public void add(Product product) {
         int oldValue = Maps.getOrDefault(records, product, 0);

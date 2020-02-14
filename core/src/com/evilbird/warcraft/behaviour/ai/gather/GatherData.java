@@ -8,9 +8,9 @@
 
 package com.evilbird.warcraft.behaviour.ai.gather;
 
-import com.evilbird.warcraft.data.resource.ResourceContainer;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.data.player.Player;
-import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 /**
  * A bundle of attributes encapsulating the data required by gathering
@@ -21,30 +21,76 @@ import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 public class GatherData
 {
     private Player player;
-    private Gatherer gatherer;
-    private ResourceContainer resource;
+    private GatherOrder order;
+    private ResourceType resource;
+    private GameObject gatherer;
+    private GameObject location;
 
+    /**
+     * Creates a new instance of this class given the {@link Player} whose
+     * units will be instructed to gather resources.
+     */
     public GatherData(Player player) {
         this.player = player;
+        this.order = GatherOrder.forPlayer(player);
     }
 
+    /**
+     * Returns the unit that will be instructed to gather resources, if one has
+     * been found. Returns {@code null} if not.
+     */
+    public GameObject getGatherer() {
+        return gatherer;
+    }
+
+    /**
+     * Returns the location where the gatherer will start to obtain resources.
+     */
+    public GameObject getLocation() {
+        return location;
+    }
+
+    /**
+     * Returns the {@link Player} whose units will be instructed to gather
+     * resources.
+     */
     public Player getPlayer() {
         return player;
     }
 
-    public Gatherer getGatherer() {
-        return gatherer;
+    /**
+     * Returns a {@link GatherOrder} specifying the order in which to gather
+     * resources.
+     */
+    public GatherOrder getOrder() {
+        return order;
     }
 
-    public ResourceContainer getResource() {
+    /**
+     * Returns the type of resource to gather next.
+     */
+    public ResourceType getResource() {
         return resource;
     }
 
-    public void setGatherer(Gatherer gatherer) {
+    /**
+     * Sets the game object that will be instructed to gather resources.
+     */
+    public void setGatherer(GameObject gatherer) {
         this.gatherer = gatherer;
     }
 
-    public void setResource(ResourceContainer resource) {
+    /**
+     * Sets the location at which to start gathering resources.
+     */
+    public void setLocation(GameObject location) {
+        this.location = location;
+    }
+
+    /**
+     * Sets the type of resource to gather next.
+     */
+    public void setResource(ResourceType resource) {
         this.resource = resource;
     }
 }

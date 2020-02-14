@@ -10,15 +10,18 @@ package com.evilbird.warcraft.behaviour.ai.gather;
 
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
-import com.evilbird.engine.common.function.Predicates;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.utility.GameObjectOperations;
-import com.evilbird.warcraft.object.common.query.UnitOperations;
+import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.data.player.Player;
-import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import javax.inject.Inject;
+import java.util.Collection;
 import java.util.function.Predicate;
+
+import static com.evilbird.warcraft.behaviour.ai.gather.GatherPredicates.AvailableLandGatherers;
+import static com.evilbird.warcraft.behaviour.ai.gather.GatherPredicates.AvailableSeaGatherers;
+import static com.evilbird.warcraft.behaviour.ai.gather.GatherPredicates.Gatherers;
 
 /**
  * A {@link LeafTask} implementation that selects a gatherer who will obtain
@@ -28,12 +31,6 @@ import java.util.function.Predicate;
  */
 public class SelectGatherer extends LeafTask<GatherData>
 {
-    private static final transient Predicate<GameObject> ELIGIBLE_GATHERER = Predicates.all(
-        UnitOperations::isGatherer,
-        UnitOperations::isAlive,
-        GameObjectOperations::isIdle
-    );
-
     @Inject
     public SelectGatherer() {
     }
@@ -41,16 +38,32 @@ public class SelectGatherer extends LeafTask<GatherData>
     @Override
     public Status execute() {
         GatherData data = getObject();
-        Player player = data.getPlayer();
-
-        Gatherer gatherer = (Gatherer)player.find(ELIGIBLE_GATHERER);
+        GameObject gatherer = availableGatherer(data);
         data.setGatherer(gatherer);
-
         return gatherer != null ? Status.SUCCEEDED : Status.FAILED;
+    }
+
+    private GameObject availableGatherer(GatherData data) {
+        Player player = data.getPlayer();
+        Collection<GameObject> gatherers = player.findAll(Gatherers);
+
+        ResourceType type = data.getResource();
+        Predicate<GameObject> availability = availabilityFilter(type);
+
+        return CollectionUtils.findFirst(gatherers, availability);
+    }
+
+    public Predicate<GameObject> availabilityFilter(ResourceType type) {
+        switch (type) {
+            case Gold:
+            case Wood: return AvailableLandGatherers;
+            case Oil: return AvailableSeaGatherers;
+            default: throw new UnsupportedOperationException();
+        }
     }
 
     @Override
     protected Task<GatherData> copyTo(Task<GatherData> task) {
-        throw new UnsupportedOperationException();
+        return task;
     }
 }

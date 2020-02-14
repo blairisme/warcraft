@@ -10,14 +10,10 @@ package com.evilbird.warcraft.behaviour.ai.gather;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
+import com.evilbird.engine.behaviour.framework.task.AsyncActionTask;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.gather.GatherActions;
-import com.evilbird.engine.behaviour.framework.task.AsyncActionTask;
-import com.evilbird.warcraft.data.resource.ResourceContainer;
-import com.evilbird.warcraft.object.layer.LayerCell;
-import com.evilbird.warcraft.object.layer.forest.ForestCell;
-import com.evilbird.warcraft.object.unit.UnitType;
-import com.evilbird.warcraft.object.unit.resource.Resource;
+import com.evilbird.warcraft.data.resource.ResourceType;
 
 import javax.inject.Inject;
 
@@ -37,46 +33,20 @@ public class GatherTask extends AsyncActionTask<GatherData>
     @Override
     protected Action getAction(ActionFactory factory) {
         GatherData data = getObject();
-        ResourceContainer resource = data.getResource();
-        GatherActions identifier = getIdentifier(resource);
+        ResourceType resource = data.getResource();
+
+        GatherActions identifier = GatherActions.forResource(resource);
         Action action = factory.get(identifier);
 
         GameObject gatherer = data.getGatherer();
+        GameObject location = data.getLocation();
+
         action.setSubject(gatherer);
-        action.setTarget(resource);
+        action.setTarget(location);
 
         gatherer.removeActions();
         gatherer.addAction(action);
 
         return action;
-    }
-
-    private GatherActions getIdentifier(ResourceContainer container) {
-        if (container instanceof Resource) {
-            return getResourceIdentifier((Resource)container);
-        }
-        if (container instanceof LayerCell) {
-            return getLayerIdentifier((LayerCell)container);
-        }
-        throw new UnsupportedOperationException();
-    }
-
-    private GatherActions getResourceIdentifier(Resource resource) {
-        UnitType type = (UnitType)resource.getType();
-
-        if (type == UnitType.GoldMine) {
-            return GatherActions.GatherGold;
-        }
-        if (type == UnitType.OilPlatform || type == UnitType.OilRig) {
-            return GatherActions.GatherOil;
-        }
-        throw new UnsupportedOperationException();
-    }
-
-    private GatherActions getLayerIdentifier(LayerCell layerCell) {
-        if (layerCell instanceof ForestCell) {
-            return GatherActions.GatherWood;
-        }
-        throw new UnsupportedOperationException();
     }
 }
