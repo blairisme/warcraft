@@ -11,12 +11,15 @@ package com.evilbird.warcraft.action.construct;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.test.data.item.TestBuildings;
 import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.death.DeathAction;
+import com.evilbird.warcraft.action.death.RemoveEvents;
+import com.evilbird.warcraft.action.selection.SelectEvents;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.object.unit.building.Building;
 import org.junit.Test;
@@ -32,10 +35,13 @@ public class ConstructCancelTest extends ActionTestCase
     @Override
     protected Action newAction() {
         ConstructEvents events = Mockito.mock(ConstructEvents.class);
-        DeathAction death = Mockito.mock(DeathAction.class);
+        SelectEvents selectEvents = Mockito.mock(SelectEvents.class);
+        RemoveEvents removeEvents = Mockito.mock(RemoveEvents.class);
+        GameObjectFactory objectFactory = Mockito.mock(GameObjectFactory.class);
         ItemExclusion exclusion = Mockito.mock(ItemExclusion.class);
         ResourceTransfer resources = Mockito.mock(ResourceTransfer.class);
-        ConstructCancel action = new ConstructCancel(events, death, exclusion, resources, preferences);
+        ConstructCancel action = new ConstructCancel(
+            events, selectEvents, removeEvents, objectFactory, exclusion, resources, preferences);
         action.setIdentifier(ConstructActions.ConstructBarracksCancel);
         return action;
     }

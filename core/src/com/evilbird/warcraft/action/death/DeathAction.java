@@ -92,11 +92,11 @@ public class DeathAction extends BasicAction
         super.setSubject(gameObject);
     }
 
-    private boolean initialized() {
+    protected boolean initialized() {
         return timer != null;
     }
 
-    private boolean initialize() {
+    protected boolean initialize() {
         PerishableObject subject = (PerishableObject)getSubject();
         initializeStatus(subject);
         initializeVisuals(subject);
@@ -166,7 +166,7 @@ public class DeathAction extends BasicAction
         timer = new GameTimer(DECOMPOSE_TIME);
     }
 
-    private boolean remove() {
+    protected boolean remove() {
         remove(getSubject());
         remove(getTarget());
         remove(getAssociations());

@@ -8,10 +8,12 @@
 
 package com.evilbird.warcraft.action.construct;
 
-import com.evilbird.engine.action.framework.DelegateAction;
+import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.death.DeathAction;
+import com.evilbird.warcraft.action.death.RemoveEvents;
+import com.evilbird.warcraft.action.selection.SelectEvents;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.data.resource.ResourceSet;
 import com.evilbird.warcraft.object.data.player.Player;
@@ -30,46 +32,32 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.moveAdjac
  *
  * @author Blair Butterworth
  */
-public class ConstructCancel extends DelegateAction
+public class ConstructCancel extends DeathAction
 {
-    private transient boolean cancelled;
-    private transient ConstructEvents events;
+    private transient ConstructEvents constructEvents;
     private transient ItemExclusion exclusion;
     private transient ResourceTransfer resources;
     private transient WarcraftPreferences preferences;
 
     @Inject
     public ConstructCancel(
-        ConstructEvents events,
-        DeathAction death,
+        ConstructEvents constructEvents,
+        SelectEvents selectEvents,
+        RemoveEvents removeEvents,
+        GameObjectFactory objectFactory,
         ItemExclusion exclusion,
         ResourceTransfer resources,
         WarcraftPreferences preferences)
     {
-        super(death);
-        this.events = events;
-        this.cancelled = false;
+        super(selectEvents, removeEvents, objectFactory);
+        this.constructEvents = constructEvents;
         this.exclusion = exclusion;
         this.resources = resources;
         this.preferences = preferences;
     }
 
     @Override
-    public boolean act(float delta) {
-        if (! cancelled) {
-            cancelled = true;
-            cancel();
-        }
-        return super.act(delta);
-    }
-
-    @Override
-    public void reset() {
-        super.reset();
-        cancelled = false;
-    }
-
-    private void cancel() {
+    protected boolean initialize() {
         Building building = (Building) getSubject();
         Gatherer builder = (Gatherer)getTarget();
 
@@ -77,7 +65,8 @@ public class ConstructCancel extends DelegateAction
         configureBuilder(builder, building);
         configurePlayer(building);
 
-        events.notifyConstructCancelled(building, builder);
+        constructEvents.notifyConstructCancelled(building, builder);
+        return super.initialize();
     }
 
     private void configureBuilding(Building building) {
@@ -109,6 +98,4 @@ public class ConstructCancel extends DelegateAction
         ConstructActions constructAction = (ConstructActions)getIdentifier();
         return constructAction.getProduct();
     }
-
-
 }
