@@ -8,9 +8,10 @@
 
 package com.evilbird.warcraft.behaviour.ai;
 
-import com.evilbird.engine.behaviour.Behaviour;
+import com.evilbird.engine.behaviour.BehaviourElement;
 import com.evilbird.engine.common.inject.IdentifiedProvider;
 import com.evilbird.engine.common.lang.Identifier;
+import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
 import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
@@ -18,11 +19,11 @@ import javax.inject.Provider;
 
 /**
  * Instances of this factory create {@link AiBehaviour} objects, whose
- * operation will differ based on the given {@link AiBehaviours} value.
+ * operation will differ based on the given {@link WarcraftBehaviour}.
  *
  * @author Blair Butterworth
  */
-public class AiBehaviourFactory implements IdentifiedProvider<Behaviour>
+public class AiBehaviourFactory implements IdentifiedProvider<BehaviourElement>
 {
     private Provider<AiBehaviour> factory;
 
@@ -32,8 +33,11 @@ public class AiBehaviourFactory implements IdentifiedProvider<Behaviour>
     }
 
     @Override
-    public Behaviour get(Identifier identifier) {
-        Validate.isInstanceOf(AiBehaviours.class, identifier);
-        return factory.get();
+    public BehaviourElement get(Identifier identifier) {
+        Validate.isInstanceOf(WarcraftBehaviour.class, identifier);
+        WarcraftBehaviour behaviourType = (WarcraftBehaviour)identifier;
+        AiBehaviour aiBehaviour = factory.get();
+        aiBehaviour.setBehaviourType(behaviourType);
+        return aiBehaviour;
     }
 }

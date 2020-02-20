@@ -63,6 +63,7 @@ import static com.evilbird.warcraft.data.resource.ResourceType.Wood;
  *
  * @author Blair Butterworth
  */
+//TODO: Move properties into their own enumeration
 public class LevelLoader
 {
     private static final Logger logger = LoggerFactory.getLogger(LevelLoader.class);

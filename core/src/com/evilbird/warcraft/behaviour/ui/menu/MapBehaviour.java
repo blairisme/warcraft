@@ -9,6 +9,7 @@
 package com.evilbird.warcraft.behaviour.ui.menu;
 
 import com.evilbird.engine.behaviour.Behaviour;
+import com.evilbird.engine.behaviour.BehaviourElement;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.events.Event;
 import com.evilbird.engine.events.EventQueue;
@@ -36,7 +37,7 @@ import static com.evilbird.warcraft.object.display.components.UserInterfaceCompo
  *
  * @author Blair Butterworth
  */
-public class MapBehaviour implements Behaviour
+public class MapBehaviour implements BehaviourElement
 {
     private boolean loaded;
     private Events events;
@@ -48,7 +49,7 @@ public class MapBehaviour implements Behaviour
     }
 
     @Override
-    public void update(State state, List<UserInput> inputs, float time) {
+    public void apply(State state, List<UserInput> inputs, float time) {
         if (! loaded) {
             loadMap(state);
         } else {

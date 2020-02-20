@@ -8,8 +8,6 @@
 
 package com.evilbird.engine.audio.music;
 
-import static org.junit.Assert.*;
-
 /**
  * Instances of this unit test validate the {@link MusicSequence} class.
  *

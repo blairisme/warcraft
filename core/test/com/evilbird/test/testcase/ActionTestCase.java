@@ -20,7 +20,6 @@ import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.utils.TestUtils;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
-import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.type.WarcraftTypeRegistry;
 import org.junit.Before;

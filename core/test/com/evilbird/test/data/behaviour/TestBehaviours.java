@@ -9,8 +9,7 @@
 package com.evilbird.test.data.behaviour;
 
 import com.evilbird.engine.behaviour.Behaviour;
-import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.common.lang.TextIdentifier;
+import com.evilbird.engine.behaviour.BehaviourIdentifier;
 
 public class TestBehaviours
 {
@@ -18,10 +17,10 @@ public class TestBehaviours
     }
 
     public static Behaviour newBehaviour(String id) {
-        return newBehaviour(new TextIdentifier(id));
+        return newBehaviour(new TestBehaviourIdentifier(id));
     }
 
-    public static Behaviour newBehaviour(Identifier id) {
+    public static Behaviour newBehaviour(BehaviourIdentifier id) {
         TestBehaviour result = new TestBehaviour();
         result.setIdentifier(id);
         return result;

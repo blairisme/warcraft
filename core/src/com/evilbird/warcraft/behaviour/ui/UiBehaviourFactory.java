@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.behaviour.ui;
 
-import com.evilbird.engine.behaviour.Behaviour;
+import com.evilbird.engine.behaviour.BehaviourElement;
 import com.evilbird.engine.common.inject.InjectedPool;
 
 import javax.inject.Inject;
@@ -21,7 +21,7 @@ import javax.inject.Provider;
  *
  * @author Blair Butterworth
  */
-public class UiBehaviourFactory implements Provider<Behaviour>
+public class UiBehaviourFactory implements Provider<BehaviourElement>
 {
     private InjectedPool<UiBehaviour> pool;
 
@@ -31,7 +31,7 @@ public class UiBehaviourFactory implements Provider<Behaviour>
     }
 
     @Override
-    public Behaviour get() {
+    public BehaviourElement get() {
         return pool.obtain();
     }
 }
