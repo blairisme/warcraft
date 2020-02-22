@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.action.gather;
 
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
@@ -23,7 +23,7 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
  *
  * @author Blair Butterworth
  */
-public class GatherCancel extends BasicAction
+public class GatherCancel extends AbstractAction
 {
     private transient GatherEvents events;
 

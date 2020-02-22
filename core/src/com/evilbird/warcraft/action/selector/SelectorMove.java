@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.action.selector;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
@@ -29,7 +29,7 @@ import static com.evilbird.engine.common.math.VectorUtils.subtract;
  *
  * @author Blair Butterworth
  */
-public class SelectorMove extends BasicAction
+public class SelectorMove extends AbstractAction
 {
     @Inject
     public SelectorMove() {

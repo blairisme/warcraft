@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.action.produce;
 
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
@@ -31,7 +31,7 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer
  *
  * @author Blair Butterworth
  */
-public class ProduceUpgrade extends BasicAction
+public class ProduceUpgrade extends AbstractAction
 {
     protected transient GameTimer timer;
     protected transient ProduceEvents events;

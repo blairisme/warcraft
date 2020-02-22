@@ -73,7 +73,7 @@ public abstract class ActionTaskSet<T> extends LeafTask<T>
         if (getRecipient(action).hasAction(action)) {
             return RUNNING;
         }
-        if (action.hasError()) {
+        if (action.isFailed()) {
             return FAILED;
         }
         return Status.SUCCEEDED;

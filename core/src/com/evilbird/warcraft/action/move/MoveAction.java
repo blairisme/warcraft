@@ -10,7 +10,7 @@ package com.evilbird.warcraft.action.move;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
@@ -38,7 +38,7 @@ import static com.evilbird.engine.common.pathing.SpatialUtils.getClosest;
  *
  * @author Blair Butterworth
  */
-public abstract class MoveAction extends BasicAction
+public abstract class MoveAction extends AbstractAction
 {
     protected transient MoveEvents events;
     protected transient GameObjectGraph graph;
@@ -94,7 +94,7 @@ public abstract class MoveAction extends BasicAction
 
     protected boolean moveFailed(GameObject gameObject) {
         resetSubject(gameObject);
-        setError(new PathUnknownException(gameObject));
+        setFailed("Unable to determine path to " + gameObject.getIdentifier());
         events.moveFailed(gameObject);
         return ActionComplete;
     }

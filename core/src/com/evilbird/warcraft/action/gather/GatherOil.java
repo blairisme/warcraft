@@ -12,8 +12,6 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.StateTransitionAction;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.warcraft.action.gather.error.DepotMissingException;
-import com.evilbird.warcraft.action.gather.error.ResourceMissingException;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.object.unit.UnitType;
@@ -72,7 +70,7 @@ public class GatherOil extends StateTransitionAction
             obtain.setTarget(resource);
             return obtain;
         } else {
-            setError(new ResourceMissingException(Oil));
+            setFailed("Unable to locate resource of type oil");
             return null;
         }
     }
@@ -83,7 +81,7 @@ public class GatherOil extends StateTransitionAction
             deposit.setTarget(depot);
             return deposit;
         } else {
-            setError(new DepotMissingException(Oil));
+            setFailed("Unable to locate depot for oil");
             return null;
         }
     }

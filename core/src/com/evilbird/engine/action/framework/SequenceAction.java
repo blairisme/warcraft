@@ -30,7 +30,7 @@ public class SequenceAction extends CompositeAction
     private SequenceAction() {
     }
 
-    public SequenceAction(Action ... sequence) {
+    public SequenceAction(Action... sequence) {
         super(sequence);
         resetIndex();
     }
@@ -51,7 +51,7 @@ public class SequenceAction extends CompositeAction
     public boolean act(float delta) {
         boolean result = true;
         if (current != null) {
-            result = current.act(delta);
+            result = current.run(delta);
             if (result && ++index < actions.size()) {
                 current = actions.get(index);
                 result = false;

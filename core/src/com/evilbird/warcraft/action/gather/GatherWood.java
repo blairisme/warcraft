@@ -12,8 +12,6 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.SequenceAction;
 import com.evilbird.engine.action.framework.StateTransitionAction;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.warcraft.action.gather.error.DepotMissingException;
-import com.evilbird.warcraft.action.gather.error.ResourceMissingException;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
@@ -68,7 +66,7 @@ public class GatherWood extends StateTransitionAction
             obtain.setTarget(resource);
             return obtain;
         } else {
-            setError(new ResourceMissingException(Wood));
+            setFailed("Unable to locate resource of type oil");
             return null;
         }
     }
@@ -79,7 +77,7 @@ public class GatherWood extends StateTransitionAction
             deposit.setTarget(depot);
             return deposit;
         } else {
-            setError(new DepotMissingException(Wood));
+            setFailed("Unable to locate depot for wood");
             return null;
         }
     }

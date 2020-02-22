@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.action.spell.buff;
 
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
@@ -22,7 +22,7 @@ import static com.evilbird.engine.action.ActionConstants.ActionComplete;
  *
  * @author Blair Butterworth
  */
-public class InvisibilityCancel extends BasicAction
+public class InvisibilityCancel extends AbstractAction
 {
     @Inject
     public InvisibilityCancel() {

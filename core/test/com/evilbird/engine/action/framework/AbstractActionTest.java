@@ -17,13 +17,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Instances of this unit test validate the {@link BasicAction} class.
+ * Instances of this unit test validate the {@link AbstractAction} class.
  *
  * @author Blair Butterworth
  */
-public class BasicActionTest
+public class AbstractActionTest
 {
-    private BasicAction action;
+    private AbstractAction action;
 
     @Before
     public void setup() {

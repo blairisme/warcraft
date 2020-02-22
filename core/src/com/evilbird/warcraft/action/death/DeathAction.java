@@ -11,7 +11,7 @@ package com.evilbird.warcraft.action.death;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.engine.object.GameObject;
@@ -43,7 +43,7 @@ import static com.evilbird.warcraft.object.unit.UnitSound.Die;
  *
  * @author Blair Butterworth
  */
-public class DeathAction extends BasicAction
+public class DeathAction extends AbstractAction
 {
     private static final float DECOMPOSE_TIME = 30;
 
@@ -92,11 +92,11 @@ public class DeathAction extends BasicAction
         super.setSubject(gameObject);
     }
 
-    private boolean initialized() {
+    protected boolean initialized() {
         return timer != null;
     }
 
-    private boolean initialize() {
+    protected boolean initialize() {
         PerishableObject subject = (PerishableObject)getSubject();
         initializeStatus(subject);
         initializeVisuals(subject);
@@ -166,7 +166,7 @@ public class DeathAction extends BasicAction
         timer = new GameTimer(DECOMPOSE_TIME);
     }
 
-    private boolean remove() {
+    protected boolean remove() {
         remove(getSubject());
         remove(getTarget());
         remove(getAssociations());

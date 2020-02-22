@@ -8,7 +8,7 @@
 
 package com.evilbird.test.data.action;
 
-import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.action.framework.CompositeAction;
 
 /**
@@ -22,7 +22,7 @@ public class TestCompositeAction extends CompositeAction
     public TestCompositeAction() {
     }
 
-    public TestCompositeAction(Action... actions) {
+    public TestCompositeAction(AbstractAction... actions) {
         super(actions);
     }
 

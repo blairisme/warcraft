@@ -9,7 +9,6 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.action.framework.RemoveAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
@@ -39,7 +38,7 @@ import static com.badlogic.gdx.math.Vector2.Zero;
  */
 public class MissileAttack extends BasicProjectileAttack
 {
-    private transient Provider<RemoveAction> removeProvider;
+    private transient Provider<MissileRemoval> removeProvider;
     private transient ExplosiveProjectile missile;
     private transient GameTimer interval;
     private transient Vector2 direction;
@@ -53,7 +52,7 @@ public class MissileAttack extends BasicProjectileAttack
         AttackDamage damage,
         GameObjectFactory objects,
         WarcraftPreferences preferences,
-        Provider<RemoveAction> removeProvider)
+        Provider<MissileRemoval> removeProvider)
     {
         super(events, damage, objects, preferences);
         this.removeProvider = removeProvider;
@@ -124,7 +123,7 @@ public class MissileAttack extends BasicProjectileAttack
         GameObjectGroup container = missile.getParent();
         container.addObject(explosion);
 
-        RemoveAction removal = removeProvider.get();
+        MissileRemoval removal = removeProvider.get();
         removal.setSubject(explosion);
         explosion.addAction(removal, explosion.getDuration());
 

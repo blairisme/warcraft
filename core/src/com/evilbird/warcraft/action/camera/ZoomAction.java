@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.action.camera;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.common.lang.Zoomable;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
@@ -26,7 +26,7 @@ import static com.evilbird.warcraft.action.camera.CameraActions.Zoom;
  *
  * @author Blair Butterworth
  */
-public class ZoomAction extends BasicAction
+public class ZoomAction extends AbstractAction
 {
     private final transient float zoomMin;
     private final transient float zoomMax;

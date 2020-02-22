@@ -21,7 +21,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
  *
  * @author Blair Butterworth
  */
-public class TemporalAction extends BasicAction
+public class TemporalAction extends AbstractAction
 {
     private float duration;
     private float total;

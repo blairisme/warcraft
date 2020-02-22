@@ -12,7 +12,7 @@ import com.evilbird.engine.device.DeviceDisplay;
 import org.lwjgl.opengl.Display;
 
 import javax.inject.Inject;
-import java.awt.Toolkit;
+import java.awt.*;
 
 /**
  * Provides information about the current display, running on a desktop

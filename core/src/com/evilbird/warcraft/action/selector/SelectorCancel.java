@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.action.selector;
 
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.object.selector.Selector;
 import com.evilbird.warcraft.object.unit.Unit;
@@ -23,7 +23,7 @@ import static com.evilbird.engine.action.ActionConstants.ActionComplete;
  *
  * @author Blair Butterworth
  */
-public class SelectorCancel extends BasicAction
+public class SelectorCancel extends AbstractAction
 {
     private SelectorEvents events;
 

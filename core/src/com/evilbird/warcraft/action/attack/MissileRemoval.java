@@ -6,9 +6,10 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.engine.action.framework;
+package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectGroup;
 
@@ -21,10 +22,10 @@ import static com.evilbird.engine.action.ActionConstants.ActionComplete;
  *
  * @author Blair Butterworth
  */
-public class RemoveAction extends BasicAction
+public class MissileRemoval extends AbstractAction
 {
     @Inject
-    public RemoveAction() {
+    public MissileRemoval() {
     }
 
     @Override

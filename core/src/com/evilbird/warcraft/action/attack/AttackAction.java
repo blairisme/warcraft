@@ -60,7 +60,7 @@ public class AttackAction extends CompositeAction
         if (delegate == null) {
             delegate = getAttackAction();
         }
-        return delegate.act(delta);
+        return delegate.run(delta);
     }
 
     @Override

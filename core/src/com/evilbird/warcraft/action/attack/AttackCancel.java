@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.action.attack;
 
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
@@ -24,7 +24,7 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
  *
  * @author Blair Butterworth
  */
-public class AttackCancel extends BasicAction
+public class AttackCancel extends AbstractAction
 {
     private transient AttackEvents events;
 

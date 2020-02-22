@@ -10,7 +10,7 @@ package com.evilbird.warcraft.action.selector;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
@@ -38,7 +38,7 @@ import static com.evilbird.warcraft.object.selector.SelectorType.AreaSelector;
  *
  * @author Blair Butterworth
  */
-public class SelectorArea extends BasicAction
+public class SelectorArea extends AbstractAction
 {
     private transient Events events;
 

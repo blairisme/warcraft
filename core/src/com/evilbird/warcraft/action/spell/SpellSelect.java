@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.action.spell;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
@@ -28,7 +28,7 @@ import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
  *
  * @author Blair Butterworth
  */
-public abstract class SpellSelect extends BasicAction
+public abstract class SpellSelect extends AbstractAction
 {
     private transient Spell spell;
     private transient Events events;
