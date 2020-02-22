@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.behaviour.ui.interaction;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.behaviour.Behaviour;
+import com.evilbird.engine.behaviour.BehaviourElement;
 import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
@@ -37,7 +37,7 @@ import static com.evilbird.warcraft.object.common.query.UnitPredicates.isSelecte
  *
  * @author Blair Butterworth
  */
-public class InteractionBehaviour implements Behaviour
+public class InteractionBehaviour implements BehaviourElement
 {
     private static final Logger logger = LoggerFactory.getLogger(InteractionBehaviour.class);
 
@@ -58,7 +58,7 @@ public class InteractionBehaviour implements Behaviour
     }
 
     @Override
-    public void update(State state, List<UserInput> inputs, float time) {
+    public void apply(State state, List<UserInput> inputs, float time) {
         updateCache(state);
         evaluateInputs(state, inputs);
     }

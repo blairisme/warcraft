@@ -279,16 +279,15 @@ public class GameObjectGroup extends BasicGameObject implements GameObjectCompos
      *                  between objects.
      * @return all child objects satisfying the given predicate.
      */
-    public <T extends GameObject> Collection<T> findAll(Predicate<T> predicate) {
+    public Collection<GameObject> findAll(Predicate<GameObject> predicate) {
         return findAll(this, predicate);
     }
 
-    @SuppressWarnings("unchecked")
-    private <T extends GameObject> Collection<T> findAll(GameObjectComposite group, Predicate<T> predicate) {
-        Collection<T> result = new ArrayList<>();
+    private Collection<GameObject> findAll(GameObjectComposite group, Predicate<GameObject> predicate) {
+        Collection<GameObject> result = new ArrayList<>();
         for (GameObject gameObject : group.getObjects()) {
-            if (predicate.test((T)gameObject)) {
-                result.add((T)gameObject);
+            if (predicate.test(gameObject)) {
+                result.add(gameObject);
             }
             if (gameObject instanceof GameObjectComposite) {
                 result.addAll(findAll((GameObjectComposite)gameObject, predicate));

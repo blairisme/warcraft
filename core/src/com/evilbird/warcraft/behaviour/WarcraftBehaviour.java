@@ -9,6 +9,7 @@
 package com.evilbird.warcraft.behaviour;
 
 import com.evilbird.engine.behaviour.BehaviourIdentifier;
+import com.evilbird.engine.common.collection.EnumUtils;
 
 /**
  * Defines identifiers for behaviour varieties.
@@ -17,6 +18,9 @@ import com.evilbird.engine.behaviour.BehaviourIdentifier;
  */
 public enum WarcraftBehaviour implements BehaviourIdentifier
 {
+    /**
+     * Defines behaviour appropriate to human campaign level 1.
+     */
     Human1,
     Human2,
     Human3,
@@ -31,7 +35,6 @@ public enum WarcraftBehaviour implements BehaviourIdentifier
     Human12,
     Human13,
     Human14,
-    HumanEasy,
 
     Orc1,
     Orc2,
@@ -47,13 +50,20 @@ public enum WarcraftBehaviour implements BehaviourIdentifier
     Orc12,
     Orc13,
     Orc14,
-    OrcEasy;
 
-    public boolean isHuman() {
-        return !isOrc();
+    ScenarioEasy,
+    ScenarioMedium,
+    ScenarioHard;
+
+    public boolean isHumanCampaign() {
+        return EnumUtils.isBetween(this, Human1, Human14);
     }
 
-    public boolean isOrc() {
-        return this.ordinal() >= Orc1.ordinal();
+    public boolean isOrcCampaign() {
+        return EnumUtils.isBetween(this, Orc1, Orc14);
+    }
+
+    public boolean isScenario() {
+        return EnumUtils.isBetween(this, ScenarioEasy, ScenarioHard);
     }
 }

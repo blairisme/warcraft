@@ -61,6 +61,14 @@ public class CollectionUtils
         return result;
     }
 
+    public static <A, B> List<B> convert(Iterable<A> collection, Function<A, B> converter) {
+        List<B> result = new ArrayList<>();
+        for (A element: collection) {
+            result.add(converter.apply(element));
+        }
+        return result;
+    }
+
     public static <T> List<T> delta(Collection<T> collectionA, Collection<T> collectionB) {
         List<T> result = new ArrayList<>(collectionA);
         result.removeAll(collectionB);
@@ -74,24 +82,6 @@ public class CollectionUtils
             }
         }
         return null;
-    }
-
-    public static <A, B> List<B> flatten(Collection<A> collection, Function<A, Collection<B>> converter) {
-        List<B> result = new ArrayList<>(collection.size());
-        for (A element: collection) {
-            result.addAll(converter.apply(element));
-        }
-        return result;
-    }
-
-    public static <A> List<A> flatten(Collection<Array<A>> collection) {
-        List<A> result = new ArrayList<>(collection.size());
-        for (Array<A> array: collection) {
-            for (A element: array) {
-                result.add(element);
-            }
-        }
-        return result;
     }
 
     /**
@@ -108,19 +98,23 @@ public class CollectionUtils
         return result;
     }
 
-    public static <A, B> List<B> convert(Iterable<A> collection, Function<A, B> converter) {
-        List<B> result = new ArrayList<>();
+    public static <T> T first(Collection<T> collection) {
+        return collection.iterator().next();
+    }
+
+    public static <A, B> List<B> flatten(Collection<A> collection, Function<A, Collection<B>> converter) {
+        List<B> result = new ArrayList<>(collection.size());
         for (A element: collection) {
-            result.add(converter.apply(element));
+            result.addAll(converter.apply(element));
         }
         return result;
     }
 
-    public static <T> int testMatches(T[] collection, Predicate<T> condition) {
-        int result = 0;
-        for (T element: collection) {
-            if (condition.test(element)) {
-                result++;
+    public static <A> List<A> flatten(Collection<Array<A>> collection) {
+        List<A> result = new ArrayList<>(collection.size());
+        for (Array<A> array: collection) {
+            for (A element: array) {
+                result.add(element);
             }
         }
         return result;

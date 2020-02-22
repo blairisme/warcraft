@@ -29,7 +29,6 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -100,7 +99,7 @@ public class BasicGameObject implements GameObject
 
     @Override
     public Collection<Action> getActions() {
-        return Collections.unmodifiableList(actions);
+        return actions;
     }
 
     @Override

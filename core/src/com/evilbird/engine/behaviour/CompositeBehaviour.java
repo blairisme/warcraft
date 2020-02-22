@@ -8,7 +8,6 @@
 
 package com.evilbird.engine.behaviour;
 
-import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.state.State;
 import org.apache.commons.lang3.Validate;
@@ -25,23 +24,23 @@ import java.util.List;
 public class CompositeBehaviour implements Behaviour
 {
     private transient BehaviourIdentifier identifier;
-    private transient List<Behaviour> behaviours;
+    private transient List<BehaviourElement> behaviours;
 
-    public CompositeBehaviour(BehaviourIdentifier identifier, Behaviour ... behaviours) {
+    public CompositeBehaviour(BehaviourIdentifier identifier, BehaviourElement ... behaviours) {
         Validate.notNull(behaviours);
         this.identifier = identifier;
         this.behaviours = Arrays.asList(behaviours);
     }
 
     @Override
-    public Identifier getIdentifier() {
+    public BehaviourIdentifier getIdentifier() {
         return identifier;
     }
 
     @Override
-    public void update(State state, List<UserInput> input, float time) {
-        for (Behaviour behaviour : behaviours) {
-            behaviour.update(state, input, time);
+    public void apply(State state, List<UserInput> input, float time) {
+        for (BehaviourElement behaviour : behaviours) {
+            behaviour.apply(state, input, time);
         }
     }
 }

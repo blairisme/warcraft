@@ -9,6 +9,7 @@
 package com.evilbird.warcraft.behaviour.ui.visibility;
 
 import com.evilbird.engine.behaviour.Behaviour;
+import com.evilbird.engine.behaviour.BehaviourElement;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.events.Events;
@@ -45,7 +46,7 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.isSubmari
  *
  * @author Blair Butterworth
  */
-public class SubmarineBehaviour implements Behaviour
+public class SubmarineBehaviour implements BehaviourElement
 {
     private Events events;
     private GameObjectGraph graph;
@@ -59,7 +60,7 @@ public class SubmarineBehaviour implements Behaviour
     }
 
     @Override
-    public void update(State state, List<UserInput> input, float time) {
+    public void apply(State state, List<UserInput> input, float time) {
         if (!initialized()) {
             initialize(state.getWorld());
         }

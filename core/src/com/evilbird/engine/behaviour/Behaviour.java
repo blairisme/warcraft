@@ -8,13 +8,7 @@
 
 package com.evilbird.engine.behaviour;
 
-import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.Identifiable;
-import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.engine.device.UserInput;
-import com.evilbird.engine.state.State;
-
-import java.util.List;
 
 /**
  * Implementors of this interface define game logic that decides which
@@ -23,21 +17,6 @@ import java.util.List;
  *
  * @author Blair Butterworth
  */
-public interface Behaviour extends Identifiable
+public interface Behaviour extends BehaviourElement, Identifiable<BehaviourIdentifier>
 {
-    /**
-     * Provides the behaviour the opportunity to apply the game state. The
-     * behaviour is also provided with any user input that occurred between
-     * this and the previous call to apply .
-     *
-     * @param state the current game state.
-     * @param input a list of user input in the order in which they occurred.
-     * @param time  the difference in time between this call to update and the
-     *              last call to update.
-     */
-    void update(State state, List<UserInput> input, float time);
-
-    default Identifier getIdentifier() {
-        return GenericIdentifier.Unknown;
-    }
 }

@@ -11,7 +11,7 @@ package com.evilbird.warcraft.object.data.player;
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.GameObjectGroup;
+import com.evilbird.engine.object.cache.GameObjectGroupCache;
 import com.evilbird.warcraft.common.TeamColour;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.common.WarcraftNation;
@@ -39,7 +39,7 @@ import static com.evilbird.warcraft.common.WarcraftNation.Neutral;
  *
  * @author Blair Butterworth
  */
-public class Player extends GameObjectGroup implements ResourceContainer
+public class Player extends GameObjectGroupCache implements ResourceContainer
 {
     private int level;
     private int team;

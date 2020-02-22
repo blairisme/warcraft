@@ -31,6 +31,19 @@ public class Lists
     }
 
     /**
+     * Creates a new immutable list containing the given element.
+     *
+     * @param element   the initial content of the resulting list.
+     * @param <T>       the type of the element in the resulting list.
+     *
+     * @return  a {@link Collections#singletonList(Object) singleton list} or
+     *          an {@link Collections#emptyList() empty list}.
+     */
+    public static <T> List<T> asImmutableList(T element) {
+        return element != null ? Collections.singletonList(element) : Collections.emptyList();
+    }
+
+    /**
      * Creates a new mutable list containing the given element.
      *
      * @param element   the initial content of the resulting list.
@@ -44,17 +57,10 @@ public class Lists
         return result;
     }
 
-    /**
-     * Creates a new immutable list containing the given element.
-     *
-     * @param element   the initial content of the resulting list.
-     * @param <T>       the type of the element in the resulting list.
-     *
-     * @return  a {@link Collections#singletonList(Object) singleton list} or
-     *          an {@link Collections#emptyList() empty list}.
-     */
-    public static <T> List<T> asImmutableList(T element) {
-        return element != null ? Collections.singletonList(element) : Collections.emptyList();
+    public static <T> List<T> asList(Collection<T> elements, T element) {
+        List<T> result = toList(elements);
+        result.add(element);
+        return result;
     }
 
     /**
@@ -69,7 +75,52 @@ public class Lists
         if (collection instanceof List) {
             return (List<T>)collection;
         }
+        if (collection == null) {
+            return new ArrayList<>();
+        }
         return new ArrayList<>(collection);
+    }
+
+    /**
+     * Returns a new {@link List} containing the given values.
+     *
+     * @param elements  an array of values.
+     * @param <T>       the type of elements in the set.
+     *
+     * @return a new {@code Sets} containing the given values.
+     */
+    public static <T> List<T> of(T ... elements) {
+        Objects.requireNonNull(elements);
+        List<T> list = new ArrayList<>();
+        for (T element: elements) {
+            list.add(element);
+        }
+        return list;
+    }
+
+    public static <T> List<T> replace(List<T> list, T target, T replacement) {
+        int index = list.indexOf(target);
+        if (index != -1) {
+            list.remove(index);
+            list.add(index, replacement);
+        }
+        return list;
+    }
+
+    /**
+     * Sorts this list according to the order induced by the specified
+     * {@link Comparator}.
+     */
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    public static <T> List<T> sort(List<T> list, Comparator<? super T> c) {
+        Object[] a = list.toArray();
+        Arrays.sort(a, (Comparator) c);
+        ListIterator<T> i = list.listIterator();
+        for (Object e : a) {
+            i.next();
+            i.set((T) e);
+        }
+        return list;
     }
 
     /**
@@ -102,47 +153,5 @@ public class Lists
         result.add(element);
         result.addAll(collection);
         return result;
-    }
-
-    public static <T> List<T> replace(List<T> list, T target, T replacement) {
-        int index = list.indexOf(target);
-        if (index != -1) {
-            list.remove(index);
-            list.add(index, replacement);
-        }
-        return list;
-    }
-
-    /**
-     * Returns a new {@link List} containing the given values.
-     *
-     * @param elements  an array of values.
-     * @param <T>       the type of elements in the set.
-     *
-     * @return a new {@code Sets} containing the given values.
-     */
-    public static <T> List<T> of(T ... elements) {
-        Objects.requireNonNull(elements);
-        List<T> list = new ArrayList<>();
-        for (T element: elements) {
-            list.add(element);
-        }
-        return list;
-    }
-
-    /**
-     * Sorts this list according to the order induced by the specified
-     * {@link Comparator}.
-     */
-    @SuppressWarnings({"unchecked", "rawtypes"})
-    public static <T> List<T> sort(List<T> list, Comparator<? super T> c) {
-        Object[] a = list.toArray();
-        Arrays.sort(a, (Comparator) c);
-        ListIterator<T> i = list.listIterator();
-        for (Object e : a) {
-            i.next();
-            i.set((T) e);
-        }
-        return list;
     }
 }

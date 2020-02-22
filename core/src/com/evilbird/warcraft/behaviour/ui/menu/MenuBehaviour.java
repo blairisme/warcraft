@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.behaviour.ui.menu;
 
-import com.evilbird.engine.behaviour.Behaviour;
+import com.evilbird.engine.behaviour.BehaviourElement;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
@@ -58,7 +58,7 @@ import static com.evilbird.warcraft.object.data.player.PlayerStatistic.Score;
  *
  * @author Blair Butterworth
  */
-public class MenuBehaviour implements Behaviour
+public class MenuBehaviour implements BehaviourElement
 {
     private Events events;
     private Player player;
@@ -72,7 +72,7 @@ public class MenuBehaviour implements Behaviour
     }
 
     @Override
-    public void update(State state, List<UserInput> inputs, float time) {
+    public void apply(State state, List<UserInput> inputs, float time) {
         GameObjectContainer world = state.getWorld();
         GameObjectContainer hud = state.getHud();
 

@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.behaviour.ui;
 
-import com.evilbird.engine.behaviour.Behaviour;
+import com.evilbird.engine.behaviour.BehaviourElement;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.behaviour.ui.interaction.InteractionBehaviour;
@@ -25,7 +25,7 @@ import java.util.List;
  *
  * @author Blair Butterworth
  */
-public class UiBehaviour implements Behaviour
+public class UiBehaviour implements BehaviourElement
 {
     private InteractionBehaviour interactionBehaviour;
     private MapBehaviour mapBehaviour;
@@ -43,9 +43,9 @@ public class UiBehaviour implements Behaviour
     }
 
     @Override
-    public void update(State state, List<UserInput> input, float time) {
-        this.menuBehaviour.update(state, input, time);
-        this.mapBehaviour.update(state, input, time);
-        this.interactionBehaviour.update(state, input, time);
+    public void apply(State state, List<UserInput> input, float time) {
+        this.menuBehaviour.apply(state, input, time);
+        this.mapBehaviour.apply(state, input, time);
+        this.interactionBehaviour.apply(state, input, time);
     }
 }
