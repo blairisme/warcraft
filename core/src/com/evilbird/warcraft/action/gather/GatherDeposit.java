@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
@@ -34,7 +34,7 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.MoveBasic;
  *
  * @author Blair Butterworth
  */
-public class GatherDeposit extends BasicAction
+public class GatherDeposit extends AbstractAction
 {
     private static final float DEPOSIT_DURATION = 5;
 

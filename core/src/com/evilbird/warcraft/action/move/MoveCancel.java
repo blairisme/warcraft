@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.action.move;
 
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.engine.object.GameObject;
 
@@ -23,7 +23,7 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
  *
  * @author Blair Butterworth
  */
-public class MoveCancel extends BasicAction
+public class MoveCancel extends AbstractAction
 {
     private transient MoveEvents events;
 

@@ -8,7 +8,7 @@
 
 package com.evilbird.engine.action;
 
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.AbstractAdapter;
 import com.evilbird.engine.game.GameService;
@@ -36,12 +36,12 @@ public class ActionAdapter extends AbstractAdapter<Action>
     public ActionAdapter() {
         GameService service = GameService.getInstance();
         this.actionFactory = service.getActionFactory();
-        this.actionFields = Arrays.asList(BasicAction.class.getDeclaredFields());
+        this.actionFields = Arrays.asList(AbstractAction.class.getDeclaredFields());
     }
 
     public ActionAdapter(ActionFactory actionFactory) {
         this.actionFactory = actionFactory;
-        this.actionFields = Arrays.asList(BasicAction.class.getDeclaredFields());
+        this.actionFields = Arrays.asList(AbstractAction.class.getDeclaredFields());
     }
 
     @Override

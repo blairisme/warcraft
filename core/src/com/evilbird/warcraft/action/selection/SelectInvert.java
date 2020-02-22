@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.action.selection;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
@@ -35,7 +35,7 @@ import static com.evilbird.warcraft.object.unit.UnitSound.Selected;
  *
  * @author Blair Butterworth
  */
-public class SelectInvert extends BasicAction
+public class SelectInvert extends AbstractAction
 {
     private transient SelectEvents events;
     private transient WarcraftPreferences preferences;

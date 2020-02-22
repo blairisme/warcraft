@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.action.spell;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
@@ -32,7 +32,7 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.CastSpell;
  *
  * @author Blair Butterworth
  */
-public abstract class SpellAction extends BasicAction
+public abstract class SpellAction extends AbstractAction
 {
     protected transient Spell spell;
     protected transient EffectType effect;

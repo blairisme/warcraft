@@ -17,7 +17,7 @@ import static com.evilbird.engine.action.ActionConstants.ActionComplete;
  *
  * @author Blair Butterworth
  */
-public class EmptyAction extends BasicAction
+public class EmptyAction extends AbstractAction
 {
     @Override
     public boolean act(float delta) {

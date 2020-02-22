@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.death.DeathAction;
@@ -27,7 +27,7 @@ import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
  *
  * @author Blair Butterworth
  */
-class GatherObtain extends BasicAction
+class GatherObtain extends AbstractAction
 {
     protected transient GameTimer timer;
     protected transient DeathAction death;

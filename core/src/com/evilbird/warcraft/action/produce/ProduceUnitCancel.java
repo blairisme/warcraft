@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.action.produce;
 
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.data.resource.ResourceSet;
@@ -28,7 +28,7 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer
  *
  * @author Blair Butterworth
  */
-public class ProduceUnitCancel extends BasicAction
+public class ProduceUnitCancel extends AbstractAction
 {
     private transient ProduceEvents events;
     private transient ResourceTransfer resources;

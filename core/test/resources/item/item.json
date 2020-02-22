@@ -48,7 +48,8 @@
         "identifier": {
           "class": "AttackActions",
           "enum": "Attack"
-        }
+        },
+        "status": "Fresh"
       },
       "timer": {
         "duration": 10.0,

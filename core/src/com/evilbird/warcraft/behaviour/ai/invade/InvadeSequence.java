@@ -10,12 +10,12 @@ package com.evilbird.warcraft.behaviour.ai.invade;
 
 import com.badlogic.gdx.ai.btree.Task;
 import com.badlogic.gdx.ai.btree.branch.Sequence;
-import com.evilbird.engine.object.GameObject;
-import com.evilbird.engine.object.utility.GameObjectComparators;
 import com.evilbird.engine.behaviour.framework.guard.RandomWait;
 import com.evilbird.engine.behaviour.framework.select.SelectFirstSubject;
 import com.evilbird.engine.behaviour.framework.select.SelectRandomSubjects;
 import com.evilbird.engine.behaviour.framework.select.SelectSubject;
+import com.evilbird.engine.object.GameObject;
+import com.evilbird.engine.object.utility.GameObjectComparators;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
 
 import javax.inject.Inject;

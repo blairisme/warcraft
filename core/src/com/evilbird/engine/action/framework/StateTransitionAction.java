@@ -39,8 +39,8 @@ public abstract class StateTransitionAction extends CompositeAction
                 return ActionComplete;
             }
         }
-        if (current.act(time)) {
-            if (current.hasError()) {
+        if (current.run(time)) {
+            if (current.isFailed()) {
                 if (isCriticalError(current)) {
                     return ActionComplete;
                 }

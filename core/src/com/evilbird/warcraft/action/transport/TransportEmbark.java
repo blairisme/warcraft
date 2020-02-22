@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.action.transport;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.combatant.naval.Transport;
@@ -24,7 +24,7 @@ import static com.evilbird.engine.action.ActionConstants.ActionComplete;
  *
  * @author Blair Butterworth
  */
-public class TransportEmbark extends BasicAction
+public class TransportEmbark extends AbstractAction
 {
     private transient ItemExclusion exclusion;
 

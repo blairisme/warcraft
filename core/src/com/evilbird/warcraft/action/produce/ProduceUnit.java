@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.action.produce;
 
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
@@ -39,7 +39,7 @@ import static com.evilbird.warcraft.object.unit.UnitSound.Ready;
  *
  * @author Blair Butterworth
  */
-public class ProduceUnit extends BasicAction
+public class ProduceUnit extends AbstractAction
 {
     private transient GameTimer timer;
     private transient GameObjectFactory factory;

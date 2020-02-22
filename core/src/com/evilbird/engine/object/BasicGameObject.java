@@ -182,13 +182,13 @@ public class BasicGameObject implements GameObject
 
     @Override
     public void removeActions() {
-        CollectionUtils.forEach(actions, Action::free);
+        CollectionUtils.forEach(actions, Action::cancel);
         actions.clear();
     }
 
     @Override
     public void removeAction(Action action) {
-        action.free();
+        action.cancel();
         actions.remove(action);
     }
 
@@ -213,7 +213,12 @@ public class BasicGameObject implements GameObject
     @Override
     public void setRoot(GameObjectContainer root) {
         this.root = root;
-        CollectionUtils.forEach(actions, action -> action.setRoot(root));
+        for (Action action: actions) {
+            if (action instanceof GameObjectReferencer) {
+                GameObjectReferencer consumer = (GameObjectReferencer)action;
+                consumer.setContainer(root);
+            }
+        }
     }
 
     @Override
@@ -290,11 +295,7 @@ public class BasicGameObject implements GameObject
     }
 
     private boolean execute(Action action, float time) {
-        boolean complete = action.act(time);
-        if (complete) {
-            action.free();
-        }
-        return complete;
+        return action.run(time);
     }
 
     private boolean schedule(PendingAction pending, float time) {

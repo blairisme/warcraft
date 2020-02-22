@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.action.selection;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
 
 import javax.inject.Inject;
@@ -19,7 +19,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class DeselectAction extends BasicAction
+public class DeselectAction extends AbstractAction
 {
     private SelectEvents events;
 

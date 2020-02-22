@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.action.construct;
 
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
@@ -35,7 +35,7 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer
  *
  * @author Blair Butterworth
  */
-public class ConstructUpgrade extends BasicAction
+public class ConstructUpgrade extends AbstractAction
 {
     private transient GameTimer timer;
     private transient GameObjectFactory factory;

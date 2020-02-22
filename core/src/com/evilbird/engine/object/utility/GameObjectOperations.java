@@ -56,9 +56,7 @@ public class GameObjectOperations
         Objects.requireNonNull(action);
 
         if (!hasAction(object, action)) {
-            action.reset();
             action.setSubject(object);
-
             object.removeActions();
             object.addAction(action);
         }

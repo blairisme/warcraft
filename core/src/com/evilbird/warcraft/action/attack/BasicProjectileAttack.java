@@ -9,8 +9,7 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.action.ActionException;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.common.WarcraftPreferences;
@@ -35,7 +34,7 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.reorient;
  *
  * @author Blair Butterworth
  */
-public class BasicProjectileAttack extends BasicAction
+public class BasicProjectileAttack extends AbstractAction
 {
     protected transient AttackDamage damage;
     protected transient AttackEvents events;
@@ -137,7 +136,7 @@ public class BasicProjectileAttack extends BasicAction
 
     private boolean operationFailed() {
         events.attackFailed(attacker, target);
-        setError(new ActionException("Attack Failed"));
+        setFailed("Attack Failed");
         return ActionComplete;
     }
 

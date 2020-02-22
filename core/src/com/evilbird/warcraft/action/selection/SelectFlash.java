@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.action.selection;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
 
 import javax.inject.Inject;
@@ -22,7 +22,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class SelectFlash extends BasicAction
+public class SelectFlash extends AbstractAction
 {
     private static final transient float DELAY = 0.3f;
     private static final transient float REPETITIONS = 10;

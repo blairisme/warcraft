@@ -17,7 +17,6 @@ import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
-import com.evilbird.warcraft.action.death.DeathAction;
 import com.evilbird.warcraft.action.death.RemoveEvents;
 import com.evilbird.warcraft.action.selection.SelectEvents;
 import com.evilbird.warcraft.object.unit.UnitType;

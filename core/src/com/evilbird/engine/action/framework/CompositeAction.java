@@ -9,12 +9,12 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.ActionException;
+import com.evilbird.engine.common.inject.PooledObject;
 import com.evilbird.engine.common.serialization.SerializedInitializer;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectComposite;
-import com.evilbird.engine.object.GameObjectReference;
+import com.evilbird.engine.object.GameObjectReferencer;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import java.util.List;
  *
  * @author Blair Butterworth
  */
-public abstract class CompositeAction extends BasicAction
+public abstract class CompositeAction extends AbstractAction
 {
     protected transient List<Action> actions;
 
@@ -63,28 +63,10 @@ public abstract class CompositeAction extends BasicAction
     }
 
     @Override
-    public ActionException getError() {
+    public void cancel() {
+        super.cancel();
         for (Action delegate: actions) {
-            if (delegate.hasError()) {
-                return delegate.getError();
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public void restart() {
-        super.restart();
-        for (Action delegate: actions) {
-            delegate.restart();
-        }
-    }
-
-    @Override
-    public void reset() {
-        super.reset();
-        for (Action delegate: actions) {
-            delegate.reset();
+            delegate.cancel();
         }
     }
 
@@ -97,28 +79,10 @@ public abstract class CompositeAction extends BasicAction
     }
 
     @Override
-    public void setError(ActionException error) {
-        for (Action delegate: actions) {
-            delegate.setError(error);
-        }
-    }
-
-    @Override
     public void setSubject(GameObject gameObject) {
         super.setSubject(gameObject);
         for (Action delegate: actions) {
             delegate.setSubject(gameObject);
-        }
-    }
-
-    @Override
-    public void setSubjectReference(GameObjectReference reference) {
-        super.setSubjectReference(reference);
-        for (Action action: actions) {
-            if (action instanceof BasicAction) {
-                BasicAction basic = (BasicAction)action;
-                basic.setSubjectReference(reference);
-            }
         }
     }
 
@@ -131,35 +95,32 @@ public abstract class CompositeAction extends BasicAction
     }
 
     @Override
-    public void setTargetReference(GameObjectReference reference) {
-        super.setTargetReference(reference);
+    public void setContainer(GameObjectComposite root) {
+        super.setContainer(root);
         for (Action action: actions) {
-            if (action instanceof BasicAction) {
-                BasicAction basic = (BasicAction)action;
-                basic.setTargetReference(reference);
+            if (action instanceof GameObjectReferencer){
+                GameObjectReferencer referencer = (GameObjectReferencer)action;
+                referencer.setContainer(root);
             }
         }
     }
 
     @Override
-    public void setRoot(GameObjectComposite root) {
-        super.setRoot(root);
-        for (Action action: actions) {
-            if (action instanceof BasicAction) {
-                BasicAction basic = (BasicAction)action;
-                basic.setRoot(root);
+    public void reset() {
+        super.reset();
+        for (Action delegate: actions) {
+            if (delegate instanceof PooledObject) {
+                PooledObject<?> pooled = (PooledObject<?>)delegate;
+                pooled.reset();
             }
         }
     }
 
-    @SerializedInitializer
-    protected void initialize() {
-        for (Action action: actions) {
-            if (action instanceof BasicAction) {
-                BasicAction basic = (BasicAction)action;
-                basic.setSubjectReference(this.getItemReference());
-                basic.setTargetReference(this.getTargetReference());
-            }
+    @Override
+    public void restart() {
+        super.restart();
+        for (Action delegate: actions) {
+            delegate.restart();
         }
     }
 
@@ -169,5 +130,16 @@ public abstract class CompositeAction extends BasicAction
             .appendSuper("base")
             .append("actions", actions)
             .toString();
+    }
+
+    @SerializedInitializer
+    protected void initialize() {
+        for (Action child: actions) {
+            if (child instanceof AbstractAction) {
+                AbstractAction action = (AbstractAction)child;
+                action.setSubjectReference(this.getItemReference());
+                action.setTargetReference(this.getTargetReference());
+            }
+        }
     }
 }

@@ -9,7 +9,6 @@
 package com.evilbird.engine.action.framework;
 
 import com.badlogic.gdx.utils.Pool;
-import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.action.TestBasicAction;
 import com.evilbird.test.verifier.EqualityVerifier;
@@ -95,19 +94,5 @@ public class SequenceActionTest
         Assert.assertEquals(actor, childA.getSubject());
         Assert.assertEquals(actor, childB.getSubject());
         Assert.assertEquals(actor, childC.getSubject());
-    }
-
-    @Test
-    public void errorTest() {
-        Assert.assertNull(sequence.getError());
-        Assert.assertFalse(sequence.hasError());
-
-        ActionException error = new ActionException("foo");
-        childB.setError(error);
-
-        Assert.assertEquals(error, sequence.getError());
-        Assert.assertEquals(error, childB.getError());
-        Assert.assertNull(childA.getError());
-        Assert.assertNull(childC.getError());
     }
 }

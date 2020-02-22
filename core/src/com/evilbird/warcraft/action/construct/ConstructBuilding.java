@@ -10,7 +10,7 @@ package com.evilbird.warcraft.action.construct;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.GameObjectFactory;
@@ -46,7 +46,7 @@ import static com.evilbird.warcraft.object.unit.UnitSound.Placement;
  *
  * @author Blair Butterworth
  */
-public class ConstructBuilding extends BasicAction
+public class ConstructBuilding extends AbstractAction
 {
     private GameObjectFactory factory;
     private ResourceTransfer resources;

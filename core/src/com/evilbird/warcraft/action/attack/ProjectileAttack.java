@@ -39,7 +39,7 @@ public class ProjectileAttack extends CompositeAction
         if (delegate == null) {
             delegate = isExplosive() ? missile : basic;
         }
-        return delegate.act(delta);
+        return delegate.run(delta);
     }
 
     @Override

@@ -8,15 +8,15 @@
 
 package com.evilbird.test.data.action;
 
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 
 /**
- * A concrete instance of the abstract {@link BasicAction} class, useful
+ * A concrete instance of the abstract {@link AbstractAction} class, useful
  * for testing purposes.
  *
  * @author Blair Butterworth
  */
-public class TestBasicAction extends BasicAction
+public class TestBasicAction extends AbstractAction
 {
     private transient boolean invoked;
     private transient boolean restarted;

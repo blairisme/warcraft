@@ -31,7 +31,7 @@ public class ParallelAction extends CompositeAction
     private ParallelAction() {
     }
 
-    public ParallelAction(Action ... actions) {
+    public ParallelAction(Action... actions) {
         super(actions);
         this.remaining = new ArrayList<>(actions.length);
         resetCompletion();
@@ -52,7 +52,7 @@ public class ParallelAction extends CompositeAction
 
     @Override
     public boolean act(float delta) {
-        CollectionUtils.removeIf(remaining, action -> action.act(delta));
+        CollectionUtils.removeIf(remaining, action -> action.run(delta));
         return remaining.isEmpty();
     }
 

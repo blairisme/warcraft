@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.action.spell.aoe;
 
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectGroup;
 
@@ -21,7 +21,7 @@ import static com.evilbird.engine.action.ActionConstants.ActionComplete;
  *
  * @author Blair Butterworth
  */
-public class AoeSpellCancel extends BasicAction
+public class AoeSpellCancel extends AbstractAction
 {
     @Inject
     public AoeSpellCancel() {

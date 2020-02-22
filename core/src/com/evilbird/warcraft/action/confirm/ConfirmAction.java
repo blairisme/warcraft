@@ -10,7 +10,7 @@ package com.evilbird.warcraft.action.confirm;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.RandomIdentifier;
 import com.evilbird.engine.common.time.GameTimer;
@@ -31,7 +31,7 @@ import static com.evilbird.warcraft.object.unit.UnitSound.Acknowledge;
  *
  * @author Blair Butterworth
  */
-abstract class ConfirmAction extends BasicAction
+abstract class ConfirmAction extends AbstractAction
 {
     private static final transient float ANIMATION_LIFETIME = 0.55f;
 

@@ -9,8 +9,7 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.ActionException;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
@@ -29,7 +28,7 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.reorient;
  *
  * @author Blair Butterworth
  */
-public class ProximityAttack extends BasicAction
+public class ProximityAttack extends AbstractAction
 {
     private transient AttackDamage damage;
     private transient AttackEvents events;
@@ -84,7 +83,7 @@ public class ProximityAttack extends BasicAction
 
     private boolean operationFailed() {
         events.attackFailed(attacker, target);
-        setError(new ActionException("Attack Failed"));
+        setFailed("Attack Failed");
         return ActionComplete;
     }
 

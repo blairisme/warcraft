@@ -200,7 +200,7 @@ public class InteractionDefinition implements Interaction
                 }
             }
             else if (displacement == Standalone) {
-                CollectionUtils.forEach(actions, action -> action.act(0));
+                CollectionUtils.forEach(actions, action -> action.run(0));
             }
         });
     }
@@ -209,7 +209,7 @@ public class InteractionDefinition implements Interaction
      * Indicates how the interaction should be applied.
      *
      * @param consumer  a {@link BiConsumer} that will be called with the
-     *                  action resulting from this interaction and the Item it
+     *                  action resulting from this interaction and the Item itaw
      *                  should be applied to.
      * @return          the interaction
      */

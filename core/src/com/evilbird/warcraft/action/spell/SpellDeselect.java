@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.action.spell;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
@@ -26,7 +26,7 @@ import static com.evilbird.engine.action.ActionConstants.ActionComplete;
  *
  * @author Blair Butterworth
  */
-public class SpellDeselect extends BasicAction
+public class SpellDeselect extends AbstractAction
 {
     @Inject
     public SpellDeselect() {

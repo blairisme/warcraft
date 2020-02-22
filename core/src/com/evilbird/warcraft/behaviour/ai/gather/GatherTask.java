@@ -10,9 +10,9 @@ package com.evilbird.warcraft.behaviour.ai.gather;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
+import com.evilbird.engine.behaviour.framework.task.AsyncActionTask;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.gather.GatherActions;
-import com.evilbird.engine.behaviour.framework.task.AsyncActionTask;
 import com.evilbird.warcraft.data.resource.ResourceContainer;
 import com.evilbird.warcraft.object.layer.LayerCell;
 import com.evilbird.warcraft.object.layer.forest.ForestCell;

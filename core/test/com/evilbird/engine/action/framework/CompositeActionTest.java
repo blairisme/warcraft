@@ -9,8 +9,6 @@
 package com.evilbird.engine.action.framework;
 
 import com.badlogic.gdx.utils.Pool;
-import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.ActionException;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.test.data.action.TestBasicAction;
 import com.evilbird.test.data.action.TestCompositeAction;
@@ -29,9 +27,9 @@ import org.mockito.Mockito;
  */
 public class CompositeActionTest
 {
-    private Action childA;
-    private Action childB;
-    private Action childC;
+    private AbstractAction childA;
+    private AbstractAction childB;
+    private AbstractAction childC;
     private CompositeAction composite;
 
     @Before
@@ -80,19 +78,5 @@ public class CompositeActionTest
         Assert.assertEquals(actor, childA.getSubject());
         Assert.assertEquals(actor, childB.getSubject());
         Assert.assertEquals(actor, childC.getSubject());
-    }
-
-    @Test
-    public void errorTest() {
-        Assert.assertNull(composite.getError());
-        Assert.assertFalse(composite.hasError());
-
-        ActionException error = new ActionException("foo");
-        childB.setError(error);
-
-        Assert.assertEquals(error, composite.getError());
-        Assert.assertEquals(error, childB.getError());
-        Assert.assertNull(childA.getError());
-        Assert.assertNull(childC.getError());
     }
 }

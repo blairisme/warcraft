@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.action.spell.attack;
 
-import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.warcraft.object.common.value.AbsoluteBuffValue;
 import com.evilbird.warcraft.object.common.value.Value;
 import com.evilbird.warcraft.object.unit.Unit;
@@ -22,7 +22,7 @@ import static com.evilbird.engine.action.ActionConstants.ActionComplete;
  *
  * @author Blair Butterworth
  */
-public class UnholyArmourCancel extends BasicAction
+public class UnholyArmourCancel extends AbstractAction
 {
     @Inject
     public UnholyArmourCancel() {

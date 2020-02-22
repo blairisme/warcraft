@@ -14,7 +14,6 @@ import com.evilbird.engine.device.DeviceDisplay;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.test.testcase.GameFactoryTestCase;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourFactory;
-import com.evilbird.warcraft.behaviour.ai.AiBehaviour;
 import com.evilbird.warcraft.behaviour.scenario.ScenarioBehaviourFactory;
 import com.evilbird.warcraft.behaviour.ui.UiBehaviourFactory;
 import com.evilbird.warcraft.state.WarcraftContext;

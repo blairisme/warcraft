@@ -9,12 +9,12 @@
 package com.evilbird.warcraft.behaviour.ai.attack;
 
 import com.badlogic.gdx.ai.btree.Task;
+import com.evilbird.engine.behaviour.framework.tree.CompositeTask;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
 import com.evilbird.warcraft.action.death.RemoveEvent;
 import com.evilbird.warcraft.behaviour.ai.PlayerData;
-import com.evilbird.engine.behaviour.framework.tree.CompositeTask;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.data.player.Player;

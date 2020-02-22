@@ -10,6 +10,7 @@ package com.evilbird.test.testcase;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.framework.AbstractAction;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.device.UserInput;
@@ -20,7 +21,6 @@ import com.evilbird.test.data.item.TestCombatants;
 import com.evilbird.test.utils.TestUtils;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
-import com.evilbird.warcraft.object.data.player.Player;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.type.WarcraftTypeRegistry;
 import org.junit.Before;
@@ -40,7 +40,7 @@ public abstract class ActionTestCase extends GameTestCase
     protected GameObject gameObject;
     protected GameObject target;
     protected UserInput cause;
-    protected Action action;
+    protected AbstractAction action;
     protected GameObjectGroup parent;
     protected TypeRegistry types;
 
@@ -54,7 +54,7 @@ public abstract class ActionTestCase extends GameTestCase
         cause = newCause();
         parent = gameObject.getParent();
 
-        action = newAction();
+        action = (AbstractAction)newAction();
         action.setSubject(gameObject);
         action.setTarget(target);
         action.setCause(cause);
