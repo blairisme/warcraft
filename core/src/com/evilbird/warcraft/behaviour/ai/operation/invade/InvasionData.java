@@ -15,20 +15,23 @@ import com.evilbird.warcraft.object.data.player.Player;
 import java.util.Collection;
 
 /**
- * A bundle of attributes encapsulating the data required by invasion behaviour.
+ * A bundle of attributes encapsulating the data required by invasion
+ * behaviour.
  *
  * @author Blair Butterworth
  */
-public class InvadeData
+public class InvasionData
 {
     private Player player;
     private Player enemy;
-    private GameObject enemyCommand;
-    private GameObject playerCommand;
+    private InvasionOrder order;
+    private GameObject target;
     private Collection<GameObject> attackers;
+    private GameObjectComposite world;
 
-    public InvadeData(Player player) {
+    public InvasionData(Player player, InvasionOrder order) {
         this.player = player;
+        this.order = order;
     }
 
     public Collection<GameObject> getAttackers() {
@@ -39,35 +42,34 @@ public class InvadeData
         return enemy;
     }
 
-    public GameObject getEnemyCommand() {
-        return enemyCommand;
+    public InvasionOrder getOrder() {
+        return order;
     }
 
     public Player getPlayer() {
         return player;
     }
 
-    public GameObject getPlayerCommand() {
-        return playerCommand;
+    public GameObject getTarget() {
+        return target;
     }
 
     public GameObjectComposite getWorld() {
-        return player.getRoot();
+        if (world == null) {
+            world = player.getRoot();
+        }
+        return world;
     }
 
     public void setAttackers(Collection<GameObject> attackers) {
         this.attackers = attackers;
     }
 
-    public void setEnemy(GameObject enemy) {
-        this.enemy = (Player)enemy;
+    public void setEnemy(Player enemy) {
+        this.enemy = enemy;
     }
 
-    public void setEnemyCommand(GameObject enemyCommand) {
-        this.enemyCommand = enemyCommand;
-    }
-
-    public void setPlayerCommand(GameObject playerCommand) {
-        this.playerCommand = playerCommand;
+    public void setTarget(GameObject target) {
+        this.target = target;
     }
 }

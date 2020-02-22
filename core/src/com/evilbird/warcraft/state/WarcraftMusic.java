@@ -39,6 +39,7 @@ public class WarcraftMusic extends AssetBundle
     }
 
     public Music getMusic() {
-        return getLazyLoadedMusicSequence(MUSIC_ID, MUSIC_COUNT);
+        return getLazyLoadedMusic("music-1");
+        //return getLazyLoadedMusicSequence(MUSIC_ID, MUSIC_COUNT);
     }
 }

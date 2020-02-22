@@ -25,23 +25,23 @@ import static com.evilbird.warcraft.action.attack.AttackActions.Attack;
  *
  * @author Blair Butterworth
  */
-public class InvadeTask extends ActionTaskSet<InvadeData>
+public class InvasionTask extends ActionTaskSet<InvasionData>
 {
     @Inject
-    public InvadeTask(ActionFactory factory) {
+    public InvasionTask(ActionFactory factory) {
        super(factory);
     }
 
     @Override
     protected Collection<Action> getActions(ActionFactory factory) {
-        InvadeData data = getObject();
-        GameObject enemy = data.getEnemyCommand();
+        InvasionData data = getObject();
+        GameObject target = data.getTarget();
 
         Collection<GameObject> attackers = data.getAttackers();
         Collection<Action> actions = new ArrayList<>(attackers.size());
 
         for (GameObject attacker: attackers) {
-            Action action = getAction(factory, attacker, enemy);
+            Action action = getAction(factory, attacker, target);
             actions.add(action);
         }
         return actions;

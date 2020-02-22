@@ -9,6 +9,7 @@
 package com.evilbird.warcraft.behaviour.ai.order.scenario;
 
 import com.evilbird.warcraft.behaviour.ai.operation.gather.GatherOrder;
+import com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionOrder;
 import com.evilbird.warcraft.behaviour.ai.operation.production.ProductionOrder;
 import com.evilbird.warcraft.behaviour.ai.order.OperationOrder;
 import org.apache.commons.lang3.tuple.Pair;
@@ -44,5 +45,10 @@ public class HumanEasy implements OperationOrder
             Pair.of(TownHall, 1),
             Pair.of(Farm, 1),
             Pair.of(Barracks, 1));
+    }
+
+    @Override
+    public InvasionOrder getInvasionOrder() {
+        return new InvasionOrder();
     }
 }

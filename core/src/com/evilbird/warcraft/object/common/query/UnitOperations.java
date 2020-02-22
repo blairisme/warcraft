@@ -261,18 +261,6 @@ public class UnitOperations
     }
 
     /**
-     * Determines if the given {@link GameObject} can do damage to other
-     * {@code GameObjects} as well as being alive and currently idle.
-     */
-    public static boolean isAvailableAttacker(GameObject object) {
-        if (object instanceof OffensiveObject) {
-            OffensiveObject attacker = (OffensiveObject)object;
-            return attacker.isAlive() && !attacker.hasActions();
-        }
-        return false;
-    }
-
-    /**
      * Determines if the given {@link GameObject} is a {@link Building}: a
      * {@link Unit} specialization that provides the user the ability to train
      * {@link Unit Units} and research {@link Upgrade Upgrades}.

@@ -11,7 +11,7 @@ package com.evilbird.warcraft.behaviour.ai.operation.player;
 import com.badlogic.gdx.ai.btree.branch.Parallel;
 import com.evilbird.warcraft.behaviour.ai.operation.attack.AttackBehaviour;
 import com.evilbird.warcraft.behaviour.ai.operation.gather.GatherBehaviour;
-import com.evilbird.warcraft.behaviour.ai.operation.invade.InvadeBehaviour;
+import com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionBehaviour;
 import com.evilbird.warcraft.behaviour.ai.operation.production.ProductionBehaviour;
 import com.evilbird.warcraft.behaviour.ai.operation.reorient.ReorientBehaviour;
 
@@ -29,7 +29,7 @@ public class EnemyBehaviour extends PlayerBehaviour
     public EnemyBehaviour(
         AttackBehaviour attack,
         GatherBehaviour gather,
-        InvadeBehaviour invade,
+        InvasionBehaviour invade,
         ProductionBehaviour produce,
         ReorientBehaviour reorient)
     {

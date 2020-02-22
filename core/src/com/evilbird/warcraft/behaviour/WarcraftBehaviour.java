@@ -19,7 +19,7 @@ import com.evilbird.engine.common.collection.EnumUtils;
 public enum WarcraftBehaviour implements BehaviourIdentifier
 {
     /**
-     * Defines behaviour appropriate to human campaign level 1.
+     * Defines behaviour appropriate to human campaign levels.
      */
     Human1,
     Human2,
@@ -36,6 +36,9 @@ public enum WarcraftBehaviour implements BehaviourIdentifier
     Human13,
     Human14,
 
+    /**
+     * Defines behaviour appropriate to human campaign levels.
+     */
     Orc1,
     Orc2,
     Orc3,

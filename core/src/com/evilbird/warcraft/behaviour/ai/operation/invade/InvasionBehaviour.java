@@ -10,6 +10,8 @@ package com.evilbird.warcraft.behaviour.ai.operation.invade;
 
 import com.evilbird.engine.behaviour.framework.tree.SubTree;
 import com.evilbird.warcraft.behaviour.ai.operation.player.PlayerData;
+import com.evilbird.warcraft.behaviour.ai.order.OperationOrder;
+import com.evilbird.warcraft.object.data.player.Player;
 
 import javax.inject.Inject;
 
@@ -19,15 +21,18 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class InvadeBehaviour extends SubTree<PlayerData, InvadeData>
+public class InvasionBehaviour extends SubTree<PlayerData, InvasionData>
 {
     @Inject
-    public InvadeBehaviour(InvadeSequence invadeSequence) {
-        super(invadeSequence);
+    public InvasionBehaviour(InvasionSequence invasionSequence) {
+        super(invasionSequence);
     }
 
     @Override
-    protected InvadeData convertObject(PlayerData playerData) {
-        return new InvadeData(playerData.getPlayer());
+    protected InvasionData convertObject(PlayerData playerData) {
+        Player player = playerData.getPlayer();
+        OperationOrder operationOrder = playerData.getOrder();
+        InvasionOrder invasionOrder = operationOrder.getInvasionOrder();
+        return new InvasionData(player, invasionOrder);
     }
 }

@@ -9,6 +9,7 @@
 package com.evilbird.warcraft.behaviour.ai.order.campaign;
 
 import com.evilbird.warcraft.behaviour.ai.operation.gather.GatherOrder;
+import com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionOrder;
 import com.evilbird.warcraft.behaviour.ai.operation.production.ProductionOrder;
 import com.evilbird.warcraft.behaviour.ai.order.OperationOrder;
 import org.apache.commons.lang3.tuple.Pair;
@@ -36,5 +37,10 @@ public class OrcCampaign3 implements OperationOrder
         return new ProductionOrder(
             Pair.of(OilTanker, 1),
             Pair.of(OilPlatform, 1));
+    }
+
+    @Override
+    public InvasionOrder getInvasionOrder() {
+        return new InvasionOrder();
     }
 }

@@ -9,6 +9,7 @@
 package com.evilbird.warcraft.behaviour.ai.order;
 
 import com.evilbird.warcraft.behaviour.ai.operation.gather.GatherOrder;
+import com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionOrder;
 import com.evilbird.warcraft.behaviour.ai.operation.production.ProductionOrder;
 
 /**
@@ -20,6 +21,8 @@ import com.evilbird.warcraft.behaviour.ai.operation.production.ProductionOrder;
 public interface OperationOrder
 {
     GatherOrder getGatherOrder();
+
+    InvasionOrder getInvasionOrder();
 
     ProductionOrder getProductionOrder();
 }

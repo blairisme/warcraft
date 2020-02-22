@@ -9,17 +9,23 @@
 package com.evilbird.warcraft.behaviour.ai.order.campaign;
 
 import com.evilbird.warcraft.behaviour.ai.operation.gather.GatherOrder;
+import com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionOrder;
 import com.evilbird.warcraft.behaviour.ai.operation.production.ProductionOrder;
 import com.evilbird.warcraft.behaviour.ai.order.OperationOrder;
 import org.apache.commons.lang3.tuple.Pair;
 
+import static com.evilbird.engine.common.time.DurationUtils.Seconds;
+import static com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionWave.invadeAfter;
 import static com.evilbird.warcraft.data.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.data.resource.ResourceType.Oil;
 import static com.evilbird.warcraft.data.resource.ResourceType.Wood;
 import static com.evilbird.warcraft.object.unit.UnitType.Encampment;
 import static com.evilbird.warcraft.object.unit.UnitType.GreatHall;
+import static com.evilbird.warcraft.object.unit.UnitType.Grunt;
 import static com.evilbird.warcraft.object.unit.UnitType.Peon;
 import static com.evilbird.warcraft.object.unit.UnitType.PigFarm;
+import static com.evilbird.warcraft.object.unit.UnitType.TrollAxethrower;
+import static com.evilbird.warcraft.object.unit.UnitType.TrollDestroyer;
 import static com.evilbird.warcraft.object.unit.UnitType.TrollLumberMill;
 import static com.evilbird.warcraft.object.unit.UnitType.TrollTanker;
 
@@ -50,5 +56,18 @@ public class HumanCampaign4 implements OperationOrder
             Pair.of(Encampment, 1),
             Pair.of(TrollLumberMill, 1),
             Pair.of(TrollTanker, 1));
+    }
+
+    public InvasionOrder getInvasionOrder() {
+        return new InvasionOrder(
+            invadeAfter(Seconds(60))
+                .withUnits(Grunt, 2)
+                .withUnits(TrollAxethrower, 1),
+            invadeAfter(Seconds(60))
+                .withUnits(TrollDestroyer, 1),
+            invadeAfter(Seconds(120))
+                .repeatingAtIntervals(Seconds(120))
+                .withUnits(Grunt, 4)
+                .withUnits(TrollAxethrower, 2));
     }
 }

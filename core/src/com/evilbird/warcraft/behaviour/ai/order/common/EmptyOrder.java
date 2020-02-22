@@ -9,6 +9,7 @@
 package com.evilbird.warcraft.behaviour.ai.order.common;
 
 import com.evilbird.warcraft.behaviour.ai.operation.gather.GatherOrder;
+import com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionOrder;
 import com.evilbird.warcraft.behaviour.ai.operation.production.ProductionOrder;
 import com.evilbird.warcraft.behaviour.ai.order.OperationOrder;
 
@@ -27,5 +28,10 @@ public class EmptyOrder implements OperationOrder
     @Override
     public ProductionOrder getProductionOrder() {
         return new ProductionOrder();
+    }
+
+    @Override
+    public InvasionOrder getInvasionOrder() {
+        return new InvasionOrder();
     }
 }

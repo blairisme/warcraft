@@ -8,6 +8,8 @@
 
 package com.evilbird.engine.common.collection;
 
+import org.apache.commons.lang3.RandomUtils;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
