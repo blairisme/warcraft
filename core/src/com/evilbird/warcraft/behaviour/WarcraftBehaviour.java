@@ -8,65 +8,42 @@
 
 package com.evilbird.warcraft.behaviour;
 
+import com.evilbird.engine.behaviour.Behaviour;
+import com.evilbird.engine.behaviour.BehaviourElement;
 import com.evilbird.engine.behaviour.BehaviourIdentifier;
-import com.evilbird.engine.common.collection.EnumUtils;
+import com.evilbird.engine.device.UserInput;
+import com.evilbird.engine.state.State;
+import com.google.gson.annotations.JsonAdapter;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
- * Defines identifiers for behaviour varieties.
+ * Instances of this {@link Behaviour} use the Composite pattern to make a
+ * collection of behaviours appear as a single behaviour.
  *
  * @author Blair Butterworth
  */
-public enum WarcraftBehaviour implements BehaviourIdentifier
+@JsonAdapter(WarcraftBehaviourSerializer.class)
+public class WarcraftBehaviour implements Behaviour
 {
-    /**
-     * Defines behaviour appropriate to human campaign levels.
-     */
-    Human1,
-    Human2,
-    Human3,
-    Human4,
-    Human5,
-    Human6,
-    Human7,
-    Human8,
-    Human9,
-    Human10,
-    Human11,
-    Human12,
-    Human13,
-    Human14,
+    private transient BehaviourIdentifier identifier;
+    private transient List<BehaviourElement> behaviours;
 
-    /**
-     * Defines behaviour appropriate to human campaign levels.
-     */
-    Orc1,
-    Orc2,
-    Orc3,
-    Orc4,
-    Orc5,
-    Orc6,
-    Orc7,
-    Orc8,
-    Orc9,
-    Orc10,
-    Orc11,
-    Orc12,
-    Orc13,
-    Orc14,
-
-    ScenarioEasy,
-    ScenarioMedium,
-    ScenarioHard;
-
-    public boolean isHumanCampaign() {
-        return EnumUtils.isBetween(this, Human1, Human14);
+    public WarcraftBehaviour(BehaviourIdentifier identifier, BehaviourElement ... behaviours) {
+        this.identifier = identifier;
+        this.behaviours = Arrays.asList(behaviours);
     }
 
-    public boolean isOrcCampaign() {
-        return EnumUtils.isBetween(this, Orc1, Orc14);
+    @Override
+    public BehaviourIdentifier getIdentifier() {
+        return identifier;
     }
 
-    public boolean isScenario() {
-        return EnumUtils.isBetween(this, ScenarioEasy, ScenarioHard);
+    @Override
+    public void apply(State state, List<UserInput> input, float time) {
+        for (BehaviourElement behaviour : behaviours) {
+            behaviour.apply(state, input, time);
+        }
     }
 }

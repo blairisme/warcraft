@@ -8,11 +8,15 @@
 
 package com.evilbird.warcraft.behaviour.ai.operation.invade;
 
+import com.badlogic.gdx.ai.GdxAI;
+import com.badlogic.gdx.ai.Timepiece;
+import com.evilbird.engine.common.time.Duration;
 import com.evilbird.warcraft.object.data.player.Player;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
+
+import static com.evilbird.engine.common.time.ChronoUnit.SECONDS;
 
 /**
  * Specifies the order in which an enemy player invades the teams that oppose
@@ -22,33 +26,64 @@ import java.util.List;
  */
 public class InvasionOrder
 {
-    private List<InvasionWave> order;
+    private List<InvasionWave> waves;
 
-    public InvasionOrder(InvasionWave ... entries) {
-        this.order = Arrays.asList(entries);
-    }
-
-    public List<InvasionWave> getSequence() {
-        return Collections.unmodifiableList(order);
+    /**
+     * Constructs a new instance of this class given a collection of invasion
+     * waves that constitute the invasion order.
+     */
+    public InvasionOrder(InvasionWave ... waves) {
+        this.waves = Arrays.asList(waves);
     }
 
     /**
      * Returns details about the next invasion wave.
      */
     public InvasionWave getNextWave(Player player) {
+        int phase = player.getPhase();
+        long time = getWorldTime();
 
-
-
-//        Map<ResourceType, Integer> types = getTypeCount(gatherers);
-//        for (Pair<ResourceType, Integer> entry: order) {
-//            int orderCount = entry.getValue();
-//            int gathererCount = Maps.getOrDefault(types, entry.getKey(), 0);
-//            if (gathererCount < orderCount) {
-//                return entry.getKey();
-//            }
-//        }
-//        return Gold;
-
+        for (InvasionWave wave: waves) {
+            if (isValid(wave, phase, time)) {
+                return wave;
+            }
+        }
         return null;
+    }
+
+    private boolean isValid(InvasionWave wave, int playerPhase, long worldTime) {
+        if (wave.isRepeating()) {
+            return isValidRepeating(wave, playerPhase, worldTime);
+        } else {
+            return isValidNonRepeating(wave, playerPhase, worldTime);
+        }
+    }
+
+    private boolean isValidNonRepeating(InvasionWave wave, int playerPhase, long worldTime) {
+        int wavePhase = wave.getPhaseRequirement();
+        long waveTime = getWaveTime(wave);
+        return wavePhase == playerPhase && worldTime >= waveTime;
+    }
+
+    private boolean isValidRepeating(InvasionWave wave, int playerPhase, long worldTime) {
+        int wavePhase = wave.getPhaseRequirement();
+        int repeatedPhases = playerPhase - wavePhase;
+        long waveTime = getWaveTime(wave) + (repeatedPhases * getWaveInterval(wave));
+        return worldTime >= waveTime;
+    }
+
+    private long getWorldTime() {
+        Timepiece timeService = GdxAI.getTimepiece();
+        return (long)timeService.getTime();
+    }
+
+    private long getWaveTime(InvasionWave wave) {
+        Duration timeRequirement = wave.getTimeRequirement();
+        return timeRequirement.get(SECONDS);
+    }
+
+    private long getWaveInterval(InvasionWave wave) {
+        Duration repeatingInterval = wave.getRepeatingInterval();
+        return repeatingInterval.get(SECONDS);
     }
 }

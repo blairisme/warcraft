@@ -286,7 +286,7 @@ public class UnitOperations
      */
     public static boolean isCommandCentre(GameObject gameObject) {
         if (gameObject instanceof Unit) {
-            Unit unit = (Unit) gameObject;
+            Unit unit = (Unit)gameObject;
             UnitType type = (UnitType)unit.getType();
             UnitArchetype archetype = type.getArchetype();
             return archetype == CommandCentre;

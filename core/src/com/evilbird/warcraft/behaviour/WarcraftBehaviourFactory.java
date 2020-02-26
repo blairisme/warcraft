@@ -11,7 +11,6 @@ package com.evilbird.warcraft.behaviour;
 import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourElement;
 import com.evilbird.engine.behaviour.BehaviourFactory;
-import com.evilbird.engine.behaviour.CompositeBehaviour;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.game.GameContext;
 import com.evilbird.warcraft.behaviour.ai.AiBehaviourFactory;
@@ -54,12 +53,12 @@ public class WarcraftBehaviourFactory implements BehaviourFactory
 
     @Override
     public Behaviour get(Identifier identifier) {
-        Validate.isInstanceOf(WarcraftBehaviour.class, identifier);
-        WarcraftBehaviour type = (WarcraftBehaviour)identifier;
+        Validate.isInstanceOf(WarcraftBehaviourType.class, identifier);
+        WarcraftBehaviourType type = (WarcraftBehaviourType)identifier;
 
         BehaviourElement uiBehaviour = uiBehaviours.get();
         BehaviourElement aiBehaviour = aiBehaviours.get(type);
         BehaviourElement objectiveBehaviour = scenarioBehaviours.get(type);
-        return new CompositeBehaviour(type, aiBehaviour, uiBehaviour, objectiveBehaviour);
+        return new WarcraftBehaviour(type, aiBehaviour, uiBehaviour, objectiveBehaviour);
     }
 }

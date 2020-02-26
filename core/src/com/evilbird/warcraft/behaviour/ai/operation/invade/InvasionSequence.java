@@ -20,13 +20,23 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-//TODO: Add support for sea invasion
 public class InvasionSequence extends Sequence<InvasionData>
 {
     @Inject
     @SuppressWarnings("unchecked")
-    public InvasionSequence(SelectAttackers selectAttackers, SelectTarget selectTarget, InvasionTask invade) {
-        super(delayEvaluation(), selectAttackers, selectTarget, invade);
+    public InvasionSequence(
+        SelectAttackers selectAttackers,
+        SelectEnemy selectEnemy,
+        SelectTarget selectTarget,
+        InvasionTask invade,
+        UpdatePhase completePhase)
+    {
+        super(delayEvaluation(),
+              selectEnemy,
+              selectAttackers,
+              selectTarget,
+              invade,
+              completePhase);
     }
 
     private static Task<InvasionData> delayEvaluation() {

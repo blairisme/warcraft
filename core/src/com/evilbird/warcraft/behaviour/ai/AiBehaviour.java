@@ -14,7 +14,7 @@ import com.evilbird.engine.behaviour.BehaviourElement;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;
-import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
+import com.evilbird.warcraft.behaviour.WarcraftBehaviourType;
 import com.evilbird.warcraft.behaviour.ai.operation.player.CorporealBehaviour;
 import com.evilbird.warcraft.behaviour.ai.operation.player.EnemyBehaviour;
 import com.evilbird.warcraft.behaviour.ai.operation.player.NeutralBehaviour;
@@ -39,7 +39,7 @@ import java.util.List;
 public class AiBehaviour implements BehaviourElement
 {
     private Timepiece timeService;
-    private WarcraftBehaviour behaviourType;
+    private WarcraftBehaviourType behaviourType;
     private Collection<PlayerBehaviour> behaviours;
     private OperationOrderFactory operationOrderFactory;
     private Provider<EnemyBehaviour> enemyBehaviourFactory;
@@ -59,7 +59,7 @@ public class AiBehaviour implements BehaviourElement
         this.operationOrderFactory = operationOrderFactory;
     }
 
-    public void setBehaviourType(WarcraftBehaviour behaviourType) {
+    public void setBehaviourType(WarcraftBehaviourType behaviourType) {
         this.behaviourType = behaviourType;
     }
 
@@ -84,6 +84,11 @@ public class AiBehaviour implements BehaviourElement
     private void initializeTimeService() {
         if (timeService == null) {
             timeService = GdxAI.getTimepiece();
+
+            if (!(timeService instanceof AiTimeService)) {
+                timeService = new AiTimeService();
+                GdxAI.setTimepiece(timeService);
+            }
         }
     }
 

@@ -15,6 +15,7 @@ import com.evilbird.engine.common.inject.PooledObject;
 import com.evilbird.engine.common.lang.GenericIdentifier;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.device.UserInput;
+import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectComposite;
 import com.evilbird.engine.object.GameObjectReference;
@@ -22,6 +23,8 @@ import com.evilbird.engine.object.GameObjectReferencer;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static com.evilbird.engine.action.ActionStatus.Fresh;
 import static com.evilbird.engine.action.ActionStatus.Running;
@@ -35,13 +38,14 @@ import static com.evilbird.engine.action.ActionStatus.Succeeded;
  */
 public abstract class AbstractAction implements Action, GameObjectReferencer, PooledObject<Action>
 {
+    private static final transient Logger logger = LoggerFactory.getLogger(EventQueue.class);
+
     private Identifier identifier;
+    private ActionStatus status;
     private UserInput cause;
 
     private GameObjectReference<GameObject> item;
     private GameObjectReference<GameObject> target;
-
-    private transient ActionStatus status;
     private transient Pool<Action> pool;
 
     public AbstractAction() {
@@ -73,9 +77,11 @@ public abstract class AbstractAction implements Action, GameObjectReferencer, Po
 
     public void start() {
         status = Running;
+        logger.debug("Action '{}' started", identifier);
     }
 
     public void end() {
+        logger.debug("Action '{}' ended", identifier);
     }
 
     /**
@@ -84,6 +90,7 @@ public abstract class AbstractAction implements Action, GameObjectReferencer, Po
      */
     public void reset() {
         status = Fresh;
+        logger.debug("Action '{}' reset", identifier);
     }
 
     /**
@@ -91,6 +98,7 @@ public abstract class AbstractAction implements Action, GameObjectReferencer, Po
      */
     public void restart() {
         status = Running;
+        logger.debug("Action '{}' restarted", identifier);
     }
 
     /**
@@ -99,6 +107,7 @@ public abstract class AbstractAction implements Action, GameObjectReferencer, Po
      */
     @Override
     public void cancel() {
+        logger.debug("Action '{}' cancelled", identifier);
         Pool<Action> pool = getPool();
         if (pool != null) {
             pool.free(this);
@@ -195,6 +204,7 @@ public abstract class AbstractAction implements Action, GameObjectReferencer, Po
     public void setFailed(String message) {
         //TODO
         status = ActionStatus.Failed;
+        logger.debug("Action '{}' failed - {}", identifier, message);
     }
 
     @Override
@@ -218,6 +228,7 @@ public abstract class AbstractAction implements Action, GameObjectReferencer, Po
             .append(identifier, that.identifier)
             .append(cause, that.cause)
             .append(item, that.item)
+            .append(status, that.status)
             .append(target, that.target)
             .isEquals();
     }
@@ -228,6 +239,7 @@ public abstract class AbstractAction implements Action, GameObjectReferencer, Po
             .append(identifier)
             .append(cause)
             .append(item)
+            .append(status)
             .append(target)
             .toHashCode();
     }

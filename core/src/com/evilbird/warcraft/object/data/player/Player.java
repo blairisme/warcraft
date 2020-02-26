@@ -43,6 +43,7 @@ public class Player extends GameObjectGroupCache implements ResourceContainer
 {
     private int level;
     private int team;
+    private int phase;
     private boolean capturable;
     private boolean controllable;
     private boolean viewable;
@@ -58,6 +59,7 @@ public class Player extends GameObjectGroupCache implements ResourceContainer
     public Player() {
         this.level = 1;
         this.team = 0;
+        this.phase = 1;
         this.colour = None;
         this.nation = Neutral;
         this.capturable = false;
@@ -111,6 +113,15 @@ public class Player extends GameObjectGroupCache implements ResourceContainer
      */
     public WarcraftNation getNation() {
         return nation;
+    }
+
+    /**
+     * Returns a value indicating the current AI phase of the player. This
+     * is used to control AI behaviour that occurs at intervals, such as enemy
+     * raids.
+     */
+    public int getPhase() {
+        return phase;
     }
 
     /**
@@ -283,6 +294,15 @@ public class Player extends GameObjectGroupCache implements ResourceContainer
     }
 
     /**
+     * Sets a value indicating the current AI phase of the player. This
+     * is used to control AI behaviour that occurs at intervals, such as enemy
+     * raids.
+     */
+    public void setPhase(int phase) {
+        this.phase = phase;
+    }
+
+    /**
      * Sets the amount of the given {@link ResourceType resource} owned by
      * the player.
      */
@@ -373,6 +393,7 @@ public class Player extends GameObjectGroupCache implements ResourceContainer
             .append(team, player.team)
             .append(capturable, player.capturable)
             .append(controllable, player.controllable)
+            .append(phase, player.phase)
             .append(passive, player.passive)
             .append(viewable, player.viewable)
             .append(nation, player.nation)
@@ -392,6 +413,7 @@ public class Player extends GameObjectGroupCache implements ResourceContainer
             .append(team)
             .append(capturable)
             .append(controllable)
+            .append(phase)
             .append(passive)
             .append(viewable)
             .append(nation)

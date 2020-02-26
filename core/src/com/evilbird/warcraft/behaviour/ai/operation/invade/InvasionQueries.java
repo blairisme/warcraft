@@ -56,6 +56,10 @@ public class InvasionQueries
         return new CachedPredicate<>(object -> InvasionOperations.isEnemyPlayer(player, object));
     }
 
+    /**
+     * A {@link Predicate condition} that determines if an attacker can attack
+     * over the given {@link TerrainType}.
+     */
     public static Predicate<GameObject> AttackPossible(TerrainType terrain) {
         return new CachedPredicate<>(object -> InvasionOperations.isAttackPossible(terrain, object));
     }

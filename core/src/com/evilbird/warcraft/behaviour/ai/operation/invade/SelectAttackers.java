@@ -10,19 +10,28 @@ package com.evilbird.warcraft.behaviour.ai.operation.invade;
 
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
+import com.evilbird.engine.common.collection.CollectionUtils;
+import com.evilbird.engine.common.collection.Maps;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.unit.UnitType;
 
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import static com.badlogic.gdx.ai.btree.Task.Status.FAILED;
 import static com.badlogic.gdx.ai.btree.Task.Status.SUCCEEDED;
-import static com.evilbird.engine.common.collection.CollectionUtils.filter;
 import static com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionQueries.IdleAttackers;
 import static com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionQueries.MovableAttackers;
 
 /**
+ * A {@link LeafTask} implementation that selects an enemy player that will be
+ * invaded by the next invasion wave.
+ *
  * @author Blair Butterworth
  */
 public class SelectAttackers extends LeafTask<InvasionData>
@@ -39,15 +48,46 @@ public class SelectAttackers extends LeafTask<InvasionData>
         InvasionOrder order = data.getOrder();
         InvasionWave wave = order.getNextWave(player);
 
+        if (wave != null) {
+            Collection<GameObject> movableAttackers = player.findAll(MovableAttackers);
+            Collection<GameObject> idleAttackers = CollectionUtils.filter(movableAttackers, IdleAttackers);
 
+            Map<UnitType, Integer> requirements = wave.getParticipantTypes();
+            Collection<GameObject> attackers = filter(idleAttackers, requirements);
 
-        //if (wave.requirements)
+            if (meetsRequirements(attackers, requirements)) {
+                data.setAttackers(attackers);
+                return SUCCEEDED;
+            }
+        }
 
-        Collection<GameObject> movableAttackers = player.findAll(MovableAttackers);
-        Collection<GameObject> attackers = filter(movableAttackers, IdleAttackers);
+        return FAILED;
+    }
 
-        data.setAttackers(attackers);
-        return attackers.isEmpty() ? FAILED : SUCCEEDED;
+    protected Collection<GameObject> filter(Collection<GameObject> objects, Map<UnitType, Integer> requirements) {
+        Map<UnitType, Collection<GameObject>> categorized = new HashMap<>(requirements.size());
+
+        for (GameObject object: objects) {
+            UnitType type = (UnitType)object.getType();
+
+            if (requirements.containsKey(type)) {
+                Collection<GameObject> category = Maps.getOrDefaultSupplied(categorized, type, ArrayList::new);
+
+                if (category.size() < requirements.get(type)) {
+                    category.add(object);
+                }
+                categorized.put(type, category);
+            }
+        }
+        return CollectionUtils.flatten(categorized.values());
+    }
+
+    protected boolean meetsRequirements(Collection<GameObject> categorized, Map<UnitType, Integer> requirements) {
+        int total = 0;
+        for (Entry<UnitType, Integer> category: requirements.entrySet()) {
+            total += category.getValue();
+        }
+        return categorized.size() == total;
     }
 
     @Override

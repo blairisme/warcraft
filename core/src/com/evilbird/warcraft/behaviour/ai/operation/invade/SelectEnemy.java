@@ -22,6 +22,13 @@ import static com.badlogic.gdx.ai.btree.Task.Status.FAILED;
 import static com.badlogic.gdx.ai.btree.Task.Status.SUCCEEDED;
 import static com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionQueries.EnemyPlayers;
 
+/**
+ * A {@link LeafTask} implementation that selects an enemy player that will be
+ * invaded by the next invasion wave.
+ *
+ * @author Blair Butterworth
+ */
+//TODO: Exclude enemies who have been defeated
 public class SelectEnemy extends LeafTask<InvasionData>
 {
     @Inject

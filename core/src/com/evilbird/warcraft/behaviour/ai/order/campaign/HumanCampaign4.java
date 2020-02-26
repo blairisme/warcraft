@@ -15,7 +15,7 @@ import com.evilbird.warcraft.behaviour.ai.order.OperationOrder;
 import org.apache.commons.lang3.tuple.Pair;
 
 import static com.evilbird.engine.common.time.DurationUtils.Seconds;
-import static com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionWave.invadeAfter;
+import static com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionWave.invasionWave;
 import static com.evilbird.warcraft.data.resource.ResourceType.Gold;
 import static com.evilbird.warcraft.data.resource.ResourceType.Oil;
 import static com.evilbird.warcraft.data.resource.ResourceType.Wood;
@@ -60,14 +60,20 @@ public class HumanCampaign4 implements OperationOrder
 
     public InvasionOrder getInvasionOrder() {
         return new InvasionOrder(
-            invadeAfter(Seconds(60))
+            invasionWave()
+                .requiresPhase(1)
+                .requiresTime(Seconds(60))
+                .withUnits(TrollDestroyer, 1),
+            invasionWave()
+                .requiresPhase(2)
+                .requiresTime(Seconds(120))
                 .withUnits(Grunt, 2)
                 .withUnits(TrollAxethrower, 1),
-            invadeAfter(Seconds(60))
-                .withUnits(TrollDestroyer, 1),
-            invadeAfter(Seconds(120))
-                .repeatingAtIntervals(Seconds(120))
-                .withUnits(Grunt, 4)
-                .withUnits(TrollAxethrower, 2));
+            invasionWave()
+                .repeating()
+                .requiresPhase(4)
+                .requiresTime(Seconds(240))
+                .withInterval(Seconds(60))
+                .withUnits(TrollDestroyer, 1));
     }
 }

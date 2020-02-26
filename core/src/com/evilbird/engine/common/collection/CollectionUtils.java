@@ -8,8 +8,6 @@
 
 package com.evilbird.engine.common.collection;
 
-import com.badlogic.gdx.utils.Array;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -110,9 +108,9 @@ public class CollectionUtils
         return result;
     }
 
-    public static <A> List<A> flatten(Collection<Array<A>> collection) {
+    public static <A> List<A> flatten(Collection<? extends Iterable<A>> collection) {
         List<A> result = new ArrayList<>(collection.size());
-        for (Array<A> array: collection) {
+        for (Iterable<A> array: collection) {
             for (A element: array) {
                 result.add(element);
             }

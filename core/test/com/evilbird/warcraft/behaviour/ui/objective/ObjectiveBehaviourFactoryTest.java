@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.behaviour.ui.objective;
 
-import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
+import com.evilbird.warcraft.behaviour.WarcraftBehaviourType;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +33,7 @@ public class ObjectiveBehaviourFactoryTest
 
     @Test
     public void getTest() {
-        for (WarcraftBehaviour type: WarcraftBehaviour.values()) {
+        for (WarcraftBehaviourType type: WarcraftBehaviourType.values()) {
             ObjectiveBehaviour behaviour = (ObjectiveBehaviour)factory.get(type);
             Assert.assertNotNull(type.toString(), behaviour);
             Mockito.verify(behaviour).setWinCondition(Mockito.any());

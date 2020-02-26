@@ -11,7 +11,7 @@ package com.evilbird.warcraft.behaviour.ui.objective;
 import com.evilbird.engine.behaviour.BehaviourElement;
 import com.evilbird.engine.common.inject.IdentifiedProvider;
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
+import com.evilbird.warcraft.behaviour.WarcraftBehaviourType;
 import com.evilbird.warcraft.behaviour.ui.objective.condition.PlayerDestruction;
 import com.evilbird.warcraft.behaviour.ui.objective.supplement.UnitCapture;
 import org.apache.commons.lang3.Validate;
@@ -54,7 +54,7 @@ import static com.evilbird.warcraft.object.unit.UnitType.Zuljin;
 
 /**
  * Instances of this factory create {@link ObjectiveBehaviour ScenarioBehaviours}
- * whose conditions are determined by a given {@link WarcraftBehaviour} value.
+ * whose conditions are determined by a given {@link WarcraftBehaviourType} value.
  *
  * @author Blair Butterworth
  */
@@ -69,8 +69,8 @@ public class ObjectiveBehaviourFactory implements IdentifiedProvider<BehaviourEl
 
     @Override
     public BehaviourElement get(Identifier identifier) {
-        Validate.isInstanceOf(WarcraftBehaviour.class, identifier);
-        WarcraftBehaviour type = (WarcraftBehaviour)identifier;
+        Validate.isInstanceOf(WarcraftBehaviourType.class, identifier);
+        WarcraftBehaviourType type = (WarcraftBehaviourType)identifier;
 
         if (type.isHumanCampaign()) {
             return humanCampaign(type);
@@ -81,7 +81,7 @@ public class ObjectiveBehaviourFactory implements IdentifiedProvider<BehaviourEl
         return conquest();
     }
 
-    private BehaviourElement humanCampaign(WarcraftBehaviour type) {
+    private BehaviourElement humanCampaign(WarcraftBehaviourType type) {
         switch (type) {
             case Human1: return humanCampaign1();
             case Human2: return humanCampaign2();
@@ -223,7 +223,7 @@ public class ObjectiveBehaviourFactory implements IdentifiedProvider<BehaviourEl
         return result;
     }
 
-    private BehaviourElement orcCampaign(WarcraftBehaviour type) {
+    private BehaviourElement orcCampaign(WarcraftBehaviourType type) {
         switch (type) {
             case Orc1: return orcCampaign1();
             case Orc2: return orcCampaign2();

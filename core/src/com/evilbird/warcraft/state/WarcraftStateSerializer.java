@@ -8,6 +8,7 @@
 
 package com.evilbird.warcraft.state;
 
+import com.evilbird.engine.behaviour.Behaviour;
 import com.evilbird.engine.behaviour.BehaviourFactory;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.common.serialization.SerializerUtils;
@@ -81,7 +82,7 @@ public class WarcraftStateSerializer implements JsonSerializer<WarcraftState>, J
     }
 
     private void serializeBehaviour(WarcraftState source, JsonSerializationContext context, JsonObject json) {
-        JsonElement serializedBehaviour = context.serialize(source.getBehaviour().getIdentifier(), Identifier.class);
+        JsonElement serializedBehaviour = context.serialize(source.getBehaviour(), Behaviour.class);
         json.add(BEHAVIOUR, serializedBehaviour);
     }
 

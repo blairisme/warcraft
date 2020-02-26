@@ -39,7 +39,8 @@
       "identifier": {
         "class": "MoveActions",
         "enum": "MoveToLocation"
-      }
+      },
+      "status": "Fresh"
     }
   ],
   "pendingActions": [

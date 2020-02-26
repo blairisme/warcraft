@@ -27,6 +27,9 @@ import static com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionQuerie
 import static com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionQueries.PotentialTargets;
 
 /**
+ * A {@link LeafTask} implementation that selects an enemy unit or building
+ * that will be target of the invasion.
+ *
  * @author Blair Butterworth
  */
 public class SelectTarget extends LeafTask<InvasionData>
@@ -47,8 +50,8 @@ public class SelectTarget extends LeafTask<InvasionData>
         Player enemy = data.getEnemy();
         TerrainType terrain = getAttackTerrain(data);
 
-        List<GameObject> targets = Lists.toList(enemy.findAll(PotentialTargets));
-        CollectionUtils.retainIf(targets, AttackPossible(terrain));
+        List<GameObject> potentials = Lists.toList(enemy.findAll(PotentialTargets));
+        List<GameObject> targets = CollectionUtils.filter(potentials, AttackPossible(terrain));
         Lists.sort(targets, new SelectTargetPriority());
 
         return CollectionUtils.first(targets);

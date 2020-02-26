@@ -20,7 +20,7 @@ import com.evilbird.test.data.item.TestItems;
 import com.evilbird.test.testcase.GameTestCase;
 import com.evilbird.test.verifier.EqualityVerifier;
 import com.evilbird.test.verifier.SerializationVerifier;
-import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
+import com.evilbird.warcraft.behaviour.WarcraftBehaviourType;
 import com.evilbird.warcraft.object.display.components.UserInterfaceComponent;
 import nl.jqno.equalsverifier.Warning;
 import org.junit.Before;
@@ -55,13 +55,13 @@ public class WarcraftStateTest extends GameTestCase
         world = TestItemRoots.newTestRoot(GameObjectContainerType.World);
         hudControl = TestItems.newItem(new TextIdentifier("resources"), UserInterfaceComponent.ResourcePane);
         hud = TestItemRoots.newTestRoot(GameObjectContainerType.Hud, hudControl);
-        behaviour = TestBehaviours.newBehaviour(WarcraftBehaviour.Human1);
+        behaviour = TestBehaviours.newBehaviour(WarcraftBehaviourType.Human1);
         context = new WarcraftContext(Human, Summer);
         music = Mockito.mock(Music.class);
         state = new WarcraftState(world, hud, behaviour, music, context);
 
         respondWithItem(GameObjectContainerType.Hud, () -> hudControl);
-        respondWithBehaviour(behaviour, WarcraftBehaviour.Human1);
+        respondWithBehaviour(behaviour, WarcraftBehaviourType.Human1);
     }
 
     @Test

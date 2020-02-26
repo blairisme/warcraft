@@ -46,7 +46,7 @@ public class EventQueue implements Iterable<Event>, Events
 
     @Override
     public void add(Event event) {
-        logger.debug("Event added - {}", event);
+        //logger.debug("Event added - {}", event);
         queue.add(event);
         addTyped(event);
     }

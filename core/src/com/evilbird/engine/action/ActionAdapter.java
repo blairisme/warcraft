@@ -18,6 +18,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -53,7 +54,9 @@ public class ActionAdapter extends AbstractAdapter<Action>
 
     @Override
     protected boolean isSerializedField(Action target, Field field) {
-        return actionFields.contains(field) && !Objects.equals(field.getName(), IDENTIFIER);
+        return actionFields.contains(field)
+            && !Modifier.isTransient(field.getModifiers())
+            && !Objects.equals(field.getName(), IDENTIFIER);
     }
 
     @Override

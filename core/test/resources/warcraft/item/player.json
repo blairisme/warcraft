@@ -6,6 +6,7 @@
   },
   "level": 1,
   "team": 0,
+  "phase": 1,
   "capturable": false,
   "controllable": false,
   "viewable": false,

@@ -25,6 +25,7 @@ import static com.evilbird.warcraft.action.attack.AttackActions.Attack;
  *
  * @author Blair Butterworth
  */
+//TODO: Add support for sea invasion
 public class InvasionTask extends ActionTaskSet<InvasionData>
 {
     @Inject

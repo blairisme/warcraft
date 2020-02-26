@@ -31,7 +31,7 @@ public class InvasionOperations
     public static boolean isEnemyPlayer(Player player, GameObject object) {
         if (object instanceof Player) {
             Player otherPlayer = (Player)object;
-            return player.getTeam() != otherPlayer.getTeam();
+            return player.getTeam() != otherPlayer.getTeam() && !otherPlayer.isNeutral();
         }
         return false;
     }
@@ -72,8 +72,6 @@ public class InvasionOperations
         return false;
     }
 
-
-
     /**
      * Determines if the given {@link GameObject} can do damage to other
      * {@code GameObjects} as well as being alive and currently idle.
@@ -86,9 +84,6 @@ public class InvasionOperations
         }
         return false;
     }
-
-
-
 
     /**
      * Disable construction of static helper class.

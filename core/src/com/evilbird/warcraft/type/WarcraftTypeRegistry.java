@@ -19,7 +19,7 @@ import com.evilbird.warcraft.action.confirm.ConfirmActions;
 import com.evilbird.warcraft.action.gather.GatherActions;
 import com.evilbird.warcraft.action.move.MoveActions;
 import com.evilbird.warcraft.action.produce.ProduceUnitActions;
-import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
+import com.evilbird.warcraft.behaviour.WarcraftBehaviourType;
 import com.evilbird.warcraft.common.WarcraftFaction;
 import com.evilbird.warcraft.common.WarcraftSeason;
 import com.evilbird.warcraft.data.resource.ResourceType;
@@ -84,7 +84,7 @@ public class WarcraftTypeRegistry extends BasicTypeRegistry
         registerType("UnitAnimation", UnitAnimation.class);
         registerType("UnitSound", UnitSound.class);
 
-        registerType("Behaviour", WarcraftBehaviour.class);
+        registerType("Behaviour", WarcraftBehaviourType.class);
         registerType("Faction", WarcraftFaction.class);
         registerType("Assets", WarcraftSeason.class);
         registerType("Level", WarcraftCampaignLevel.class);

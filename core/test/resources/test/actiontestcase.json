@@ -3,6 +3,7 @@
     "class": "${ActionType}",
     "enum": "${Action}"
   },
+  "status": "Fresh",
   "cause": {
     "type": "Action",
     "position": {
@@ -27,6 +28,5 @@
       "class": "Named",
       "name": "target"
     }
-  },
-  "status": "Fresh"
+  }
 }

@@ -23,9 +23,17 @@ public class DurationUtils
     }
 
     /**
-     * Obtains a {@code Duration} representing a number of seconds.
+     * Obtains a {@code Duration} representing the given number of seconds.
      */
     public static Duration Seconds(long seconds) {
         return Duration.ofSeconds(seconds);
+    }
+
+    /**
+     * Obtains a {@code Duration} representing the given number of seconds.
+     */
+    //TODO: Extract remainder and give to duration as nanos
+    public static Duration Seconds(float seconds) {
+        return Duration.ofSeconds((long)seconds);
     }
 }

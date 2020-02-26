@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.behaviour.ai.order;
 
-import com.evilbird.warcraft.behaviour.WarcraftBehaviour;
+import com.evilbird.warcraft.behaviour.WarcraftBehaviourType;
 import com.evilbird.warcraft.behaviour.ai.order.campaign.HumanCampaign3;
 import com.evilbird.warcraft.behaviour.ai.order.campaign.HumanCampaign4;
 import com.evilbird.warcraft.behaviour.ai.order.campaign.OrcCampaign3;
@@ -43,7 +43,7 @@ public class OperationOrderFactory
         return emptyBehaviour();
     }
 
-    public OperationOrder enemyBehaviour(WarcraftFaction faction, WarcraftBehaviour behaviour) {
+    public OperationOrder enemyBehaviour(WarcraftFaction faction, WarcraftBehaviourType behaviour) {
         if (behaviour.isHumanCampaign()) {
             return humanCampaignBehaviour(behaviour);
         }
@@ -61,7 +61,7 @@ public class OperationOrderFactory
         return emptyBehaviour();
     }
 
-    private OperationOrder humanCampaignBehaviour(WarcraftBehaviour type) {
+    private OperationOrder humanCampaignBehaviour(WarcraftBehaviourType type) {
         switch (type) {
             case Human3: return new HumanCampaign3();
             case Human4: return new HumanCampaign4();
@@ -69,7 +69,7 @@ public class OperationOrderFactory
         }
     }
 
-    private OperationOrder orcCampaignBehaviour(WarcraftBehaviour type) {
+    private OperationOrder orcCampaignBehaviour(WarcraftBehaviourType type) {
         switch (type) {
             case Orc3: return new OrcCampaign3();
             case Orc4: return new OrcCampaign4();
@@ -77,11 +77,11 @@ public class OperationOrderFactory
         }
     }
 
-    private OperationOrder humanScenarioBehaviour(WarcraftBehaviour type) {
+    private OperationOrder humanScenarioBehaviour(WarcraftBehaviourType type) {
         return new HumanEasy();
     }
 
-    private OperationOrder orcScenarioBehaviour(WarcraftBehaviour type) {
+    private OperationOrder orcScenarioBehaviour(WarcraftBehaviourType type) {
         return new OrcEasy();
     }
 
