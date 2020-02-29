@@ -36,11 +36,11 @@
   },
   "actions": [
     {
+      "status": "Fresh",
       "identifier": {
         "class": "MoveActions",
         "enum": "MoveToLocation"
-      },
-      "status": "Fresh"
+      }
     }
   ],
   "pendingActions": [

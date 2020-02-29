@@ -9,7 +9,8 @@
 package com.evilbird.warcraft.action.selector;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
@@ -29,7 +30,7 @@ import static com.evilbird.engine.common.math.VectorUtils.subtract;
  *
  * @author Blair Butterworth
  */
-public class SelectorMove extends AbstractAction
+public class SelectorMove extends BasicAction
 {
     @Inject
     public SelectorMove() {
@@ -37,7 +38,7 @@ public class SelectorMove extends AbstractAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         GameObject item = getSubject();
         GameObjectContainer container = item.getRoot();
         GameObjectGraph graph = container.getSpatialGraph();
@@ -58,6 +59,6 @@ public class SelectorMove extends AbstractAction
             position = round(position, nodeSize);
         }
         item.setPosition(position);
-        return true;
+        return ActionResult.Complete;
     }
 }

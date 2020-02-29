@@ -57,7 +57,7 @@ public class SelectorCancelTest extends ActionTestCase
 
     @Test
     public void actTest() {
-        Assert.assertTrue(action.act(1));
+        Assert.assertTrue(action.run(1));
         Assert.assertTrue(parent.getObjects().stream().noneMatch(item -> item == selector));
         Assert.assertNull(((Gatherer)gameObject).getSelector());
     }

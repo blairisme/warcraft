@@ -9,13 +9,12 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 
 import javax.inject.Inject;
-
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 
 /**
  * An {@link Action} that causes a given {@link OffensiveObject combatant} to
@@ -24,7 +23,7 @@ import static com.evilbird.engine.action.ActionConstants.ActionComplete;
  *
  * @author Blair Butterworth
  */
-public class DemolitionAttack extends AbstractAction
+public class DemolitionAttack extends BasicAction
 {
     private AttackDamage damage;
     private AttackEvents events;
@@ -36,7 +35,7 @@ public class DemolitionAttack extends AbstractAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         OffensiveObject attacker = (OffensiveObject)getSubject();
         PerishableObject target = (PerishableObject)getTarget();
 
@@ -44,6 +43,6 @@ public class DemolitionAttack extends AbstractAction
         damage.applyFull(attacker);
 
         events.attack(attacker, target);
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 }

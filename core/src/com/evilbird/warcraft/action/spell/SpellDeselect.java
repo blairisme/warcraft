@@ -9,7 +9,8 @@
 package com.evilbird.warcraft.action.spell;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
@@ -19,24 +20,24 @@ import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 import javax.inject.Inject;
 import java.util.Collection;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
+import static com.evilbird.engine.action.ActionResult.Complete;
 
 /**
  * An {@link Action} that unhighlights highlighted units.
  *
  * @author Blair Butterworth
  */
-public class SpellDeselect extends AbstractAction
+public class SpellDeselect extends BasicAction
 {
     @Inject
     public SpellDeselect() {
     }
 
     @Override
-    public boolean act(float time) {
+    public ActionResult act(float time) {
         removeCastingSpell();
         setUnhighlighted();
-        return ActionComplete;
+        return Complete;
     }
 
     private void removeCastingSpell() {

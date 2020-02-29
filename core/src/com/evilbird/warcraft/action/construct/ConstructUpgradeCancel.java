@@ -8,7 +8,8 @@
 
 package com.evilbird.warcraft.action.construct;
 
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.data.player.Player;
@@ -18,7 +19,6 @@ import com.evilbird.warcraft.object.unit.building.Building;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.warcraft.action.common.production.ProductionOperations.getProductionCost;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer;
 
@@ -28,7 +28,7 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer
  *
  * @author Blair Butterworth
  */
-public class ConstructUpgradeCancel extends AbstractAction
+public class ConstructUpgradeCancel extends BasicAction
 {
     private transient ConstructEvents events;
     private transient ResourceTransfer resources;
@@ -46,7 +46,7 @@ public class ConstructUpgradeCancel extends AbstractAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float time) {
         Building building = (Building) getSubject();
         building.setAnimation(UnitAnimation.Idle);
         building.setProductionProgress(1);
@@ -55,7 +55,7 @@ public class ConstructUpgradeCancel extends AbstractAction
         resources.setResources(player, getProductionCost(getProduct(), preferences));
 
         events.notifyUpgradeCancelled(building);
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 
     private UnitType getProduct() {

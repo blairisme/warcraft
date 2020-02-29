@@ -8,7 +8,7 @@
 
 package com.evilbird.test.data.action;
 
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.action.framework.CompositeAction;
 
 /**
@@ -22,12 +22,12 @@ public class TestCompositeAction extends CompositeAction
     public TestCompositeAction() {
     }
 
-    public TestCompositeAction(AbstractAction... actions) {
+    public TestCompositeAction(BasicAction... actions) {
         super(actions);
     }
 
     @Override
-    public boolean act(float delta) {
+    public boolean run(float delta) {
         return false;
     }
 }

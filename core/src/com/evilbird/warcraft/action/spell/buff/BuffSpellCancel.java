@@ -8,7 +8,8 @@
 
 package com.evilbird.warcraft.action.spell.buff;
 
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.object.common.value.BuffValue;
@@ -18,23 +19,21 @@ import com.evilbird.warcraft.object.unit.combatant.Combatant;
 
 import java.util.Collection;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-
 /**
  * A spell that removes the effects of a buff spell from a given combatant.
  *
  * @author Blair Butterworth
  */
-public abstract class BuffSpellCancel extends AbstractAction
+public abstract class BuffSpellCancel extends BasicAction
 {
     protected abstract Collection<ValueProperty> buffedProperties(Combatant target);
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         Combatant target = (Combatant)getTarget();
         removeBadge(target);
         removeBuff(target);
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 
     protected void removeBadge(Combatant target) {

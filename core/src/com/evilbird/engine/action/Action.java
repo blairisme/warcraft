@@ -64,16 +64,9 @@ public interface Action extends Identifiable<Identifier>
     GameObject getTarget();
 
     /**
-     * Returns a value describing the state of the action.
-     */
-    ActionStatus getStatus();
-
-    /**
      * Determines if the action failed.
      */
-    default boolean isFailed() {
-        return getStatus() == ActionStatus.Failed;
-    }
+    boolean isFailed();
 
     /**
      * Sets the {@link UserInput} event that generated the Action.
@@ -84,19 +77,6 @@ public interface Action extends Identifiable<Identifier>
      * Set the actions unique identifier.
      */
     void setIdentifier(Identifier identifier);
-
-//    /**
-//     * Sets the {@link GameObjectComposite} at the root of the
-//     * {@code GameObject} hierarchy. Actions usually maintain references to
-//     * {@link GameObject GameObjects}, rather than {@code GameObjects}
-//     * themselves, so this method will apply the parent used to resolve
-//     * {@code GameObject} references.
-//     *
-//     * @param root  an {@code GameObjectComposite} instance. Cannot be
-//     *              {@code null}.
-//     */
-//    @Deprecated
-//    void setRoot(GameObjectComposite root);
 
     /**
      * Sets the {@link GameObject} that the Action will operate on.

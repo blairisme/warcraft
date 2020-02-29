@@ -10,7 +10,7 @@ package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.ParallelAction;
-import com.evilbird.engine.action.framework.StateTransitionAction;
+import com.evilbird.engine.action.framework.TransitionAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
@@ -25,11 +25,11 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class ConstructSequence extends StateTransitionAction
+public class ConstructSequence extends TransitionAction
 {
-    private Action reposition;
-    private Action initialize;
-    private Action construct;
+    private transient Action reposition;
+    private transient Action initialize;
+    private transient Action construct;
 
     @Inject
     public ConstructSequence(

@@ -9,11 +9,12 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.CompositeAction;
+import com.evilbird.engine.action.framework.BranchAction;
 import com.evilbird.warcraft.object.common.capability.RangedOffensiveObject;
 import com.evilbird.warcraft.object.projectile.ProjectileType;
 
 import javax.inject.Inject;
+import java.util.List;
 
 /**
  * Modifies the state of a {@link RangedOffensiveObject} to attack a given item
@@ -21,11 +22,10 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class ProjectileAttack extends CompositeAction
+public class ProjectileAttack extends BranchAction
 {
-    private Action delegate;
-    private Action basic;
-    private Action missile;
+    private BasicProjectileAttack basic;
+    private MissileAttack missile;
 
     @Inject
     public ProjectileAttack(BasicProjectileAttack basic, MissileAttack missile) {
@@ -35,22 +35,9 @@ public class ProjectileAttack extends CompositeAction
     }
 
     @Override
-    public boolean act(float delta) {
-        if (delegate == null) {
-            delegate = isExplosive() ? missile : basic;
-        }
-        return delegate.run(delta);
-    }
-
-    @Override
-    public void reset() {
-        super.reset();
-        delegate = null;
-    }
-
-    private boolean isExplosive() {
+    protected Action getBranch(List<Action> actions) {
         RangedOffensiveObject ranged = (RangedOffensiveObject)getSubject();
         ProjectileType projectile = ranged.getProjectileType();
-        return projectile.isExplosive();
+        return projectile.isExplosive() ? missile : basic;
     }
 }

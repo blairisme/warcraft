@@ -8,33 +8,32 @@
 
 package com.evilbird.warcraft.action.spell.attack;
 
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.object.unit.Unit;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-
 /**
  * An action that removes the effects of the flame shield spell.
  *
  * @author Blair Butterworth
  */
-public class FlameShieldCancel extends AbstractAction
+public class FlameShieldCancel extends BasicAction
 {
     @Inject
     public FlameShieldCancel() {
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         Unit target = (Unit)getTarget();
         GameObject effect = target.getEffect();
         GameObjectGroup parent = effect.getParent();
         parent.removeObject(effect);
         target.setEffect(null);
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 }

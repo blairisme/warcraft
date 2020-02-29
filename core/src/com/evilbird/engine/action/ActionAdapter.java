@@ -54,8 +54,9 @@ public class ActionAdapter extends AbstractAdapter<Action>
 
     @Override
     protected boolean isSerializedField(Action target, Field field) {
-        return actionFields.contains(field)
-            && !Modifier.isTransient(field.getModifiers())
+        return /*actionFields.contains(field)
+            &&*/ !Modifier.isTransient(field.getModifiers())
+            && !Modifier.isStatic(field.getModifiers())
             && !Objects.equals(field.getName(), IDENTIFIER);
     }
 

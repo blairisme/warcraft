@@ -9,7 +9,8 @@
 package com.evilbird.warcraft.action.spell;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
@@ -19,8 +20,8 @@ import com.evilbird.warcraft.object.effect.Effect;
 import com.evilbird.warcraft.object.effect.EffectType;
 import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
+import static com.evilbird.engine.action.ActionResult.Complete;
+import static com.evilbird.engine.action.ActionResult.Incomplete;
 import static com.evilbird.engine.common.lang.Alignment.Center;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.reorient;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.CastSpell;
@@ -32,7 +33,7 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.CastSpell;
  *
  * @author Blair Butterworth
  */
-public abstract class SpellAction extends AbstractAction
+public abstract class SpellAction extends BasicAction
 {
     protected transient Spell spell;
     protected transient EffectType effect;
@@ -80,7 +81,7 @@ public abstract class SpellAction extends AbstractAction
     }
 
     @Override
-    public boolean act(float time) {
+    public ActionResult act(float time) {
         if (!initialized()) {
             initialize();
         }
@@ -164,13 +165,13 @@ public abstract class SpellAction extends AbstractAction
         return timer.advance(time);
     }
 
-    protected boolean update() {
+    protected ActionResult update() {
         SpellCaster caster = (SpellCaster)getSubject();
         caster.setCastingProgress(timer.completion());
-        return ActionIncomplete;
+        return Incomplete;
     }
 
-    protected boolean complete() {
+    protected ActionResult complete() {
         SpellCaster caster = (SpellCaster)getSubject();
         caster.setCastingProgress(1);
         caster.setCastingSpell(null);
@@ -181,6 +182,6 @@ public abstract class SpellAction extends AbstractAction
             parent.removeObject(caster.getSpellEffect());
             caster.setSpellEffect(null);
         }
-        return ActionComplete;
+        return Complete;
     }
 }

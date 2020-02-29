@@ -9,6 +9,7 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.ActionResult;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.death.DeathAction;
@@ -47,7 +48,7 @@ public class GatherObtainGold extends GatherObtain
     }
 
     @Override
-    protected boolean initialize() {
+    protected ActionResult initialize() {
         Gatherer gatherer = (Gatherer)getSubject();
         exclusion.disable(gatherer);
 
@@ -59,7 +60,7 @@ public class GatherObtainGold extends GatherObtain
     }
 
     @Override
-    protected boolean complete() {
+    protected ActionResult complete() {
         Gatherer gatherer = (Gatherer)getSubject();
         gatherer.setAnimationAlias(IdleGold, Idle);
         gatherer.setAnimationAlias(MoveGold, Move);

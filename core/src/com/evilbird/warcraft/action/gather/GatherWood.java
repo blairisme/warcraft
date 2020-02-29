@@ -10,7 +10,7 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.SequenceAction;
-import com.evilbird.engine.action.framework.StateTransitionAction;
+import com.evilbird.engine.action.framework.TransitionAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
@@ -28,7 +28,7 @@ import static com.evilbird.warcraft.object.layer.LayerType.Tree;
  *
  * @author Blair Butterworth
  */
-public class GatherWood extends StateTransitionAction
+public class GatherWood extends TransitionAction
 {
     private transient Action obtain;
     private transient Action deposit;
@@ -66,7 +66,7 @@ public class GatherWood extends StateTransitionAction
             obtain.setTarget(resource);
             return obtain;
         } else {
-            setFailed("Unable to locate resource of type oil");
+            //setFailed("Unable to locate resource of type oil");
             return null;
         }
     }
@@ -77,7 +77,7 @@ public class GatherWood extends StateTransitionAction
             deposit.setTarget(depot);
             return deposit;
         } else {
-            setFailed("Unable to locate depot for wood");
+            //setFailed("Unable to locate depot for wood");
             return null;
         }
     }

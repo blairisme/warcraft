@@ -11,7 +11,8 @@ package com.evilbird.warcraft.action.death;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.engine.object.GameObject;
@@ -29,8 +30,6 @@ import javax.inject.Inject;
 import java.util.Collection;
 import java.util.Collections;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.engine.common.lang.Alignment.Center;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.isBuilding;
 import static com.evilbird.warcraft.object.effect.EffectType.Explosion;
@@ -43,14 +42,14 @@ import static com.evilbird.warcraft.object.unit.UnitSound.Die;
  *
  * @author Blair Butterworth
  */
-public class DeathAction extends AbstractAction
+public class DeathAction extends BasicAction
 {
     private static final float DECOMPOSE_TIME = 30;
 
-    private GameTimer timer;
-    private GameObjectFactory factory;
-    private SelectEvents selectEvents;
-    private RemoveEvents removeEvents;
+    private transient GameTimer timer;
+    private transient GameObjectFactory factory;
+    private transient SelectEvents selectEvents;
+    private transient RemoveEvents removeEvents;
 
     @Inject
     public DeathAction(
@@ -64,14 +63,14 @@ public class DeathAction extends AbstractAction
     }
 
     @Override
-    public boolean act(float time) {
+    public ActionResult act(float time) {
         if (! initialized()) {
             return initialize();
         }
         if (timer.advance(time)) {
             return remove();
         }
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
     @Override
@@ -96,7 +95,7 @@ public class DeathAction extends AbstractAction
         return timer != null;
     }
 
-    protected boolean initialize() {
+    protected ActionResult initialize() {
         PerishableObject subject = (PerishableObject)getSubject();
         initializeStatus(subject);
         initializeVisuals(subject);
@@ -104,7 +103,7 @@ public class DeathAction extends AbstractAction
         initializeAssociation(subject);
         initializeGraph(subject);
         initializeTimer();
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
     private void initializeStatus(PerishableObject subject) {
@@ -166,11 +165,11 @@ public class DeathAction extends AbstractAction
         timer = new GameTimer(DECOMPOSE_TIME);
     }
 
-    protected boolean remove() {
+    protected ActionResult remove() {
         remove(getSubject());
         remove(getTarget());
         remove(getAssociations());
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 
     private void remove(Collection<GameObject> gameObjects) {

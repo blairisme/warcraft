@@ -61,7 +61,7 @@ public class FocusActionTest extends ActionTestCase
         gameObject.setPosition(100, 100);
         gameObject.setSize(32, 32);
 
-        assertTrue(action.act(1));
+        assertTrue(action.run(1));
         assertEquals(new Vector2(84, 84), camera.getPosition());
     }
 }

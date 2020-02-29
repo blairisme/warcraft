@@ -9,7 +9,8 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
@@ -17,8 +18,6 @@ import com.evilbird.warcraft.object.unit.UnitSound;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.inRange;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.reorient;
 
@@ -28,7 +27,7 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.reorient;
  *
  * @author Blair Butterworth
  */
-public class ProximityAttack extends AbstractAction
+public class ProximityAttack extends BasicAction
 {
     private transient AttackDamage damage;
     private transient AttackEvents events;
@@ -42,7 +41,7 @@ public class ProximityAttack extends AbstractAction
     }
 
     @Override
-    public boolean act(float time) {
+    public ActionResult act(float time) {
         if (! initialized()) {
             initialize();
         }
@@ -55,7 +54,7 @@ public class ProximityAttack extends AbstractAction
         if (attackTarget()) {
             return attackComplete();
         }
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
     @Override
@@ -81,19 +80,19 @@ public class ProximityAttack extends AbstractAction
         return attacker.isAlive() && target.isAlive() && inRange(attacker, target);
     }
 
-    private boolean operationFailed() {
+    private ActionResult operationFailed() {
         events.attackFailed(attacker, target);
         setFailed("Attack Failed");
-        return ActionComplete;
+        return ActionResult.Failed;
     }
 
     private boolean readyToAttack() {
         return attacker.getAttackTime() == 0;
     }
 
-    protected boolean delayAttack(float time) {
+    protected ActionResult delayAttack(float time) {
         attacker.setAttackTime(Math.max(attacker.getAttackTime() - time, 0));
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
     protected boolean attackTarget() {
@@ -104,10 +103,10 @@ public class ProximityAttack extends AbstractAction
         return target.isDead();
     }
 
-    private boolean attackComplete() {
+    private ActionResult attackComplete() {
         attacker.setAnimation(UnitAnimation.Idle);
         events.attackComplete(attacker, target);
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 }
 

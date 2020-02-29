@@ -48,7 +48,7 @@ public class SequenceAction extends CompositeAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public boolean run(float delta) {
         boolean result = true;
         if (current != null) {
             result = current.run(delta);

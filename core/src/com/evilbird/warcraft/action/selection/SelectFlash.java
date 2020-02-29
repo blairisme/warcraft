@@ -9,10 +9,14 @@
 package com.evilbird.warcraft.action.selection;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
 
 import javax.inject.Inject;
+
+import static com.evilbird.engine.action.ActionResult.Complete;
+import static com.evilbird.engine.action.ActionResult.Incomplete;
 
 /**
  * Instances of this {@link Action} repeatedly swap the selection of a given
@@ -22,7 +26,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class SelectFlash extends AbstractAction
+public class SelectFlash extends BasicAction
 {
     private static final transient float DELAY = 0.3f;
     private static final transient float REPETITIONS = 10;
@@ -35,7 +39,7 @@ public class SelectFlash extends AbstractAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         time = Math.max(time - delta, 0);
         if (time == 0) {
             SelectableObject selectable = (SelectableObject) getSubject();
@@ -44,7 +48,7 @@ public class SelectFlash extends AbstractAction
             count += 1;
             time = DELAY;
         }
-        return count >= REPETITIONS;
+        return count >= REPETITIONS ? Complete : Incomplete;
     }
 
     @Override

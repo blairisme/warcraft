@@ -9,15 +9,18 @@
 package com.evilbird.engine.action;
 
 /**
- * Defines constant variables used in {@link Action Actions}.
+ * Defines possible action execution results.
  *
  * @author Blair Butterworth
  */
-public class ActionConstants
+public enum ActionResult
 {
-    public static final boolean ActionComplete = true;
-    public static final boolean ActionIncomplete = false;
+    /** Indicates that the Action completed successfully. */
+    Complete,
 
-    private ActionConstants() {
-    }
+    /** Indicates that the Action has not yet complete. */
+    Incomplete,
+
+    /** Indicates that the Action completed unsuccessfully; it failed. */
+    Failed,
 }

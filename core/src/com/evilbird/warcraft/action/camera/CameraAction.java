@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.action.camera;
 
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
@@ -24,7 +24,7 @@ import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
  *
  * @author Blair Butterworth
  */
-public abstract class CameraAction extends AbstractAction
+public abstract class CameraAction extends BasicAction
 {
     protected Camera getCamera() {
         GameObject subject = getSubject();

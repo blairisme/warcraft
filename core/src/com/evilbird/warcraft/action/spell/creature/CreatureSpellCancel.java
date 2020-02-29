@@ -8,21 +8,20 @@
 
 package com.evilbird.warcraft.action.spell.creature;
 
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.action.death.RemoveEvents;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-
 /**
  * An action that removes a conjured creature, when invoked.
  *
  * @author Blair Butterworth
  */
-public class CreatureSpellCancel extends AbstractAction
+public class CreatureSpellCancel extends BasicAction
 {
     private RemoveEvents removeEvents;
 
@@ -32,11 +31,11 @@ public class CreatureSpellCancel extends AbstractAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         GameObject creature = getTarget();
         GameObjectGroup parent = creature.getParent();
         parent.removeObject(creature);
         removeEvents.objectRemoved(creature);
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 }

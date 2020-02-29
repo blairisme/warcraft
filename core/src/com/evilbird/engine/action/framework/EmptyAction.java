@@ -9,18 +9,17 @@
 package com.evilbird.engine.action.framework;
 
 import com.evilbird.engine.action.Action;
-
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
+import com.evilbird.engine.action.ActionResult;
 
 /**
  * An {@link Action} that doesn't do anything; its empty.
  *
  * @author Blair Butterworth
  */
-public class EmptyAction extends AbstractAction
+public class EmptyAction extends BasicAction
 {
     @Override
-    public boolean act(float delta) {
-        return ActionComplete;
+    public ActionResult act(float delta) {
+        return ActionResult.Complete;
     }
 }

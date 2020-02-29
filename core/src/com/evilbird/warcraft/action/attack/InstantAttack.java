@@ -8,7 +8,8 @@
 
 package com.evilbird.warcraft.action.attack;
 
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
@@ -17,15 +18,12 @@ import com.evilbird.warcraft.object.unit.UnitSound;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
-
 /**
  * A {@link ProximityAttack} that only attacks once.
  *
  * @author Blair Butterworth
  */
-public class InstantAttack extends AbstractAction
+public class InstantAttack extends BasicAction
 {
     private transient AttackDamage damage;
     private transient AttackEvents events;
@@ -38,14 +36,14 @@ public class InstantAttack extends AbstractAction
     }
 
     @Override
-    public boolean act(float time) {
+    public ActionResult act(float time) {
         if (! targetAttacked()) {
             attackTarget();
         }
         if (! isComplete()) {
             return waitForComplete(time);
         }
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 
     @Override
@@ -87,8 +85,8 @@ public class InstantAttack extends AbstractAction
         return delay != null && delay.complete();
     }
 
-    private boolean waitForComplete(float time) {
+    private ActionResult waitForComplete(float time) {
         delay.advance(time);
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 }

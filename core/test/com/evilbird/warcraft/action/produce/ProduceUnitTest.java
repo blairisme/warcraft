@@ -86,17 +86,17 @@ public class ProduceUnitTest extends ActionTestCase
         player.setResource(Food, 10);
         player.setResource(Gold, 1000);
 
-        assertFalse(action.act(1));
+        assertFalse(action.run(1));
         assertTrue(barracks.isProducing());
         verify(reporter).add(new ProduceEvent(barracks, product, ProduceStatus.Started));
 
-        assertFalse(action.act(1));
+        assertFalse(action.run(1));
         assertEquals(0.1f, barracks.getProductionProgress(), 0.1f);
 
-        assertFalse(action.act(1f));
+        assertFalse(action.run(1f));
         assertTrue(barracks.isProducing());
 
-        assertTrue(action.act(Barracks.getProduction().getDuration().get(SECONDS)));
+        assertTrue(action.run(Barracks.getProduction().getDuration().get(SECONDS)));
         assertFalse(barracks.isProducing());
         verify(reporter).add(new ProduceEvent(barracks, product, ProduceStatus.Complete));
     }

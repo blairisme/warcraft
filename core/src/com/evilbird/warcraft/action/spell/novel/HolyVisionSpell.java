@@ -28,6 +28,7 @@ import static com.evilbird.warcraft.object.layer.LayerType.OpaqueFog;
  *
  * @author Blair Butterworth
  */
+//TODO: Re-enable log removal
 public class HolyVisionSpell extends SpellAction
 {
     @Inject

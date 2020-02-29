@@ -10,7 +10,7 @@ package com.evilbird.test.testcase;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.device.UserInput;
@@ -24,6 +24,7 @@ import com.evilbird.test.verifier.SerializationVerifier;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.type.WarcraftTypeRegistry;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -36,11 +37,10 @@ import java.io.IOException;
  */
 public abstract class ActionTestCase extends GameTestCase
 {
-    //protected GameObjectContainer root;
     protected GameObject gameObject;
     protected GameObject target;
     protected UserInput cause;
-    protected AbstractAction action;
+    protected Action action;
     protected GameObjectGroup parent;
     protected TypeRegistry types;
 
@@ -54,7 +54,7 @@ public abstract class ActionTestCase extends GameTestCase
         cause = newCause();
         parent = gameObject.getParent();
 
-        action = (AbstractAction)newAction();
+        action = newAction();
         action.setSubject(gameObject);
         action.setTarget(target);
         action.setCause(cause);
@@ -87,13 +87,13 @@ public abstract class ActionTestCase extends GameTestCase
     }
 
     @Test
-    public void actTest() {
-        action.act(1);
+    public void runTest() {
+        action.run(1);
     }
 
     protected abstract Action newAction();
 
-    protected abstract Enum newIdentifier();
+    protected abstract Enum<?> newIdentifier();
 
     protected GameObject newItem() {
         return TestCombatants.newTestCombatant(new TextIdentifier("item"), UnitType.Footman);

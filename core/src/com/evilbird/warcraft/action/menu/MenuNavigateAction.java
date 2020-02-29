@@ -8,7 +8,8 @@
 
 package com.evilbird.warcraft.action.menu;
 
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectGroup;
@@ -20,19 +21,19 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class MenuNavigateAction extends AbstractAction
+public class MenuNavigateAction extends BasicAction
 {
     @Inject
     public MenuNavigateAction() {
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         GameObject subject = getSubject();
         GameObjectGroup parent = subject.getParent();
         MenuProvider menuProvider = (MenuProvider)parent;
         menuProvider.showMenu(getMenuIdentifier());
-        return true;
+        return ActionResult.Complete;
     }
 
     private Identifier getMenuIdentifier() {

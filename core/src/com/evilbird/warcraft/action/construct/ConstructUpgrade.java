@@ -8,7 +8,8 @@
 
 package com.evilbird.warcraft.action.construct;
 
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
@@ -22,8 +23,6 @@ import com.evilbird.warcraft.object.unit.building.Building;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.warcraft.action.common.production.ProductionOperations.getProductionCost;
 import static com.evilbird.warcraft.action.common.production.ProductionOperations.getProductionTime;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer;
@@ -35,7 +34,7 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer
  *
  * @author Blair Butterworth
  */
-public class ConstructUpgrade extends AbstractAction
+public class ConstructUpgrade extends BasicAction
 {
     private transient GameTimer timer;
     private transient GameObjectFactory factory;
@@ -60,7 +59,7 @@ public class ConstructUpgrade extends AbstractAction
     }
 
     @Override
-    public boolean act(float time) {
+    public ActionResult act(float time) {
         if (! initialized()) {
             return initialize();
         }
@@ -90,7 +89,7 @@ public class ConstructUpgrade extends AbstractAction
         return building.isConstructing();
     }
 
-    private boolean initialize() {
+    private ActionResult initialize() {
         Building building = (Building)getSubject();
         building.setConstructionProgress(0);
         building.setAnimation(UnitAnimation.BuildingUpgrade);
@@ -102,28 +101,28 @@ public class ConstructUpgrade extends AbstractAction
         resources.setResources(player, cost.negate());
 
         constructEvents.notifyUpgradeStarted(building);
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
     protected boolean loaded() {
         return timer != null;
     }
 
-    protected boolean load() {
+    protected ActionResult load() {
         Building building = (Building)getSubject();
         UnitType product = getProduct();
         timer = new GameTimer(getProductionTime(product, preferences));
         timer.advance(building.getConstructionProgress() * timer.duration());
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
-    private boolean update() {
+    private ActionResult update() {
         Building building = (Building)getSubject();
         building.setConstructionProgress(timer.completion());
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
-    private boolean complete() {
+    private ActionResult complete() {
         Building building = (Building)getSubject();
         Building improvement = (Building)factory.get(getProduct());
 
@@ -131,7 +130,7 @@ public class ConstructUpgrade extends AbstractAction
         setCompleteOwnership(building, improvement);
 
         constructEvents.notifyUpgradeComplete(building, improvement);
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 
     private void setCompleteState(Building building, Building improvement) {

@@ -55,7 +55,7 @@ public class SelectorAreaTest extends ActionTestCase
         assertNull(box);
 
         action.setIdentifier(ShowAreaSelector);
-        assertTrue(action.act(1));
+        assertTrue(action.run(1));
 
         box = getSelectionBox();
         assertNotNull(box);
@@ -73,7 +73,7 @@ public class SelectorAreaTest extends ActionTestCase
         action.setIdentifier(ResizeAreaSelector);
         action.setCause(new UserInput(UserInputType.PressDrag, input2, input1, 1));
 
-        assertTrue(action.act(1));
+        assertTrue(action.run(1));
         GameObject box = getSelectionBox();
 
         assertEquals(new Vector2(20, 20), box.getPosition());

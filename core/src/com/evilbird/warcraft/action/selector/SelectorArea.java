@@ -10,7 +10,8 @@ package com.evilbird.warcraft.action.selector;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
@@ -25,6 +26,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static com.evilbird.engine.action.ActionResult.Complete;
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.overlapping;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.touchable;
@@ -38,7 +40,7 @@ import static com.evilbird.warcraft.object.selector.SelectorType.AreaSelector;
  *
  * @author Blair Butterworth
  */
-public class SelectorArea extends AbstractAction
+public class SelectorArea extends BasicAction
 {
     private transient Events events;
 
@@ -48,7 +50,7 @@ public class SelectorArea extends AbstractAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         GameObject gameObject = getSubject();
         GameObjectContainer root = gameObject.getRoot();
 
@@ -60,9 +62,9 @@ public class SelectorArea extends AbstractAction
         }
     }
 
-    private boolean addBox(GameObjectContainer root) {
+    private ActionResult addBox(GameObjectContainer root) {
         getBox(root);
-        return true;
+        return Complete;
     }
 
     public GameObject getBox(GameObjectContainer root) {
@@ -77,7 +79,7 @@ public class SelectorArea extends AbstractAction
         return box;
     }
 
-    private boolean updateBox(GameObjectContainer root) {
+    private ActionResult updateBox(GameObjectContainer root) {
         GameObject box = getBox(root);
         UserInput input = getCause();
 
@@ -90,10 +92,10 @@ public class SelectorArea extends AbstractAction
         box.setPosition(position);
         box.setSize(size);
 
-        return true;
+        return Complete;
     }
 
-    private boolean removeBox(GameObjectContainer root) {
+    private ActionResult removeBox(GameObjectContainer root) {
         GameObject box = getBox(root);
         root.removeObject(box);
 
@@ -107,7 +109,7 @@ public class SelectorArea extends AbstractAction
         select(newSelection);
         deselect(oldSelection);
 
-        return true;
+        return Complete;
     }
 
     private void deselect(Collection<GameObject> gameObjects) {

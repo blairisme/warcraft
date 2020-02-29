@@ -10,7 +10,8 @@ package com.evilbird.warcraft.action.move;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
@@ -26,8 +27,6 @@ import com.evilbird.warcraft.object.unit.UnitAnimation;
 import java.util.Collection;
 import java.util.ListIterator;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.engine.common.collection.CollectionUtils.filter;
 import static com.evilbird.engine.common.pathing.SpatialUtils.getClosest;
 
@@ -38,7 +37,7 @@ import static com.evilbird.engine.common.pathing.SpatialUtils.getClosest;
  *
  * @author Blair Butterworth
  */
-public abstract class MoveAction extends AbstractAction
+public abstract class MoveAction extends BasicAction
 {
     protected transient MoveEvents events;
     protected transient GameObjectGraph graph;
@@ -52,12 +51,12 @@ public abstract class MoveAction extends AbstractAction
     }
 
     @Override
-    public boolean act(float time) {
+    public ActionResult act(float time) {
         GameObject gameObject = getSubject();
         return move(gameObject, time);
     }
 
-    public boolean move(GameObject gameObject, float time) {
+    public ActionResult move(GameObject gameObject, float time) {
         if (!initialize(gameObject)) {
             return moveFailed(gameObject);
         }
@@ -92,24 +91,24 @@ public abstract class MoveAction extends AbstractAction
         resetSubject();
     }
 
-    protected boolean moveFailed(GameObject gameObject) {
+    protected ActionResult moveFailed(GameObject gameObject) {
         resetSubject(gameObject);
         setFailed("Unable to determine path to " + gameObject.getIdentifier());
         events.moveFailed(gameObject);
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 
-    protected boolean moveComplete(GameObject gameObject) {
+    protected ActionResult moveComplete(GameObject gameObject) {
         updateOccupancy(gameObject);
         resetSubject(gameObject);
         events.moveComplete(gameObject);
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 
-    protected boolean reinitializePath(GameObject gameObject) {
+    protected ActionResult reinitializePath(GameObject gameObject) {
         updateOccupancy(gameObject);
         restart();
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
     protected void resetSubject() {
@@ -242,19 +241,19 @@ public abstract class MoveAction extends AbstractAction
         }
     }
 
-    protected boolean updateWaypoint(GameObject gameObject) {
+    protected ActionResult updateWaypoint(GameObject gameObject) {
         updateOccupancy(gameObject);
         events.moveUpdate(gameObject, waypoint);
         waypoint = pathIterator.next();
         graph.addOccupants(waypoint, gameObject);
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
-    protected boolean updatePosition(GameObject gameObject, float time) {
+    protected ActionResult updatePosition(GameObject gameObject, float time) {
         Vector2 oldPosition = gameObject.getPosition();
         Vector2 newPosition = getNextPosition(gameObject, oldPosition, time);
         gameObject.setPosition(newPosition);
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
     protected Vector2 getNextPosition(GameObject gameObject, Vector2 position, float time) {

@@ -63,7 +63,7 @@ public class ConstructCancelTest extends ActionTestCase
     }
 
     @Test
-    public void actTest(){
+    public void runTest(){
         /*
         GameObject builder = target;
         Building building = (Building) gameObject;

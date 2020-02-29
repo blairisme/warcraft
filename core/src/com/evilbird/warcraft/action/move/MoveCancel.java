@@ -8,13 +8,13 @@
 
 package com.evilbird.warcraft.action.move;
 
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.engine.object.GameObject;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 
 /**
@@ -23,7 +23,7 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
  *
  * @author Blair Butterworth
  */
-public class MoveCancel extends AbstractAction
+public class MoveCancel extends BasicAction
 {
     private transient MoveEvents events;
 
@@ -41,10 +41,10 @@ public class MoveCancel extends AbstractAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         AnimatedObject item = (AnimatedObject) getSubject();
         item.setAnimation(Idle);
         events.moveCancelled(item);
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 }

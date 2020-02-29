@@ -8,7 +8,8 @@
 
 package com.evilbird.warcraft.action.produce;
 
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.create.CreateEvents;
@@ -23,8 +24,6 @@ import com.evilbird.warcraft.object.unit.building.Building;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.warcraft.action.common.production.ProductionOperations.getProductionCost;
 import static com.evilbird.warcraft.action.common.production.ProductionOperations.getProductionTime;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer;
@@ -39,7 +38,7 @@ import static com.evilbird.warcraft.object.unit.UnitSound.Ready;
  *
  * @author Blair Butterworth
  */
-public class ProduceUnit extends AbstractAction
+public class ProduceUnit extends BasicAction
 {
     private transient GameTimer timer;
     private transient GameObjectFactory factory;
@@ -64,7 +63,7 @@ public class ProduceUnit extends AbstractAction
     }
 
     @Override
-    public boolean act(float time) {
+    public ActionResult act(float time) {
         if (! initialized()) {
             return initialize();
         }
@@ -94,7 +93,7 @@ public class ProduceUnit extends AbstractAction
         return building.isProducing();
     }
 
-    private boolean initialize() {
+    private ActionResult initialize() {
         Building building = (Building) getSubject();
         building.setProductionProgress(0);
 
@@ -105,28 +104,28 @@ public class ProduceUnit extends AbstractAction
         resources.setResources(player, cost.negate());
 
         produceEvents.notifyProductionStarted(building, product);
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
     protected boolean loaded() {
         return timer != null;
     }
 
-    protected boolean load() {
+    protected ActionResult load() {
         Building building = (Building)getSubject();
         UnitType product = getProduct();
         timer = new GameTimer(getProductionTime(product, preferences));
         timer.advance(building.getProductionProgress() * timer.duration());
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
-    private boolean update() {
+    private ActionResult update() {
         Building building = (Building)getSubject();
         building.setProductionProgress(timer.completion());
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
-    private boolean complete() {
+    private ActionResult complete() {
         Unit product = (Unit)factory.get(getProduct());
         Building building = (Building)getSubject();
 
@@ -134,7 +133,7 @@ public class ProduceUnit extends AbstractAction
         completeBuilding(building, product);
         notifyComplete(building, product);
 
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 
     private void completeProduct(Building building, Unit product) {

@@ -10,7 +10,7 @@ package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.framework.SequenceAction;
-import com.evilbird.engine.action.framework.StateTransitionAction;
+import com.evilbird.engine.action.framework.TransitionAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.common.WarcraftFaction;
@@ -32,7 +32,7 @@ import static com.evilbird.warcraft.object.unit.UnitType.OilRig;
  *
  * @author Blair Butterworth
  */
-public class GatherOil extends StateTransitionAction
+public class GatherOil extends TransitionAction
 {
     private transient Action obtain;
     private transient Action deposit;
@@ -70,7 +70,7 @@ public class GatherOil extends StateTransitionAction
             obtain.setTarget(resource);
             return obtain;
         } else {
-            setFailed("Unable to locate resource of type oil");
+            //setFailed("Unable to locate resource of type oil");
             return null;
         }
     }
@@ -81,7 +81,7 @@ public class GatherOil extends StateTransitionAction
             deposit.setTarget(depot);
             return deposit;
         } else {
-            setFailed("Unable to locate depot for oil");
+            //setFailed("Unable to locate depot for oil");
             return null;
         }
     }

@@ -9,7 +9,8 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.engine.object.GameObjectGroup;
 import com.evilbird.warcraft.common.WarcraftPreferences;
@@ -21,8 +22,8 @@ import com.evilbird.warcraft.object.unit.UnitSound;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
+import static com.evilbird.engine.action.ActionResult.Complete;
+import static com.evilbird.engine.action.ActionResult.Incomplete;
 import static com.evilbird.engine.common.lang.Alignment.Center;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.inRange;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.isShip;
@@ -34,7 +35,7 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.reorient;
  *
  * @author Blair Butterworth
  */
-public class BasicProjectileAttack extends AbstractAction
+public class BasicProjectileAttack extends BasicAction
 {
     protected transient AttackDamage damage;
     protected transient AttackEvents events;
@@ -60,7 +61,7 @@ public class BasicProjectileAttack extends AbstractAction
     }
 
     @Override
-    public boolean act(float time) {
+    public ActionResult act(float time) {
         if (! initialized()) {
             initialize();
         }
@@ -134,26 +135,26 @@ public class BasicProjectileAttack extends AbstractAction
         return attacker.isAlive() && target.isAlive() && inRange(attacker, target);
     }
 
-    private boolean operationFailed() {
+    private ActionResult operationFailed() {
         events.attackFailed(attacker, target);
         setFailed("Attack Failed");
-        return ActionComplete;
+        return Complete;
     }
 
     protected boolean readyToFire() {
         return attacker.getAttackTime() == 0;
     }
 
-    protected boolean reduceTimeToFire(float time) {
+    protected ActionResult reduceTimeToFire(float time) {
         attacker.setAttackTime(Math.max(attacker.getAttackTime() - time, 0));
-        return ActionIncomplete;
+        return Incomplete;
     }
 
     protected boolean projectileLaunched() {
         return projectile.getVisible();
     }
 
-    protected boolean launchProjectile() {
+    protected ActionResult launchProjectile() {
         destination = target.getPosition(Center);
 
         projectile.setVisible(true);
@@ -165,7 +166,7 @@ public class BasicProjectileAttack extends AbstractAction
         reorient(attacker, target, isShip(attacker));
         reorient(projectile, target, false);
 
-        return ActionIncomplete;
+        return Incomplete;
     }
 
     protected boolean projectileReachedTarget() {
@@ -173,11 +174,11 @@ public class BasicProjectileAttack extends AbstractAction
         return position.equals(destination);
     }
 
-    protected boolean repositionProjectile(float time) {
+    protected ActionResult repositionProjectile(float time) {
         Vector2 position = projectile.getPosition(Center);
         Vector2 remaining = destination.cpy().sub(position);
         repositionProjectile(position, remaining, time);
-        return ActionIncomplete;
+        return Incomplete;
     }
 
     protected void repositionProjectile(Vector2 position, Vector2 remaining, float time) {
@@ -193,7 +194,7 @@ public class BasicProjectileAttack extends AbstractAction
         projectile.setPosition(newPosition, Center);
     }
 
-    protected boolean hitWithProjectile() {
+    protected ActionResult hitWithProjectile() {
         resetAttacker();
         resetProjectile();
         return damageTarget();
@@ -207,8 +208,8 @@ public class BasicProjectileAttack extends AbstractAction
         projectile.setVisible(false);
     }
 
-    private boolean damageTarget() {
+    private ActionResult damageTarget() {
         damage.apply(attacker, target);
-        return target.isDead();
+        return target.isDead() ? Complete : Incomplete;
     }
 }
