@@ -31,8 +31,6 @@ public class ProximityAttack extends BasicAction
 {
     private transient AttackDamage damage;
     private transient AttackEvents events;
-    private transient OffensiveObject attacker;
-    private transient PerishableObject target;
 
     @Inject
     public ProximityAttack(AttackDamage damage, AttackEvents events) {
@@ -41,72 +39,73 @@ public class ProximityAttack extends BasicAction
     }
 
     @Override
+    public void start() {
+        super.start();
+
+        OffensiveObject attacker = (OffensiveObject)getSubject();
+        PerishableObject target = (PerishableObject)getTarget();
+
+        attacker.setAnimation(UnitAnimation.Attack);
+        reorient(attacker, target, false);
+
+        events.attackStarted(attacker, target);
+    }
+
+    @Override
     public ActionResult act(float time) {
-        if (! initialized()) {
-            initialize();
+        OffensiveObject attacker = (OffensiveObject)getSubject();
+        PerishableObject target = (PerishableObject)getTarget();
+
+        if (! attackValid(attacker, target)) {
+            return ActionResult.Failed;
         }
-        if (! operationValid()) {
-            return operationFailed();
+        if (! attackReady(attacker, time)) {
+            return ActionResult.Incomplete;
         }
-        if (! readyToAttack()) {
-            return delayAttack(time);
-        }
-        if (attackTarget()) {
-            return attackComplete();
+        if (attackTarget(attacker, target)) {
+            return ActionResult.Complete;
         }
         return ActionResult.Incomplete;
     }
 
     @Override
-    public void reset() {
-        super.reset();
-        attacker = null;
-        target = null;
+    public void end() {
+        super.end();
+
+        OffensiveObject attacker = (OffensiveObject)getSubject();
+        PerishableObject target = (PerishableObject)getTarget();
+
+        attacker.setAnimation(UnitAnimation.Idle);
+        events.attackComplete(attacker, target);
     }
 
-    private boolean initialized() {
-        return attacker != null;
+    @Override
+    public void failed() {
+        super.failed();
+
+        OffensiveObject attacker = (OffensiveObject)getSubject();
+        PerishableObject target = (PerishableObject)getTarget();
+
+        attacker.setAnimation(UnitAnimation.Idle);
+        events.attackFailed(attacker, target);
     }
 
-    protected void initialize() {
-        attacker = (OffensiveObject)getSubject();
-        attacker.setAnimation(UnitAnimation.Attack);
-        target = (PerishableObject)getTarget();
-        events.attackStarted(attacker, target);
-        reorient(attacker, target, false);
-    }
-
-    private boolean operationValid() {
+    private boolean attackValid(OffensiveObject attacker, PerishableObject target) {
         return attacker.isAlive() && target.isAlive() && inRange(attacker, target);
     }
 
-    private ActionResult operationFailed() {
-        events.attackFailed(attacker, target);
-        setFailed("Attack Failed");
-        return ActionResult.Failed;
+    private boolean attackReady(OffensiveObject attacker, float time) {
+        float newTime = Math.max(attacker.getAttackTime() - time, 0);
+        attacker.setAttackTime(newTime);
+        return newTime == 0;
     }
 
-    private boolean readyToAttack() {
-        return attacker.getAttackTime() == 0;
-    }
-
-    protected ActionResult delayAttack(float time) {
-        attacker.setAttackTime(Math.max(attacker.getAttackTime() - time, 0));
-        return ActionResult.Incomplete;
-    }
-
-    protected boolean attackTarget() {
+    private boolean attackTarget(OffensiveObject attacker, PerishableObject target) {
         attacker.setAttackTime(attacker.getAttackSpeed());
         attacker.setSound(UnitSound.Attack);
         reorient(attacker, target, false);
         damage.apply(attacker, target);
         return target.isDead();
-    }
-
-    private ActionResult attackComplete() {
-        attacker.setAnimation(UnitAnimation.Idle);
-        events.attackComplete(attacker, target);
-        return ActionResult.Complete;
     }
 }
 
