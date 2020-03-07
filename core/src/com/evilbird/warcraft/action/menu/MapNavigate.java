@@ -9,6 +9,7 @@
 package com.evilbird.warcraft.action.menu;
 
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.action.ActionResult;
 import com.evilbird.engine.common.math.VectorUtils;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.object.GameObjectContainer;
@@ -18,8 +19,6 @@ import com.evilbird.warcraft.object.data.camera.Camera;
 import com.evilbird.warcraft.object.display.components.map.MapPane;
 
 import javax.inject.Inject;
-
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 
 /**
  * A action that moves the camera to the location on the minimap selected by
@@ -35,7 +34,7 @@ public class MapNavigate extends CameraAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         MapPane mapPane = (MapPane)getSubject();
 
         Vector2 controlPosition = mapPane.getMapPosition();
@@ -51,7 +50,7 @@ public class MapNavigate extends CameraAction
         Camera camera = getCamera();
         camera.setPosition(worldPosition);
 
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 
     private Vector2 getMapSelectPosition(MapPane mapPane) {

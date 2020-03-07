@@ -8,13 +8,13 @@
 
 package com.evilbird.warcraft.action.gather;
 
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 
 /**
@@ -23,7 +23,7 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
  *
  * @author Blair Butterworth
  */
-public class GatherCancel extends AbstractAction
+public class GatherCancel extends BasicAction
 {
     private transient GatherEvents events;
 
@@ -33,10 +33,10 @@ public class GatherCancel extends AbstractAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         Gatherer gatherer = (Gatherer) getSubject();
         gatherer.setAnimation(Idle);
         events.notifyGatherCancelled(gatherer);
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 }

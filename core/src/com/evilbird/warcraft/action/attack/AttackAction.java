@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.CompositeAction;
+import com.evilbird.engine.action.framework.BranchAction;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.unit.Unit;
@@ -18,6 +18,7 @@ import com.evilbird.warcraft.object.unit.UnitAttack;
 import com.evilbird.warcraft.object.unit.UnitType;
 
 import javax.inject.Inject;
+import java.util.List;
 
 import static com.evilbird.warcraft.object.unit.UnitArchetype.ConjuredEffect;
 import static com.evilbird.warcraft.object.unit.UnitAttack.Explosive;
@@ -30,9 +31,8 @@ import static com.evilbird.warcraft.object.unit.UnitAttack.Melee;
  *
  * @author Blair Butterworth
  */
-public class AttackAction extends CompositeAction
+public class AttackAction extends BranchAction
 {
-    private Action delegate;
     private BuildingAttack buildingAttack;
     private ConjuredAttack conjuredAttack;
     private DemolitionSequence demoAttack;
@@ -56,20 +56,7 @@ public class AttackAction extends CompositeAction
     }
 
     @Override
-    public boolean act(float delta) {
-        if (delegate == null) {
-            delegate = getAttackAction();
-        }
-        return delegate.run(delta);
-    }
-
-    @Override
-    public void reset() {
-        super.reset();
-        delegate = null;
-    }
-
-    private Action getAttackAction() {
+    protected Action getBranch(List<Action> actions) {
         Unit unit = (Unit)getSubject();
         UnitType type = (UnitType)unit.getType();
         UnitArchetype archetype = type.getArchetype();

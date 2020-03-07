@@ -9,7 +9,8 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.action.death.DeathAction;
@@ -19,15 +20,12 @@ import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
-
 /**
  * An {@link Action} that obtains resources from a resource.
  *
  * @author Blair Butterworth
  */
-class GatherObtain extends AbstractAction
+class GatherObtain extends BasicAction
 {
     protected transient GameTimer timer;
     protected transient DeathAction death;
@@ -42,7 +40,7 @@ class GatherObtain extends AbstractAction
     }
 
     @Override
-    public boolean act(float time) {
+    public ActionResult act(float time) {
         if (! initialized()) {
             return initialize();
         }
@@ -76,7 +74,7 @@ class GatherObtain extends AbstractAction
         return gatherer.isGathering() && !gatherer.hasOtherResource(resource);
     }
 
-    protected boolean initialize() {
+    protected ActionResult initialize() {
         Gatherer gatherer = (Gatherer) getSubject();
         gatherer.clearResources();
         gatherer.setGathererProgress(0);
@@ -84,27 +82,27 @@ class GatherObtain extends AbstractAction
         ResourceQuantity quantity = new ResourceQuantity(resource, getGatherCapacity(gatherer));
         events.notifyObtainStarted(gatherer, getTarget(), quantity);
 
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
     protected boolean loaded() {
         return timer != null;
     }
 
-    protected boolean load() {
+    protected ActionResult load() {
         Gatherer gatherer = (Gatherer) getSubject();
         timer = new GameTimer(getGatherSpeed(gatherer));
         timer.advance(gatherer.getGathererProgress() * timer.duration());
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
-    protected boolean update(float time) {
+    protected ActionResult update(float time) {
         Gatherer gatherer = (Gatherer) getSubject();
         gatherer.setGathererProgress(timer.completion());
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
-    protected boolean complete() {
+    protected ActionResult complete() {
         Gatherer gatherer = (Gatherer) getSubject();
         gatherer.setGathererProgress(1);
 
@@ -114,7 +112,7 @@ class GatherObtain extends AbstractAction
         resourceEmpty(container);
 
         events.notifyObtainComplete(gatherer, container, quantity);
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 
     protected void resourceEmpty(ResourceContainer container) {

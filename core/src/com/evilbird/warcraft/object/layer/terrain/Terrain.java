@@ -39,7 +39,7 @@ import static com.evilbird.warcraft.object.layer.LayerUtils.toCellDimensions;
 @JsonAdapter(LayerAdapter.class)
 public class Terrain extends Layer implements SpatialObject
 {
-    private List<GridPoint2> cellLocations;
+    private transient List<GridPoint2> cellLocations;
 
     @Inject
     public Terrain() {

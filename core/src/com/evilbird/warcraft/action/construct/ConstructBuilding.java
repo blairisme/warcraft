@@ -10,7 +10,8 @@ package com.evilbird.warcraft.action.construct;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.GameObjectFactory;
@@ -30,7 +31,6 @@ import javax.inject.Inject;
 import java.util.Collection;
 import java.util.function.Consumer;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.common.function.Predicates.all;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.overlapping;
 import static com.evilbird.warcraft.action.common.production.ProductionOperations.getProductionCost;
@@ -46,7 +46,7 @@ import static com.evilbird.warcraft.object.unit.UnitSound.Placement;
  *
  * @author Blair Butterworth
  */
-public class ConstructBuilding extends AbstractAction
+public class ConstructBuilding extends BasicAction
 {
     private GameObjectFactory factory;
     private ResourceTransfer resources;
@@ -75,7 +75,7 @@ public class ConstructBuilding extends AbstractAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float time) {
         Gatherer builder = (Gatherer) getSubject();
         GameObject selector = getTarget();
         UnitType building = getBuilding(selector);
@@ -83,12 +83,12 @@ public class ConstructBuilding extends AbstractAction
         return construct(builder, selector, building, player);
     }
 
-    private boolean construct(Gatherer builder, GameObject selector, UnitType building, Player player) {
+    private ActionResult construct(Gatherer builder, GameObject selector, UnitType building, Player player) {
         purchase(building, player);
         create(building, player, selector, builder);
         removeOccluding(selector);
         removePlaceholder(selector);
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 
     private void purchase(UnitType building, Player player) {

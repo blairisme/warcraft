@@ -74,12 +74,12 @@ public class ParallelActionTest
     }
 
     @Test
-    public void actTest() {
+    public void runTest() {
         Assert.assertFalse(childA.getInvoked());
         Assert.assertFalse(childB.getInvoked());
         Assert.assertFalse(childC.getInvoked());
 
-        assertTrue(parallel.act(1));
+        assertTrue(parallel.run(1));
 
         Assert.assertTrue(childA.getInvoked());
         Assert.assertTrue(childB.getInvoked());

@@ -9,7 +9,8 @@
 package com.evilbird.warcraft.action.transport;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.move.MoveAdjacent;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
@@ -18,14 +19,15 @@ import com.evilbird.warcraft.object.unit.combatant.naval.Transport;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
+import static com.evilbird.engine.action.ActionResult.Complete;
+import static com.evilbird.engine.action.ActionResult.Failed;
 
 /**
  * Represents an {@link Action} that moves a disembarkee from a vessel.
  *
  * @author Blair Butterworth
  */
-public class TransportUnload extends AbstractAction
+public class TransportUnload extends BasicAction
 {
     private transient ItemExclusion exclusion;
     private transient MoveAdjacent movement;
@@ -37,7 +39,7 @@ public class TransportUnload extends AbstractAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float time) {
         Transport vessel = (Transport)getSubject();
         for (Unit passenger: vessel.getPassengers()) {
             if (movement.reposition((MovableObject)passenger, vessel)) {
@@ -47,7 +49,8 @@ public class TransportUnload extends AbstractAction
         }
         if (vessel.hasPassengers()) {
             setFailed("Unable to offload all units");
+            return Failed;
         }
-        return ActionComplete;
+        return Complete;
     }
 }

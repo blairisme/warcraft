@@ -9,7 +9,8 @@
 package com.evilbird.warcraft.action.selection;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.AnimatedObject;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
@@ -19,7 +20,6 @@ import com.evilbird.warcraft.object.common.capability.SelectableObject;
 import javax.inject.Inject;
 import java.util.function.Predicate;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.engine.common.function.Predicates.either;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.isCombatant;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.isCorporeal;
@@ -35,7 +35,7 @@ import static com.evilbird.warcraft.object.unit.UnitSound.Selected;
  *
  * @author Blair Butterworth
  */
-public class SelectInvert extends AbstractAction
+public class SelectInvert extends BasicAction
 {
     private transient SelectEvents events;
     private transient WarcraftPreferences preferences;
@@ -47,14 +47,14 @@ public class SelectInvert extends AbstractAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         SelectableObject item = (SelectableObject) getSubject();
         if (item.getSelected()) {
             deselect(item);
         } else {
             select(item);
         }
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 
     private void select(SelectableObject entity) {

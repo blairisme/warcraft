@@ -9,7 +9,8 @@
 package com.evilbird.warcraft.action.spell;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
@@ -21,14 +22,14 @@ import com.evilbird.warcraft.object.unit.combatant.spellcaster.SpellCaster;
 import java.util.Collection;
 import java.util.function.Predicate;
 
-import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
+import static com.evilbird.engine.action.ActionResult.Incomplete;
 
 /**
  * An {@link Action} that highlights units.
  *
  * @author Blair Butterworth
  */
-public abstract class SpellSelect extends AbstractAction
+public abstract class SpellSelect extends BasicAction
 {
     private transient Spell spell;
     private transient Events events;
@@ -42,7 +43,7 @@ public abstract class SpellSelect extends AbstractAction
     }
 
     @Override
-    public boolean act(float time) {
+    public ActionResult act(float time) {
         if (! initialized()) {
             initialize();
         }
@@ -75,14 +76,14 @@ public abstract class SpellSelect extends AbstractAction
         setHighlighted(getTargets());
     }
 
-    protected boolean update() {
+    protected ActionResult update() {
         for (CreateEvent event: events.getEvents(CreateEvent.class)) {
             GameObject subject = event.getSubject();
             if (condition.test(subject)) {
                 setHighlighted(subject);
             }
         }
-        return ActionIncomplete;
+        return Incomplete;
     }
 
     protected void setCastingSpell() {

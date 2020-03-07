@@ -53,11 +53,11 @@ public class SelectorCreateTest extends ActionTestCase
     }
 
     @Test
-    public void actTest() {
+    public void runTest() {
         BuildingSelector selector = TestPlaceholders.newTestPlaceholder("Selector");
         Mockito.when(objectFactory.get(BarracksSelector)).thenReturn(selector);
 
-        Assert.assertTrue(action.act(1));
+        Assert.assertTrue(action.run(1));
 
         GameObjectContainer container = selector.getRoot();
         Collection<GameObject> objects = container.getObjects();

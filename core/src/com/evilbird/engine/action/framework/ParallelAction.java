@@ -51,7 +51,7 @@ public class ParallelAction extends CompositeAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public boolean run(float delta) {
         CollectionUtils.removeIf(remaining, action -> action.run(delta));
         return remaining.isEmpty();
     }

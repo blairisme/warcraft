@@ -9,7 +9,8 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
@@ -21,8 +22,6 @@ import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.IdleBasic;
@@ -34,7 +33,7 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.MoveBasic;
  *
  * @author Blair Butterworth
  */
-public class GatherDeposit extends AbstractAction
+public class GatherDeposit extends BasicAction
 {
     private static final float DEPOSIT_DURATION = 5;
 
@@ -52,7 +51,7 @@ public class GatherDeposit extends AbstractAction
     }
 
     @Override
-    public boolean act(float time) {
+    public ActionResult act(float time) {
         if (! initialized()) {
             return initialize();
         }
@@ -86,7 +85,7 @@ public class GatherDeposit extends AbstractAction
         return gatherer.isGathering();
     }
 
-    private boolean initialize() {
+    private ActionResult initialize() {
         Gatherer gatherer = (Gatherer) getSubject();
         gatherer.setGathererProgress(0);
         exclusion.disable(gatherer);
@@ -95,27 +94,27 @@ public class GatherDeposit extends AbstractAction
         ResourceQuantity quantity = new ResourceQuantity(resource, getGatherCapacity(gatherer));
 
         events.notifyDepositStarted(gatherer, depot, quantity);
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
     protected boolean loaded() {
         return timer != null;
     }
 
-    protected boolean load() {
+    protected ActionResult load() {
         Gatherer gatherer = (Gatherer) getSubject();
         timer = new GameTimer(DEPOSIT_DURATION);
         timer.advance(gatherer.getGathererProgress() * timer.duration());
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
-    private boolean update() {
+    private ActionResult update() {
         Gatherer gatherer = (Gatherer) getSubject();
         gatherer.setGathererProgress(timer.completion());
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
-    private boolean complete() {
+    private ActionResult complete() {
         Gatherer gatherer = (Gatherer) getSubject();
         gatherer.setGathererProgress(1);
         gatherer.setAnimationAlias(IdleBasic, Idle);
@@ -128,7 +127,7 @@ public class GatherDeposit extends AbstractAction
         resources.transfer(gatherer, player, quantity);
 
         events.notifyDepositComplete(gatherer, depot, quantity);
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 
     private float getGatherCapacity(Gatherer gatherer) {

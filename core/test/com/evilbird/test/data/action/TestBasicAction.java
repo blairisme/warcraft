@@ -8,15 +8,16 @@
 
 package com.evilbird.test.data.action;
 
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 
 /**
- * A concrete instance of the abstract {@link AbstractAction} class, useful
+ * A concrete instance of the abstract {@link BasicAction} class, useful
  * for testing purposes.
  *
  * @author Blair Butterworth
  */
-public class TestBasicAction extends AbstractAction
+public class TestBasicAction extends BasicAction
 {
     private transient boolean invoked;
     private transient boolean restarted;
@@ -29,9 +30,9 @@ public class TestBasicAction extends AbstractAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         invoked = true;
-        return complete;
+        return ActionResult.Complete;
     }
 
     @Override

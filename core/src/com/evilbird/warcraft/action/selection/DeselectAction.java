@@ -9,7 +9,8 @@
 package com.evilbird.warcraft.action.selection;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
 
 import javax.inject.Inject;
@@ -19,7 +20,7 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class DeselectAction extends AbstractAction
+public class DeselectAction extends BasicAction
 {
     private SelectEvents events;
 
@@ -29,12 +30,12 @@ public class DeselectAction extends AbstractAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         SelectableObject selectable = (SelectableObject) getSubject();
         if (selectable.getSelected()) {
             selectable.setSelected(false);
             events.selectionUpdated(selectable, false);
         }
-        return true;
+        return ActionResult.Complete;
     }
 }

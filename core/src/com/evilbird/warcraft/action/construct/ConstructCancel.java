@@ -8,6 +8,7 @@
 
 package com.evilbird.warcraft.action.construct;
 
+import com.evilbird.engine.action.ActionResult;
 import com.evilbird.engine.object.GameObjectFactory;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
@@ -57,7 +58,7 @@ public class ConstructCancel extends DeathAction
     }
 
     @Override
-    protected boolean initialize() {
+    protected ActionResult initialize() {
         Building building = (Building) getSubject();
         Gatherer builder = (Gatherer)getTarget();
 

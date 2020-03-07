@@ -9,30 +9,29 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectGroup;
 
 import javax.inject.Inject;
-
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 
 /**
  * An {@link Action} that removes its subject from its parent.
  *
  * @author Blair Butterworth
  */
-public class MissileRemoval extends AbstractAction
+public class MissileRemoval extends BasicAction
 {
     @Inject
     public MissileRemoval() {
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         GameObject subject = getSubject();
         GameObjectGroup parent = subject.getParent();
         parent.removeObject(subject);
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 }

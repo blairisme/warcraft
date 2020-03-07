@@ -27,9 +27,9 @@ import org.mockito.Mockito;
  */
 public class CompositeActionTest
 {
-    private AbstractAction childA;
-    private AbstractAction childB;
-    private AbstractAction childC;
+    private BasicAction childA;
+    private BasicAction childB;
+    private BasicAction childC;
     private CompositeAction composite;
 
     @Before

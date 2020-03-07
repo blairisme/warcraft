@@ -9,6 +9,7 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.action.ActionResult;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
@@ -28,6 +29,8 @@ import javax.inject.Provider;
 import java.util.Collection;
 
 import static com.badlogic.gdx.math.Vector2.Zero;
+import static com.evilbird.engine.action.ActionResult.Complete;
+import static com.evilbird.engine.action.ActionResult.Incomplete;
 
 /**
  * A {@link ProjectileAttack} specialization that supplements the default
@@ -72,13 +75,13 @@ public class MissileAttack extends BasicProjectileAttack
     }
 
     @Override
-    public boolean act(float time) {
+    public ActionResult act(float time) {
         interval.advance(time);
         return super.act(time);
     }
 
     @Override
-    protected boolean launchProjectile() {
+    protected ActionResult launchProjectile() {
         this.explosions = 0;
         return super.launchProjectile();
     }
@@ -91,7 +94,7 @@ public class MissileAttack extends BasicProjectileAttack
     }
 
     @Override
-    protected boolean hitWithProjectile() {
+    protected ActionResult hitWithProjectile() {
         int explosionTotal = missile.getExplosiveCount();
         if (explosions == explosionTotal) {
             resetAttacker();
@@ -102,7 +105,7 @@ public class MissileAttack extends BasicProjectileAttack
             createExplosion();
             explosions++;
         }
-        return target.isDead();
+        return target.isDead() ? Complete : Incomplete;
     }
 
     private void createExplosion() {

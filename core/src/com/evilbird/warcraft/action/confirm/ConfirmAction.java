@@ -10,7 +10,8 @@ package com.evilbird.warcraft.action.confirm;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.lang.RandomIdentifier;
 import com.evilbird.engine.common.time.GameTimer;
@@ -21,8 +22,8 @@ import com.evilbird.engine.object.GameObjectType;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.unit.Unit;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
+import static com.evilbird.engine.action.ActionResult.Complete;
+import static com.evilbird.engine.action.ActionResult.Incomplete;
 import static com.evilbird.warcraft.object.unit.UnitSound.Acknowledge;
 
 /**
@@ -31,7 +32,7 @@ import static com.evilbird.warcraft.object.unit.UnitSound.Acknowledge;
  *
  * @author Blair Butterworth
  */
-abstract class ConfirmAction extends AbstractAction
+abstract class ConfirmAction extends BasicAction
 {
     private static final transient float ANIMATION_LIFETIME = 0.55f;
 
@@ -46,25 +47,25 @@ abstract class ConfirmAction extends AbstractAction
     }
 
     @Override
-    public boolean act(float time) {
+    public ActionResult act(float time) {
         if (! initialized()) {
             return initialize();
         }
         if (timer.advance(time)) {
             return removeAnimation();
         }
-        return ActionIncomplete;
+        return Incomplete;
     }
 
     protected boolean initialized() {
         return animation != null;
     }
 
-    protected boolean initialize() {
+    protected ActionResult initialize() {
         createTimer();
         createAnimation();
         playAcknowledgement();
-        return ActionIncomplete;
+        return Incomplete;
     }
 
     protected void createTimer() {
@@ -89,12 +90,12 @@ abstract class ConfirmAction extends AbstractAction
         parent.addObject(animation);
     }
 
-    protected boolean removeAnimation() {
+    protected ActionResult removeAnimation() {
         GameObject gameObject = getSubject();
         GameObjectGroup parent = gameObject.getParent();
         parent.removeObject(animation);
         animation = null;
-        return ActionComplete;
+        return Complete;
     }
 
     protected abstract Vector2 getPosition();

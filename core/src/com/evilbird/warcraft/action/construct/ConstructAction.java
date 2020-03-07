@@ -9,7 +9,8 @@
 package com.evilbird.warcraft.action.construct;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.TemporalAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
@@ -23,8 +24,6 @@ import com.evilbird.warcraft.object.unit.combatant.gatherer.Gatherer;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.warcraft.action.common.production.ProductionOperations.getProductionTime;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.moveAdjacent;
@@ -38,12 +37,12 @@ import static com.evilbird.warcraft.object.unit.UnitSound.Complete;
  *
  * @author Blair Butterworth
  */
-public class ConstructAction extends TemporalAction
+public class ConstructAction extends BasicAction
 {
     private static final int BUILDING_SOUND_INTERVAL = 10;
-    private static final int UNINITIALIZED_DURATION = -1;
 
-    private transient GameTimer timer;
+    private transient GameTimer soundInterval;
+    private transient GameTimer buildTimer;
     private transient ConstructEvents events;
     private transient ItemExclusion exclusion;
     private transient ResourceTransfer resources;
@@ -56,20 +55,19 @@ public class ConstructAction extends TemporalAction
         ItemExclusion exclusion,
         ResourceTransfer resources)
     {
-        super(UNINITIALIZED_DURATION);
         this.events = events;
         this.preferences = preferences;
         this.exclusion = exclusion;
         this.resources = resources;
-        this.timer = new GameTimer(BUILDING_SOUND_INTERVAL);
+        this.soundInterval = new GameTimer(BUILDING_SOUND_INTERVAL);
     }
 
     @Override
-    public boolean act(float time) {
+    public ActionResult act(float time) {
         if (! initialized()) {
             return initialize();
         }
-        if (super.act(time)) {
+        if (buildTimer.advance(time)) {
             return complete();
         }
         return update(time);
@@ -77,40 +75,40 @@ public class ConstructAction extends TemporalAction
 
     @Override
     public void reset() {
-        setDuration(UNINITIALIZED_DURATION);
+        buildTimer = null;
     }
 
     private boolean initialized() {
-        return getDuration() != UNINITIALIZED_DURATION;
+        return buildTimer != null;
     }
 
-    private boolean initialize() {
+    private ActionResult initialize() {
         Unit builder = (Unit)getSubject();
         exclusion.disable(builder);
 
         Building building = (Building)getTarget();
         building.setAnimation(Construct);
 
-        setDuration(getProductionTime((UnitType)building.getType(), preferences));
-        setProgress(building.getConstructionProgress() * getDuration());
+        buildTimer = new GameTimer(getProductionTime((UnitType)building.getType(), preferences));
+        buildTimer.advance(building.getConstructionProgress() * buildTimer.duration());
 
         events.notifyConstructStarted(building, builder);
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
-    private boolean update(float time) {
+    private ActionResult update(float time) {
         Building building = (Building)getTarget();
-        building.setConstructionProgress(getProgress());
+        building.setConstructionProgress(buildTimer.completion());
 
         Gatherer builder = (Gatherer)getSubject();
-        if (preferences.isBuildingSoundsEnabled() && timer.advance(time)) {
-            timer.reset();
+        if (preferences.isBuildingSoundsEnabled() && soundInterval.advance(time)) {
+            soundInterval.reset();
             builder.setSound(Build);
         }
-        return ActionIncomplete;
+        return ActionResult.Incomplete;
     }
 
-    private boolean complete() {
+    private ActionResult complete() {
         Building building = (Building)getTarget();
         Gatherer builder = (Gatherer)getSubject();
         Player player = getPlayer(building);
@@ -121,7 +119,7 @@ public class ConstructAction extends TemporalAction
         transferUpgrades(building, player);
         notifyBuildingComplete(building, builder);
 
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 
     private void finalizeBuilding(Building building) {

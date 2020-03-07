@@ -9,6 +9,7 @@
 package com.evilbird.warcraft.action.gather;
 
 import com.evilbird.engine.action.Action;
+import com.evilbird.engine.action.ActionResult;
 import com.evilbird.engine.common.time.GameTimer;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
@@ -42,7 +43,7 @@ public class GatherObtainWood extends GatherObtain
     }
 
     @Override
-    protected boolean initialize() {
+    protected ActionResult initialize() {
         Gatherer gatherer = (Gatherer)getSubject();
         gatherer.setAnimation(UnitAnimation.GatherWood);
 
@@ -53,14 +54,14 @@ public class GatherObtainWood extends GatherObtain
     }
 
     @Override
-    protected boolean load() {
+    protected ActionResult load() {
         timer = new GameTimer(1);
         timer.advance(timer.duration());
         return super.load();
     }
 
     @Override
-    protected boolean complete() {
+    protected ActionResult complete() {
         Gatherer gatherer = (Gatherer)getSubject();
         gatherer.setAnimationAlias(IdleWood, Idle);
         gatherer.setAnimationAlias(MoveWood, Move);
@@ -69,7 +70,7 @@ public class GatherObtainWood extends GatherObtain
     }
 
     @Override
-    protected boolean update(float time) {
+    protected ActionResult update(float time) {
         if (timer.advance(time)) {
             timer.reset();
             Gatherer gatherer = (Gatherer) getSubject();

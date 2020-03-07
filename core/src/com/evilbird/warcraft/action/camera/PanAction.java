@@ -9,7 +9,8 @@
 package com.evilbird.warcraft.action.camera;
 
 import com.badlogic.gdx.math.Vector2;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.warcraft.object.data.camera.Camera;
 
@@ -23,7 +24,7 @@ import static com.evilbird.warcraft.action.camera.CameraActions.Pan;
  *
  * @author Blair Butterworth
  */
-public class PanAction extends AbstractAction
+public class PanAction extends BasicAction
 {
     @Inject
     public PanAction() {
@@ -31,7 +32,7 @@ public class PanAction extends AbstractAction
     }
 
     @Override
-    public boolean act(float time) {
+    public ActionResult act(float time) {
         UserInput cause = getCause();
         Camera camera = (Camera)getSubject();
 
@@ -42,6 +43,6 @@ public class PanAction extends AbstractAction
         Vector2 result = current.add(scaled);
         camera.setPosition(result);
 
-        return true;
+        return ActionResult.Complete;
     }
 }

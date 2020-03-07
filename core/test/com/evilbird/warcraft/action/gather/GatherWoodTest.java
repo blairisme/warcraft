@@ -15,6 +15,8 @@ import com.evilbird.test.data.item.TestGatherers;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.action.move.MoveToItemAction;
 import com.evilbird.warcraft.object.unit.UnitType;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
@@ -44,5 +46,11 @@ public class GatherWoodTest extends ActionTestCase
     @Override
     protected GameObject newItem() {
         return TestGatherers.newTestGatherer(new TextIdentifier("item"), UnitType.Peasant);
+    }
+
+    @Test
+    @Ignore
+    @Override
+    public void serializeTest() {
     }
 }

@@ -12,6 +12,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -40,21 +41,24 @@ public class SelectInvertTest extends ActionTestCase
     }
 
     @Test
-    public void actTest() {
-        SelectableObject selectable = (SelectableObject) gameObject;
+    @Override
+    public void runTest() {
+        SelectableObject selectable = (SelectableObject)gameObject;
 
         assertFalse(selectable.getSelected());
         //assertFalse(action.act(1));
-        assertTrue(action.act(1));
+        assertTrue(action.run(1));
         assertTrue(selectable.getSelected());
 
-        assertTrue(action.act(1));
+        action.restart();
+
+        assertTrue(action.run(1));
         assertFalse(selectable.getSelected());
 
         action.restart();
 
         assertFalse(selectable.getSelected());
-        assertTrue(action.act(1));
+        assertTrue(action.run(1));
         assertTrue(selectable.getSelected());
     }
 }

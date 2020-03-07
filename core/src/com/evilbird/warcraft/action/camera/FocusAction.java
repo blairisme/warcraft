@@ -9,11 +9,12 @@
 package com.evilbird.warcraft.action.camera;
 
 import com.badlogic.gdx.math.Vector2;
+import com.evilbird.engine.action.ActionResult;
 import com.evilbird.engine.object.GameObject;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
+import static com.evilbird.engine.action.ActionResult.Complete;
 import static com.evilbird.warcraft.action.camera.CameraActions.Focus;
 
 /**
@@ -30,7 +31,7 @@ public class FocusAction extends CameraAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float time) {
         GameObject gameObject = getSubject();
         Vector2 size = gameObject.getSize();
         Vector2 position = gameObject.getPosition();
@@ -41,6 +42,6 @@ public class FocusAction extends CameraAction
         GameObject camera = getCamera();
         camera.setPosition(position);
 
-        return ActionComplete;
+        return Complete;
     }
 }

@@ -8,31 +8,30 @@
 
 package com.evilbird.warcraft.action.spell.attack;
 
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.warcraft.object.common.value.AbsoluteBuffValue;
 import com.evilbird.warcraft.object.common.value.Value;
 import com.evilbird.warcraft.object.unit.Unit;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-
 /**
  * A spell that removes the effects of the unholy armour spell.
  *
  * @author Blair Butterworth
  */
-public class UnholyArmourCancel extends AbstractAction
+public class UnholyArmourCancel extends BasicAction
 {
     @Inject
     public UnholyArmourCancel() {
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         Unit target = (Unit)getTarget();
         removeBuff(target);
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 
     private void removeBuff(Unit target) {

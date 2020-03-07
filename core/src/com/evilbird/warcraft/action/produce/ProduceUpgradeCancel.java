@@ -8,7 +8,8 @@
 
 package com.evilbird.warcraft.action.produce;
 
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.warcraft.action.common.transfer.ResourceTransfer;
 import com.evilbird.warcraft.common.WarcraftPreferences;
 import com.evilbird.warcraft.data.resource.ResourceSet;
@@ -18,7 +19,6 @@ import com.evilbird.warcraft.object.unit.building.Building;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.warcraft.action.common.production.ProductionOperations.getProductionCost;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer;
 
@@ -28,7 +28,7 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.getPlayer
  *
  * @author Blair Butterworth
  */
-public class ProduceUpgradeCancel extends AbstractAction
+public class ProduceUpgradeCancel extends BasicAction
 {
     private transient ProduceEvents events;
     private transient ResourceTransfer resources;
@@ -46,7 +46,7 @@ public class ProduceUpgradeCancel extends AbstractAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         Building building = (Building) getSubject();
         building.setProductionProgress(1);
 
@@ -57,7 +57,7 @@ public class ProduceUpgradeCancel extends AbstractAction
         resources.setResources(player, cost);
 
         events.notifyProductionCancelled(building, upgrade);
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 
     private Upgrade getProduct() {

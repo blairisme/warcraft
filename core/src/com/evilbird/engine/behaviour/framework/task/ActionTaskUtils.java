@@ -10,11 +10,9 @@ package com.evilbird.engine.behaviour.framework.task;
 
 import com.badlogic.gdx.ai.btree.Task.Status;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.framework.BasicAction;
 
-import static com.badlogic.gdx.ai.btree.Task.Status.CANCELLED;
 import static com.badlogic.gdx.ai.btree.Task.Status.FAILED;
-import static com.badlogic.gdx.ai.btree.Task.Status.FRESH;
 import static com.badlogic.gdx.ai.btree.Task.Status.RUNNING;
 import static com.badlogic.gdx.ai.btree.Task.Status.SUCCEEDED;
 
@@ -26,19 +24,19 @@ import static com.badlogic.gdx.ai.btree.Task.Status.SUCCEEDED;
 public class ActionTaskUtils
 {
     public static Status getStatus(Action action) {
-        if (action instanceof AbstractAction) {
-            return getBasicActionStatus((AbstractAction)action);
+        if (action instanceof BasicAction) {
+            return getBasicActionStatus((BasicAction)action);
         }
         return getGenericActionStatus(action);
     }
 
-    private static Status getBasicActionStatus(AbstractAction action) {
+    private static Status getBasicActionStatus(BasicAction action) {
         switch(action.getStatus()) {
-            case Fresh: return FRESH;
+            case Fresh:
             case Running: return RUNNING;
             case Succeeded: return SUCCEEDED;
-            case Failed: return FAILED;
-            case Cancelled: return CANCELLED;
+            case Failed:
+            case Cancelled: return FAILED;
             default: throw new UnsupportedOperationException();
         }
     }

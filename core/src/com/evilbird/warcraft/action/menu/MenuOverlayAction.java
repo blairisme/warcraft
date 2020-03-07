@@ -8,7 +8,8 @@
 
 package com.evilbird.warcraft.action.menu;
 
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.game.GameService;
 import com.evilbird.engine.menu.MenuIdentifier;
@@ -23,21 +24,21 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class MenuOverlayAction extends AbstractAction
+public class MenuOverlayAction extends BasicAction
 {
     @Inject
     public MenuOverlayAction() {
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         GameController controller = getController();
         if (! controller.isMenuOverlayShown()) {
             controller.showMenuOverlay(getMenuIdentifier());
         } else {
             controller.showState();
         }
-        return true;
+        return ActionResult.Complete;
     }
 
     private MenuIdentifier getMenuIdentifier() {

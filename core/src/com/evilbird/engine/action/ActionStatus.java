@@ -29,4 +29,17 @@ public enum ActionStatus
 
     /** Indicates that the Action has been terminated. */
     Cancelled;
+
+    /**
+     * Returns the {@link ActionStatus} corresponding to the given
+     * {@link ActionResult}.
+     */
+    public static ActionStatus forResult(ActionResult result) {
+        switch (result) {
+            case Complete: return Succeeded;
+            case Incomplete: return Running;
+            case Failed: return Failed;
+            default: throw new UnsupportedOperationException();
+        }
+    }
 }

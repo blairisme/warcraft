@@ -9,14 +9,15 @@
 package com.evilbird.warcraft.action.transport;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.warcraft.action.common.exclusion.ItemExclusion;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.evilbird.warcraft.object.unit.combatant.naval.Transport;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
+import static com.evilbird.engine.action.ActionResult.Complete;
 
 /**
  * Represents an {@link Action} that facilitates an individual item entering a
@@ -24,7 +25,7 @@ import static com.evilbird.engine.action.ActionConstants.ActionComplete;
  *
  * @author Blair Butterworth
  */
-public class TransportEmbark extends AbstractAction
+public class TransportEmbark extends BasicAction
 {
     private transient ItemExclusion exclusion;
 
@@ -34,13 +35,13 @@ public class TransportEmbark extends AbstractAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float time) {
         Unit embarkee = (Unit)getSubject();
         exclusion.disable(embarkee);
 
         Transport vessel = (Transport)getTarget();
         vessel.addPassenger(embarkee);
 
-        return ActionComplete;
+        return Complete;
     }
 }

@@ -62,23 +62,23 @@ public class MoveToItemActionTest extends GameTestCase
         target.setPosition(64, 0);
         graph.addOccupants(target);
 
-        Assert.assertFalse(action.act(1));
+        Assert.assertFalse(action.run(1));
 
-        Assert.assertFalse(action.act(1));
+        Assert.assertFalse(action.run(1));
         Assert.assertEquals(new Vector2(0, 0), item.getPosition());
 
-        Assert.assertFalse(action.act(1));
+        Assert.assertFalse(action.run(1));
         Assert.assertEquals(new Vector2(10, 0), item.getPosition());
 
-        Assert.assertFalse(action.act(1));
+        Assert.assertFalse(action.run(1));
         Assert.assertEquals(new Vector2(20, 0), item.getPosition());
 
-        Assert.assertFalse(action.act(1));
+        Assert.assertFalse(action.run(1));
         Assert.assertEquals(new Vector2(30, 0), item.getPosition());
 
-        Assert.assertFalse(action.act(1));
+        Assert.assertFalse(action.run(1));
         Assert.assertEquals(new Vector2(32, 0), item.getPosition());
 
-        Assert.assertTrue(action.act(1));
+        Assert.assertTrue(action.run(1));
     }
 }

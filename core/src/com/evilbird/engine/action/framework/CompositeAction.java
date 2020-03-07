@@ -49,6 +49,15 @@ public abstract class CompositeAction extends AbstractAction
         return actions.isEmpty();
     }
 
+    public boolean isFailed() {
+        for (Action action: actions) {
+            if (action.isFailed()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public Collection<Action> getActions() {
         return Collections.unmodifiableList(actions);
     }
@@ -135,8 +144,8 @@ public abstract class CompositeAction extends AbstractAction
     @SerializedInitializer
     protected void initialize() {
         for (Action child: actions) {
-            if (child instanceof AbstractAction) {
-                AbstractAction action = (AbstractAction)child;
+            if (child instanceof BasicAction) {
+                BasicAction action = (BasicAction)child;
                 action.setSubjectReference(this.getItemReference());
                 action.setTargetReference(this.getTargetReference());
             }

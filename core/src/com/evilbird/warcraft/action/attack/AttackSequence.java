@@ -9,8 +9,7 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
-import com.evilbird.engine.action.framework.StateTransitionAction;
+import com.evilbird.engine.action.framework.TransitionAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
@@ -25,12 +24,12 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.inRange;
  *
  * @author Blair Butterworth
  */
-public abstract class AttackSequence extends StateTransitionAction
+public abstract class AttackSequence extends TransitionAction
 {
     private transient Action move;
     private transient Action attack;
 
-    public AttackSequence(AbstractAction move, AbstractAction attack) {
+    public AttackSequence(Action move, Action attack) {
         super(move, attack);
         this.move = move;
         this.attack = attack;

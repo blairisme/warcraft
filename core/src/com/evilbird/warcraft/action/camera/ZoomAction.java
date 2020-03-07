@@ -9,7 +9,8 @@
 package com.evilbird.warcraft.action.camera;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.Zoomable;
 import com.evilbird.engine.device.Device;
 import com.evilbird.engine.device.DeviceDisplay;
@@ -18,6 +19,7 @@ import com.evilbird.warcraft.object.data.camera.Camera;
 
 import javax.inject.Inject;
 
+import static com.evilbird.engine.action.ActionResult.Complete;
 import static com.evilbird.warcraft.action.camera.CameraActions.Zoom;
 
 /**
@@ -26,7 +28,7 @@ import static com.evilbird.warcraft.action.camera.CameraActions.Zoom;
  *
  * @author Blair Butterworth
  */
-public class ZoomAction extends AbstractAction
+public class ZoomAction extends BasicAction
 {
     private final transient float zoomMin;
     private final transient float zoomMax;
@@ -44,7 +46,7 @@ public class ZoomAction extends AbstractAction
     }
 
     @Override
-    public boolean act(float time) {
+    public ActionResult act(float time) {
         UserInput input = getCause();
         Camera camera = (Camera)getSubject();
 
@@ -54,6 +56,6 @@ public class ZoomAction extends AbstractAction
         float zoom = MathUtils.clamp(scale, zoomMin, zoomMax);
 
         camera.setZoom(zoom);
-        return true;
+        return Complete;
     }
 }

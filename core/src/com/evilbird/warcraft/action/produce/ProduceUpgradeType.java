@@ -8,6 +8,7 @@
 
 package com.evilbird.warcraft.action.produce;
 
+import com.evilbird.engine.action.ActionResult;
 import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectFactory;
@@ -58,7 +59,7 @@ public class ProduceUpgradeType extends ProduceUpgrade
     }
 
     @Override
-    protected boolean complete() {
+    protected ActionResult complete() {
         Building building = (Building) getSubject();
         UnitType type = (UnitType)building.getType();
         WarcraftFaction faction = type.getFaction();

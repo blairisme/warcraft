@@ -8,7 +8,8 @@
 
 package com.evilbird.warcraft.action.attack;
 
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
@@ -16,7 +17,6 @@ import org.apache.commons.lang3.Validate;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
 import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
 
 /**
@@ -24,7 +24,7 @@ import static com.evilbird.warcraft.object.unit.UnitAnimation.Idle;
  *
  * @author Blair Butterworth
  */
-public class AttackCancel extends AbstractAction
+public class AttackCancel extends BasicAction
 {
     private transient AttackEvents events;
 
@@ -35,14 +35,14 @@ public class AttackCancel extends AbstractAction
     }
 
     @Override
-    public boolean act(float delta) {
+    public ActionResult act(float delta) {
         Combatant attacker = (Combatant) getSubject();
         PerishableObject target = (PerishableObject)getTarget();
 
         attacker.setAnimation(Idle);
         events.attackCancelled(attacker, target);
 
-        return ActionComplete;
+        return ActionResult.Complete;
     }
 
     @Override

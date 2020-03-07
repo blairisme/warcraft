@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.action.spell;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.StateTransitionAction;
+import com.evilbird.engine.action.framework.TransitionAction;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.utility.GameObjectOperations;
 import com.evilbird.warcraft.action.move.MoveAction;
@@ -21,7 +21,7 @@ import com.evilbird.warcraft.data.spell.Spell;
  *
  * @author Blair Butterworth
  */
-public class SpellSequence extends StateTransitionAction
+public class SpellSequence extends TransitionAction
 {
     private SpellAction spellAction;
     private MoveAction moveAction;

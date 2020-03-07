@@ -64,17 +64,17 @@ public class SequenceActionTest
 
     @Test
     public void actTest() {
-        Assert.assertFalse(sequence.act(1));
+        Assert.assertFalse(sequence.run(1));
         Assert.assertTrue(childA.getInvoked());
         Assert.assertFalse(childB.getInvoked());
         Assert.assertFalse(childC.getInvoked());
 
-        Assert.assertFalse(sequence.act(1));
+        Assert.assertFalse(sequence.run(1));
         Assert.assertTrue(childA.getInvoked());
         Assert.assertTrue(childB.getInvoked());
         Assert.assertFalse(childC.getInvoked());
 
-        Assert.assertTrue(sequence.act(1));
+        Assert.assertTrue(sequence.run(1));
         Assert.assertTrue(childA.getInvoked());
         Assert.assertTrue(childB.getInvoked());
         Assert.assertTrue(childC.getInvoked());

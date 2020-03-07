@@ -9,7 +9,8 @@
 package com.evilbird.warcraft.action.attack;
 
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.AbstractAction;
+import com.evilbird.engine.action.ActionResult;
+import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
@@ -17,8 +18,6 @@ import com.evilbird.warcraft.object.unit.UnitSound;
 
 import javax.inject.Inject;
 
-import static com.evilbird.engine.action.ActionConstants.ActionComplete;
-import static com.evilbird.engine.action.ActionConstants.ActionIncomplete;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.inRange;
 import static com.evilbird.warcraft.object.common.query.UnitOperations.reorient;
 
@@ -28,12 +27,10 @@ import static com.evilbird.warcraft.object.common.query.UnitOperations.reorient;
  *
  * @author Blair Butterworth
  */
-public class ProximityAttack extends AbstractAction
+public class ProximityAttack extends BasicAction
 {
     private transient AttackDamage damage;
     private transient AttackEvents events;
-    private transient OffensiveObject attacker;
-    private transient PerishableObject target;
 
     @Inject
     public ProximityAttack(AttackDamage damage, AttackEvents events) {
@@ -42,72 +39,73 @@ public class ProximityAttack extends AbstractAction
     }
 
     @Override
-    public boolean act(float time) {
-        if (! initialized()) {
-            initialize();
-        }
-        if (! operationValid()) {
-            return operationFailed();
-        }
-        if (! readyToAttack()) {
-            return delayAttack(time);
-        }
-        if (attackTarget()) {
-            return attackComplete();
-        }
-        return ActionIncomplete;
+    public void start() {
+        super.start();
+
+        OffensiveObject attacker = (OffensiveObject)getSubject();
+        PerishableObject target = (PerishableObject)getTarget();
+
+        attacker.setAnimation(UnitAnimation.Attack);
+        reorient(attacker, target, false);
+
+        events.attackStarted(attacker, target);
     }
 
     @Override
-    public void reset() {
-        super.reset();
-        attacker = null;
-        target = null;
+    public ActionResult act(float time) {
+        OffensiveObject attacker = (OffensiveObject)getSubject();
+        PerishableObject target = (PerishableObject)getTarget();
+
+        if (! attackValid(attacker, target)) {
+            return ActionResult.Failed;
+        }
+        if (! attackReady(attacker, time)) {
+            return ActionResult.Incomplete;
+        }
+        if (attackTarget(attacker, target)) {
+            return ActionResult.Complete;
+        }
+        return ActionResult.Incomplete;
     }
 
-    private boolean initialized() {
-        return attacker != null;
+    @Override
+    public void end() {
+        super.end();
+
+        OffensiveObject attacker = (OffensiveObject)getSubject();
+        PerishableObject target = (PerishableObject)getTarget();
+
+        attacker.setAnimation(UnitAnimation.Idle);
+        events.attackComplete(attacker, target);
     }
 
-    protected void initialize() {
-        attacker = (OffensiveObject)getSubject();
-        attacker.setAnimation(UnitAnimation.Attack);
-        target = (PerishableObject)getTarget();
-        events.attackStarted(attacker, target);
-        reorient(attacker, target, false);
+    @Override
+    public void failed() {
+        super.failed();
+
+        OffensiveObject attacker = (OffensiveObject)getSubject();
+        PerishableObject target = (PerishableObject)getTarget();
+
+        attacker.setAnimation(UnitAnimation.Idle);
+        events.attackFailed(attacker, target);
     }
 
-    private boolean operationValid() {
+    private boolean attackValid(OffensiveObject attacker, PerishableObject target) {
         return attacker.isAlive() && target.isAlive() && inRange(attacker, target);
     }
 
-    private boolean operationFailed() {
-        events.attackFailed(attacker, target);
-        setFailed("Attack Failed");
-        return ActionComplete;
+    private boolean attackReady(OffensiveObject attacker, float time) {
+        float newTime = Math.max(attacker.getAttackTime() - time, 0);
+        attacker.setAttackTime(newTime);
+        return newTime == 0;
     }
 
-    private boolean readyToAttack() {
-        return attacker.getAttackTime() == 0;
-    }
-
-    protected boolean delayAttack(float time) {
-        attacker.setAttackTime(Math.max(attacker.getAttackTime() - time, 0));
-        return ActionIncomplete;
-    }
-
-    protected boolean attackTarget() {
+    private boolean attackTarget(OffensiveObject attacker, PerishableObject target) {
         attacker.setAttackTime(attacker.getAttackSpeed());
         attacker.setSound(UnitSound.Attack);
         reorient(attacker, target, false);
         damage.apply(attacker, target);
         return target.isDead();
-    }
-
-    private boolean attackComplete() {
-        attacker.setAnimation(UnitAnimation.Idle);
-        events.attackComplete(attacker, target);
-        return ActionComplete;
     }
 }
 
