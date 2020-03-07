@@ -22,7 +22,7 @@ import com.evilbird.engine.common.lang.Identifier;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.warcraft.action.attack.AttackEvent;
 import com.evilbird.warcraft.action.attack.AttackStatus;
-import com.evilbird.warcraft.object.layer.LayerCell;
+import com.evilbird.warcraft.object.layer.LayerGroupCell;
 import com.evilbird.warcraft.object.layer.LayerUtils;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.google.gson.annotations.JsonAdapter;
@@ -46,12 +46,12 @@ public class ConcealingFog extends Fog
     }
 
     @Override
-    protected LayerCell createCell(GridPoint2 location) {
+    protected LayerGroupCell createCell(GridPoint2 location) {
         return new ConcealingFogCell(getStyle(location), location);
     }
 
     @Override
-    protected LayerCell createCell(GridPoint2 location, float value) {
+    protected LayerGroupCell createCell(GridPoint2 location, float value) {
         return new ConcealingFogCell(getStyle(location), location, value);
     }
 

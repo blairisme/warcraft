@@ -15,7 +15,6 @@ import com.evilbird.engine.object.GameObjectComposite;
 import com.evilbird.warcraft.data.resource.ResourceType;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
@@ -62,7 +61,7 @@ public class GatherLocations
     {
         Collection<GameObject> gameObjects = container.findAll(applicability);
         if (! gameObjects.isEmpty()) {
-            List<GameObject> closest = new ArrayList<>(gameObjects);
+            List<GameObject> closest = Lists.toList(gameObjects);
             Lists.sort(closest, closestItem(locus));
             return findFirst(closest, hasPathTo(source));
         }

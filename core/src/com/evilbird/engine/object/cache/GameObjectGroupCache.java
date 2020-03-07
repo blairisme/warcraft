@@ -28,8 +28,8 @@ import java.util.function.Predicate;
 import static com.evilbird.engine.common.collection.CollectionUtils.first;
 import static com.evilbird.engine.common.collection.Lists.asList;
 import static com.evilbird.engine.common.collection.Maps.removeOrDefault;
-import static com.evilbird.engine.object.cache.CacheRetentionType.Modify;
-import static com.evilbird.engine.object.cache.CacheRetentionType.Update;
+import static com.evilbird.engine.object.cache.CacheRetentionPolicy.Modify;
+import static com.evilbird.engine.object.cache.CacheRetentionPolicy.Update;
 import static java.util.Collections.emptyList;
 
 /**
@@ -40,7 +40,7 @@ import static java.util.Collections.emptyList;
 public class GameObjectGroupCache extends GameObjectGroup
 {
     private transient final Cache<Predicate<GameObject>, Collection<GameObject>> cache;
-    private transient final Map<CacheRetentionType, Collection<Predicate<GameObject>>> retention;
+    private transient final Map<CacheRetentionPolicy, Collection<Predicate<GameObject>>> retention;
 
     /**
      * Creates a new instance of this class with an empty cache.
@@ -160,7 +160,7 @@ public class GameObjectGroupCache extends GameObjectGroup
         super.update(delta);
     }
 
-    private CacheRetentionType getRetentionType(Predicate<GameObject> condition) {
+    private CacheRetentionPolicy getRetentionType(Predicate<GameObject> condition) {
         Class<?> clazz = condition.getClass();
         if (clazz.isAnnotationPresent(CacheRetention.class)) {
             CacheRetention retention = clazz.getAnnotation(CacheRetention.class);

@@ -34,6 +34,15 @@ public class InvasionData
         this.order = order;
     }
 
+    public InvasionData(InvasionData other) {
+        this.player = other.player;
+        this.enemy = other.enemy;
+        this.order = other.order;
+        this.target = other.target;
+        this.attackers = other.attackers;
+        this.world = other.world;
+    }
+
     public Collection<GameObject> getAttackers() {
         return attackers;
     }

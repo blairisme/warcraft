@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 /**
- * Represents a {@link Layer} made up of a number of {@link LayerCell
+ * Represents a {@link Layer} made up of a number of {@link LayerGroupCell
  * cells}. Each cell has an independent value that when it reaches zero will
  * be assigned the cell, as specified by the {@link LayerGroupStyle} contained
  * in the {@link Skin} given when the LayerGroup is constructed. When setting a
@@ -39,12 +39,12 @@ public class LayerGroup extends Layer
 
     protected transient Skin skin;
     protected transient LayerGroupStyle style;
-    protected transient LayerCell[][] cells;
+    protected transient LayerGroupCell[][] cells;
 
     public LayerGroup(Skin skin) {
         this.skin = skin;
         this.style = skin.get(LayerGroupStyle.class);
-        this.cells = new LayerCell[0][0];
+        this.cells = new LayerGroupCell[0][0];
     }
 
     public Skin getSkin() {
@@ -53,27 +53,27 @@ public class LayerGroup extends Layer
 
     @Override
     public void addObject(GameObject object) {
-        Validate.isAssignableFrom(LayerCell.class, object.getClass());
+        Validate.isAssignableFrom(LayerGroupCell.class, object.getClass());
         super.addObject(object);
 
-        LayerCell cell = (LayerCell)object;
+        LayerGroupCell cell = (LayerGroupCell)object;
         GridPoint2 location = cell.getLocation();
         cells[location.x][location.y] = cell;
     }
 
     @Override
     public void removeObject(GameObject object) {
-        Validate.isAssignableFrom(LayerCell.class, object.getClass());
+        Validate.isAssignableFrom(LayerGroupCell.class, object.getClass());
         super.removeObject(object);
 
-        LayerCell cell = (LayerCell) object;
+        LayerGroupCell cell = (LayerGroupCell) object;
         GridPoint2 location = cell.getLocation();
         cells[location.x][location.y] = null;
     }
 
     @Override
     public void setLayer(TiledMapTileLayer layer) {
-        this.cells = new LayerCell[layer.getWidth()][layer.getHeight()];
+        this.cells = new LayerGroupCell[layer.getWidth()][layer.getHeight()];
         super.setLayer(layer);
     }
 
@@ -91,12 +91,12 @@ public class LayerGroup extends Layer
         }
     }
 
-    protected LayerCell createCell(GridPoint2 location) {
-        return new LayerCell(style, location);
+    protected LayerGroupCell createCell(GridPoint2 location) {
+        return new LayerGroupCell(style, location);
     }
 
-    protected LayerCell createCell(GridPoint2 location, float value) {
-        return new LayerCell(style, location, value);
+    protected LayerGroupCell createCell(GridPoint2 location, float value) {
+        return new LayerGroupCell(style, location, value);
     }
 
     public Collection<GridPoint2> setAdjacentTextures(GridPoint2 tile) {
@@ -139,7 +139,7 @@ public class LayerGroup extends Layer
                 int yIndex = tile.y + (j - PATTERN_MATRIX_CENTER);
                 GridPoint2 index = new GridPoint2(xIndex, yIndex);
                 if (! updated.contains(index)) {
-                    LayerCell cell = getCell(index.x, index.y);
+                    LayerGroupCell cell = getCell(index.x, index.y);
                     if (cell != null) {
                         BitMatrix edgePattern = cellEdges.subMatrix(i, j, PATTERN_MATRIX_SIZE);
                         if (cell.showEdge(edgePattern)) {
@@ -151,7 +151,7 @@ public class LayerGroup extends Layer
         }
     }
 
-    protected LayerCell getCell(int x, int y) {
+    protected LayerGroupCell getCell(int x, int y) {
         if (x < 0 || x >= layer.getWidth()) { return null; }
         if (y < 0 || y >= layer.getHeight()) { return null; }
         return cells[x][y];
@@ -160,7 +160,7 @@ public class LayerGroup extends Layer
     protected boolean isCellOccupied(int x, int y) {
         if (x < 0 || x >= layer.getWidth()) { return true; }
         if (y < 0 || y >= layer.getHeight()) { return true; }
-        LayerCell cell = cells[x][y];
+        LayerGroupCell cell = cells[x][y];
         return cell != null && cell.getValue() != 0;
     }
 }

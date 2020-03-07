@@ -194,6 +194,22 @@ public class Player extends GameObjectGroupCache implements ResourceContainer
     }
 
     /**
+     * Returns whether or not the given player is an enemy;
+     */
+    public boolean isEnemy(Player other) {
+        return this.getTeam() != other.getTeam();
+    }
+
+    /**
+     * Returns whether or not the given player has been defeated. Specifically
+     * whether it has any remaining children.
+     */
+    public boolean isDefeated() {
+        Collection<GameObject> children = getObjects();
+        return children.isEmpty();
+    }
+
+    /**
      * Returns whether or not the player is the neutral player, a special
      * player that owns all critters and natural resources.
      */

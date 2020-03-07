@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Specifies the style of a {@link LayerCell} and the surrounding cells.
+ * Specifies the style of a {@link LayerGroupCell} and the surrounding cells.
  * 
  * @author Blair Butterworth
  */

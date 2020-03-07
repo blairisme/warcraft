@@ -28,14 +28,14 @@ public class InvasionSequence extends Sequence<InvasionData>
         SelectAttackers selectAttackers,
         SelectEnemy selectEnemy,
         SelectTarget selectTarget,
-        InvasionTask invade,
-        UpdatePhase completePhase)
+        InvasionTask invadeTarget,
+        IncrementPhase completePhase)
     {
         super(delayEvaluation(),
               selectEnemy,
               selectAttackers,
               selectTarget,
-              invade,
+              invadeTarget,
               completePhase);
     }
 

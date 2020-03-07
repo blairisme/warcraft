@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.object.layer.fog;
 
 import com.evilbird.engine.common.lang.Identifier;
-import com.evilbird.warcraft.object.layer.LayerCell;
+import com.evilbird.warcraft.object.layer.LayerGroupCell;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonElement;
@@ -30,7 +30,7 @@ public class ConcealingFogAdapter extends FogAdapter
     protected static final String OCCUPANTS = "occupants";
 
     @Override
-    protected JsonElement serializeCell(LayerCell cell, JsonSerializationContext context) {
+    protected JsonElement serializeCell(LayerGroupCell cell, JsonSerializationContext context) {
         JsonObject result = (JsonObject)super.serializeCell(cell, context);
         result.add(OCCUPANTS, serializeOccupants((ConcealingFogCell)cell, context));
         return result;
@@ -45,7 +45,7 @@ public class ConcealingFogAdapter extends FogAdapter
     }
 
     @Override
-    protected LayerCell deserializeCell(Fog group, JsonObject json, JsonDeserializationContext context) {
+    protected LayerGroupCell deserializeCell(Fog group, JsonObject json, JsonDeserializationContext context) {
         ConcealingFogCell result = (ConcealingFogCell)super.deserializeCell(group, json, context);
         result.addOccupants(deserializeOccupants(json, context));
         return result;

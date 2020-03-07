@@ -42,14 +42,6 @@ public class LayerUtils
         return layer;
     }
 
-    public static TiledMapTileLayer getEmptyLayer(TiledMapTileLayer layer) {
-        return new TiledMapTileLayer(
-            layer.getWidth(),
-            layer.getHeight(),
-            (int)layer.getTileWidth(),
-            (int)layer.getTileHeight());
-    }
-
     public static Cell cell(Texture texture) {
         return cell(new TextureRegion(texture));
     }
@@ -75,6 +67,13 @@ public class LayerUtils
         GridPoint2 result = new GridPoint2();
         result.x = vector.x != 0 ? Math.round(vector.x / layer.getTileWidth()) : 0;
         result.y = vector.y != 0 ? Math.round(vector.y / layer.getTileHeight()) : 0;
+        return result;
+    }
+
+    public static Vector2 toLayerDimensions(TiledMapTileLayer layer, GridPoint2 gridPoint) {
+        Vector2 result = new Vector2();
+        result.x = gridPoint.x * layer.getTileWidth();
+        result.y = gridPoint.y * layer.getTileHeight();
         return result;
     }
 

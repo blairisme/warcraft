@@ -13,9 +13,14 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Indicates that an object supports cache retention.
+ *
+ * @author Blair Butterworth
+ */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CacheRetention
 {
-    CacheRetentionType value();
+    CacheRetentionPolicy value();
 }

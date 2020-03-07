@@ -97,7 +97,10 @@ public class CollectionUtils
     }
 
     public static <T> T first(Collection<T> collection) {
-        return collection.iterator().next();
+        if (! collection.isEmpty()) {
+            return collection.iterator().next();
+        }
+        return null;
     }
 
     public static <A, B> List<B> flatten(Collection<A> collection, Function<A, Collection<B>> converter) {

@@ -18,6 +18,7 @@ import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
+import com.evilbird.warcraft.object.common.capability.TerrainType;
 
 /**
  * Instances of this class calculate {@link GraphPath path} between {@link GameObject
@@ -50,10 +51,17 @@ public class SpatialPathUtils
      * given objects traversal capability.
      */
     public static boolean hasPath(MovableObject from, GameObject to) {
+        return hasPathViaTerrain(from, to, from.getMovementCapability());
+    }
+
+    public static boolean hasPathViaTerrain(GameObject from, GameObject to, TerrainType ... terrain) {
         ItemPathFilter filter = new ItemPathFilter();
         filter.addTraversableItem(from);
         filter.addTraversableItem(to);
-        filter.addTraversableCapability(from.getMovementCapability());
+
+        for (TerrainType terrainType: terrain) {
+            filter.addTraversableCapability(terrainType);
+        }
 
         GameObjectContainer root = from.getRoot();
         GameObjectGraph graph = root.getSpatialGraph();

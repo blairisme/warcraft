@@ -8,54 +8,90 @@
 
 package com.evilbird.warcraft.behaviour.ai.operation.invade;
 
-import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.ActionFactory;
-import com.evilbird.engine.behaviour.framework.task.ActionTaskSet;
+import com.badlogic.gdx.ai.btree.SingleRunningChildBranch;
+import com.badlogic.gdx.ai.btree.Task;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.object.GameObject;
+import com.evilbird.warcraft.action.common.spatial.SpatialPathUtils;
+import com.evilbird.warcraft.behaviour.ai.operation.invade.common.AttackTask;
+import com.evilbird.warcraft.behaviour.ai.operation.invade.sea.SeaInvasionBehaviour;
+import com.evilbird.warcraft.object.common.capability.MovableObject;
+import com.evilbird.warcraft.object.common.capability.TerrainType;
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Collection;
 
-import static com.evilbird.warcraft.action.attack.AttackActions.Attack;
+import static com.evilbird.warcraft.object.common.capability.TerrainType.Land;
+import static com.evilbird.warcraft.object.common.capability.TerrainType.ShallowWater;
+import static com.evilbird.warcraft.object.common.capability.TerrainType.Water;
 
 /**
  * A task that assigns an attack action to the attackers contained in the
- * tasks blackboard.
+ * tasks blackboard. If the invading units can traverse through the air or
+ * water then the target is attacked directly. If the invading units can
+ * traverse across land then a check is made to see if water is obstructing
+ * their invasion. If so, then the units are first transported to their target
+ * before attacking.
  *
  * @author Blair Butterworth
  */
-//TODO: Add support for sea invasion
-public class InvasionTask extends ActionTaskSet<InvasionData>
+public class InvasionTask extends SingleRunningChildBranch<InvasionData>
 {
+    private Task<InvasionData> directInvasion;
+    private Task<InvasionData> transportedInvasion;
+
     @Inject
-    public InvasionTask(ActionFactory factory) {
-       super(factory);
+    public InvasionTask(AttackTask directInvasion, SeaInvasionBehaviour transportedInvasion) {
+        this.directInvasion = directInvasion;
+        this.transportedInvasion = transportedInvasion;
     }
 
     @Override
-    protected Collection<Action> getActions(ActionFactory factory) {
+    public void start() {
         InvasionData data = getObject();
         GameObject target = data.getTarget();
+        GameObject attacker = CollectionUtils.first(data.getAttackers());
+        Task<InvasionData> invasionTask = getInvasionTask(attacker, target);
 
-        Collection<GameObject> attackers = data.getAttackers();
-        Collection<Action> actions = new ArrayList<>(attackers.size());
-
-        for (GameObject attacker: attackers) {
-            Action action = getAction(factory, attacker, target);
-            actions.add(action);
+        children.clear();
+        if (invasionTask != null) {
+            children.add(invasionTask);
         }
-        return actions;
+        super.start();
     }
 
-    protected Action getAction(ActionFactory factory, GameObject attacker, GameObject enemy) {
-        Action action = factory.get(Attack);
-        action.setSubject(attacker);
-        action.setTarget(enemy);
+    private Task<InvasionData> getInvasionTask(GameObject attacker, GameObject target) {
+        TerrainType terrain = getTerrainType(attacker);
+        switch (terrain) {
+            case Air:
+            case Water: return directInvasion;
+            case Land: return getLandInvasionTask(attacker, target);
+            default: throw new UnsupportedOperationException();
+        }
+    }
 
-        attacker.removeActions();
-        attacker.addAction(action);
+    private Task<InvasionData> getLandInvasionTask(GameObject attacker, GameObject target) {
+        if (SpatialPathUtils.hasPathViaTerrain(attacker, target, Land)) {
+            return directInvasion;
+        }
+        if (SpatialPathUtils.hasPathViaTerrain(attacker, target, Land, Water, ShallowWater)) {
+            return transportedInvasion;
+        }
+        return null;
+    }
 
-        return action;
+    private TerrainType getTerrainType(GameObject attacker) {
+        MovableObject movableObject = (MovableObject)attacker;
+        return movableObject.getMovementCapability();
+    }
+
+
+    @Override
+    public void childSuccess(Task<InvasionData> task) {
+        success();
+    }
+
+    @Override
+    public void childFail(Task<InvasionData> task) {
+        fail();
     }
 }

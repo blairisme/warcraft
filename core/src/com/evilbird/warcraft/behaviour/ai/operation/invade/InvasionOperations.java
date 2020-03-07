@@ -15,6 +15,9 @@ import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.TerrainType;
 import com.evilbird.warcraft.object.data.player.Player;
+import com.evilbird.warcraft.object.layer.LayerType;
+import com.evilbird.warcraft.object.unit.Unit;
+import com.evilbird.warcraft.object.unit.combatant.naval.Transport;
 
 /**
  * Defines common operations for querying the state of {@link OffensiveObject
@@ -25,24 +28,38 @@ import com.evilbird.warcraft.object.data.player.Player;
 public class InvasionOperations
 {
     /**
-     * Determines if the given {@link GameObject} is a player that belongs to a
-     * different team than the given player.
+     * Determines if the given {@link GameObject} can do damage to other
+     * {@code GameObjects} as well as being alive and currently idle.
      */
-    public static boolean isEnemyPlayer(Player player, GameObject object) {
-        if (object instanceof Player) {
-            Player otherPlayer = (Player)object;
-            return player.getTeam() != otherPlayer.getTeam() && !otherPlayer.isNeutral();
+    public static boolean isAttackPossible(TerrainType attackerTerrain, GameObject object) {
+        if (object instanceof PerishableObject) {
+            PerishableObject target = (PerishableObject)object;
+            TerrainType targetTerrain = target.getTerrainType();
+            return targetTerrain == attackerTerrain;
         }
         return false;
     }
 
     /**
-     * Determines if the given {@link GameObject} can do damage to other
-     * {@code GameObjects} as well as being alive and currently idle.
+     * Determines if the given {@link GameObject} is a player that belongs to a
+     * different team than the given player.
      */
-    public static boolean isIdleAttacker(GameObject object) {
-        if (object instanceof OffensiveObject) {
-            OffensiveObject attacker = (OffensiveObject)object;
+    public static boolean isEnemy(Player player, GameObject object) {
+        if (object instanceof Player) {
+            Player otherPlayer = (Player)object;
+            return otherPlayer.isEnemy(player)
+                && !otherPlayer.isNeutral()
+                && !otherPlayer.isDefeated();
+        }
+        return false;
+    }
+
+    /**
+     * Determines if the given {@link GameObject} is alive and currently idle.
+     */
+    public static boolean isIdle(GameObject object) {
+        if (object instanceof Unit) {
+            Unit attacker = (Unit)object;
             return attacker.isAlive() && attacker.isIdle();
         }
         return false;
@@ -52,7 +69,7 @@ public class InvasionOperations
      * Determines if the given {@link GameObject} can do damage to other
      * {@code GameObjects}.
      */
-    public static boolean isMovableAttacker(GameObject gameObject) {
+    public static boolean isPotentialAttacker(GameObject gameObject) {
         if (gameObject instanceof OffensiveObject && gameObject instanceof MovableObject) {
             OffensiveObject combatant = (OffensiveObject)gameObject;
             return combatant.getAttackCapability() != OffensiveCapability.None;
@@ -73,16 +90,19 @@ public class InvasionOperations
     }
 
     /**
-     * Determines if the given {@link GameObject} can do damage to other
-     * {@code GameObjects} as well as being alive and currently idle.
+     * Determines if the given {@link GameObject} can transport other
+     * {@code GameObjects}.
      */
-    public static boolean isAttackPossible(TerrainType attackerTerrain, GameObject object) {
-        if (object instanceof PerishableObject) {
-            PerishableObject target = (PerishableObject)object;
-            TerrainType targetTerrain = target.getTerrainType();
-            return targetTerrain == attackerTerrain;
-        }
-        return false;
+    public static boolean isPotentialTransport(GameObject object) {
+        return object instanceof Transport;
+    }
+
+    /**
+     * Determines if the given {@link GameObject} represents part of the shore
+     * line.
+     */
+    public static boolean isShoreLine(GameObject object) {
+        return object.getType() == LayerType.Shore;
     }
 
     /**

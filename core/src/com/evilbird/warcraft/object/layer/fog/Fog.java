@@ -23,8 +23,8 @@ import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.action.produce.ProduceEvent;
 import com.evilbird.warcraft.object.common.query.UnitOperations;
 import com.evilbird.warcraft.object.data.player.Player;
-import com.evilbird.warcraft.object.layer.LayerCell;
 import com.evilbird.warcraft.object.layer.LayerGroup;
+import com.evilbird.warcraft.object.layer.LayerGroupCell;
 import com.evilbird.warcraft.object.unit.Unit;
 import com.google.gson.annotations.JsonAdapter;
 
@@ -90,12 +90,12 @@ public class Fog extends LayerGroup
     }
 
     @Override
-    protected LayerCell createCell(GridPoint2 location) {
+    protected LayerGroupCell createCell(GridPoint2 location) {
         return new FogCell(style, location);
     }
 
     @Override
-    protected LayerCell createCell(GridPoint2 location, float value) {
+    protected LayerGroupCell createCell(GridPoint2 location, float value) {
         return new FogCell(style, location, value);
     }
 

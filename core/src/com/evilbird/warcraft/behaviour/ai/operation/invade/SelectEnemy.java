@@ -28,7 +28,6 @@ import static com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionQuerie
  *
  * @author Blair Butterworth
  */
-//TODO: Exclude enemies who have been defeated
 public class SelectEnemy extends LeafTask<InvasionData>
 {
     @Inject

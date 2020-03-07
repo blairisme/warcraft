@@ -20,10 +20,10 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class UpdatePhase extends LeafTask<InvasionData>
+public class IncrementPhase extends LeafTask<InvasionData>
 {
     @Inject
-    public UpdatePhase() {
+    public IncrementPhase() {
     }
 
     @Override

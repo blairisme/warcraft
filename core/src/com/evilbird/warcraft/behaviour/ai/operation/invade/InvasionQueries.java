@@ -10,6 +10,7 @@ package com.evilbird.warcraft.behaviour.ai.operation.invade;
 
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.cache.CachedPredicate;
+import com.evilbird.engine.object.cache.PermanentlyCachedPredicate;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.common.capability.PerishableObject;
 import com.evilbird.warcraft.object.common.capability.TerrainType;
@@ -28,17 +29,17 @@ public class InvasionQueries
 {
     /**
      * A {@link Predicate condition} that determines if a given
-     * {@link GameObject} is a gatherer.
+     * {@link GameObject} is alive and idle.
      */
-    public static final Predicate<GameObject> MovableAttackers =
-        new CachedPredicate<>(InvasionOperations::isMovableAttacker);
+    public static final Predicate<GameObject> IdleUnits =
+        InvasionOperations::isIdle;
 
     /**
      * A {@link Predicate condition} that determines if a given
-     * {@link GameObject attacker} is alive and idle.
+     * {@link GameObject} is a gatherer.
      */
-    public static final Predicate<GameObject> IdleAttackers =
-        InvasionOperations::isIdleAttacker;
+    public static final Predicate<GameObject> PotentialAttackers =
+        new CachedPredicate<>(InvasionOperations::isPotentialAttacker);
 
     /**
      * A {@link Predicate condition} that determines if a given
@@ -48,12 +49,26 @@ public class InvasionQueries
         new CachedPredicate<>(InvasionOperations::isPotentialTarget);
 
     /**
+     * A {@link Predicate condition} that determines if a given
+     * {@link GameObject} can transport other {@code GameObjects}.
+     */
+    public static final Predicate<GameObject> PotentialTransports =
+        new CachedPredicate<>(InvasionOperations::isPotentialTransport);
+
+    /**
+     * A {@link Predicate condition} that determines represents part of the
+     * shore line.
+     */
+    public static final Predicate<GameObject> ShoreLine =
+        new PermanentlyCachedPredicate<>(InvasionOperations::isShoreLine);
+
+    /**
      * A {@link Predicate condition} that determines if the given
      * {@link GameObject} is a player that belongs to a different team than
      * the given player.
      */
     public static Predicate<GameObject> EnemyPlayers(Player player) {
-        return new CachedPredicate<>(object -> InvasionOperations.isEnemyPlayer(player, object));
+        return new CachedPredicate<>(object -> InvasionOperations.isEnemy(player, object));
     }
 
     /**

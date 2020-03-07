@@ -25,8 +25,8 @@ import java.util.Map.Entry;
 
 import static com.badlogic.gdx.ai.btree.Task.Status.FAILED;
 import static com.badlogic.gdx.ai.btree.Task.Status.SUCCEEDED;
-import static com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionQueries.IdleAttackers;
-import static com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionQueries.MovableAttackers;
+import static com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionQueries.IdleUnits;
+import static com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionQueries.PotentialAttackers;
 
 /**
  * A {@link LeafTask} implementation that selects an enemy player that will be
@@ -49,8 +49,8 @@ public class SelectAttackers extends LeafTask<InvasionData>
         InvasionWave wave = order.getNextWave(player);
 
         if (wave != null) {
-            Collection<GameObject> movableAttackers = player.findAll(MovableAttackers);
-            Collection<GameObject> idleAttackers = CollectionUtils.filter(movableAttackers, IdleAttackers);
+            Collection<GameObject> movableAttackers = player.findAll(PotentialAttackers);
+            Collection<GameObject> idleAttackers = CollectionUtils.filter(movableAttackers, IdleUnits);
 
             Map<UnitType, Integer> requirements = wave.getParticipantTypes();
             Collection<GameObject> attackers = filter(idleAttackers, requirements);

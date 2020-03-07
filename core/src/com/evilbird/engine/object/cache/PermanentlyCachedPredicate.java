@@ -10,23 +10,22 @@ package com.evilbird.engine.object.cache;
 
 import java.util.function.Predicate;
 
-import static com.evilbird.engine.object.cache.CacheRetentionPolicy.Modify;
+import static com.evilbird.engine.object.cache.CacheRetentionPolicy.Permanent;
 
 /**
  * A {@link Predicate} wrapper that specifies that any results obtained by its
- * execution should be retained until the object it obtained the result from is
- * modified.
+ * execution should be retained indefinitely.
  *
  * @param <T> the type of elements used by the predicate.
  *
  * @author Blair Butterworth
  */
-@CacheRetention(Modify)
-public class CachedPredicate<T> implements Predicate<T>
+@CacheRetention(Permanent)
+public class PermanentlyCachedPredicate<T> implements Predicate<T>
 {
     private Predicate<T> delegate;
 
-    public CachedPredicate(Predicate<T> delegate) {
+    public PermanentlyCachedPredicate(Predicate<T> delegate) {
         this.delegate = delegate;
     }
 

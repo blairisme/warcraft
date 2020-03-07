@@ -62,16 +62,16 @@ public class HumanCampaign4 implements OperationOrder
         return new InvasionOrder(
             invasionWave()
                 .requiresPhase(1)
-                .requiresTime(Seconds(60))
-                .withUnits(TrollDestroyer, 1),
-            invasionWave()
-                .requiresPhase(2)
-                .requiresTime(Seconds(120))
+                .requiresTime(Seconds(5))
                 .withUnits(Grunt, 2)
                 .withUnits(TrollAxethrower, 1),
             invasionWave()
+                .requiresPhase(2)
+                .requiresTime(Seconds(120))
+                .withUnits(TrollDestroyer, 1),
+            invasionWave()
                 .repeating()
-                .requiresPhase(4)
+                .requiresPhase(3)
                 .requiresTime(Seconds(240))
                 .withInterval(Seconds(60))
                 .withUnits(TrollDestroyer, 1));

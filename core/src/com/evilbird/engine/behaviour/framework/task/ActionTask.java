@@ -12,7 +12,6 @@ import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionFactory;
-import com.evilbird.engine.object.GameObject;
 
 /**
  * A {@link LeafTask} that wraps an {@link Action}.
@@ -47,21 +46,8 @@ public abstract class ActionTask<T> extends LeafTask<T>
 
     protected abstract Action getAction(ActionFactory factory);
 
-    protected GameObject getRecipient(Action action) {
-        return action.getSubject();
-    }
-
     protected Status getStatus(Action action) {
-        if (action == null) {
-            return Status.FAILED;
-        }
-        if (getRecipient(action).hasAction(action)) {
-            return Status.RUNNING;
-        }
-        if (action.isFailed()) {
-            return Status.FAILED;
-        }
-        return Status.SUCCEEDED;
+        return ActionTaskUtils.getStatus(action);
     }
 
     @Override

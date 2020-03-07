@@ -13,15 +13,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Instances of this unit test validate the {@link GridPoints} class.
+ * Instances of this unit test validate the {@link GridPointUtils} class.
  *
  * @author Blair Butterworth
  */
-public class GridPointsTest
+public class GridPointUtilsTest
 {
     @Test
     public void zeroTest() {
-        GridPoint2 zero = GridPoints.Zero;
+        GridPoint2 zero = GridPointUtils.Zero;
         Assert.assertEquals(0, zero.x);
         Assert.assertEquals(0, zero.y);
     }
