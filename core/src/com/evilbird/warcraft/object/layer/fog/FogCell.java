@@ -27,12 +27,12 @@ public class FogCell extends LayerGroupCell
     protected static final transient float EMPTY_VALUE = 0;
     protected static final transient float DEFAULT_VALUE = FULL_VALUE;
 
-    public FogCell(LayerGroupStyle style, GridPoint2 location) {
-        this(style, location, DEFAULT_VALUE);
+    public FogCell(Fog parent, LayerGroupStyle style, GridPoint2 location) {
+        this(parent, style, location, DEFAULT_VALUE);
     }
 
-    public FogCell(LayerGroupStyle style, GridPoint2 location, float value) {
-        super(style, location, value);
+    public FogCell(Fog parent, LayerGroupStyle style, GridPoint2 location, float value) {
+        super(parent, style, location, value);
         setType(LayerType.OpaqueFogSection);
     }
 

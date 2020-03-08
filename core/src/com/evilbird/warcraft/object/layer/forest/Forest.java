@@ -31,10 +31,10 @@ public class Forest extends LayerGroup
 
     @Override
     protected LayerGroupCell createCell(GridPoint2 location) {
-        return new ForestCell(style, location);
+        return new ForestCell(this, style, location);
     }
 
     protected LayerGroupCell createCell(GridPoint2 location, float value) {
-        return new ForestCell(style, location, value);
+        return new ForestCell(this, style, location, value);
     }
 }

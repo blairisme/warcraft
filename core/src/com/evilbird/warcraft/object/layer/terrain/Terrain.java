@@ -74,10 +74,10 @@ public class Terrain extends Layer implements SpatialObject
     }
 
     @Override
-    public Terrain hit(Vector2 position, boolean touchable) {
+    public TerrainCell hit(Vector2 position, boolean touchable) {
         if (touchable && !getTouchable()) { return null; }
         GridPoint2 location = toCellDimensions(layer, position);
         Cell cell = layer.getCell(location.x, location.y);
-        return cell != null ? this : null;
+        return cell != null ? new TerrainCell(this, location) : null;
     }
 }

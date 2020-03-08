@@ -27,12 +27,12 @@ public class WallSection extends LayerGroupCell implements PerishableObject, Spa
 {
     private static final transient float DEFAULT_HEALTH = 100;
 
-    public WallSection(LayerGroupStyle style, GridPoint2 location) {
-        this(style, location, DEFAULT_HEALTH);
+    public WallSection(Wall parent, LayerGroupStyle style, GridPoint2 location) {
+        this(parent, style, location, DEFAULT_HEALTH);
     }
 
-    public WallSection(LayerGroupStyle style, GridPoint2 location, float value) {
-        super(style, location, value);
+    public WallSection(Wall parent, LayerGroupStyle style, GridPoint2 location, float value) {
+        super(parent, style, location, value);
         setType(LayerType.WallSection);
     }
 

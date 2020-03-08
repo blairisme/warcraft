@@ -91,12 +91,12 @@ public class Fog extends LayerGroup
 
     @Override
     protected LayerGroupCell createCell(GridPoint2 location) {
-        return new FogCell(style, location);
+        return new FogCell(this, style, location);
     }
 
     @Override
     protected LayerGroupCell createCell(GridPoint2 location, float value) {
-        return new FogCell(style, location, value);
+        return new FogCell(this, style, location, value);
     }
 
     public boolean isRevealed(int x, int y) {

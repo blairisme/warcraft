@@ -31,6 +31,27 @@ public class LayerUtils
     private LayerUtils() {
     }
 
+    /**
+     * Creates a new {@link Cell} containing the given {@link Texture}.
+     */
+    public static Cell cell(Texture texture) {
+        return cell(new TextureRegion(texture));
+    }
+
+    /**
+     * Creates a new {@link Cell} containing the given {@link TextureRegion}.
+     */
+    public static Cell cell(TextureRegion region) {
+        TiledMapTile tile = new StaticTiledMapTile(region);
+        TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
+        cell.setTile(tile);
+        return cell;
+    }
+
+    /**
+     * Returns the {@link TiledMapTileLayer} referenced the
+     * {@link LayerIdentifier}, if any.
+     */
     public static TiledMapTileLayer getLayer(LayerIdentifier type) {
         TiledMapTileLayer layer = type.getLayer();
         if (layer == null) {
@@ -42,17 +63,46 @@ public class LayerUtils
         return layer;
     }
 
-    public static Cell cell(Texture texture) {
-        return cell(new TextureRegion(texture));
+    /**
+     * Converts the given world coordinates into cell coordinates by dividing
+     * its axis' by the tile dimensions of tiles contained in the provided
+     * {@link TiledMapTileLayer}.
+     */
+    public static GridPoint2 toCellDimensions(TiledMapTileLayer layer, Vector2 vector) {
+        GridPoint2 result = new GridPoint2();
+        result.x = vector.x != 0 ? Math.round(vector.x / layer.getTileWidth()) : 0;
+        result.y = vector.y != 0 ? Math.round(vector.y / layer.getTileHeight()) : 0;
+        return result;
     }
 
-    public static Cell cell(TextureRegion region) {
-        TiledMapTile tile = new StaticTiledMapTile(region);
-        TiledMapTileLayer.Cell cell = new TiledMapTileLayer.Cell();
-        cell.setTile(tile);
-        return cell;
+    /**
+     * Converts the given world coordinates into cell coordinates by dividing
+     * the given value by the tile dimensions of tiles contained in the
+     * provided {@link TiledMapTileLayer}.
+     */
+    public static int toCellDimensions(TiledMapTileLayer layer, int value) {
+        return value != 0 ? Math.round(value / layer.getTileWidth()) : 0;
     }
 
+    /**
+     * Converts the given cell coordinates into world coordinates by
+     * multiplying its axis' by the tile dimensions of tiles contained in the
+     * provided {@link TiledMapTileLayer}.
+     */
+    public static Vector2 toLayerDimensions(TiledMapTileLayer layer, GridPoint2 gridPoint) {
+        Vector2 result = new Vector2();
+        result.x = gridPoint.x * layer.getTileWidth();
+        result.y = gridPoint.y * layer.getTileHeight();
+        return result;
+    }
+
+    /**
+     * Creates a new {@link Cell} containing the given {@link Texture} and
+     * without padding. Padding is normally used to create a region around a
+     * cell that overlaps its neighbour, eliminating the gaps between textures
+     * at different zoom levels that result from rounding issues in the
+     * rendering process.
+     */
     public static Cell unpaddedCell(Texture texture, int x, int y, int width, int height) {
         int padding = 2;
         int axisPadding = padding + padding;
@@ -61,23 +111,5 @@ public class LayerUtils
         int paddedX = x + (xIndex * axisPadding) + padding;
         int paddedY = y + (yIndex * axisPadding) + padding;
         return cell(new TextureRegion(texture, paddedX, paddedY, width, height));
-    }
-
-    public static GridPoint2 toCellDimensions(TiledMapTileLayer layer, Vector2 vector) {
-        GridPoint2 result = new GridPoint2();
-        result.x = vector.x != 0 ? Math.round(vector.x / layer.getTileWidth()) : 0;
-        result.y = vector.y != 0 ? Math.round(vector.y / layer.getTileHeight()) : 0;
-        return result;
-    }
-
-    public static Vector2 toLayerDimensions(TiledMapTileLayer layer, GridPoint2 gridPoint) {
-        Vector2 result = new Vector2();
-        result.x = gridPoint.x * layer.getTileWidth();
-        result.y = gridPoint.y * layer.getTileHeight();
-        return result;
-    }
-
-    public static int toCellDimensions(TiledMapTileLayer layer, int value) {
-        return value != 0 ? Math.round(value / layer.getTileWidth()) : 0;
     }
 }

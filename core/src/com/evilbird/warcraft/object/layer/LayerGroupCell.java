@@ -28,12 +28,12 @@ public class LayerGroupCell extends LayerCell
     protected float value;
     protected transient LayerGroupStyle style;
 
-    public LayerGroupCell(LayerGroupStyle style, GridPoint2 location) {
-        this(style, location, DEFAULT_VALUE);
+    public LayerGroupCell(LayerGroup parent, LayerGroupStyle style, GridPoint2 location) {
+        this(parent, style, location, DEFAULT_VALUE);
     }
 
-    public LayerGroupCell(LayerGroupStyle style, GridPoint2 location, float value) {
-        super(location);
+    public LayerGroupCell(LayerGroup parent, LayerGroupStyle style, GridPoint2 location, float value) {
+        super(parent, location);
         setStyle(style);
         setValue(value);
     }

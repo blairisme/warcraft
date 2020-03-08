@@ -47,12 +47,14 @@ public class ConcealingFog extends Fog
 
     @Override
     protected LayerGroupCell createCell(GridPoint2 location) {
-        return new ConcealingFogCell(getStyle(location), location);
+
+        return new ConcealingFogCell(this, style, location);
     }
 
     @Override
     protected LayerGroupCell createCell(GridPoint2 location, float value) {
-        return new ConcealingFogCell(getStyle(location), location, value);
+        ConcealingFogStyle style = getStyle(location);
+        return new ConcealingFogCell(this, style, location, value);
     }
 
     protected ConcealingFogStyle getStyle(GridPoint2 position) {

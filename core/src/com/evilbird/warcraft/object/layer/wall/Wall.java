@@ -31,10 +31,10 @@ public class Wall extends LayerGroup
 
     @Override
     protected LayerGroupCell createCell(GridPoint2 location) {
-        return new WallSection(style, location);
+        return new WallSection(this, style, location);
     }
 
     protected LayerGroupCell createCell(GridPoint2 location, float value) {
-        return new WallSection(style, location);
+        return new WallSection(this, style, location);
     }
 }

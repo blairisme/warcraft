@@ -29,12 +29,12 @@ public class ForestCell extends LayerGroupCell implements ResourceContainer, Spa
 {
     private static final transient float DEFAULT_WOOD = 100;
 
-    public ForestCell(LayerGroupStyle style, GridPoint2 location) {
-        this(style, location, DEFAULT_WOOD);
+    public ForestCell(Forest parent, LayerGroupStyle style, GridPoint2 location) {
+        this(parent, style, location, DEFAULT_WOOD);
     }
 
-    public ForestCell(LayerGroupStyle style, GridPoint2 location, float value) {
-        super(style, location, value);
+    public ForestCell(Forest parent, LayerGroupStyle style, GridPoint2 location, float value) {
+        super(parent, style, location, value);
         setType(LayerType.Tree);
     }
 

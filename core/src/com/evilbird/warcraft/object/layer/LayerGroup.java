@@ -92,11 +92,11 @@ public class LayerGroup extends Layer
     }
 
     protected LayerGroupCell createCell(GridPoint2 location) {
-        return new LayerGroupCell(style, location);
+        return new LayerGroupCell(this, style, location);
     }
 
     protected LayerGroupCell createCell(GridPoint2 location, float value) {
-        return new LayerGroupCell(style, location, value);
+        return new LayerGroupCell(this, style, location, value);
     }
 
     public Collection<GridPoint2> setAdjacentTextures(GridPoint2 tile) {

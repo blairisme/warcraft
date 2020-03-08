@@ -20,7 +20,7 @@ import com.evilbird.warcraft.object.layer.LayerCell;
 public class TerrainCell extends LayerCell
 {
     public TerrainCell(Terrain parent, GridPoint2 location) {
-        super(location);
+        super(parent, location);
         setType(parent.getType());
     }
 }

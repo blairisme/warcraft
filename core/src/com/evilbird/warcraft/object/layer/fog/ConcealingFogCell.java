@@ -25,12 +25,12 @@ public class ConcealingFogCell extends FogCell
 {
     private Collection<Identifier> occupants;
 
-    public ConcealingFogCell(LayerGroupStyle style, GridPoint2 location) {
-        this(style, location, DEFAULT_VALUE);
+    public ConcealingFogCell(ConcealingFog parent, LayerGroupStyle style, GridPoint2 location) {
+        this(parent, style, location, DEFAULT_VALUE);
     }
 
-    public ConcealingFogCell(LayerGroupStyle style, GridPoint2 location, float value) {
-        super(style, location, value);
+    public ConcealingFogCell(ConcealingFog parent, LayerGroupStyle style, GridPoint2 location, float value) {
+        super(parent, style, location, value);
         this.occupants = new ArrayList<>(2);
     }
 

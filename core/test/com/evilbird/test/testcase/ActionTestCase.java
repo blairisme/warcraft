@@ -10,7 +10,6 @@ package com.evilbird.test.testcase;
 
 import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
-import com.evilbird.engine.action.framework.BasicAction;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.common.reflect.TypeRegistry;
 import com.evilbird.engine.device.UserInput;
@@ -24,7 +23,6 @@ import com.evilbird.test.verifier.SerializationVerifier;
 import com.evilbird.warcraft.object.unit.UnitType;
 import com.evilbird.warcraft.type.WarcraftTypeRegistry;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import java.io.IOException;

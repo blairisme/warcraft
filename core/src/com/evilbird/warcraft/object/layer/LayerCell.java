@@ -8,6 +8,7 @@
 
 package com.evilbird.warcraft.object.layer;
 
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.GridPoint2;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.evilbird.engine.object.BasicGameObject;
@@ -19,15 +20,18 @@ import com.evilbird.engine.object.BasicGameObject;
  */
 public class LayerCell extends BasicGameObject
 {
-    private static final transient int TILE_WIDTH = 32;
-    private static final transient int TILE_HEIGHT = 32;
+    protected transient GridPoint2 location;
+    protected transient float cellHeight;
+    protected transient float cellWidth;
 
-    protected GridPoint2 location;
+    public LayerCell(Layer parent, GridPoint2 location) {
+        TiledMapTileLayer layer = parent.getLayer();
+        this.cellHeight = layer.getTileHeight();
+        this.cellWidth = layer.getTileWidth();
 
-    public LayerCell(GridPoint2 location) {
         setTouchable(Touchable.enabled);
         setVisible(true);
-        setSize(TILE_WIDTH, TILE_HEIGHT);
+        setSize(cellWidth, cellHeight);
         setLocation(location);
     }
 
@@ -37,6 +41,6 @@ public class LayerCell extends BasicGameObject
 
     public void setLocation(GridPoint2 location) {
         this.location = location;
-        setPosition(location.x * TILE_WIDTH, location.y * TILE_HEIGHT);
+        setPosition(location.x * cellWidth, location.y * cellHeight);
     }
 }

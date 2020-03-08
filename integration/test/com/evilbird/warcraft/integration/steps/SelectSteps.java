@@ -8,14 +8,14 @@
 
 package com.evilbird.warcraft.integration.steps;
 
-import com.evilbird.engine.object.GameObject;
-import com.evilbird.warcraft.object.common.capability.SelectableObject;
 import com.evilbird.engine.common.lang.TextIdentifier;
 import com.evilbird.engine.game.GameEngine;
+import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.integration.device.IntegrationApplication;
 import com.evilbird.warcraft.integration.device.IntegrationContext;
+import com.evilbird.warcraft.object.common.capability.SelectableObject;
 import cucumber.api.java.en.Then;
 import org.junit.Assert;
 

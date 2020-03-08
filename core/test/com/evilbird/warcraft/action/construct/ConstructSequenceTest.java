@@ -16,8 +16,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mockito;
 
-import java.io.IOException;
-
 /**
  * Instances of this unit test validate the {@link ConstructSequence} class.
  *
