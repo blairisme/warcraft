@@ -22,6 +22,7 @@ import javax.inject.Inject;
 
 import static com.badlogic.gdx.ai.btree.Task.Status.FAILED;
 import static com.badlogic.gdx.ai.btree.Task.Status.SUCCEEDED;
+import static com.evilbird.warcraft.behaviour.ai.operation.attack.AttackStatus.isValidAttacker;
 
 /**
  * A guard task that succeeds when the event queue contains an move or attack
@@ -43,7 +44,7 @@ public class AttackTrigger extends LeafTask<AttackData>
         AttackData data = getObject();
         OffensiveObject attacker = data.getAttacker();
         GameObjectNodeSet positions = data.getAttackablePositions();
-        return AttackStatus.isValidAttacker(attacker) && eventsInvolveAttacker(attacker, positions) ? SUCCEEDED : FAILED;
+        return isValidAttacker(attacker) && eventsInvolveAttacker(attacker, positions) ? SUCCEEDED : FAILED;
     }
 
     protected boolean eventsInvolveAttacker(OffensiveObject attacker, GameObjectNodeSet attackableLocations) {

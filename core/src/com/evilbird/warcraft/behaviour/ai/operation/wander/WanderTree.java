@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.behaviour.ai.operation.wander;
 
-import com.evilbird.engine.behaviour.framework.tree.SubTree;
+import com.evilbird.engine.behaviour.framework.branch.SubTree;
 import com.evilbird.warcraft.behaviour.ai.operation.player.PlayerData;
 
 import javax.inject.Inject;

@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.behaviour.ai.operation.attack;
 
-import com.evilbird.engine.behaviour.framework.tree.SubTree;
+import com.evilbird.engine.behaviour.framework.branch.SubTree;
 import com.evilbird.warcraft.behaviour.ai.operation.player.PlayerData;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 
@@ -20,12 +20,12 @@ import javax.inject.Inject;
  *
  * @author Blair Butterworth
  */
-public class AttackSubTree extends SubTree<PlayerData, AttackData>
+public class AttackTree extends SubTree<PlayerData, AttackData>
 {
     private OffensiveObject attacker;
 
     @Inject
-    public AttackSubTree(AttackSequence attackSequence) {
+    public AttackTree(AttackSequence attackSequence) {
         super(attackSequence);
     }
 

@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.behaviour.ai.operation.production.construct;
 
-import com.evilbird.engine.behaviour.framework.tree.SubTree;
+import com.evilbird.engine.behaviour.framework.branch.SubTree;
 import com.evilbird.warcraft.behaviour.ai.operation.production.ProductionData;
 import com.evilbird.warcraft.object.unit.UnitType;
 

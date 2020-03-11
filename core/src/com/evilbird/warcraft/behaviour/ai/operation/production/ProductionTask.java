@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.behaviour.ai.operation.production;
 
-import com.evilbird.engine.behaviour.framework.tree.ConditionBranch;
+import com.evilbird.engine.behaviour.framework.branch.ConditionBranch;
 import com.evilbird.warcraft.behaviour.ai.operation.production.construct.ConstructBehaviour;
 import com.evilbird.warcraft.behaviour.ai.operation.production.produce.ProduceBehaviour;
 import com.evilbird.warcraft.data.product.Product;

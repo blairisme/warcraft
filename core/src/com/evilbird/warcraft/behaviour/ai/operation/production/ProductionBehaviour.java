@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.behaviour.ai.operation.production;
 
-import com.evilbird.engine.behaviour.framework.tree.SubTree;
+import com.evilbird.engine.behaviour.framework.branch.SubTree;
 import com.evilbird.warcraft.behaviour.ai.operation.player.PlayerData;
 import com.evilbird.warcraft.behaviour.ai.order.OperationOrder;
 import com.evilbird.warcraft.object.data.player.Player;

@@ -9,7 +9,7 @@
 package com.evilbird.warcraft.behaviour.ai.operation.attack;
 
 import com.badlogic.gdx.ai.btree.Task;
-import com.evilbird.engine.behaviour.framework.tree.CompositeTask;
+import com.evilbird.engine.behaviour.framework.branch.CompositeTask;
 import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.warcraft.action.common.create.CreateEvent;
@@ -26,8 +26,8 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 /**
- * A behaviour tree that assigns an attack subtree to every attacker assigned
- * to the current player.
+ * A branching task that assigns an attack sequence to every attacker belonging
+ * to the player contained in the tasks blackboard.
  *
  * @author Blair Butterworth
  */
@@ -35,11 +35,11 @@ public class AttackBehaviour extends CompositeTask<PlayerData>
 {
     private Events events;
     private Predicate<GameObject> condition;
-    private Provider<AttackSubTree> factory;
+    private Provider<AttackTree> factory;
     private Map<GameObject, Task<PlayerData>> tasks;
 
     @Inject
-    public AttackBehaviour(Events events, Provider<AttackSubTree> factory) {
+    public AttackBehaviour(Events events, Provider<AttackTree> factory) {
         this.events = events;
         this.factory = factory;
         this.tasks = new HashMap<>();
@@ -64,7 +64,7 @@ public class AttackBehaviour extends CompositeTask<PlayerData>
         Player player = data.getPlayer();
 
         for (GameObject subject: player.findAll(condition)) {
-            AttackSubTree task = addTask(subject);
+            Task<PlayerData> task = addAttackBehaviour(subject);
             addChild(task);
         }
     }
@@ -74,7 +74,7 @@ public class AttackBehaviour extends CompositeTask<PlayerData>
             GameObject subject = event.getSubject();
 
             if (condition.test(subject)) {
-                AttackSubTree task = addTask(subject);
+                Task<PlayerData> task = addAttackBehaviour(subject);
                 addChild(task);
             }
         }
@@ -91,8 +91,8 @@ public class AttackBehaviour extends CompositeTask<PlayerData>
         }
     }
 
-    protected AttackSubTree addTask(GameObject subject) {
-        AttackSubTree task = factory.get();
+    protected Task<PlayerData> addAttackBehaviour(GameObject subject) {
+        AttackTree task = factory.get();
         task.setSubject((OffensiveObject)subject);
         tasks.put(subject, task);
         return task;

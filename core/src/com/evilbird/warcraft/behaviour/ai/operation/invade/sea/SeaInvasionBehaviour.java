@@ -8,7 +8,7 @@
 
 package com.evilbird.warcraft.behaviour.ai.operation.invade.sea;
 
-import com.evilbird.engine.behaviour.framework.tree.SubTree;
+import com.evilbird.engine.behaviour.framework.branch.SubTree;
 import com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionData;
 
 import javax.inject.Inject;

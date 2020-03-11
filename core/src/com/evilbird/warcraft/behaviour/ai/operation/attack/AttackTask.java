@@ -29,7 +29,7 @@ import static com.evilbird.engine.object.utility.GameObjectOperations.hasAction;
  *
  * @author Blair Butterworth
  */
-public class AttackTask extends ActionTaskSet<com.evilbird.warcraft.behaviour.ai.operation.attack.AttackData>
+public class AttackTask extends ActionTaskSet<AttackData>
 {
     @Inject
     public AttackTask(ActionFactory factory) {

@@ -35,33 +35,7 @@
 
 An unofficial recreation of Warcraft 2, made so that this excellent game can be enjoyed by fans of the original on modern platforms. This application is a tribute to the original and as such, all copyright and legal ownership remain with the games original author, Blizzard.
 
-## Project status
-
-This project is still under active development. Whilst significant progress has been made the project remains approximately 60% complete.
-
-### Completed
-
-- Human campaign
-- Orc Campaign
-- Main menu system
-- In-game menu system
-- In-game user interface
-- Game persistence
-- Game statistics
-- Installers
-
-### Under active development
-
-- Campaign AI
-
-### Planned for future development
-
-- General purpose AI
-- Scenarios
-- Multiplayer
-
-
-## Downloads
+## Releases
 
 - [Windows v0.2 (PRE-ALPHA)](https://github.com/blairisme/warcraft/releases/latest/download/Warcraft-Windows.zip)
 - [MacOS v0.2 (PRE-ALPHA)](https://github.com/blairisme/warcraft/releases/latest/download/Warcraft-MacOS.zip)

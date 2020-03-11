@@ -9,6 +9,7 @@
 package com.evilbird.warcraft.behaviour.ai.operation.player;
 
 import com.badlogic.gdx.ai.btree.branch.Parallel;
+import com.badlogic.gdx.ai.btree.decorator.AlwaysSucceed;
 import com.evilbird.warcraft.behaviour.ai.operation.attack.AttackBehaviour;
 import com.evilbird.warcraft.behaviour.ai.operation.gather.GatherBehaviour;
 import com.evilbird.warcraft.behaviour.ai.operation.invade.InvasionBehaviour;
@@ -34,10 +35,10 @@ public class EnemyBehaviour extends PlayerBehaviour
         ReorientBehaviour reorient)
     {
         super(new Parallel<>(
-            attack,
-            produce,
-            gather,
-            invade,
-            reorient));
+            new AlwaysSucceed<>(attack),
+            new AlwaysSucceed<>(produce),
+            new AlwaysSucceed<>(gather),
+            new AlwaysSucceed<>(invade),
+            new AlwaysSucceed<>(reorient)));
     }
 }

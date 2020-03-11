@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-package com.evilbird.engine.behaviour.framework.tree;
+package com.evilbird.engine.behaviour.framework.branch;
 
 import com.badlogic.gdx.ai.btree.Decorator;
 import com.badlogic.gdx.ai.btree.Task;

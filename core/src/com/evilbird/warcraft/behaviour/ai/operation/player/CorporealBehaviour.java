@@ -9,6 +9,7 @@
 package com.evilbird.warcraft.behaviour.ai.operation.player;
 
 import com.badlogic.gdx.ai.btree.branch.Parallel;
+import com.badlogic.gdx.ai.btree.decorator.AlwaysSucceed;
 import com.evilbird.warcraft.behaviour.ai.operation.attack.AttackBehaviour;
 import com.evilbird.warcraft.behaviour.ai.operation.reorient.ReorientBehaviour;
 
@@ -24,6 +25,8 @@ public class CorporealBehaviour extends PlayerBehaviour
 {
     @Inject
     public CorporealBehaviour(AttackBehaviour attack, ReorientBehaviour reorient) {
-        super(new Parallel<>(attack, reorient));
+        super(new Parallel<>(
+            new AlwaysSucceed<>(attack),
+            new AlwaysSucceed<>(reorient)));
     }
 }
