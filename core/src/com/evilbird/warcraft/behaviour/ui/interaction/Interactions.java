@@ -11,11 +11,12 @@ package com.evilbird.warcraft.behaviour.ui.interaction;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.object.GameObject;
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import javax.inject.Inject;
-import java.util.LinkedHashMap;
 
 /**
  * Instances of this class define the different ways the user can interact with
@@ -26,7 +27,7 @@ import java.util.LinkedHashMap;
 public class Interactions
 {
     private InteractionContainer interactions;
-    private LinkedHashMap<InteractionQuery, InteractionQueryResult> cache;
+    private Cache<InteractionQuery, Interaction> cache;
 
     @Inject
     public Interactions(
@@ -57,7 +58,9 @@ public class Interactions
         this.interactions.addActions(selectorInteractions);
         this.interactions.addActions(selectionInteractions);
         this.interactions.addActions(cheatInteractions);
-        this.cache = new LinkedHashMap<>(100);
+        this.cache = CacheBuilder.newBuilder()
+            .maximumSize(100)
+            .build();
     }
 
     /**
@@ -74,32 +77,14 @@ public class Interactions
      */
     public Interaction getInteraction(UserInput input, GameObject gameObject, GameObject selected) {
         InteractionQuery query = new InteractionQuery(input, gameObject, selected);
-        InteractionQueryResult result = cache.get(query);
+        Interaction result = cache.getIfPresent(query);
         if (result == null) {
-            Interaction interaction = interactions.getInteraction(input, gameObject, selected);
-            result = new InteractionQueryResult(interaction);
-            cacheResult(query, result);
+            result = interactions.getInteraction(input, gameObject, selected);
+            if (result != null) {
+                cache.put(query, result);
+            }
         }
-        return result.getValue();
-    }
-
-    private void cacheResult(InteractionQuery query, InteractionQueryResult result) {
-//        if (cache.size() == 100) {
-//            cache.entrySet().iterator().remove();
-//        }
-//        cache.put(query, result);
-    }
-
-    private static class InteractionQueryResult {
-        private Interaction value;
-
-        public InteractionQueryResult(Interaction value) {
-            this.value = value;
-        }
-
-        public Interaction getValue() {
-            return value;
-        }
+        return result;
     }
 
     private static class InteractionQuery {
