@@ -147,7 +147,7 @@ public class Fog extends LayerGroup
 
     protected void evaluateObject(GameObject gameObject) {
         Player player = UnitOperations.getPlayer(gameObject);
-        if (player.isCorporeal() || player.isViewable()) {
+        if (player != null && player.isCorporeal() || player.isViewable()) {
             evaluateItem(gameObject);
         }
     }
