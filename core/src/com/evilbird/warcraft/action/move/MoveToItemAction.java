@@ -32,9 +32,9 @@ import static com.evilbird.engine.common.pathing.SpatialUtils.getClosest;
  */
 public class MoveToItemAction extends MoveAction
 {
-    private GameObjectNode endNode;
-    private GameObjectNode targetNode;
-    private SpatialPathFilter filter;
+    private transient GameObjectNode endNode;
+    private transient GameObjectNode targetNode;
+    private transient SpatialPathFilter filter;
 
     @Inject
     public MoveToItemAction(MoveEvents events) {

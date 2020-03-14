@@ -33,9 +33,9 @@ import static com.evilbird.engine.common.collection.CollectionUtils.filter;
  */
 public class MoveWithinRangeAction extends MoveAction
 {
-    private GameObjectNode endNode;
-    private GameObjectNode targetNode;
-    private SpatialPathFilter filter;
+    private transient GameObjectNode endNode;
+    private transient GameObjectNode targetNode;
+    private transient SpatialPathFilter filter;
 
     @Inject
     public MoveWithinRangeAction(MoveEvents events) {

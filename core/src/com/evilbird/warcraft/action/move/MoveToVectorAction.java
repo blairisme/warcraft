@@ -30,8 +30,8 @@ import java.util.Objects;
  */
 public class MoveToVectorAction extends MoveAction
 {
-    private SpatialPathFilter filter;
-    private Vector2 destination;
+    private transient SpatialPathFilter filter;
+    private transient Vector2 destination;
 
     @Inject
     public MoveToVectorAction(MoveEvents events) {
