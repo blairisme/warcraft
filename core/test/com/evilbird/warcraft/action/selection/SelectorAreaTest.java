@@ -16,8 +16,10 @@ import com.evilbird.engine.device.UserInputType;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.GameObjectContainerType;
 import com.evilbird.test.testcase.ActionTestCase;
 import com.evilbird.warcraft.action.selector.SelectorArea;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -37,6 +39,14 @@ import static org.junit.Assert.assertTrue;
  */
 public class SelectorAreaTest extends ActionTestCase
 {
+    @Before
+    @Override
+    public void setup() {
+        super.setup();
+        GameObjectContainer container = gameObject.getRoot();
+        container.setIdentifier(GameObjectContainerType.World);
+    }
+
     @Override
     protected Action newAction() {
         SelectorArea action = new SelectorArea(Mockito.mock(EventQueue.class));

@@ -12,11 +12,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.evilbird.engine.action.Action;
 import com.evilbird.engine.action.ActionResult;
 import com.evilbird.engine.action.framework.BasicAction;
+import com.evilbird.engine.common.collection.CollectionUtils;
 import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.events.EventQueue;
 import com.evilbird.engine.events.Events;
+import com.evilbird.engine.game.GameController;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
+import com.evilbird.engine.object.GameObjectContainerType;
+import com.evilbird.engine.state.State;
 import com.evilbird.warcraft.action.selection.SelectEvent;
 import com.evilbird.warcraft.object.common.capability.SelectableObject;
 import com.evilbird.warcraft.object.selector.selection.AreaSelector;
@@ -25,12 +29,14 @@ import com.evilbird.warcraft.object.unit.combatant.Combatant;
 import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.function.Predicate;
 
 import static com.evilbird.engine.action.ActionResult.Complete;
 import static com.evilbird.engine.common.function.Predicates.both;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.overlapping;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.touchable;
 import static com.evilbird.engine.object.utility.GameObjectPredicates.withType;
+import static com.evilbird.warcraft.object.common.query.UnitPredicates.isCorporeal;
 import static com.evilbird.warcraft.object.common.query.UnitPredicates.isSelected;
 import static com.evilbird.warcraft.object.selector.SelectorType.AreaSelector;
 
@@ -42,6 +48,9 @@ import static com.evilbird.warcraft.object.selector.SelectorType.AreaSelector;
  */
 public class SelectorArea extends BasicAction
 {
+    private static transient final Predicate<GameObject> SelectableUnits =
+        both(isCorporeal(), touchable());
+
     private transient Events events;
 
     @Inject
@@ -51,40 +60,41 @@ public class SelectorArea extends BasicAction
 
     @Override
     public ActionResult act(float delta) {
-        GameObject gameObject = getSubject();
-        GameObjectContainer root = gameObject.getRoot();
-
+        GameObjectContainer container = getWorldContainer();
         switch((SelectorActions)getIdentifier()) {
-            case ShowAreaSelector: return addBox(root);
-            case ResizeAreaSelector: return updateBox(root);
-            case HideAreaSelector: return removeBox(root);
+            case ShowAreaSelector: return addBox(container);
+            case ResizeAreaSelector: return updateBox(container);
+            case HideAreaSelector: return removeBox(container);
             default: throw new UnsupportedOperationException();
         }
     }
 
-    private ActionResult addBox(GameObjectContainer root) {
-        getBox(root);
+    private ActionResult addBox(GameObjectContainer container) {
+        getBox(container);
         return Complete;
     }
 
-    public GameObject getBox(GameObjectContainer root) {
-        GameObject box = root.find(withType(AreaSelector));
+    public GameObject getBox(GameObjectContainer container) {
+        GameObject box = container.find(withType(AreaSelector));
         if (box == null) {
             UserInput input = getCause();
+            Vector2 screenPosition = input.getPosition();
+            Vector2 worldPosition = container.unproject(screenPosition);
+
             box = new AreaSelector();
-            box.setPosition(root.unproject(input.getPosition()));
+            box.setPosition(worldPosition);
             box.setSize(new Vector2(1, 1));
-            root.addObject(box);
+            container.addObject(box);
         }
         return box;
     }
 
-    private ActionResult updateBox(GameObjectContainer root) {
-        GameObject box = getBox(root);
+    private ActionResult updateBox(GameObjectContainer container) {
+        GameObject box = getBox(container);
         UserInput input = getCause();
 
-        Vector2 point1 = root.unproject(input.getPosition());
-        Vector2 point2 = root.unproject(input.getDelta());
+        Vector2 point1 = container.unproject(input.getPosition());
+        Vector2 point2 = container.unproject(input.getDelta());
 
         Vector2 position = new Vector2(Math.min(point1.x, point2.x), Math.min(point1.y, point2.y));
         Vector2 size = new Vector2(Math.abs(point1.x - point2.x), Math.abs(point1.y - point2.y));
@@ -95,12 +105,14 @@ public class SelectorArea extends BasicAction
         return Complete;
     }
 
-    private ActionResult removeBox(GameObjectContainer root) {
-        GameObject box = getBox(root);
-        root.removeObject(box);
+    private ActionResult removeBox(GameObjectContainer container) {
+        GameObject box = getBox(container);
+        container.removeObject(box);
 
-        Collection<GameObject> overlapping = root.findAll(both(touchable(), overlapping(box)));
-        Collection<GameObject> oldSelection = root.findAll(isSelected());
+        Collection<GameObject> overlapping = container.findAll(overlapping(box));
+        overlapping = CollectionUtils.filter(overlapping, SelectableUnits);
+
+        Collection<GameObject> oldSelection = container.findAll(isSelected());
         Collection<GameObject> newSelection = new ArrayList<>(overlapping);
 
         newSelection.removeAll(oldSelection);
@@ -142,5 +154,16 @@ public class SelectorArea extends BasicAction
                 events.add(new SelectEvent(selectable, true));
             }
         }
+    }
+
+    private GameObjectContainer getWorldContainer() {
+        GameObject subject = getSubject();
+        GameObjectContainer root = subject.getRoot();
+        if (root.getIdentifier() != GameObjectContainerType.World) {
+            GameController controller = root.getController();
+            State state = controller.getState();
+            root = state.getWorld();
+        }
+        return root;
     }
 }
