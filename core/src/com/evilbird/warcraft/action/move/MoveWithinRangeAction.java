@@ -14,7 +14,7 @@ import com.evilbird.engine.common.lang.Alignment;
 import com.evilbird.engine.common.pathing.SpatialUtils;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.spatial.GameObjectNode;
-import com.evilbird.warcraft.action.common.spatial.ItemPathFilter;
+import com.evilbird.warcraft.action.common.spatial.SpatialPathFilter;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
 import com.evilbird.warcraft.object.unit.combatant.Combatant;
 
@@ -35,7 +35,7 @@ public class MoveWithinRangeAction extends MoveAction
 {
     private GameObjectNode endNode;
     private GameObjectNode targetNode;
-    private ItemPathFilter filter;
+    private SpatialPathFilter filter;
 
     @Inject
     public MoveWithinRangeAction(MoveEvents events) {
@@ -79,10 +79,10 @@ public class MoveWithinRangeAction extends MoveAction
     }
 
     @Override
-    public ItemPathFilter getPathFilter() {
+    public SpatialPathFilter getPathFilter() {
         if (filter == null) {
             MovableObject item = (MovableObject)getSubject();
-            filter = new ItemPathFilter();
+            filter = new SpatialPathFilter();
             filter.addTraversableItem(item);
             filter.addTraversableCapability(item.getMovementCapability());
         }

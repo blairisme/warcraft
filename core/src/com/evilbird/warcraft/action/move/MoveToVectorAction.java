@@ -14,7 +14,7 @@ import com.evilbird.engine.device.UserInput;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectNode;
-import com.evilbird.warcraft.action.common.spatial.ItemPathFilter;
+import com.evilbird.warcraft.action.common.spatial.SpatialPathFilter;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
 
 import javax.inject.Inject;
@@ -30,7 +30,7 @@ import java.util.Objects;
  */
 public class MoveToVectorAction extends MoveAction
 {
-    private ItemPathFilter filter;
+    private SpatialPathFilter filter;
     private Vector2 destination;
 
     @Inject
@@ -62,10 +62,10 @@ public class MoveToVectorAction extends MoveAction
     }
 
     @Override
-    public ItemPathFilter getPathFilter() {
+    public SpatialPathFilter getPathFilter() {
         if (filter == null) {
             MovableObject item = (MovableObject) getSubject();
-            filter = new ItemPathFilter();
+            filter = new SpatialPathFilter();
             filter.addTraversableItem(item);
             filter.addTraversableCapability(item.getMovementCapability());
         }

@@ -55,7 +55,7 @@ public class SpatialPathUtils
     }
 
     public static boolean hasPathViaTerrain(GameObject from, GameObject to, TerrainType ... terrain) {
-        ItemPathFilter filter = new ItemPathFilter();
+        SpatialPathFilter filter = new SpatialPathFilter();
         filter.addTraversableItem(from);
         filter.addTraversableItem(to);
 

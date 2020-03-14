@@ -19,7 +19,7 @@ import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.engine.object.spatial.SpatialObject;
 import com.evilbird.warcraft.action.common.spatial.GameObjectPath;
-import com.evilbird.warcraft.action.common.spatial.ItemPathFilter;
+import com.evilbird.warcraft.action.common.spatial.SpatialPathFilter;
 import com.evilbird.warcraft.action.common.spatial.SpatialPathUtils;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
 import com.evilbird.warcraft.object.unit.UnitAnimation;
@@ -148,13 +148,13 @@ public abstract class MoveAction extends BasicAction
     protected boolean nextWaypointValid() {
         if (pathIterator.nextIndex() < path.getCount()) {
             GameObjectNode nextNode = path.get(pathIterator.nextIndex());
-            ItemPathFilter pathFilter = getPathFilter();
+            SpatialPathFilter pathFilter = getPathFilter();
             return pathFilter.test(nextNode);
         }
         return false;
     }
 
-    protected abstract ItemPathFilter getPathFilter();
+    protected abstract SpatialPathFilter getPathFilter();
 
     protected abstract Vector2 getDestination();
 

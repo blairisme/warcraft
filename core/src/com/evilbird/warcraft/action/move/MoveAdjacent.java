@@ -13,7 +13,7 @@ import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.spatial.GameObjectNode;
-import com.evilbird.warcraft.action.common.spatial.ItemPathFilter;
+import com.evilbird.warcraft.action.common.spatial.SpatialPathFilter;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
 
 import javax.inject.Inject;
@@ -32,7 +32,7 @@ public class MoveAdjacent
         GameObjectContainer root = target.getRoot();
         GameObjectGraph graph = root.getSpatialGraph();
 
-        ItemPathFilter capability = new ItemPathFilter();
+        SpatialPathFilter capability = new SpatialPathFilter();
         capability.addTraversableCapability(subject.getMovementCapability());
 
         Collection<GameObjectNode> adjacent = graph.getAdjacentNodes(target.getPosition(), target.getSize());

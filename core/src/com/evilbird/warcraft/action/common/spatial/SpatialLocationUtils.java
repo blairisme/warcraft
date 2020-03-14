@@ -45,7 +45,7 @@ public class SpatialLocationUtils
      * distance away from the subject.
      */
     public static List<GameObjectNode> getDestinations(GameObjectGraph graph, MovableObject subject, int distance) {
-        ItemPathFilter capability = new ItemPathFilter();
+        SpatialPathFilter capability = new SpatialPathFilter();
         capability.addTraversableCapability(subject.getMovementCapability());
 
         Collection<GameObjectNode> adjacent = graph.getAdjacentNodes(subject, distance);

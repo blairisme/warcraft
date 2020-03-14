@@ -27,7 +27,7 @@ import java.util.function.Predicate;
  *
  * @author Blair Butterworth
  */
-public class ItemPathFilter implements Predicate<GameObjectNode>
+public class SpatialPathFilter implements Predicate<GameObjectNode>
 {
     private Collection<GameObject> traversableGameObjects;
     private Collection<Identifier> traversableTypes;
@@ -35,7 +35,7 @@ public class ItemPathFilter implements Predicate<GameObjectNode>
     /**
      * Constructs a new ItemPathFilter that filters all path content.
      */
-    public ItemPathFilter() {
+    public SpatialPathFilter() {
         traversableGameObjects = new ArrayList<>();
         traversableTypes = new ArrayList<>();
     }
@@ -50,41 +50,6 @@ public class ItemPathFilter implements Predicate<GameObjectNode>
     public void addTraversableItem(GameObject gameObject) {
         Objects.requireNonNull(gameObject);
         traversableGameObjects.add(gameObject);
-    }
-
-    /**
-     * Specifies that the path to which the filter is applied can contain the
-     * given {@link GameObject} {@link Collection}.
-     *
-     * @param gameObjects a {@code Collection} of {@code Items} that can be traversed.
-     *             This parameter cannot be {@code null}.
-     */
-    public void addTraversableItems(Collection<GameObject> gameObjects) {
-        Objects.requireNonNull(gameObjects);
-        traversableGameObjects.addAll(gameObjects);
-    }
-
-    /**
-     * Specifies that the path to which the filter is applied can contain
-     * {@link GameObject Items} of the given type.
-     *
-     * @param type an {@code Item} type. This parameter cannot be {@code null}.
-     */
-    public void addTraversableType(Identifier type) {
-        Objects.requireNonNull(type);
-        traversableTypes.add(type);
-    }
-
-    /**
-     * Specifies that the path to which the filter is applied can contain
-     * {@link GameObject Items} of the given types.
-     *
-     * @param types a {@code Collection} of {@code Item} type. This parameter
-     *              cannot be {@code null}.
-     */
-    public void addTraversableTypes(Collection<Identifier> types) {
-        Objects.requireNonNull(types);
-        traversableTypes.addAll(types);
     }
 
     /**

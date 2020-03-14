@@ -13,7 +13,7 @@ import com.evilbird.engine.action.Action;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.engine.object.spatial.SpatialObject;
-import com.evilbird.warcraft.action.common.spatial.ItemPathFilter;
+import com.evilbird.warcraft.action.common.spatial.SpatialPathFilter;
 import com.evilbird.warcraft.object.common.capability.MovableObject;
 
 import javax.inject.Inject;
@@ -34,7 +34,7 @@ public class MoveToItemAction extends MoveAction
 {
     private GameObjectNode endNode;
     private GameObjectNode targetNode;
-    private ItemPathFilter filter;
+    private SpatialPathFilter filter;
 
     @Inject
     public MoveToItemAction(MoveEvents events) {
@@ -80,10 +80,10 @@ public class MoveToItemAction extends MoveAction
     }
 
     @Override
-    public ItemPathFilter getPathFilter() {
+    public SpatialPathFilter getPathFilter() {
         if (filter == null) {
-            MovableObject item = (MovableObject) getSubject();
-            filter = new ItemPathFilter();
+            MovableObject item = (MovableObject)getSubject();
+            filter = new SpatialPathFilter();
             filter.addTraversableItem(item);
             filter.addTraversableCapability(item.getMovementCapability());
         }
