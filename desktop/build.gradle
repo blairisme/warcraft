@@ -43,8 +43,6 @@ task run(dependsOn: classes, type: JavaExec) {
 shadowJar {
     baseName = project.appName
     from files((String)project.assetsDir)
-   // exclude "*.dll"      //dlls needed for windows but not mac
-    //exclude "*.so"
     manifest {
         attributes 'Main-Class': project.mainClass
     }
@@ -71,6 +69,36 @@ launch4j {
     bundledJreAsFallback = false
 }
 
+task generateRuntime {
+    doLast {
+        def dependencies = new ByteArrayOutputStream()
+        exec {
+            standardOutput = dependencies
+            executable = "jdeps"
+            args = ['--regex',
+                    '"(java.*|jdk.*)"',
+                    '--ignore-missing-deps',
+                    '--print-module-deps',
+                    "\"${project.projectDir}/build/libs/Warcraft2-1.0-all.jar\""]
+            ignoreExitValue = true
+        }
+        println(dependencies)
+        exec {
+            workingDir = file('build/runtime')
+            standardOutput = dependencies
+            executable = "jlink"
+            args = ['--no-header-files',
+                    '--no-man-pages',
+                    '--compress=2',
+                    '--add-modules',
+                    dependencies,
+                    '--output',
+                    'java-runtime']
+        }
+        println(dependencies)
+    }
+}
+
 task macInstaller(dependsOn: createApp, type: Zip) {
     from 'build/macApp/'
     archiveName 'Warcraft-MacOS.zip'
@@ -92,8 +120,8 @@ task installer(dependsOn: [macInstaller, windowsInstaller]) {
 
 task report(dependsOn: test, type: JacocoReport) {
     description = "Generates a test coverate report"
-    executionData = files(project.file("build/jacoco/test.exec"))
-    sourceDirectories = files(project.file("src"))
-    classDirectories = files(project.fileTree(dir: "build/classes/java/main",
-        excludes: ['**/Dagger*', '**/*_Factory*', '**/*_ProvideDeviceFactory*']))
+    executionData.from = project.file("build/jacoco/test.exec")
+    sourceDirectories.from = project.file("src")
+    classDirectories.from = project.fileTree(dir: "build/classes/java/main",
+        excludes: ['**/Dagger*', '**/*_Factory*', '**/*_ProvideDeviceFactory*'])
 }

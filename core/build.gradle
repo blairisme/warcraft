@@ -22,8 +22,8 @@ sourceSets.test.resources.srcDirs = [ "test/resources" ]
 
 task report(dependsOn: test, type: JacocoReport) {
     description = "Generates a test coverate report"
-    executionData = files(project.file("build/jacoco/test.exec"))
-    sourceDirectories = files(project.file("src"))
-    classDirectories = files(project.fileTree(dir: "build/classes/java/main",
-        excludes: ['**/Dagger*', '**/*_Factory*', '**/*_ProvideDeviceFactory*']))
+    executionData.from = project.file("build/jacoco/test.exec")
+    sourceDirectories.from = project.file("src")
+    classDirectories.from = project.fileTree(dir: "build/classes/java/main",
+        excludes: ['**/Dagger*', '**/*_Factory*', '**/*_ProvideDeviceFactory*'])
 }

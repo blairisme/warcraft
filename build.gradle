@@ -273,12 +273,12 @@ task report(type: JacocoReport) {
     dependsOn jacocoProjects.collect{jacocoProject ->
         jacocoProject.tasks.findByName('test')}
 
-    sourceDirectories = files(jacocoProjects.collect{jacocoProject ->
-        jacocoProject.file("src")})
-    classDirectories = files(jacocoProjects.collect{jacocoProject ->
+    sourceDirectories.from = jacocoProjects.collect{jacocoProject ->
+        jacocoProject.file("src")}
+    classDirectories.from = jacocoProjects.collect{jacocoProject ->
         jacocoProject.fileTree(dir: "build/classes/java/main",
-            excludes: ['**/Dagger*', '**/*_Factory*', '**/*_ProvideDeviceFactory*'])})
-    executionData = files(jacocoProjects.collect{jacocoProject ->
+            excludes: ['**/Dagger*', '**/*_Factory*', '**/*_ProvideDeviceFactory*'])}
+    executionData.from = jacocoProjects.collect{jacocoProject ->
         jacocoProject.fileTree(dir: "build/jacoco",
-            include: '**/*.exec') })
+            include: '**/*.exec') }
 }
