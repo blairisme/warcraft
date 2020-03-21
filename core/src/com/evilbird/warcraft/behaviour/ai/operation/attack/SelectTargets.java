@@ -28,10 +28,10 @@ import static com.evilbird.warcraft.object.common.capability.OffensivePlurality.
  *
  * @author Blair Butterworth
  */
-public class AttackTargets extends LeafTask<AttackData>
+public class SelectTargets extends LeafTask<AttackData>
 {
     @Inject
-    public AttackTargets() {
+    public SelectTargets() {
     }
 
     @Override

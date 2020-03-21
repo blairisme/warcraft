@@ -10,9 +10,11 @@ package com.evilbird.warcraft.behaviour.ai.operation.attack;
 
 import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
+import com.evilbird.engine.events.Events;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
 import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.engine.object.spatial.GameObjectNodeSet;
+import com.evilbird.warcraft.action.move.MoveEvent;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 
 import javax.inject.Inject;
@@ -24,30 +26,36 @@ import java.util.Collection;
  *
  * @author Blair Butterworth
  */
-public class AttackPosition extends LeafTask<AttackData>
+public class SelectAttackRange extends LeafTask<AttackData>
 {
+    private Events events;
+
     @Inject
-    public AttackPosition() {
+    public SelectAttackRange(Events events) {
+        this.events = events;
     }
 
     @Override
     public Status execute() {
         AttackData data = getObject();
         OffensiveObject attacker = data.getAttacker();
+        GameObjectNodeSet positions = data.getAttackablePositions();
 
-        GameObjectGraph graph = data.getGraph();
-        GameObjectNode oldPosition = data.getAttackerPosition();
-        GameObjectNode newPosition = graph.getNode(attacker.getPosition());
-        GameObjectNodeSet attackablePositions = data.getAttackablePositions();
-
-        if (!newPosition.equals(oldPosition) || attackablePositions == null) {
-            Collection<GameObjectNode> nodes = graph.getNodes(attacker, attacker.getSight());
-            attackablePositions = new GameObjectNodeSet(nodes);
-
-            data.setAttackerPosition(newPosition);
-            data.setAttackablePositions(attackablePositions);
+        if (positions == null || hasMoved(attacker)) {
+            GameObjectGraph graph = data.getGraph();
+            positions = new GameObjectNodeSet(graph.getNodes(attacker, attacker.getSight()));
+            data.setAttackablePositions(positions);
         }
         return Status.SUCCEEDED;
+    }
+
+    protected boolean hasMoved(OffensiveObject attacker) {
+        for (MoveEvent event: events.getEvents(MoveEvent.class)) {
+            if (event.getSubject().equals(attacker)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

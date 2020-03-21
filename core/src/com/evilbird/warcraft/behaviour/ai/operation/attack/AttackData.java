@@ -11,7 +11,6 @@ package com.evilbird.warcraft.behaviour.ai.operation.attack;
 import com.evilbird.engine.object.GameObject;
 import com.evilbird.engine.object.GameObjectContainer;
 import com.evilbird.engine.object.spatial.GameObjectGraph;
-import com.evilbird.engine.object.spatial.GameObjectNode;
 import com.evilbird.engine.object.spatial.GameObjectNodeSet;
 import com.evilbird.warcraft.object.common.capability.OffensiveObject;
 import com.evilbird.warcraft.object.data.player.Player;
@@ -27,7 +26,6 @@ public class AttackData
 {
     private OffensiveObject attacker;
     private GameObjectGraph graph;
-    private GameObjectNode attackerPosition;
     private GameObjectNodeSet attackablePositions;
     private Collection<GameObject> targets;
 
@@ -38,10 +36,6 @@ public class AttackData
 
     public OffensiveObject getAttacker() {
         return attacker;
-    }
-
-    public GameObjectNode getAttackerPosition() {
-        return attackerPosition;
     }
 
     public GameObjectNodeSet getAttackablePositions() {
@@ -58,10 +52,6 @@ public class AttackData
 
     public void setAttacker(GameObject attacker) {
         this.attacker = (OffensiveObject)attacker;
-    }
-
-    public void setAttackerPosition(GameObjectNode attackerPosition) {
-        this.attackerPosition = attackerPosition;
     }
 
     public void setAttackablePositions(GameObjectNodeSet attackablePositions) {

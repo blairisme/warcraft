@@ -23,6 +23,7 @@ import javax.inject.Inject;
 import static com.badlogic.gdx.ai.btree.Task.Status.FAILED;
 import static com.badlogic.gdx.ai.btree.Task.Status.SUCCEEDED;
 import static com.evilbird.warcraft.behaviour.ai.operation.attack.AttackStatus.isValidAttacker;
+import static com.evilbird.warcraft.behaviour.ai.operation.attack.AttackStatus.isValidTarget;
 
 /**
  * A guard task that succeeds when the event queue contains an move or attack
@@ -44,22 +45,29 @@ public class AttackTrigger extends LeafTask<AttackData>
         AttackData data = getObject();
         OffensiveObject attacker = data.getAttacker();
         GameObjectNodeSet positions = data.getAttackablePositions();
-        return isValidAttacker(attacker) && eventsInvolveAttacker(attacker, positions) ? SUCCEEDED : FAILED;
+
+
+        return eventsInvolveAttacker(attacker, positions) ? SUCCEEDED : FAILED;
     }
 
-    protected boolean eventsInvolveAttacker(OffensiveObject attacker, GameObjectNodeSet attackableLocations) {
-        return moveInvolvesAttacker(attacker, attackableLocations) || attackInvolvesAttacker(attacker);
+    protected boolean eventsInvolveAttacker(OffensiveObject attacker, GameObjectNodeSet attackerVision) {
+        return targetMovedIntoRange(attacker, attackerVision) || attackInvolvesAttacker(attacker);
     }
 
-    protected boolean moveInvolvesAttacker(OffensiveObject attacker, GameObjectNodeSet locations) {
+    protected boolean targetMovedIntoRange(OffensiveObject attacker, GameObjectNodeSet attackerVision) {
         for (MoveEvent event: events.getEvents(MoveEvent.class)) {
             GameObject subject = event.getSubject();
-            GameObjectNode location = event.getLocation();
+            GameObjectNode subjectLocation = event.getLocation();
 
-            if (event.isFinished() && subject == attacker) {
-                return true;
-            }
-            if (event.isUpdate() && locations.contains(location) && AttackStatus.isValidTarget(attacker, subject)) {
+//            if (event.isFinished() && subject == attacker) {
+//                return true;
+//            }
+//            if (event.isUpdate() && attackerVision.contains(location) && isValidTarget(attacker, subject)) {
+//                return true;
+//            }
+
+
+            if (attackerVision.contains(subjectLocation) && isValidTarget(attacker, subject)) {
                 return true;
             }
         }
