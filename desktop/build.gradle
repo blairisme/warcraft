@@ -26,9 +26,12 @@ sourceSets{
 
 ext{
     appName = "Warcraft2"
-    assetsDir = "../assets"
-    iconPath = "../assets/data/icons/WarcraftIcon.icns"
     mainClass = "com.evilbird.warcraft.desktop.DesktopLauncher"
+    assetsDir = "$rootDir/assets"
+    iconPathMac = "$assetsDir/data/icons/WarcraftIcon.icns"
+    iconPathWindows = "$assetsDir/data/icons/WarcraftIcon.ico"
+    jarPath = "$buildDir/libs/Warcraft2-1.0-all.jar"
+    jarDependencies = ""
 }
 
 //Task: desktop:run
@@ -51,7 +54,7 @@ shadowJar {
 
 //Task: createApp
 macAppBundle {
-    icon = project.iconPath
+    icon = project.iconPathMac
     appName = project.appName
     mainClassName = project.mainClass
    // bundleJRE = true
@@ -61,41 +64,48 @@ macAppBundle {
 //Task-: createExe
 launch4j {
     mainClassName = project.mainClass
-    icon = "${project.rootDir}/assets/data/icons/WarcraftIcon.ico"
-    jar = "${project.projectDir}/build/libs/Warcraft2-1.0-all.jar"
+    icon = project.iconPathWindows
+    jar = project.jarPath
     outfile = "${appName}.exe"
-    bundledJrePath = "runtime"
+    bundledJrePath = "lib"
     bundledJre64Bit	= true
     bundledJreAsFallback = false
 }
 
-task generateRuntime {
+task getJarDependencies() {
     doLast {
-        def dependencies = new ByteArrayOutputStream()
-        exec {
-            standardOutput = dependencies
-            executable = "jdeps"
-            args = ['--regex',
-                    '"(java.*|jdk.*)"',
-                    '--ignore-missing-deps',
-                    '--print-module-deps',
-                    "\"${project.projectDir}/build/libs/Warcraft2-1.0-all.jar\""]
-            ignoreExitValue = true
+        new ByteArrayOutputStream().withStream {stream ->
+            exec {
+                standardOutput = stream
+                executable = "jdeps"
+                args = ['--regex', '"(java.*|jdk.*)"', '--print-module-deps', project.jarPath]
+            }
+            project.jarDependencies = stream.toString()
+            project.jarDependencies = project.jarDependencies.replace("\n", "")
+            project.jarDependencies = project.jarDependencies.replace("\r", "")
+            logger.info('Jar dependencies: ' + project.jarDependencies)
         }
-        println(dependencies)
+    }
+}
+
+task createJavaRuntime(dependsOn: getJarDependencies) {
+    inputs.property("dependencies", project.jarDependencies)
+    outputs.dir("$buildDir/runtime")
+
+    doLast {
+        File file = project.file("$buildDir/runtime")
+        file.deleteDir()
         exec {
-            workingDir = file('build/runtime')
-            standardOutput = dependencies
+            workingDir = 'build'
             executable = "jlink"
             args = ['--no-header-files',
                     '--no-man-pages',
                     '--compress=2',
                     '--add-modules',
-                    dependencies,
+                    project.jarDependencies,
                     '--output',
-                    'java-runtime']
+                    'runtime']
         }
-        println(dependencies)
     }
 }
 
@@ -105,10 +115,10 @@ task macInstaller(dependsOn: createApp, type: Zip) {
     destinationDir file('build/installer')
 }
 
-task windowsInstaller(dependsOn: createExe, type: Zip) {
+task windowsInstaller(dependsOn: [createExe, createJavaRuntime], type: Zip) {
     from 'build/launch4j/Warcraft2.exe'
-    from ('runtime') {
-        into('runtime')
+    from ('build/runtime') {
+        into('lib')
     }
     archiveName 'Warcraft-Windows.zip'
     destinationDir file('build/installer')
