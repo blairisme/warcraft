@@ -93,8 +93,13 @@ task createJavaRuntime(dependsOn: getJarDependencies) {
     outputs.dir("$buildDir/runtime")
 
     doLast {
+        if (! JavaVersion.current().isJava11Compatible()) {
+            throw new GradleException("This build must be run with java 11")
+        }
         File file = project.file("$buildDir/runtime")
-        file.deleteDir()
+        if (file.exists()) {
+            file.deleteDir()
+        }
         exec {
             workingDir = 'build'
             executable = "jlink"
